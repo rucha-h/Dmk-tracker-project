@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attractions — DMK Helper</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>DMK Helper</h1>
+  </header>
+
+  <!-- Navigation -->
+ <nav class="tabs">
+  <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
+  <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
+  <a class="tab active" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
+  <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
+  <a class="tab" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
+  <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
+  <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
+  <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
+  <a class="tab" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
+  <a class="tab" href="events.html"><span class="tab-icon">🎉</span>Events</a>
+  <a class="tab" href="daily.html"><span class="tab-icon">📅</span>Daily</a>
+  <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
+</nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- ATTRACTIONS -->
+    <div id="tab-attractions" class="section active">
+     <div class="card" style="margin-bottom:10px;">
+      <div class="card-title"><span class="icon">🏗️</span>Attractions
+        <span id="attr-pct-label" style="font-size:12px;font-weight:400;color:var(--muted);margin-left:auto;"></span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
+        <div id="attr-prog-bar" style="height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,var(--teal),var(--gold));transition:width 0.4s;"></div>
+      </div>
+    </div>
+
+    <div class="card" style="padding:12px 16px;margin-bottom:10px;">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="text" id="attr-search-input" placeholder="🔍 Search attractions..." autocomplete="off"
+          oninput="renderAttractions()" style="flex:1;min-width:160px;font-size:13px;">
+        <select id="attr-collection-filter" onchange="renderAttractions()"
+          style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">
+          <option value="">All Collections</option>
+        </select>
+      </div>
+      <div class="char-filters" style="margin-top:10px;flex-wrap:wrap;">
+        <button class="filter-btn active" onclick="setAttrFilter('all',this)">All</button>
+        <button class="filter-btn" onclick="setAttrFilter('built',this)">Built</button>
+        <button class="filter-btn" onclick="setAttrFilter('not-built',this)">Not Built</button>
+        <button class="filter-btn" onclick="setAttrFilter('regular',this)">Regular</button>
+        <button class="filter-btn" onclick="setAttrFilter('elixir',this)" style="color:var(--teal);">⚗️ Elixir</button>
+      </div>
+    </div>
+
+    <div id="attr-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>DMK Helper © 2026</p>
+  </footer>
+   <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

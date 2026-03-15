@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attractions — DMK Helper</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>DMK Helper</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="tabs">
+    <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
+    <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
+    <a class="tab" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
+    <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
+    <a class="tab" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
+    <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
+    <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
+    <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
+     <a class="tab" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
+    <a class="tab active" href="events.html"><span class="tab-icon">🎉</span>Events</a>
+    <a class="tab" href="daily.html"><span class="tab-icon">📅</span>Daily</a>
+    <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- EVENTS -->
+    <div id="tab-events" class="section active">
+      <div id="events-list"></div>
+    <div class="card" style="margin-top:4px;">
+      <div class="card-title"><span class="icon">➕</span>Track an Event</div>
+      <div class="form-row">
+        <input type="text" id="event-name-input" placeholder="Event name">
+        <select id="event-status-input">
+          <option value="active">🟢 Active Now</option>
+          <option value="upcoming">🟡 Upcoming</option>
+          <option value="past">⚫ Past</option>
+        </select>
+      </div>
+      <div class="form-row trio">
+        <input type="number" id="event-curr-input" placeholder="Currency earned" min="0">
+        <input type="number" id="event-goal-input" placeholder="Currency goal" min="0">
+        <input type="number" id="event-days-input" placeholder="Days left" min="0">
+      </div>
+      <button class="btn-add" onclick="addEvent()">✨ Track Event</button>
+    </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>DMK Helper © 2026</p>
+  </footer>
+   <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

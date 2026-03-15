@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attractions — DMK Helper</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>DMK Helper</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="tabs">
+    <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
+    <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
+    <a class="tab" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
+    <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
+    <a class="tab active" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
+    <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
+    <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
+    <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
+    <a class="tab" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
+    <a class="tab" href="events.html"><span class="tab-icon">🎉</span>Events</a>
+    <a class="tab" href="daily.html"><span class="tab-icon">📅</span>Daily</a>
+    <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <!-- tokens -->
+    <div id="tab-tokens" class="section active">
+      <div class="card" style="padding:12px 16px;">
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input type="text" id="tok-search" placeholder="🔍 Search character or token..." autocomplete="off"
+          style="flex:1;min-width:160px;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;"
+          oninput="renderTokens()">
+        <select id="tok-sort" onchange="renderTokens()"
+          style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
+          <option value="name">A-Z</option>
+          <option value="ready">Ready First</option>
+          <option value="progress">Most Progress</option>
+        </select>
+      </div>
+      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+        <button onclick="filterTokens('all')" id="tok-btn-all" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
+        <button onclick="filterTokens('ready')" id="tok-btn-ready" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Ready</button>
+        <button onclick="filterTokens('missing')" id="tok-btn-missing" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⚠️ Missing</button>
+        <button onclick="filterTokens('maxed')" id="tok-btn-maxed" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭐ Maxed</button>
+        <button onclick="filterTokens('wishlist')" id="tok-btn-wishlist" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🌟 Wishlist</button>
+        <span id="tok-count" style="margin-left:auto;font-size:11px;color:var(--muted);"></span>
+      </div>
+    </div>
+    <div style="margin-top:8px;">
+      <div id="tok-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+    </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>DMK Helper © 2026</p>
+  </footer>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMK Helper — Free-to-Play Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <span class="castle-icon">🏰</span>
+    <h1>Magic Kingdoms</h1>
+    <p>✨ F2P Helper & Tracker ✨</p>
+  </header>
+
+  <nav class="tabs">
+  <a class="tab active" href="index.html">
+    <span class="tab-icon">🗺️</span>Dashboard
+  </a>
+  <a class="tab" href="characters.html">
+    <span class="tab-icon">🌟</span>Characters
+  </a>
+  <a class="tab" href="attractions.html">
+    <span class="tab-icon">🏗️</span>Attractions
+  </a>
+  <a class="tab" href="costumes.html">
+    <span class="tab-icon">👗</span>Costumes
+  </a>
+  <a class="tab" href="tokens.html">
+    <span class="tab-icon">🪙</span>Tokens
+  </a>
+  <a class="tab" href="floats.html">
+    <span class="tab-icon">🎡</span>Floats
+  </a>
+  <a class="tab" href="concessions.html">
+    <span class="tab-icon">🍦</span>Concessions
+  </a>
+  <a class="tab" href="enchantments.html">
+    <span class="tab-icon">⚡</span>Enchantments
+  </a>
+  <a class="tab" href="campaign.html">
+    <span class="tab-icon">📖</span>Campaign
+  </a>
+  <a class="tab" href="events.html">
+    <span class="tab-icon">🎉</span>Events
+  </a>
+  <a class="tab" href="daily.html">
+    <span class="tab-icon">📅</span>Daily
+  </a>
+  <a class="tab" href="tips.html">
+    <span class="tab-icon">💡</span>F2P Tips
+  </a>
+</nav>
+
+ <div id="tab-dashboard" class="section active">
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-val" id="stat-chars">0</div>
+          <div class="stat-label">Characters</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-maxed">0</div>
+          <div class="stat-label">Max Level</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-quests">0</div>
+          <div class="stat-label">Quests Done</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="stat-daily">0</div>
+          <div class="stat-label">Daily Tasks</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">📊</span>Kingdom Progress</div>
+        <div class="prog-header">
+          <span>Storyline Completion</span>
+          <span id="dash-story-pct">0%</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="dash-story-bar" style="width:0%"></div></div>
+
+        <div class="prog-header">
+          <span>Characters Welcomed</span>
+          <span id="dash-chars-pct">0%</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="dash-chars-bar" style="width:0%"></div></div>
+
+        <div class="prog-header">
+          <span>Daily Checklist</span>
+          <span id="dash-daily-pct">0%</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="dash-daily-bar" style="width:0%"></div></div>
+
+        <div class="prog-header">
+          <span>Attractions Built</span>
+          <span id="dash-attr-pct">0%</span>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="dash-attr-bar" style="width:0%"></div></div>
+
+        <div style="text-align:right;margin-top:4px;font-size:11px;color:var(--muted);" id="stat-attractions"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">⚡</span>Resources</div>
+        <div class="resource-grid">
+          <div class="resource-item">
+            <div class="resource-icon">✨</div>
+            <div class="resource-name">Magic</div>
+            <div><input class="res-input" id="res-magic" type="number" value="0" min="0" oninput="saveState()"></div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">💎</div>
+            <div class="resource-name">Gems <span style="font-size:0.7em;opacity:0.7">(Acts 1-5)</span></div>
+            <div><input class="res-input" id="res-gems" type="number" value="0" min="0" oninput="saveState()"></div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">🌟</div>
+            <div class="resource-name">Dreamsparks <span style="font-size:0.7em;opacity:0.7">(Act 6+)</span></div>
+            <div><input class="res-input" id="res-dreamsparks" type="number" value="0" min="0" oninput="saveState()"></div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">🪙</div>
+            <div class="resource-name">Tokens (Common)</div>
+            <div><input class="res-input" id="res-tokens" type="number" value="0" min="0" oninput="saveState()"></div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">⭐</div>
+            <div class="resource-name">Rare Tokens</div>
+            <div><input class="res-input" id="res-rare" type="number" value="0" min="0" oninput="saveState()"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">🎯</span>F2P Focus — What To Do Next</div>
+        <div id="focus-list" class="tip-list"></div>
+      </div>
+    </div>
+<script src="data.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
