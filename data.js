@@ -9043,12 +9043,14 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_253', name: 'Ladybug Painting Station', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_254', name: 'Pixie Hollow', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
 ];
+
 const DMK_CHARS = [
   // Sword in the Stone
   ["Merlin", "The Sword in the Stone", "s", "🧙"],
   ["Wart", "The Sword in the Stone", "s", "👦"],
   ["Archimedes", "The Sword in the Stone", "s", "🦉"],
   ["Madam Mim", "The Sword in the Stone", "e", "🧟"],
+  ["Sir Ector", "The Sword in the Stone", "s", "⚔️"],
   // Mickey & Friends
   ["Mickey Mouse", "Mickey & Friends", "s", "🐭"],
   ["Minnie Mouse", "Mickey & Friends", "s", "🐭"],
@@ -9072,15 +9074,19 @@ const DMK_CHARS = [
   ["Rex", "Toy Story", "s", "🦕"],
   ["Hamm", "Toy Story", "s", "🐷"],
   ["Sarge", "Toy Story", "s", "🪖"],
-  ["Zurg", "Toy Story", "p", "🤖"],
   ["Bo Peep", "Toy Story", "s", "🐑"],
   ["Toy Alien", "Toy Story", "p", "👽"],
+  ["Bullseye", "Toy Story", "s", "🤠"],
+  ["Bunny", "Toy Story", "s", "🤠"],
+  ["Ducky", "Toy Story", "s", "🤠"],
+  ["Forky", "Toy Story", "s", "🤠"],
+  ["Zurg", "Toy Story", "s", "🤠"],
   // Cinderella
   ["Cinderella", "Cinderella", "s", "👠"],
   ["Prince Charming", "Cinderella", "s", "🤴"],
   ["Fairy Godmother", "Cinderella", "s", "🧚"],
   ["Jaq", "Cinderella", "s", "🐭"],
-  ["Gus", "Cinderella", "s", "🐭"],
+  ["Gus (Cinderella)", "Cinderella", "s", "👠"],
   ["Anastasia Tremaine", "Cinderella", "s", "🌸"],
   ["Drizella Tremaine", "Cinderella", "s", "💚"],
   ["Lady Tremaine", "Cinderella", "p", "👩"],
@@ -9119,12 +9125,15 @@ const DMK_CHARS = [
   ["Wendy Darling", "Peter Pan", "s", "🌙"],
   ["Captain Hook", "Peter Pan", "p", "🏴‍☠️"],
   ["Mr. Smee", "Peter Pan", "s", "⚓"],
+  ["John Darling", "Peter Pan", "s", "⭐"],
+  ["Michael Darling", "Peter Pan", "s", "⭐"],
   // Pirates of the Caribbean
   ["Jack Sparrow", "Pirates of the Caribbean", "s", "🏴‍☠️"],
   ["Will Turner", "Pirates of the Caribbean", "s", "⚔️"],
   ["Elizabeth Swann", "Pirates of the Caribbean", "s", "🏴‍☠️"],
   ["Captain Barbossa", "Pirates of the Caribbean", "p", "💀"],
   ["Davy Jones", "Pirates of the Caribbean", "p", "🐙"],
+  ["Tia Dalma", "Pirates of the Caribbean", "s", "🏴‍☠️"],
   // Monsters, Inc.
   ["Sulley", "Monsters, Inc.", "s", "💙"],
   ["Mike Wazowski", "Monsters, Inc.", "s", "👁️"],
@@ -9136,6 +9145,9 @@ const DMK_CHARS = [
   // WALL-E
   ["EVE", "WALL-E", "s", "🤖"],
   ["M-O", "WALL-E", "s", "🧹"],
+  ["BURN•E", "WALL•E", "s", "🤖"],
+  ["The Captain", "WALL•E", "s", "🤖"],
+  ["WALL•E", "WALL•E", "s", "🤖"],
   // Tangled
   ["Rapunzel", "Tangled", "s", "🌟"],
   ["Flynn", "Tangled", "s", "🌟"],
@@ -9148,25 +9160,35 @@ const DMK_CHARS = [
   ["Flora", "Sleeping Beauty", "s", "🧚"],
   ["Fauna", "Sleeping Beauty", "s", "🧚"],
   ["Merryweather", "Sleeping Beauty", "s", "🧚"],
+  ["Maleficent", "Sleeping Beauty", "s", "👸"],
   // Zootopia
   ["Judy Hopps", "Zootopia", "s", "🐰"],
   ["Nick Wilde", "Zootopia", "s", "🦊"],
   ["Chief Bogo", "Zootopia", "s", "🦬"],
   ["Dawn Bellwether", "Zootopia", "p", "🐑"],
   ["Clawhauser", "Zootopia", "s", "🐆"],
+  ["Finnick", "Zootopia", "s", "🦊"],
+  ["Flash", "Zootopia", "s", "🦊"],
+  ["Gazelle", "Zootopia", "s", "🦊"],
+  ["Mr. Big", "Zootopia", "s", "🦊"],
   // Bambi
   ["Bambi", "Bambi", "s", "🦌"],
   ["Thumper", "Bambi", "s", "🐇"],
   ["Flower", "Bambi", "s", "🦨"],
+  ["Faline", "Bambi", "s", "🦌"],
+  ["Great Prince of the Forest", "Bambi", "s", "🦌"],
   // The Jungle Book
   ["Mowgli", "The Jungle Book", "s", "👦"],
   ["Baloo", "The Jungle Book", "s", "🐻"],
   ["King Louie", "The Jungle Book", "s", "🦧"],
   ["Shere Khan", "The Jungle Book", "p", "🐯"],
+  ["Bagheera", "The Jungle Book", "s", "🐆"],
   // Dumbo
   ["Dumbo", "Dumbo", "s", "🐘"],
   ["Timothy Q. Mouse", "Dumbo", "s", "🐭"],
   ["The Ringmaster", "Dumbo", "p", "🎪"],
+  ["Mr. Stork", "Dumbo", "s", "🐘"],
+  ["Mrs. Jumbo", "Dumbo", "s", "🐘"],
   // Lady and the Tramp
   ["Lady", "Lady and the Tramp", "s", "🐕"],
   ["Tramp", "Lady and the Tramp", "s", "🐕"],
@@ -9177,15 +9199,25 @@ const DMK_CHARS = [
   // Pocahontas
   ["Pocahontas", "Pocahontas", "s", "🍃"],
   ["Meeko", "Pocahontas", "s", "🦝"],
+  ["Percy", "Pocahontas", "s", "🪶"],
   // The Emperor's New Groove
   ["Kuzco", "The Emperor's New Groove", "s", "🦙"],
   ["Pacha", "The Emperor's New Groove", "s", "🧑"],
   ["Kronk", "The Emperor's New Groove", "s", "💪"],
   ["Yzma", "The Emperor's New Groove", "p", "🧪"],
+  ["Chicha", "The Emperor's New Groove", "s", "👑"],
   // Ratatouille
   ["Remy", "Ratatouille", "s", "🐀"],
   ["Linguini", "Ratatouille", "s", "👨‍🍳"],
   ["Colette", "Ratatouille", "s", "👩‍🍳"],
+  ["Anton Ego", "Ratatouille", "s", "🐀"],
+  ["Emile", "Ratatouille", "s", "🐀"],
+  //The Rescuers
+  ["Bernard", "The Rescuers", "s", "🐭"],
+  ["Madame Medusa", "The Rescuers", "s", "🐭"],
+  ["Miss Bianca", "The Rescuers", "s", "🐭"],
+  ["Orville", "The Rescuers", "s", "🐭"],
+  ["Penny (Rescuers)", "The Rescuers", "s", "🐭"],
   // The Incredibles
   ["Mr. Incredible", "The Incredibles", "e", "🦸"],
   ["Mrs. Incredible", "The Incredibles", "e", "🦸"],
@@ -9193,6 +9225,9 @@ const DMK_CHARS = [
   ["Dash", "The Incredibles", "e", "⚡"],
   ["Frozone", "The Incredibles", "e", "❄️"],
   ["Syndrome", "The Incredibles", "e", "🦹"],
+  ["Edna Mode", "The Incredibles", "s", "💪"],
+  ["Evelyn Deavor", "The Incredibles", "s", "💪"],
+  ["Jack-Jack", "The Incredibles", "s", "💪"],
   // The Nightmare Before Christmas
   ["Jack Skellington", "The Nightmare Before Christmas", "e", "💀"],
   ["Sally", "The Nightmare Before Christmas", "e", "🧵"],
@@ -9200,6 +9235,10 @@ const DMK_CHARS = [
   ["Dr. Finkelstein", "The Nightmare Before Christmas", "e", "🔬"],
   ["Oogie Boogie", "The Nightmare Before Christmas", "e", "🎲"],
   ["The Mayor", "The Nightmare Before Christmas", "e", "🎩"],
+  ["Barrel", "The Nightmare Before Christmas", "s", "🎃"],
+  ["Lock", "The Nightmare Before Christmas", "s", "🎃"],
+  ["Santa Claus", "The Nightmare Before Christmas", "s", "🎃"],
+  ["Shock", "The Nightmare Before Christmas", "s", "🎃"],
   // Frozen
   ["Anna", "Frozen", "e", "❄️"],
   ["Elsa", "Frozen", "e", "❄️"],
@@ -9207,12 +9246,21 @@ const DMK_CHARS = [
   ["Kristoff", "Frozen", "e", "🏔️"],
   ["Sven", "Frozen", "e", "🦌"],
   ["Hans", "Frozen", "e", "🤴"],
+  ["Fire Spirit", "Frozen", "s", "❄️"],
+  ["Honeymaren", "Frozen", "s", "❄️"],
+  ["Marshmallow", "Frozen", "s", "❄️"],
+  ["Ryder", "Frozen", "s", "❄️"],
   // Mulan
   ["Mulan", "Mulan", "e", "🏮"],
   ["Mushu", "Mulan", "e", "🐉"],
   ["Li Shang", "Mulan", "e", "⚔️"],
   ["Cri-Kee", "Mulan", "e", "🦗"],
   ["Shan Yu", "Mulan", "e", "🌑"],
+  ["Chien-Po", "Mulan", "s", "🏯"],
+  ["Khan", "Mulan", "s", "🏯"],
+  ["Ling", "Mulan", "s", "🏯"],
+  ["The Emperor", "Mulan", "s", "🏯"],
+  ["Yao", "Mulan", "s", "🏯"],
   // Beauty and the Beast
   ["Belle", "Beauty and the Beast", "e", "🌹"],
   ["Beast", "Beauty and the Beast", "e", "🌹"],
@@ -9221,6 +9269,9 @@ const DMK_CHARS = [
   ["Mrs. Potts", "Beauty and the Beast", "e", "🫖"],
   ["Chip (BATB)", "Beauty and the Beast", "e", "☕"],
   ["Gaston", "Beauty and the Beast", "e", "💪"],
+  ["LeFou", "Beauty and the Beast", "s", "🌹"],
+  ["Maurice", "Beauty and the Beast", "s", "🌹"],
+  ["The Wardrobe", "Beauty and the Beast", "s", "🌹"],
   // The Lion King
   ["Simba", "The Lion King", "e", "🦁"],
   ["Nala", "The Lion King", "e", "🦁"],
@@ -9229,6 +9280,9 @@ const DMK_CHARS = [
   ["Rafiki", "The Lion King", "e", "🐒"],
   ["Zazu", "The Lion King", "e", "🐦"],
   ["Scar", "The Lion King", "e", "🌑"],
+  ["Banzai", "The Lion King", "s", "🦁"],
+  ["Ed", "The Lion King", "s", "🦁"],
+  ["Shenzi", "The Lion King", "s", "🦁"],
   // Aladdin
   ["Aladdin", "Aladdin", "e", "🧞"],
   ["Jasmine", "Aladdin", "e", "🧞"],
@@ -9238,22 +9292,28 @@ const DMK_CHARS = [
   ["Rajah", "Aladdin", "e", "🐯"],
   ["Jafar", "Aladdin", "e", "🐍"],
   ["Iago", "Aladdin", "e", "🦜"],
+  ["Prince Achmed", "Aladdin", "s", "🧞"],
+  ["The Sultan", "Aladdin", "s", "🧞"],
   // Alice in Wonderland
   ["Alice", "Alice in Wonderland", "e", "🐇"],
   ["Mad Hatter", "Alice in Wonderland", "e", "🎩"],
   ["Cheshire Cat", "Alice in Wonderland", "e", "😸"],
   ["White Rabbit", "Alice in Wonderland", "e", "🐇"],
   ["Queen of Hearts", "Alice in Wonderland", "e", "♥️"],
+  ["Caterpillar", "Alice in Wonderland", "s", "🐛"],
+  ["March Hare", "Alice in Wonderland", "s", "🐛"],
+  ["The Dormouse", "Alice in Wonderland", "s", "🐛"],
   // Snow White
-  ["Snow White", "Snow White", "e", "🍎"],
-  ["Dopey", "Snow White", "e", "💎"],
-  ["Grumpy", "Snow White", "e", "💎"],
-  ["Happy", "Snow White", "e", "💎"],
-  ["Sleepy", "Snow White", "e", "💎"],
-  ["Doc", "Snow White", "e", "💎"],
-  ["Sneezy", "Snow White", "e", "💎"],
-  ["Bashful", "Snow White", "e", "💎"],
+  ["Snow White", "Snow White and the Seven Dwarfs", "e", "🍎"],
+  ["Dopey", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Grumpy", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Happy", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Sleepy", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Doc", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Sneezy", "Snow White and the Seven Dwarfs", "e", "💎"],
+  ["Bashful", "Snow White and the Seven Dwarfs", "e", "💎"],
   ["The Queen", "Snow White and the Seven Dwarfs", "e", "🍎"],
+  ["Prince Charming (Snow White)", "Snow White and the Seven Dwarfs", "s", "🍎"],
   // Winnie the Pooh
   ["Winnie the Pooh", "Winnie the Pooh", "e", "🍯"],
   ["Piglet", "Winnie the Pooh", "e", "🐷"],
@@ -9262,6 +9322,9 @@ const DMK_CHARS = [
   ["Rabbit", "Winnie the Pooh", "e", "🐇"],
   ["Roo", "Winnie the Pooh", "e", "🦘"],
   ["Kanga", "Winnie the Pooh", "e", "🦘"],
+  ["Christopher Robin", "Winnie the Pooh", "s", "🍯"],
+  ["Gopher", "Winnie the Pooh", "s", "🍯"],
+  ["Owl", "Winnie the Pooh", "s", "🍯"],
   // Lilo & Stitch
   ["Lilo", "Lilo & Stitch", "e", "🌺"],
   ["Stitch", "Lilo & Stitch", "e", "👽"],
@@ -9269,6 +9332,10 @@ const DMK_CHARS = [
   ["Jumba", "Lilo & Stitch", "e", "👽"],
   ["Pleakley", "Lilo & Stitch", "e", "👽"],
   ["Gantu", "Lilo & Stitch", "e", "👽"],
+  ["Angel", "Lilo & Stitch", "s", "🌺"],
+  ["Cobra Bubbles", "Lilo & Stitch", "s", "🌺"],
+  ["David", "Lilo & Stitch", "s", "🌺"],
+  ["Reuben", "Lilo & Stitch", "s", "🌺"],
   // Big Hero 6
   ["Hiro", "Big Hero 6", "e", "🤖"],
   ["Baymax", "Big Hero 6", "e", "🤖"],
@@ -9276,6 +9343,7 @@ const DMK_CHARS = [
   ["Wasabi", "Big Hero 6", "e", "🔪"],
   ["Fred", "Big Hero 6", "e", "🦕"],
   ["Yokai", "Big Hero 6", "e", "🎭"],
+  ["Go Go", "Big Hero 6", "s", "🤖"],
   // The Little Mermaid
   ["Ariel", "The Little Mermaid", "e", "🧜"],
   ["Flounder", "The Little Mermaid", "e", "🐠"],
@@ -9283,27 +9351,52 @@ const DMK_CHARS = [
   ["Scuttle", "The Little Mermaid", "e", "🐦"],
   ["Prince Eric", "The Little Mermaid", "e", "🤴"],
   ["Ursula", "The Little Mermaid", "e", "🐙"],
+  ["King Triton", "The Little Mermaid", "s", "🧜"],
+  ["Max", "The Little Mermaid", "s", "🧜"],
   // Wreck-It Ralph
   ["Ralph", "Wreck-It Ralph", "e", "🕹️"],
   ["Vanellope", "Wreck-It Ralph", "e", "🍬"],
   ["Fix-It Felix Jr.", "Wreck-It Ralph", "e", "🔨"],
   ["Calhoun", "Wreck-It Ralph", "e", "🔫"],
   ["King Candy", "Wreck-It Ralph", "e", "🍭"],
+  ["Gord", "Wreck-It Ralph", "s", "👾"],
+  ["KnowsMore", "Wreck-It Ralph", "s", "👾"],
+  ["Shank", "Wreck-It Ralph", "s", "👾"],
+  ["Spamley", "Wreck-It Ralph", "s", "👾"],
+  ["Yesss", "Wreck-It Ralph", "s", "👾"],
   // The Princess and the Frog
   ["Tiana", "The Princess and the Frog", "e", "🐸"],
   ["Prince Naveen", "The Princess and the Frog", "e", "🐸"],
   ["Louis", "The Princess and the Frog", "e", "🐊"],
   ["Ray", "The Princess and the Frog", "e", "✨"],
   ["Dr. Facilier", "The Princess and the Frog", "e", "🎭"],
+  ["Charlotte La Bouff", "The Princess and the Frog", "s", "🐸"],
+  ["Eudora", "The Princess and the Frog", "s", "🐸"],
+  ["Mama Odie", "The Princess and the Frog", "s", "🐸"],
   // Moana
   ["Moana", "Moana", "e", "🌊"],
   ["Maui", "Moana", "e", "🪝"],
+  ["Chief Tui", "Moana", "s", "🌊"],
+  ["Gramma Tala", "Moana", "s", "🌊"],
+  ["Heihei", "Moana", "s", "🌊"],
+  ["Kele", "Moana", "s", "🌊"],
+  ["Loto", "Moana", "s", "🌊"],
+  ["Matangi", "Moana", "s", "🌊"],
+  ["Moni", "Moana", "s", "🌊"],
+  ["Pua", "Moana", "s", "🌊"],
+  ["Simea", "Moana", "s", "🌊"],
+  ["Sina", "Moana", "s", "🌊"],
   // Finding Nemo
   ["Nemo", "Finding Nemo", "e", "🐠"],
   ["Marlin", "Finding Nemo", "e", "🐠"],
   ["Dory", "Finding Nemo", "e", "🐟"],
   ["Crush", "Finding Nemo", "e", "🐢"],
   ["Squirt", "Finding Nemo", "e", "🐢"],
+  ["Bailey", "Finding Nemo", "s", "🐟"],
+  ["Becky", "Finding Nemo", "s", "🐟"],
+  ["Bruce", "Finding Nemo", "s", "🐟"],
+  ["Destiny", "Finding Nemo", "s", "🐟"],
+  ["Hank", "Finding Nemo", "s", "🐟"],
   // Coco
   ["Miguel Rivera", "Coco", "e", "🎸"],
   ["Héctor Rivera", "Coco", "e", "🎸"],
@@ -9311,6 +9404,15 @@ const DMK_CHARS = [
   ["Mamá Imelda", "Coco", "e", "🌺"],
   ["Mamá Coco", "Coco", "e", "👵"],
   ["Ernesto de la Cruz", "Coco", "e", "🎸"],
+  ["Abuelita", "Coco", "s", "💀"],
+  // Haunted Mansion
+  ["Ezra", "Haunted Mansion", "e", "👻"],
+  ["Gus", "Haunted Mansion", "p", "👻"],
+  ["Hatbox Ghost", "Haunted Mansion", "e", "👻"],
+  ["Madame Leota", "Haunted Mansion", "e", "👻"],
+  ["Phineas", "Haunted Mansion", "e", "👻"],
+  ["Pickwick", "Haunted Mansion", "e", "👻"],
+  ["The Bride", "Haunted Mansion", "e", "👻"],
   // Hercules
   ["Hercules", "Hercules", "e", "⚡"],
   ["Meg", "Hercules", "e", "💜"],
@@ -9320,302 +9422,193 @@ const DMK_CHARS = [
   ["Hades", "Hercules", "e", "🔥"],
   ["Pain", "Hercules", "e", "👹"],
   ["Panic", "Hercules", "e", "👹"],
+  ["Hera", "Hercules", "s", "⚡"],
+  ["The Hydra", "Hercules", "s", "⚡"],
   // Brave
   ["Merida", "Brave", "e", "🏹"],
   ["Queen Elinor", "Brave", "e", "👸"],
   ["King Fergus", "Brave", "e", "🏴󠁧󠁢󠁳󠁣󠁴󠁿"],
+  ["Lord Dingwall", "Brave", "s", "🏹"],
+  ["Lord MacGuffin", "Brave", "s", "🏹"],
+  ["Lord Macintosh", "Brave", "s", "🏹"],
+  ["The Witch", "Brave", "s", "🏹"],
+  ["Wee Dingwall", "Brave", "s", "🏹"],
+  ["Young MacGuffin", "Brave", "s", "🏹"],
+  ['Young Macintosh', 'Brave', 's', '🏹'],
   // Up
   ["Carl Fredricksen", "Up", "e", "🎈"],
   ["Russell", "Up", "e", "🎈"],
   ["Dug", "Up", "e", "🐕"],
   ["Kevin", "Up", "e", "🦃"],
   ["Charles Muntz", "Up", "e", "🎈"],
-  // Haunted Mansion
-  ["Madame Leota", "Disney Parks", "e", "👁️"],
-  ["The Bride", "Disney Parks", "e", "👰"],
-  ["Hatbox Ghost", "Disney Parks", "e", "🎩"],
-  ["Phineas", "Disney Parks", "e", "👻"],
-  ["Ezra", "Disney Parks", "e", "👻"],
-  ["Pickwick", "Disney Parks", "e", "🦔"],
+  //Turning Red
+  ["Abby", "Turning Red", "s", "🐼"],
+  ["Meilin \"Mei\" Lee", "Turning Red", "s", "🐼"],
+  ["Ming Lee", "Turning Red", "s", "🐼"],
+  ["Miriam", "Turning Red", "s", "🐼"],
+  ["Priya", "Turning Red", "s", "🐼"],
+  // Disney Parks
   ["Orange Bird", "Disney Parks", "e", "🍊"],
   ["Figment", "Disney Parks", "s", "🐉"],
   // The Fox and the Hound
   ["Tod", "The Fox and the Hound", "s", "🦊"],
   ["Copper", "The Fox and the Hound", "s", "🐕"],
   ["Amos Slade", "The Fox and the Hound", "p", "🎣"],
+  ["Big Mama", "Fox and the Hound", "s", "🦊"],
+  ["Widow Tweed", "Fox and the Hound", "s", "🦊"],
   // Robin Hood
   ["Robin Hood", "Robin Hood", "s", "🏹"],
   ["Maid Marian", "Robin Hood", "s", "🦊"],
   ["Little John", "Robin Hood", "s", "🐻"],
   ["Prince John", "Robin Hood", "e", "👑"],
+  ["Sir Hiss", "Robin Hood", "s", "🏹"],
   // The Aristocats
   ["Duchess", "The Aristocats", "s", "🐱"],
   ["Thomas O'Malley", "The Aristocats", "s", "🐱"],
   ["Marie", "The Aristocats", "s", "🐱"],
   ["Toulouse", "The Aristocats", "s", "🐱"],
   ["Berlioz", "The Aristocats", "s", "🐱"],
-  // Oliver & Company
   // Pinocchio
   ["Pinocchio", "Pinocchio", "s", "🪡"],
   ["Jiminy Cricket", "Pinocchio", "s", "🦗"],
   ["Geppetto", "Pinocchio", "s", "🪚"],
   ["Honest John", "Pinocchio", "e", "🦊"],
   ["Stromboli", "Pinocchio", "e", "🎪"],
+  ["Blue Fairy", "Pinocchio", "s", "🤥"],
+  ["Figaro", "Pinocchio", "s", "🤥"],
   // Disney Fairies
   ["Tinker Bell", "Disney Fairies", "s", "🧚"],
   ["Silvermist", "Disney Fairies", "s", "💧"],
   ["Rosetta", "Disney Fairies", "s", "🌸"],
   ["Vidia", "Disney Fairies", "s", "🌪️"],
+  ["Periwinkle", "Disney Fairies", "s", "🧚"],
+  ["Queen Clarion", "Disney Fairies", "s", "🧚"],
   // Encanto
   ["Mirabel", "Encanto", "e", "🦋"],
   ["Luisa", "Encanto", "e", "💪"],
   ["Isabela", "Encanto", "e", "🌸"],
   ["Bruno", "Encanto", "e", "🐀"],
+  ["Antonio", "Encanto", "s", "🦋"],
   // Inside Out
   ["Joy", "Inside Out", "e", "🌈"],
   ["Sadness", "Inside Out", "e", "💙"],
   ["Anger", "Inside Out", "e", "🔴"],
   ["Fear", "Inside Out", "e", "💜"],
   ["Disgust", "Inside Out", "e", "💚"],
+  ["Anxiety", "Inside Out", "s", "😊"],
+  ["Embarrassment", "Inside Out", "s", "😊"],
+  ["Ennui", "Inside Out", "s", "😊"],
+  ["Envy", "Inside Out", "s", "😊"],
+  ["Nostalgia", "Inside Out", "s", "😊"],
   // Raya and the Last Dragon
   ["Raya", "Raya and the Last Dragon", "e", "⚔️"],
   ["Sisu", "Raya and the Last Dragon", "e", "🐉"],
   ["Namaari", "Raya and the Last Dragon", "e", "🌑"],
+  ["Boun", "Raya and the Last Dragon", "e", "🌑"],
+  ["Tuk Tuk", "Raya and the Last Dragon", "e", "🌑"],
   // Onward
   ["Ian", "Onward", "e", "🪄"],
   ["Barley", "Onward", "e", "⚔️"],
+  ["Blazey", "Onward", "e", "🧝"],
+  ["Colt", "Onward", "e", "🧝"],
+  ["Dad", "Onward", "e", "🧝"],
+  ["Laurel", "Onward", "e", "🧝"],
+  ["The Manticore", "Onward", "e", "🧝"],
   // Luca
   ["Luca", "Luca", "e", "🌊"],
   ["Alberto", "Luca", "e", "🌊"],
   ["Giulia", "Luca", "e", "🚲"],
   ["Ercole", "Luca", "e", "🏆"],
+  ["Machiavelli", "Luca", "s", "🐟"],
   // Cars
   ["Lightning McQueen", "Cars", "e", "🏎️"],
   ["Tow Mater", "Cars", "e", "🚗"],
   ["Sally", "Cars", "e", "🏎️"],
   ["Chick Hicks", "Cars", "e", "🏎️"],
+  ["Flo", "Cars", "s", "🏎️"],
+  ["Guido", "Cars", "s", "🏎️"],
   // Hocus Pocus
   ["Winifred Sanderson", "Hocus Pocus", "e", "🧙"],
   ["Mary Sanderson", "Hocus Pocus", "e", "🧙"],
   ["Sarah Sanderson", "Hocus Pocus", "e", "🧙"],
-  // Haunted Mansion
-  ["Claude Frollo", "The Hunchback of Notre Dame", "e", "⛪"],
   // 101 Dalmatians
   ["Pongo", "101 Dalmatians", "e", "🐕"],
   ["Perdita", "101 Dalmatians", "e", "🐕"],
   ["Cruella", "101 Dalmatians", "e", "🐾"],
+  ["Anita", "101 Dalmatians", "s", "🐾"],
+  ["Freckles", "101 Dalmatians", "s", "🐾"],
+  ["Lucky", "101 Dalmatians", "s", "🐾"],
+  ["Patch", "101 Dalmatians", "s", "🐾"],
+  ["Penny", "101 Dalmatians", "s", "🐾"],
+  ["Roger", "101 Dalmatians", "s", "🐾"],
+  ["Rolly", "101 Dalmatians", "s", "🐾"],
   // The Hunchback of Notre Dame
+  ["Claude Frollo", "The Hunchback of Notre Dame", "e", "⛪"],
   ["Quasimodo", "The Hunchback of Notre Dame", "e", "🔔"],
   ["Esmeralda", "The Hunchback of Notre Dame", "e", "🌹"],
   ["Djali", "The Hunchback of Notre Dame", "e", "🐐"],
-  ['Bullseye', 'Toy Story', 's', '🤠'],  // wiki import
-  ['Bunny', 'Toy Story', 's', '🤠'],  // wiki import
-  ['Ducky', 'Toy Story', 's', '🤠'],  // wiki import
-  ['Forky', 'Toy Story', 's', '🤠'],  // wiki import
-  ['Zurg', 'Toy Story', 's', '🤠'],  // wiki import
-  ['Gus (Cinderella)', 'Cinderella', 's', '👠'],  // wiki import
-  ['Poe', 'Star Wars', 's', '⚔️'],  // wiki import
-  ['John Darling', 'Peter Pan', 's', '⭐'],  // wiki import
-  ['Michael Darling', 'Peter Pan', 's', '⭐'],  // wiki import
-  ['Tia Dalma', 'Pirates of the Caribbean', 's', '🏴‍☠️'],  // wiki import
-  ['Henry J. Waternoose', 'Monsters, Inc.', 's', '👾'],  // wiki import
-  ['BURN•E', 'WALL•E', 's', '🤖'],  // wiki import
-  ['The Captain', 'WALL•E', 's', '🤖'],  // wiki import
-  ['WALL•E', 'WALL•E', 's', '🤖'],  // wiki import
-  ['Flynn', 'Tangled', 's', '🌸'],  // wiki import
-  ['Maleficent', 'Sleeping Beauty', 's', '👸'],  // wiki import
-  ['Finnick', 'Zootopia', 's', '🦊'],  // wiki import
-  ['Flash', 'Zootopia', 's', '🦊'],  // wiki import
-  ['Gazelle', 'Zootopia', 's', '🦊'],  // wiki import
-  ['Mr. Big', 'Zootopia', 's', '🦊'],  // wiki import
-  ['Sir Ector', 'Sword in the Stone', 's', '⚔️'],  // wiki import
-  ['Faline', 'Bambi', 's', '🦌'],  // wiki import
-  ['Great Prince of the Forest', 'Bambi', 's', '🦌'],  // wiki import
-  ['Bagheera', 'Jungle Book', 's', '🐆'],  // wiki import
-  ['Mr. Stork', 'Dumbo', 's', '🐘'],  // wiki import
-  ['Mrs. Jumbo', 'Dumbo', 's', '🐘'],  // wiki import
-  ['Timothy Q. Mouse', 'Dumbo', 's', '🐘'],  // wiki import
-  ['Webby', 'DuckTales', 's', '🦆'],  // wiki import
-  ['Percy', 'Pocahontas', 's', '🪶'],  // wiki import
-  ['Chicha', 'Emperor\'s New Groove', 's', '👑'],  // wiki import
-  ['Anton Ego', 'Ratatouille', 's', '🐀'],  // wiki import
-  ['Emile', 'Ratatouille', 's', '🐀'],  // wiki import
-  ['Bernard', 'The Rescuers', 's', '🐭'],  // wiki import
-  ['Madame Medusa', 'The Rescuers', 's', '🐭'],  // wiki import
-  ['Miss Bianca', 'The Rescuers', 's', '🐭'],  // wiki import
-  ['Orville', 'The Rescuers', 's', '🐭'],  // wiki import
-  ['Penny (Rescuers)', 'The Rescuers', 's', '🐭'],  // wiki import
-  ['Edna Mode', 'Incredibles', 's', '💪'],  // wiki import
-  ['Evelyn Deavor', 'Incredibles', 's', '💪'],  // wiki import
-  ['Jack-Jack', 'Incredibles', 's', '💪'],  // wiki import
-  ['Barrel', 'Nightmare Before Christmas', 's', '🎃'],  // wiki import
-  ['Lock', 'Nightmare Before Christmas', 's', '🎃'],  // wiki import
-  ['Santa Claus', 'Nightmare Before Christmas', 's', '🎃'],  // wiki import
-  ['Shock', 'Nightmare Before Christmas', 's', '🎃'],  // wiki import
-  ['Fire Spirit', 'Frozen', 's', '❄️'],  // wiki import
-  ['Honeymaren', 'Frozen', 's', '❄️'],  // wiki import
-  ['Marshmallow', 'Frozen', 's', '❄️'],  // wiki import
-  ['Ryder', 'Frozen', 's', '❄️'],  // wiki import
-  ['Chien-Po', 'Mulan', 's', '🏯'],  // wiki import
-  ['Khan', 'Mulan', 's', '🏯'],  // wiki import
-  ['Ling', 'Mulan', 's', '🏯'],  // wiki import
-  ['The Emperor', 'Mulan', 's', '🏯'],  // wiki import
-  ['Yao', 'Mulan', 's', '🏯'],  // wiki import
-  ['Chip (BATB)', 'Beauty and the Beast', 's', '🌹'],  // wiki import
-  ['LeFou', 'Beauty and the Beast', 's', '🌹'],  // wiki import
-  ['Maurice', 'Beauty and the Beast', 's', '🌹'],  // wiki import
-  ['The Wardrobe', 'Beauty and the Beast', 's', '🌹'],  // wiki import
-  ['Banzai', 'Lion King', 's', '🦁'],  // wiki import
-  ['Ed', 'Lion King', 's', '🦁'],  // wiki import
-  ['Shenzi', 'Lion King', 's', '🦁'],  // wiki import
-  ['Carpet', 'Aladdin', 's', '🧞'],  // wiki import
-  ['Prince Achmed', 'Aladdin', 's', '🧞'],  // wiki import
-  ['The Sultan', 'Aladdin', 's', '🧞'],  // wiki import
-  ['Caterpillar', 'Alice in Wonderland', 's', '🐛'],  // wiki import
-  ['March Hare', 'Alice in Wonderland', 's', '🐛'],  // wiki import
-  ['The Dormouse', 'Alice in Wonderland', 's', '🐛'],  // wiki import
-  ['Prince Charming (Snow White)', 'Snow White and the Seven Dwarfs', 's', '🍎'],  // wiki import
-  ['The Queen', 'Snow White and the Seven Dwarfs', 's', '🍎'],  // wiki import
-  ['Christopher Robin', 'Winnie the Pooh', 's', '🍯'],  // wiki import
-  ['Gopher', 'Winnie the Pooh', 's', '🍯'],  // wiki import
-  ['Owl', 'Winnie the Pooh', 's', '🍯'],  // wiki import
-  ['Angel', 'Lilo & Stitch', 's', '🌺'],  // wiki import
-  ['Cobra Bubbles', 'Lilo & Stitch', 's', '🌺'],  // wiki import
-  ['David', 'Lilo & Stitch', 's', '🌺'],  // wiki import
-  ['Reuben', 'Lilo & Stitch', 's', '🌺'],  // wiki import
-  ['Go Go', 'Big Hero 6', 's', '🤖'],  // wiki import
-  ['King Triton', 'Little Mermaid', 's', '🧜'],  // wiki import
-  ['Max', 'Little Mermaid', 's', '🧜'],  // wiki import
-  ['Fix-It Felix Jr.', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['Gord', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['KnowsMore', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['Shank', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['Spamley', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['Yesss', 'Wreck-It Ralph', 's', '👾'],  // wiki import
-  ['Charlotte La Bouff', 'Princess and the Frog', 's', '🐸'],  // wiki import
-  ['Eudora', 'Princess and the Frog', 's', '🐸'],  // wiki import
-  ['Mama Odie', 'Princess and the Frog', 's', '🐸'],  // wiki import
-  ['Chief Tui', 'Moana', 's', '🌊'],  // wiki import
-  ['Gramma Tala', 'Moana', 's', '🌊'],  // wiki import
-  ['Heihei', 'Moana', 's', '🌊'],  // wiki import
-  ['Kele', 'Moana', 's', '🌊'],  // wiki import
-  ['Loto', 'Moana', 's', '🌊'],  // wiki import
-  ['Matangi', 'Moana', 's', '🌊'],  // wiki import
-  ['Moni', 'Moana', 's', '🌊'],  // wiki import
-  ['Pua', 'Moana', 's', '🌊'],  // wiki import
-  ['Simea', 'Moana', 's', '🌊'],  // wiki import
-  ['Sina', 'Moana', 's', '🌊'],  // wiki import
-  ['Bailey', 'Finding Nemo', 's', '🐟'],  // wiki import
-  ['Becky', 'Finding Nemo', 's', '🐟'],  // wiki import
-  ['Bruce', 'Finding Nemo', 's', '🐟'],  // wiki import
-  ['Destiny', 'Finding Nemo', 's', '🐟'],  // wiki import
-  ['Hank', 'Finding Nemo', 's', '🐟'],  // wiki import
-  ['Abuelita', 'Coco', 's', '💀'],  // wiki import
-  ['Héctor Rivera', 'Coco', 's', '💀'],  // wiki import
-  ['Mamá Imelda', 'Coco', 's', '💀'],  // wiki import
-  ['Miguel Rivera', 'Coco', 's', '💀'],  // wiki import
-  ['Barley', 'Onward', 's', '🧝'],  // wiki import
-  ['Blazey', 'Onward', 's', '🧝'],  // wiki import
-  ['Colt', 'Onward', 's', '🧝'],  // wiki import
-  ['Dad', 'Onward', 's', '🧝'],  // wiki import
-  ['Ian', 'Onward', 's', '🧝'],  // wiki import
-  ['Laurel', 'Onward', 's', '🧝'],  // wiki import
-  ['The Manticore', 'Onward', 's', '🧝'],  // wiki import
-  ['Hera', 'Hercules', 's', '⚡'],  // wiki import
-  ['The Hydra', 'Hercules', 's', '⚡'],  // wiki import
-  ['Lord Dingwall', 'Brave', 's', '🏹'],  // wiki import
-  ['Lord MacGuffin', 'Brave', 's', '🏹'],  // wiki import
-  ['Lord Macintosh', 'Brave', 's', '🏹'],  // wiki import
-  ['The Witch', 'Brave', 's', '🏹'],  // wiki import
-  ['Wee Dingwall', 'Brave', 's', '🏹'],  // wiki import
-  ['Young MacGuffin', 'Brave', 's', '🏹'],  // wiki import
-  ['Young Macintosh', 'Brave', 's', '🏹'],  // wiki import
-  ['Boun', 'Raya and the Last Dragon', 's', '🐉'],  // wiki import
-  ['Tuk Tuk', 'Raya and the Last Dragon', 's', '🐉'],  // wiki import
-  ['Machiavelli', 'Luca', 's', '🐟'],  // wiki import
-  ['Anita', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Cruella', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Freckles', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Lucky', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Patch', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Penny', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Roger', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Rolly', 'Dalmatians', 's', '🐾'],  // wiki import
-  ['Blue Fairy', 'Pinocchio', 's', '🤥'],  // wiki import
-  ['Figaro', 'Pinocchio', 's', '🤥'],  // wiki import
-  ['Geppetto', 'Pinocchio', 's', '🤥'],  // wiki import
-  ['Sir Hiss', 'Robin Hood', 's', '🏹'],  // wiki import
-  ['Abby', 'Turning Red', 's', '🐼'],  // wiki import
-  ['Meilin \"Mei\" Lee', 'Turning Red', 's', '🐼'],  // wiki import
-  ['Ming Lee', 'Turning Red', 's', '🐼'],  // wiki import
-  ['Miriam', 'Turning Red', 's', '🐼'],  // wiki import
-  ['Priya', 'Turning Red', 's', '🐼'],  // wiki import
-  ['Phoebus', 'Hunchback of Notre Dame', 's', '🔔'],  // wiki import
-  ['22', 'Soul', 's', '🎷'],  // wiki import
-  ['Dorothea Williams', 'Soul', 's', '🎷'],  // wiki import
-  ['Joe Gardner', 'Soul', 's', '🎷'],  // wiki import
-  ['Moonwind', 'Soul', 's', '🎷'],  // wiki import
-  ['Mr. Mittens', 'Soul', 's', '🎷'],  // wiki import
-  ['Antonio', 'Encanto', 's', '🦋'],  // wiki import
-  ['Anxiety', 'Inside Out', 's', '😊'],  // wiki import
-  ['Embarrassment', 'Inside Out', 's', '😊'],  // wiki import
-  ['Ennui', 'Inside Out', 's', '😊'],  // wiki import
-  ['Envy', 'Inside Out', 's', '😊'],  // wiki import
-  ['Nostalgia', 'Inside Out', 's', '😊'],  // wiki import
-  ['Henry Jones, Sr.', 'Indiana Jones', 's', '🤠'],  // wiki import
-  ['Indiana Jones', 'Indiana Jones', 's', '🤠'],  // wiki import
-  ['Marion Ravenwood', 'Indiana Jones', 's', '🤠'],  // wiki import
-  ['René Belloq', 'Indiana Jones', 's', '🤠'],  // wiki import
-  ['Sallah', 'Indiana Jones', 's', '🤠'],  // wiki import
-  ['Eilonwy', 'Black Cauldron', 's', '🏴'],  // wiki import
-  ['Fflewddur Fflam', 'Black Cauldron', 's', '🏴'],  // wiki import
-  ['Gurgi', 'Black Cauldron', 's', '🏴'],  // wiki import
-  ['Taran', 'Black Cauldron', 's', '🏴'],  // wiki import
-  ['The Horned King', 'Black Cauldron', 's', '🏴'],  // wiki import
-  ['Animal', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Beaker', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Dr. Bunsen Honeydew', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Fozzie Bear', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Gonzo', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Kermit', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Miss Piggy', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Pepé', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Rowlf', 'The Muppets', 's', '🐸'],  // wiki import
-  ['The Swedish Chef', 'The Muppets', 's', '🐸'],  // wiki import
-  ['Baby Scrat', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Buck', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Crash', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Diego', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Eddie', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Ellie', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Manny', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Scrat', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Sid', 'Ice Age', 's', '🧊'],  // wiki import
-  ['Atta', 'Bug\'s Life', 's', '🐛'],  // wiki import
-  ['Dot', 'Bug\'s Life', 's', '🐛'],  // wiki import
-  ['Flik', 'Bug\'s Life', 's', '🐛'],  // wiki import
-  ['Heimlich', 'Bug\'s Life', 's', '🐛'],  // wiki import
-  ['Hopper', 'Bug\'s Life', 's', '🐛'],  // wiki import
-  ['Fiddler Pig', 'Silly Symphony', 's', '🎶'],  // wiki import
-  ['Fifer Pig', 'Silly Symphony', 's', '🎶'],  // wiki import
-  ['Little Red Riding Hood', 'Silly Symphony', 's', '🎶'],  // wiki import
-  ['Practical Pig', 'Silly Symphony', 's', '🎶'],  // wiki import
-  ['The Big Bad Wolf', 'Silly Symphony', 's', '🎶'],  // wiki import
-  ['Flo', 'Cars', 's', '🏎️'],  // wiki import
-  ['Guido', 'Cars', 's', '🏎️'],  // wiki import
-  ['Tow Mater', 'Cars', 's', '🏎️'],  // wiki import
-  ['Big Mama', 'Fox and the Hound', 's', '🦊'],  // wiki import
-  ['Widow Tweed', 'Fox and the Hound', 's', '🦊'],  // wiki import
-  ['Chernabog', 'Fantasia', 's', '🎵'],  // wiki import
-  ['Magic Broom', 'Fantasia', 's', '🎵'],  // wiki import
-  ['Colonel Quaritch', 'Avatar', 's', '💙'],  // wiki import
-  ['Jake Sully', 'Avatar', 's', '💙'],  // wiki import
-  ['Kiri', 'Avatar', 's', '💙'],  // wiki import
-  ['Neytiri', 'Avatar', 's', '💙'],  // wiki import
-  ['Tuk', 'Avatar', 's', '💙'],  // wiki import
-  ['Periwinkle', 'Disney Fairies', 's', '🧚'],  // wiki import
-  ['Queen Clarion', 'Disney Fairies', 's', '🧚'],  // wiki import
-];
+  ["Phoebus", "Hunchback of Notre Dame", "s", "🔔"],
+  // Soul
+  ["22", "Soul", "s", "🎷"],
+  ["Dorothea Williams", "Soul", "s", "🎷"],
+  ["Joe Gardner", "Soul", "s", "🎷"],
+  ["Moonwind", "Soul", "s", "🎷"],
+  ["Mr. Mittens", "Soul", "s", "🎷"],
+  // Indiana Jones
+  ["Henry Jones, Sr.", "Indiana Jones", "s", "🤠"],
+  ["Indiana Jones", "Indiana Jones", "s", "🤠"],
+  ["Marion Ravenwood", "Indiana Jones", "s", "🤠"],
+  ["René Belloq", "Indiana Jones", "s", "🤠"],
+  ["Sallah", "Indiana Jones", "s", "🤠"],
+  // The Black Cauldron
+  ["Eilonwy", "Black Cauldron", "s", "🏴"],
+  ["Fflewddur Fflam", "Black Cauldron", "s", "🏴"],
+  ["Gurgi", "Black Cauldron", "s", "🏴"],
+  ["Taran", "Black Cauldron", "s", "🏴"],
+  ["The Horned King", "Black Cauldron", "s", "🏴"],
+  // The Muppets
+  ["Animal", "The Muppets", "s", "🐸"],
+  ["Beaker", "The Muppets", "s", "🐸"],
+  ["Dr. Bunsen Honeydew", "The Muppets", "s", "🐸"],
+  ["Fozzie Bear", "The Muppets", "s", "🐸"],
+  ["Gonzo", "The Muppets", "s", "🐸"],
+  ["Kermit", "The Muppets", "s", "🐸"],
+  ["Miss Piggy", "The Muppets", "s", "🐸"],
+  ["Pepé", "The Muppets", "s", "🐸"],
+  ["Rowlf", "The Muppets", "s", "🐸"],
+  ["The Swedish Chef", "The Muppets", "s", "🐸"],
+  // Ice Age
+  ["Baby Scrat", "Ice Age", "s", "🧊"],
+  ["Buck", "Ice Age", "s", "🧊"],
+  ["Crash", "Ice Age", "s", "🧊"],
+  ["Diego", "Ice Age", "s", "🧊"],
+  ["Eddie", "Ice Age", "s", "🧊"],
+  ["Ellie", "Ice Age", "s", "🧊"],
+  ["Manny", "Ice Age", "s", "🧊"],
+  ["Scrat", "Ice Age", "s", "🧊"],
+  ["Sid", "Ice Age", "s", "🧊"],
+  // The Bug's Life
+  ["Atta", "Bug's Life", "s", "🐛"],
+  ["Dot", "Bug's Life", "s", "🐛"],
+  ["Flik", "Bug's Life", "s", "🐛"],
+  ["Heimlich", "Bug's Life", "s", "🐛"],
+  ["Hopper", "Bug's Life", "s", "🐛"],
+  // Silly Symphony
+  ["Fiddler Pig", "Silly Symphony", "s", "🎶"],
+  ["Fifer Pig", "Silly Symphony", "s", "🎶"],
+  ["Little Red Riding Hood", "Silly Symphony", "s", "🎶"],
+  ["Practical Pig", "Silly Symphony", "s", "🎶"],
+  ["The Big Bad Wolf", "Silly Symphony", "s", "🎶"],
+  // Fantasia
+  ["Chernabog", "Fantasia", "s", "🎵"],
+  ["Magic Broom", "Fantasia", "s", "🎵"],
+  //Avatar
+  ["Colonel Quaritch", "Avatar", "s", "💙"],
+  ["Jake Sully", "Avatar", "s", "💙"],
+  ["Kiri", "Avatar", "s", "💙"],
+  ["Neytiri", "Avatar", "s", "💙"],
+  ["Tuk", "Avatar", "s", "💙"],
+ ];
 
 const COLLECTION_ICONS = {
   'Aladdin': 'Cc-aladdin-l.png',
