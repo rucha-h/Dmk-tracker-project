@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Decorations — DMK Helper</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>DMK Helper</h1>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="tabs">
+    <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
+    <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
+    <a class="tab" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
+    <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
+    <a class="tab" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
+    <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
+    <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
+    <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
+    <a class="tab" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
+    <a class="tab active" href="decorations.html"><span class="tab-icon">🎀</span>Decorations</a>
+    <a class="tab" href="daily.html"><span class="tab-icon">📅</span>Daily</a>
+    <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div id="tab-decorations" class="section active">
+
+      <!-- Progress Header -->
+      <div class="card" style="margin-bottom:10px;">
+        <div class="card-title">
+          <span class="icon">🎀</span>Decorations
+          <span id="dec-pct-label" style="font-size:12px;font-weight:400;color:var(--muted);margin-left:auto;"></span>
+        </div>
+        <div style="height:6px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;">
+          <div id="dec-prog-bar" style="height:100%;width:0%;border-radius:10px;background:linear-gradient(90deg,#f472b6,var(--gold));transition:width 0.4s;"></div>
+        </div>
+      </div>
+
+      <!-- Filters -->
+      <div class="card" style="padding:12px 16px;margin-bottom:10px;">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="text" id="dec-search" placeholder="🔍 Search decorations..." autocomplete="off"
+            oninput="renderDecorations()"
+            style="flex:1;min-width:160px;font-size:13px;">
+          <select id="dec-coll-filter" onchange="renderDecorations()"
+            style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">
+            <option value="">All Collections</option>
+          </select>
+          <select id="dec-sort" onchange="renderDecorations()"
+            style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">
+            <option value="name">A-Z</option>
+            <option value="collection">Collection</option>
+            <option value="category">Category</option>
+            <option value="size">Size</option>
+          </select>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+          <!-- Ownership filters -->
+          <button onclick="setDecFilter('all',this)" class="filter-btn active" id="dec-btn-all">All</button>
+          <button onclick="setDecFilter('owned',this)" class="filter-btn" id="dec-btn-owned">✅ Owned</button>
+          <button onclick="setDecFilter('missing',this)" class="filter-btn" id="dec-btn-missing">○ Missing</button>
+          <!-- Category filters -->
+          <span style="width:1px;height:20px;background:var(--border);margin:0 2px;"></span>
+          <button onclick="setDecCatFilter('',this)" class="filter-btn active" id="dec-cat-all" style="font-size:10px;">📦 All Types</button>
+          <button onclick="setDecCatFilter('Trophy',this)" class="filter-btn" id="dec-cat-trophy" style="font-size:10px;">🏆 Trophy</button>
+          <button onclick="setDecCatFilter('Greenery',this)" class="filter-btn" id="dec-cat-greenery" style="font-size:10px;">🌿 Greenery</button>
+          <button onclick="setDecCatFilter('Monument',this)" class="filter-btn" id="dec-cat-monument" style="font-size:10px;">🗿 Monument</button>
+          <button onclick="setDecCatFilter('Scenery',this)" class="filter-btn" id="dec-cat-scenery" style="font-size:10px;">🏞️ Scenery</button>
+          <button onclick="setDecCatFilter('Amenity',this)" class="filter-btn" id="dec-cat-amenity" style="font-size:10px;">🪑 Amenity</button>
+          <span id="dec-count" style="margin-left:auto;font-size:11px;color:var(--muted);align-self:center;"></span>
+        </div>
+      </div>
+
+      <!-- Grid -->
+      <div id="dec-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;"></div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>DMK Helper © 2026</p>
+  </footer>
+  <script src="data.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

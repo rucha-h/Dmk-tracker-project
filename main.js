@@ -16,11 +16,11 @@ let _encBuiltFilter = 'all';
 let state = {
   characters: [],
   quests: [],
-  events: [],
   daily: [],
   resources: { magic: 0, gems: 0, tokens: 0, rare: 0 },
   attractions: [],
-  costumes: [],   // [{id, owned}]
+  costumes: [],        // [{id, owned}]
+  decorations_owned: {}, // { [name]: true }
   charFilter: 'all'
 };
 
@@ -36,14 +36,10 @@ const defaultDaily = [
   { id: 'd6', text: 'Send all characters on tasks (none idle)', points: '🔄 Max efficiency', done: false },
   { id: 'd7', text: 'Check for enchanted chests in Kingdom', points: '📦 Free chests', done: false },
   { id: 'd8', text: 'Level up any ready characters', points: '💎 +Gems', done: false },
-  { id: 'd9', text: 'Check active event progress', points: '🎉 Event currency', done: false },
+  { id: 'd9', text: 'Check decoration progress', points: '🎀 Decorations', done: false },
   { id: 'd10', text: 'Set overnight 8-hour tasks before bed', points: '🌙 Overnight earn', done: false },
 ];
 
-const defaultEvents = [
-  { id: 'e1', name: 'Tower Challenge', emoji: '🗼', status: 'active', curr: 0, goal: 5000, days: 7, note: 'Earn Maleficent Coins to exchange for event character tokens.' },
-  { id: 'e2', name: 'Season Pass (Free Track)', emoji: '🎫', status: 'active', curr: 0, goal: 10, days: 30, note: 'Complete free track milestones for Magic, Gems & decorations.' },
-];
 
 // ============ LOAD / SAVE ============
 // Build canonical character list from DMK_CHARS
@@ -81,17 +77,19 @@ function loadState() {
           state.characters.push({ ...cc, max: 10, level: parseInt(cc.level) || 0 });
         }
       });
+
+      if (!state.decorations_owned) state.decorations_owned = {};
     } else {
       state.characters = allChars;
       state.quests = defaultQuests.map(q => ({ ...q }));
       state.daily = defaultDaily.map(d => ({ ...d }));
-      state.events = defaultEvents.map(e => ({ ...e }));
+      state.decorations_owned = {};
     }
   } catch(e) {
     state.characters = allChars;
     state.quests = defaultQuests.map(q => ({ ...q }));
     state.daily = defaultDaily.map(d => ({ ...d }));
-    state.events = defaultEvents.map(e => ({ ...e }));
+    state.decorations_owned = {};
   }
 }
 
@@ -116,7 +114,7 @@ function switchTab(id, btnEl) {
   if (id === 'dashboard') updateDashboard();
   if (id === 'characters') { renderChars(); }
   if (id === 'campaign') renderQuests();
-  if (id === 'events') renderEvents();
+  if (id === 'decorations') renderDecorations();
   if (id === 'daily') renderDaily();
   if (id === 'costumes') renderCostumes();
   if (id === 'enchantments') { renderEnchantmentsTab(); }
@@ -542,74 +540,132 @@ function toggleArcCollapse(arcId) {
   if (body) body.style.display = body.style.display === 'none' ? '' : 'none';
 }
 
-// ============ EVENTS ============
-function addEvent() {
-  const name = getEl('event-name-input').value.trim();
-  if (!name) return;
-  const status = getEl('event-status-input').value;
-  const curr = parseInt(getEl('event-curr-input').value) || 0;
-  const goal = parseInt(getEl('event-goal-input').value) || 100;
-  const days = parseInt(getEl('event-days-input').value) || 7;
+// ============ DECORATIONS ============
+let _decFilter    = 'all';
+let _decCatFilter = '';
 
-  const emojis = { active: '🎉', upcoming: '⏳', past: '📜' };
-  state.events.push({ id: 'ev' + Date.now(), name, emoji: emojis[status], status, curr, goal, days, note: '' });
-  getEl('event-name-input').value = '';
-  getEl('event-curr-input').value = '';
-  getEl('event-goal-input').value = '';
-  getEl('event-days-input').value = '';
-  saveState(); renderEvents();
+function setDecFilter(f, btn) {
+  _decFilter = f;
+  ['all', 'owned', 'missing'].forEach(k => {
+    const b = getEl('dec-btn-' + k);
+    if (b) b.classList.toggle('active', k === f);
+  });
+  renderDecorations();
 }
 
-function updateEventCurr(id, delta) {
-  const ev = state.events.find(x => x.id === id);
-  if (!ev) return;
-  ev.curr = Math.max(0, Math.min(ev.goal, ev.curr + delta));
-  saveState(); renderEvents();
+function setDecCatFilter(f, btn) {
+  _decCatFilter = f;
+  ['', 'Trophy', 'Greenery', 'Monument', 'Scenery', 'Amenity'].forEach(k => {
+    const id = 'dec-cat-' + (k === '' ? 'all' : k.toLowerCase());
+    const b = getEl(id);
+    if (b) b.classList.toggle('active', k === f);
+  });
+  renderDecorations();
 }
 
-function removeEvent(id) {
-  state.events = state.events.filter(x => x.id !== id);
-  saveState(); renderEvents();
+function initDecCollFilter() {
+  const sel = getEl('dec-coll-filter');
+  if (!sel || sel.options.length > 1) return;
+  const colls = [...new Set(DMK_DECORATIONS.map(d => d.collection))].sort();
+  colls.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
 }
 
-function renderEvents() {
-  const list = getEl('events-list');
-  if (!list) return;
-  if (!state.events.length) {
-    list.innerHTML = '<div class="empty-state"><div class="es-icon">🎉</div><p>No events tracked yet.<br>Add an event below to track your progress!</p></div>';
+function toggleDecOwned(name) {
+  if (!state.decorations_owned) state.decorations_owned = {};
+  state.decorations_owned[name] = !state.decorations_owned[name];
+  saveState();
+  renderDecorations();
+}
+
+function renderDecorations() {
+  if (typeof DMK_DECORATIONS === 'undefined') return;
+  initDecCollFilter();
+  const grid = getEl('dec-grid');
+  if (!grid) return;
+
+  const search = (getEl('dec-search')?.value || '').toLowerCase();
+  const coll   = getEl('dec-coll-filter')?.value || '';
+  const sort   = getEl('dec-sort')?.value || 'name';
+
+  let items = DMK_DECORATIONS.filter(d => {
+    const owned = state.decorations_owned?.[d.name];
+    if (_decFilter === 'owned'   && !owned) return false;
+    if (_decFilter === 'missing' && owned)  return false;
+    if (_decCatFilter && d.category !== _decCatFilter) return false;
+    if (coll && d.collection !== coll) return false;
+    if (search &&
+        !d.name.toLowerCase().includes(search) &&
+        !d.collection.toLowerCase().includes(search) &&
+        !d.category.toLowerCase().includes(search)) return false;
+    return true;
+  });
+
+  if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
+  else if (sort === 'category') items.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
+  else if (sort === 'size') items.sort((a, b) => a.size.localeCompare(b.size) || a.name.localeCompare(b.name));
+  else items.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Progress bar
+  const totalAll = DMK_DECORATIONS.length;
+  const ownedAll = DMK_DECORATIONS.filter(d => state.decorations_owned?.[d.name]).length;
+  const pct = totalAll > 0 ? Math.round(ownedAll / totalAll * 100) : 0;
+  const pctLabel = getEl('dec-pct-label');
+  if (pctLabel) pctLabel.textContent = `${ownedAll} / ${totalAll} owned (${pct}%)`;
+  const progBar = getEl('dec-prog-bar');
+  if (progBar) progBar.style.width = pct + '%';
+
+  const countEl = getEl('dec-count');
+  if (countEl) countEl.textContent = items.length + ' decorations';
+
+  const catEmoji    = { Trophy: '🏆', Greenery: '🌿', Monument: '🗿', Scenery: '🏞️', Amenity: '🪑' };
+  const catColor    = { Trophy: 'var(--gold)', Greenery: '#34d399', Monument: '#9ca3af', Scenery: '#60a5fa', Amenity: '#f472b6' };
+  const rarityColor = { Common: '#9ca3af', Uncommon: '#34d399', Rare: '#60a5fa', Epic: '#c084fc', Legendary: '#fbbf24' };
+
+  if (!items.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🎀</div><p>No decorations match this filter.</p></div>`;
     return;
   }
-  list.innerHTML = state.events.map(ev => {
-    const pct = ev.goal > 0 ? Math.min(100, ev.curr / ev.goal * 100) : 0;
-    const statusClass = { active: 'status-active', upcoming: 'status-upcoming', past: 'status-past' }[ev.status];
-    const statusLabel = { active: '● ACTIVE', upcoming: '◐ UPCOMING', past: '○ PAST' }[ev.status];
-    const dailyNeeded = ev.days > 0 ? Math.ceil((ev.goal - ev.curr) / ev.days) : 0;
-    return `
-    <div class="event-card">
-      <div class="event-header">
-        <div>
-          <div class="event-name">${ev.emoji} ${ev.name}</div>
-          <span class="event-status ${statusClass}">${statusLabel}</span>
-          ${ev.note ? `<div style="font-size:11px;color:var(--muted);margin-top:5px;">${ev.note}</div>` : ''}
-        </div>
-        <button onclick="removeEvent('${ev.id}')" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;">✕</button>
-      </div>
-      <div class="event-progress">
-        <div class="event-prog-label">
-          <span>Event Currency</span>
-          <span>${ev.curr.toLocaleString()} / ${ev.goal.toLocaleString()}</span>
-        </div>
-        <div class="event-prog-bar"><div class="event-prog-fill" style="width:${pct}%"></div></div>
-        <div style="display:flex;gap:6px;margin-top:6px;align-items:center;">
-          <button class="btn-sm btn-minus" style="width:36px;flex:none;" onclick="updateEventCurr('${ev.id}',-100)">−100</button>
-          <button class="btn-sm btn-plus" style="flex:none;width:36px;" onclick="updateEventCurr('${ev.id}',100)">+100</button>
-          <button class="btn-sm btn-plus" style="flex:none;width:36px;" onclick="updateEventCurr('${ev.id}',500)">+500</button>
-          <div class="event-days">
-            📅 ${ev.days}d left
-            ${ev.status === 'active' && dailyNeeded > 0 ? `<span style="color:var(--orange)">· Need ${dailyNeeded.toLocaleString()}/day</span>` : ''}
+
+  grid.innerHTML = items.map(d => {
+    const owned     = state.decorations_owned?.[d.name];
+    const col       = catColor[d.category] || 'var(--muted)';
+    const rCol      = rarityColor[d.rarity] || 'var(--muted)';
+    const borderCol = owned ? 'var(--green)' : 'var(--border)';
+    const bgStyle   = owned ? 'background:rgba(57,232,124,0.04);' : '';
+
+    return `<div style="background:var(--card);border:1px solid ${borderCol};${bgStyle}border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+      <div style="display:flex;align-items:flex-start;gap:10px;">
+        <span style="font-size:26px;line-height:1;">${d.emoji}</span>
+        <div style="flex:1;min-width:0;">
+          <div style="font-weight:800;font-size:13px;line-height:1.3;">${d.name}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(d.collection, 14)}${d.collection}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;">
+            <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${col};padding:1px 7px;border-radius:6px;">${catEmoji[d.category] || ''} ${d.category}</span>
+            <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${rCol};padding:1px 7px;border-radius:6px;">${d.rarity || ''}</span>
+            ${owned ? `<span style="font-size:10px;font-weight:800;background:rgba(57,232,124,0.18);color:var(--green);padding:1px 7px;border-radius:6px;">✓ OWNED</span>` : ''}
           </div>
         </div>
       </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;">
+        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
+          <div style="color:var(--muted);">Size</div>
+          <div style="font-weight:700;">${d.size}</div>
+        </div>
+        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
+          <div style="color:var(--muted);">⚗️ Elixir</div>
+          <div style="font-weight:700;color:${rCol};">${d.elixir || '—'}</div>
+        </div>
+      </div>
+      <button onclick="toggleDecOwned('${d.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')"
+        style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
+        background:${owned ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
+        color:${owned ? 'var(--green)' : 'var(--gold)'};">
+        ${owned ? '✓ Mark as Not Owned' : '＋ Mark as Owned'}
+      </button>
     </div>`;
   }).join('');
 }
@@ -709,11 +765,11 @@ function updateDashboard() {
   // Focus list
   const focusItems = [];
   if (dailyPct < 100) focusItems.push({ icon: '📅', text: `<strong>${state.daily.length - dailyDone} daily tasks</strong> remaining — complete them for Magic, Gems & free chests.` });
-  const activeEvents = state.events.filter(e => e.status === 'active' && e.curr < e.goal);
-  if (activeEvents.length) {
-    const ev = activeEvents[0];
-    const needed = ev.days > 0 ? Math.ceil((ev.goal - ev.curr) / ev.days) : 0;
-    focusItems.push({ icon: '🎉', text: `<strong>${ev.name}</strong> is active — earn ${needed.toLocaleString()} currency/day to finish on time.` });
+  const missingDecorations = DMK_DECORATIONS
+    ? DMK_DECORATIONS.filter(d => !state.decorations_owned?.[d.name])
+    : [];
+  if (missingDecorations.length) {
+    focusItems.push({ icon: '🎀', text: `<strong>${missingDecorations.length} decoration(s)</strong> not yet owned — visit the Decorations tab to track them.` });
   }
   const needsLevel = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
   if (needsLevel.length) focusItems.push({ icon: '⬆️', text: `<strong>${needsLevel.length} character(s)</strong> can be leveled up. Prioritize characters blocking quest progress!` });
@@ -990,17 +1046,15 @@ function renderAttractions() {
 loadState();
 loadAttractions();
 loadCostumes();
+if (!state.decorations_owned) state.decorations_owned = {};
+if (!state.concessions_owned) state.concessions_owned = {};
 updateDashboard();
 renderChars();
 renderQuests();
-renderEvents();
-renderDaily();
-renderAttractions();
-renderCostumes();
+renderDecorations();
 renderTokens();
 renderFloats();
 renderEnchantmentsTab();
-if (!state.concessions_owned) state.concessions_owned = {};
 renderConcessions();
 
 
