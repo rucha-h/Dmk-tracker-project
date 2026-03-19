@@ -1258,7 +1258,7 @@ function renderTokens() {
   if (_tokFilter === 'wishlist') {
     chars = state.characters.filter(c => !c.welcomed && state.wishlist?.[c.id]);
   } else {
-    chars = state.characters.filter(c => c.welcomed || state.wishlist?.[c.id]);
+    chars = state.characters.filter(c => (c.welcomed && c.level < c.max) || state.wishlist?.[c.id]);
   }
 
   if (search) chars = chars.filter(c => {
