@@ -1,4 +1,3 @@
-   console.log("Script started");
 function getEl(id) {
   const el = document.getElementById(id);
   return el ? el : null;   // returns null if not found
@@ -19,14 +18,11 @@ let state = {
   daily: [],
   resources: { magic: 0, gems: 0, tokens: 0, rare: 0 },
   attractions: [],
-  costumes: [],        // [{id, owned}]
-  decorations_owned: {}, // { [name]: true }
-  charFilter: 'all'
+  costumes: [],
+  decorations_owned: {},
 };
 
 // ============ DEFAULT DATA ============
-const defaultQuests = []; // Quests are now tracked per-arc via STORYLINE_ARCS
-
 const defaultDaily = [
   { id: 'd1', text: 'Collect Daily Calendar reward', points: '🎁 Daily Chest', done: false },
   { id: 'd2', text: 'Watch in-game announcement (free Gems)', points: '💎 +Gems', done: false },
@@ -36,10 +32,9 @@ const defaultDaily = [
   { id: 'd6', text: 'Send all characters on tasks (none idle)', points: '🔄 Max efficiency', done: false },
   { id: 'd7', text: 'Check for enchanted chests in Kingdom', points: '📦 Free chests', done: false },
   { id: 'd8', text: 'Level up any ready characters', points: '💎 +Gems', done: false },
-  { id: 'd9', text: 'Check decoration progress', points: '🎀 Decorations', done: false },
+  { id: 'd9', text: 'Mark new decorations as owned in Decorations tab', points: '🎀 Decorations', done: false },
   { id: 'd10', text: 'Set overnight 8-hour tasks before bed', points: '🌙 Overnight earn', done: false },
 ];
-
 
 // ============ LOAD / SAVE ============
 // Build canonical character list from DMK_CHARS
@@ -81,13 +76,13 @@ function loadState() {
       if (!state.decorations_owned) state.decorations_owned = {};
     } else {
       state.characters = allChars;
-      state.quests = defaultQuests.map(q => ({ ...q }));
+      state.quests = [];
       state.daily = defaultDaily.map(d => ({ ...d }));
       state.decorations_owned = {};
     }
   } catch(e) {
     state.characters = allChars;
-    state.quests = defaultQuests.map(q => ({ ...q }));
+    state.quests = [];
     state.daily = defaultDaily.map(d => ({ ...d }));
     state.decorations_owned = {};
   }
@@ -101,26 +96,35 @@ function saveState() {
   state.resources.rare = getEl('res-rare')?.value || 0;
   state.resources.dreamsparks = getEl('res-dreamsparks')?.value || 0;
   try { localStorage.setItem('dmk-tracker-v2', JSON.stringify(state)); } catch(e) {}
-  updateDashboard();
 }
 
 // ============ TABS ============
+const _tabRendered = {};
+
 function switchTab(id, btnEl) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   const section = getEl('tab-' + id);
   if (section) section.classList.add('active');
   if (btnEl) btnEl.classList.add('active');
-  if (id === 'dashboard') updateDashboard();
-  if (id === 'characters') { renderChars(); }
-  if (id === 'campaign') renderQuests();
-  if (id === 'decorations') renderDecorations();
-  if (id === 'daily') renderDaily();
-  if (id === 'costumes') renderCostumes();
-  if (id === 'enchantments') { renderEnchantmentsTab(); }
-  if (id === 'floats') { renderFloats(); }
-  if (id === 'tokens') { renderTokens(); }
-  if (id === 'concessions') { if (!state.concessions_owned) state.concessions_owned = {}; renderConcessions(); }
+
+  const firstVisit = !_tabRendered[id];
+  _tabRendered[id] = true;
+
+  if (id === 'dashboard') { updateDashboard(); return; }
+  if (id === 'characters') { if (firstVisit) populateCollFilter(); renderChars(); return; }
+  if (id === 'campaign')   { renderQuests(); return; }
+  if (id === 'decorations') { if (firstVisit) initDecCollFilter(); renderDecorations(); return; }
+  if (id === 'daily')      { renderDaily(); return; }
+  if (id === 'costumes')   { renderCostumes(); return; }
+  if (id === 'enchantments') { if (firstVisit) initEncCollFilter(); renderEnchantmentsTab(); return; }
+  if (id === 'floats')     { renderFloats(); return; }
+  if (id === 'tokens')     { renderTokens(); return; }
+  if (id === 'concessions') {
+    if (!state.concessions_owned) state.concessions_owned = {};
+    if (firstVisit) initConcessionCollFilter();
+    renderConcessions();
+  }
 }
 
 const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
@@ -138,10 +142,6 @@ function charImg(name, size) {
   if (!url) return '';
   const s = size + 'px';
   return `<img src="${url}" alt="${name}" style="width:${s};height:${s};object-fit:contain;" onerror="this.style.display='none'">`;
-}
-
-function filterCharsBySearch() {
-  renderChars();
 }
 
 // ---- Collection helpers ----
@@ -172,11 +172,15 @@ function pickCollection(val) {
   getEl('coll-dropdown').style.display = 'none';
 }
 
+let _lastCollList = '';
 function populateCollFilter() {
   const sel = getEl('collection-filter');
   if (!sel) return;
-  const current = sel.value;
   const cols = getAllCollections();
+  const key = cols.join('|');
+  if (key === _lastCollList) return; // no change, skip rebuild
+  _lastCollList = key;
+  const current = sel.value;
   sel.innerHTML = '<option value="">All Collections</option>' +
     cols.map(col => `<option value="${col}" ${col === current ? 'selected' : ''}>${col}</option>`).join('');
 }
@@ -288,6 +292,8 @@ function deleteCustomChar(id) {
 }
 
 let charFilter = 'all';
+let _charCollFilter = ''; // persisted collection filter
+
 function filterChars(f, btn) {
   charFilter = f;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -313,7 +319,9 @@ function renderChars() {
   populateCollFilter();
 
   const collFilter = getEl('collection-filter')?.value || '';
-  if (collFilter) chars = chars.filter(c => (c.collection || '') === collFilter);
+  if (collFilter) _charCollFilter = collFilter; // persist latest selection
+  const activeCollFilter = collFilter || _charCollFilter;
+  if (activeCollFilter) chars = chars.filter(c => (c.collection || '') === activeCollFilter);
 
   if (grid) {
   if (!chars.length) {
@@ -607,6 +615,7 @@ function renderDecorations() {
   if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
   else if (sort === 'category') items.sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
   else if (sort === 'size') items.sort((a, b) => a.size.localeCompare(b.size) || a.name.localeCompare(b.name));
+  else if (sort === 'elixir') items.sort((a, b) => (b.elixir || 0) - (a.elixir || 0) || a.name.localeCompare(b.name));
   else items.sort((a, b) => a.name.localeCompare(b.name));
 
   // Progress bar
@@ -768,8 +777,8 @@ function updateDashboard() {
   const missingDecorations = DMK_DECORATIONS
     ? DMK_DECORATIONS.filter(d => !state.decorations_owned?.[d.name])
     : [];
-  if (missingDecorations.length) {
-    focusItems.push({ icon: '🎀', text: `<strong>${missingDecorations.length} decoration(s)</strong> not yet owned — visit the Decorations tab to track them.` });
+  if (missingDecorations.length > 0 && missingDecorations.length <= 20) {
+    focusItems.push({ icon: '🎀', text: `<strong>${missingDecorations.length} decoration(s)</strong> almost complete — visit the Decorations tab to finish your collection.` });
   }
   const needsLevel = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
   if (needsLevel.length) focusItems.push({ icon: '⬆️', text: `<strong>${needsLevel.length} character(s)</strong> can be leveled up. Prioritize characters blocking quest progress!` });
@@ -916,15 +925,13 @@ function renderCostumes() {
   }).join('');
 }
 
-function saveAttrState() {
+function toggleAttr(id) {
+  const a = state.attractions.find(x => x.id === id);
+  if (!a) return;
+  a.built = !a.built;
   saveState();
   renderAttractions();
   updateDashboard();
-}
-
-function toggleAttr(id) {
-  const a = state.attractions.find(x => x.id === id);
-  if (a) { a.built = !a.built; saveAttrState(); }
 }
 
 function setAttrFilter(f, btn) {
@@ -934,11 +941,15 @@ function setAttrFilter(f, btn) {
   renderAttractions();
 }
 
+let _lastAttrCollList = '';
 function populateAttrCollFilter() {
   const sel = getEl('attr-collection-filter');
   if (!sel) return;
-  const cur = sel.value;
   const cols = [...new Set(DMK_ATTRACTIONS.map(a => a.collection))].sort();
+  const key = cols.join('|');
+  if (key === _lastAttrCollList) return;
+  _lastAttrCollList = key;
+  const cur = sel.value;
   sel.innerHTML = '<option value="">All Collections</option>' +
     cols.map(c => `<option value="${c}" ${c===cur?'selected':''}>${c}</option>`).join('');
 }
@@ -1051,14 +1062,49 @@ if (!state.concessions_owned) state.concessions_owned = {};
 updateDashboard();
 renderChars();
 renderQuests();
+renderDaily();
 renderDecorations();
 renderTokens();
 renderFloats();
-renderEnchantmentsTab();
-renderConcessions();
+initEncCollFilter(); renderEnchantmentsTab();
+initConcessionCollFilter(); renderConcessions();
+renderAttractions();
+renderCostumes();
 
 
-// ============ CONCESSIONS ============
+// ============ EXPORT / IMPORT STATE ============
+function exportState() {
+  const json = JSON.stringify(state, null, 2);
+  const blob = new Blob([json], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'dmk-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importState() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        const parsed = JSON.parse(ev.target.result);
+        if (!parsed.characters) throw new Error('Invalid backup file');
+        localStorage.setItem('dmk-tracker-v2', JSON.stringify(parsed));
+        location.reload();
+      } catch(err) {
+        alert('Import failed: ' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
 
 
 function filterConOwned(f) {
@@ -1082,7 +1128,6 @@ function initConcessionCollFilter() {
 }
 
 function renderConcessions() {
-  initConcessionCollFilter();
   const grid = getEl('con-grid');
   if (!grid) return;
   const search = (getEl('con-search')?.value || '').toLowerCase();
@@ -1105,13 +1150,11 @@ function renderConcessions() {
   else items.sort((a,b) => a.name.localeCompare(b.name));
 
   const con_count = getEl('con-count');
-  if (con_count) {
-    con_count.textContent = items.length + ' concessions';
-  }
+  if (con_count) con_count.textContent = items.length + ' concessions';
 
   const catIcon = { 'Food Stand':'🍔', 'Drink Stand':'🥤', 'Headwear Stand':'🎩', 'Souvenir Stand':'🎁' };
 
-  grid.innerHTML = items.map(c => {
+  const cardHtml = (c) => {
     const owned = state.concessions_owned && state.concessions_owned[c.name];
     const mphNum = parseFloat(c.magic_per_hour || 0);
     const mphColor = mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--accent)' : 'var(--muted)';
@@ -1119,8 +1162,7 @@ function renderConcessions() {
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:600;line-height:1.3;">${owned ? '✅' : '○'} ${c.name}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(c.collection, 14)} ${c.collection}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:1px;">${catIcon[c.category] || '📦'} ${c.category}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${catIcon[c.category] || '📦'} ${c.category}</div>
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-size:13px;font-weight:700;color:${mphColor};">✨${c.magic_per_hour}/hr</div>
@@ -1134,7 +1176,33 @@ function renderConcessions() {
         <span>✨ Magic: ${c.magic}</span>
       </div>
     </div>`;
-  }).join('');
+  };
+
+  if (sort === 'collection') {
+    // Grouped view — collection headers with owned/total counts
+    const byCollection = {};
+    items.forEach(c => {
+      if (!byCollection[c.collection]) byCollection[c.collection] = [];
+      byCollection[c.collection].push(c);
+    });
+    grid.innerHTML = Object.keys(byCollection).sort().map(col => {
+      const colItems = byCollection[col];
+      const colOwned = colItems.filter(c => state.concessions_owned?.[c.name]).length;
+      return `<div style="margin-bottom:16px;grid-column:1/-1;">
+        <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
+          padding:6px 10px;background:var(--card2);border-radius:8px;margin-bottom:8px;
+          display:flex;justify-content:space-between;align-items:center;">
+          <span>${collIcon(col, 20)}${col}</span>
+          <span style="color:var(--muted);font-size:10px;">${colOwned}/${colItems.length}</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
+          ${colItems.map(cardHtml).join('')}
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    grid.innerHTML = items.map(cardHtml).join('');
+  }
 }
 
 function toggleConcession(name) {
@@ -1165,7 +1233,6 @@ function initEncCollFilter() {
 }
 
 function renderEnchantmentsTab() {
-  initEncCollFilter();
   const list = getEl('enc-list');
   if (!list) return;
   const search = (getEl('enc-search')?.value || '').toLowerCase();
@@ -1298,6 +1365,37 @@ function renderTokens() {
   else filtered.sort((a,b) => a.name.localeCompare(b.name));
 
   getEl('tok-count').textContent = filtered.length + ' characters';
+
+  // Summary: aggregate tokens needed across all non-maxed welcomed chars
+  const summaryEl = getEl('tok-summary');
+  if (summaryEl) {
+    const allNonMaxed = state.characters.filter(c => c.welcomed && c.level < c.max);
+    const totals = {};
+    allNonMaxed.forEach(c => {
+      const needed = getNeededQty(c.name, c.level);
+      if (!needed) return;
+      needed.tokens.forEach((t, i) => {
+        const have = state.token_inventory?.[c.name]?.[t] || 0;
+        const need = needed.quantities[i];
+        const gap  = Math.max(0, need - have);
+        if (gap > 0) totals[t] = (totals[t] || 0) + gap;
+      });
+    });
+    const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+    if (entries.length) {
+      summaryEl.innerHTML = `
+        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;">
+          <div style="font-weight:700;color:var(--muted);font-size:10px;letter-spacing:0.05em;margin-bottom:6px;">TOKENS STILL NEEDED (all ${allNonMaxed.length} active characters)</div>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;">
+            ${entries.map(([t, n]) => `<span style="background:var(--card);border-radius:6px;padding:2px 8px;font-weight:700;">
+              ${t} <span style="color:var(--red);">×${n}</span>
+            </span>`).join('')}
+          </div>
+        </div>`;
+    } else {
+      summaryEl.innerHTML = '';
+    }
+  }
 
   list.innerHTML = filtered.map(c => {
     const needed = (!c.maxed && c.td) ? getNeededQty(c.name, c.level) : null;

@@ -32,7 +32,7 @@
     <div id="tab-characters" class="section active">
       <div class="card" style="padding:12px 16px;">
         <div style="display:flex;gap:8px;align-items:center;">
-          <input type="text" id="char-search-input" placeholder="🔍 Search characters..." autocomplete="off" oninput="filterCharsBySearch()" style="flex:1;min-width:0;">
+          <input type="text" id="char-search-input" placeholder="🔍 Search characters..." autocomplete="off" oninput="renderChars()" style="flex:1;min-width:0;">
           <button class="btn-sm" onclick="toggleAddForm()" id="add-char-toggle" style="white-space:nowrap;background:var(--card2);border:1px solid var(--border);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:12px;color:var(--text);">＋ New Character</button>
         </div>
 
@@ -87,7 +87,7 @@
         <button class="filter-btn" onclick="filterChars('storyline', this)">Storyline</button>
         <button class="filter-btn" onclick="filterChars('event', this)">Event</button>
         <button class="filter-btn" onclick="filterChars('premium', this)">Premium</button>
-        <select id="collection-filter" onchange="filterChars('all', document.querySelector('.filter-btn.active')); renderChars();"
+        <select id="collection-filter" onchange="renderChars()"
           style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
           <option value="">All Collections</option>
         </select>

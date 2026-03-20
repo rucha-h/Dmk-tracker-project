@@ -139,6 +139,21 @@
         <div class="card-title"><span class="icon">🎯</span>F2P Focus — What To Do Next</div>
         <div id="focus-list" class="tip-list"></div>
       </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">💾</span>Backup & Restore</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+          <button onclick="exportState()"
+            style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(87,210,255,0.12);color:var(--teal);">
+            ⬇ Export Backup
+          </button>
+          <button onclick="importState()"
+            style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(245,200,66,0.12);color:var(--gold);">
+            ⬆ Import Backup
+          </button>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted);">Export saves a JSON file you can use to restore progress or transfer to another device.</div>
+      </div>
     </div>
 <script src="data.js"></script>
 <script src="main.js"></script>
