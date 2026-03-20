@@ -561,7 +561,12 @@ const DMK_CHAR_TOKENS = {
   "Young MacGuffin": { "tokens": ["Tartan", "MacGuffin Tartan Brooch", "Young MacGuffin Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   "Young Macintosh": { "tokens": ["Tartan", "Macintosh Tartan Brooch", "Young Macintosh Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [40, 10, 5] }, { "level": 6, "quantities": [50, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
   "Zurg": { "tokens": ["Pixar Ball", "Blaster", "Zurg Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 15, 10] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 4] }, { "level": 5, "quantities": [20, 7, 5] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 13, 8] }, { "level": 8, "quantities": [35, 16, 10] }, { "level": 9, "quantities": [40, 20, 14] }, { "level": 10, "quantities": [50, 25, 20] }] },
-  "Toy Alien": { "tokens": ["Pixar Ball", "Claw", "Toy Alien Ears Hat"], "levels": [{ "level": 1, "quantities": [25, 25, 25] }, { "level": 2, "quantities": [5, 1, 1] }, { "level": 3, "quantities": [10, 2, 2] }, { "level": 4, "quantities": [15, 4, 4] }, { "level": 5, "quantities": [20, 6, 6] }, { "level": 6, "quantities": [25, 8, 8] }, { "level": 7, "quantities": [30, 10, 10] }, { "level": 8, "quantities": [35, 12, 12] }, { "level": 9, "quantities": [40, 16, 16] }, { "level": 10, "quantities": [50, 20, 20] }] }
+  "Toy Alien": { "tokens": ["Pixar Ball", "Claw", "Toy Alien Ears Hat"], "levels": [{ "level": 1, "quantities": [25, 25, 25] }, { "level": 2, "quantities": [5, 1, 1] }, { "level": 3, "quantities": [10, 2, 2] }, { "level": 4, "quantities": [15, 4, 4] }, { "level": 5, "quantities": [20, 6, 6] }, { "level": 6, "quantities": [25, 8, 8] }, { "level": 7, "quantities": [30, 10, 10] }, { "level": 8, "quantities": [35, 12, 12] }, { "level": 9, "quantities": [40, 16, 16] }, { "level": 10, "quantities": [50, 20, 20] }] },
+  "Will Turner": { "tokens": ["Pirate Flag", "Feathered Hat and Sword", "Will Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 10, 10] }, { "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 4, 4] }, { "level": 4, "quantities": [12, 6, 6] }, { "level": 5, "quantities": [16, 10, 8] }, { "level": 6, "quantities": [20, 14, 12] }, { "level": 7, "quantities": [25, 20, 16] }, { "level": 8, "quantities": [30, 26, 22] }, { "level": 9, "quantities": [40, 32, 30] }, { "level": 10, "quantities": [50, 40, 40] }] },
+  "Mrs. Incredible": { "tokens": ["The Incredibles Symbol", "Mrs. Incredible Mask", "Mrs. Incredible Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 4] }, { "level": 5, "quantities": [20, 7, 5] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 13, 8] }, { "level": 8, "quantities": [35, 16, 10] }, { "level": 9, "quantities": [40, 20, 14] }, { "level": 10, "quantities": [50, 25, 20] }] },
+  "Perdita": { "tokens": ["Dog Kibble", "Anita's Hat", "Perdita Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
+  "Randall Boggs": { "tokens": ["Scream Canister", "Boo's Drawing of Randall", "Randall Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
+  "Silvermist": { "tokens": ["Gossamer Wings", "Silvermist's Dewdrop", "Silvermist Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] }
 };
 
 //TOKEN Activities & floats for DMK characters. Floats are 2h, all other activities are 4h unless otherwise noted. Characters with a token activity that is 6h or longer are marked in red on the app.
@@ -7731,6 +7736,29 @@ const DMK_TOKEN_ACTIVITIES = {
   "Toy Alien Ears Hat": [
     { "char": "Toy Alien + Buzz Lightyear", "activity": "Travel with a Ranger", "char_level": "Level 3", "time": "8h" }
   ],
+  "Anita's Hat": [
+    { "char": "Anastasia Tremaine", "activity": "Sleep in at Home", "char_level": "Level 3", "time": "4h" },
+    { "char": "Lucky", "activity": "Go for a Walk", "char_level": "Level 3", "time": "4h" },
+    { "char": "Patch", "activity": "Play Pretend", "char_level": "Level 3", "time": "4h" },
+    { "char": "Penny", "activity": "Sniff Around", "char_level": "Level 3", "time": "4h" },
+    { "char": "Daisy Duck", "activity": "Visit Goofy's Playhouse", "char_level": "Level 3", "time": "6h" },
+    { "char": "The Park", "activity": "Enjoying the View", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Perdita Ears Hat": [
+    { "char": "Rolly", "activity": "Forage for Food", "char_level": "Level 3", "time": "4h" },
+    { "char": "Cruella", "activity": "Blare Horn", "char_level": "Level 4", "time": "6h" },
+    { "char": "Pongo", "activity": "Cruella's Lair", "char_level": "Level 7", "time": "6h" },
+    { "char": "Minnie Mouse", "activity": "Play Ukulele", "char_level": "Level 2", "time": "12h" },
+    { "char": "Cruella's Car", "activity": "Blaring the Horn", "char_level": "Level 2", "time": "2h" }
+  ],
+  "Mrs. Incredible Mask": [
+    { "char": "Dash", "activity": "Run Around", "char_level": "Level 1", "time": "2h" },
+    { "char": "Frozone", "activity": "Avoid the Fire", "char_level": "Level 2", "time": "2h" },
+    { "char": "Mr. Incredible", "activity": "Find the Computer", "char_level": "Level 2", "time": "2h" },
+    { "char": "Goofy", "activity": "Grab a Bite", "char_level": "Level 5", "time": "6h" },
+    { "char": "Mrs. Incredible", "activity": "Keeping Up Appearances", "char_level": "Level 5", "time": "6h" },
+    { "char": "Training Camp", "activity": "Preparing Practice Dummies", "char_level": "Level 0", "time": "60m" }
+  ]
 };
 
 //Enchantments for DMK characters. Enchantments with a timing of 6h or longer are marked in red on the app.
