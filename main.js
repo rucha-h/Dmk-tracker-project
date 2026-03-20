@@ -742,6 +742,46 @@ function updateDashboard() {
     if (attrPctEl) attrPctEl.textContent = attrPct + '%';
   }
 
+  // Costumes
+  if (state.costumes && state.costumes.length) {
+    const cosOwned = state.costumes.filter(c => c.owned).length;
+    const cosTotal = state.costumes.length;
+    const cosPct = cosTotal > 0 ? Math.round(cosOwned / cosTotal * 100) : 0;
+    const cosBar = getEl('dash-cos-bar'); const cosPctEl = getEl('dash-cos-pct');
+    if (cosBar) cosBar.style.width = cosPct + '%';
+    if (cosPctEl) cosPctEl.textContent = cosOwned + ' / ' + cosTotal;
+  }
+
+  // Floats
+  if (typeof DMK_FLOATS !== 'undefined') {
+    const floatOwned = DMK_FLOATS.filter(f => state.floats_owned?.[f.name]).length;
+    const floatTotal = DMK_FLOATS.length;
+    const floatPct = floatTotal > 0 ? Math.round(floatOwned / floatTotal * 100) : 0;
+    const floatBar = getEl('dash-float-bar'); const floatPctEl = getEl('dash-float-pct');
+    if (floatBar) floatBar.style.width = floatPct + '%';
+    if (floatPctEl) floatPctEl.textContent = floatOwned + ' / ' + floatTotal;
+  }
+
+  // Concessions
+  if (typeof DMK_CONCESSIONS_DATA !== 'undefined') {
+    const conOwned = DMK_CONCESSIONS_DATA.filter(c => state.concessions_owned?.[c.name]).length;
+    const conTotal = DMK_CONCESSIONS_DATA.length;
+    const conPct = conTotal > 0 ? Math.round(conOwned / conTotal * 100) : 0;
+    const conBar = getEl('dash-con-bar'); const conPctEl = getEl('dash-con-pct');
+    if (conBar) conBar.style.width = conPct + '%';
+    if (conPctEl) conPctEl.textContent = conOwned + ' / ' + conTotal;
+  }
+
+  // Decorations
+  if (typeof DMK_DECORATIONS !== 'undefined') {
+    const decOwned = DMK_DECORATIONS.filter(d => state.decorations_owned?.[d.name]).length;
+    const decTotal = DMK_DECORATIONS.length;
+    const decPct = decTotal > 0 ? Math.round(decOwned / decTotal * 100) : 0;
+    const decBar = getEl('dash-dec-bar'); const decPctEl = getEl('dash-dec-pct');
+    if (decBar) decBar.style.width = decPct + '%';
+    if (decPctEl) decPctEl.textContent = decOwned + ' / ' + decTotal;
+  }
+
   const storyPct = totalArqQuests > 0 ? Math.round(questsDone / totalArqQuests * 100) : 0;
   const charsPct = chars.length > 0 ? Math.round(welcomed / chars.length * 100) : 0;
   const dailyPct = state.daily.length > 0 ? Math.round(dailyDone / state.daily.length * 100) : 0;
@@ -1158,7 +1198,7 @@ function renderConcessions() {
     const owned = state.concessions_owned && state.concessions_owned[c.name];
     const mphNum = parseFloat(c.magic_per_hour || 0);
     const mphColor = mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--accent)' : 'var(--muted)';
-    return `<div class="card" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};" onclick="toggleConcession('${c.name.replace(/'/g,"\'")}')">
+    return `<div class="card con-card" data-name="${c.name.replace(/"/g,'&quot;')}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:600;line-height:1.3;">${owned ? '✅' : '○'} ${c.name}</div>
@@ -1211,6 +1251,12 @@ function toggleConcession(name) {
   saveState();
   renderConcessions();
 }
+
+// Delegated click handler — works for any name including apostrophes
+document.addEventListener('click', e => {
+  const card = e.target.closest('.con-card');
+  if (card) toggleConcession(card.dataset.name);
+});
 
 
 // ============ ENCHANTMENTS TAB ============
