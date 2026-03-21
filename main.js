@@ -57,20 +57,13 @@ function loadState() {
     if (saved) {
       const parsed = JSON.parse(saved);
       state = { ...state, ...parsed };
-      // Merge: keep saved progress, add any new chars from DB as unwelcomed, preserve custom chars
+      // Merge: keep saved progress, add any new chars from DB as unwelcomed
       const savedByName = {};
       (state.characters || []).forEach(c => { savedByName[c.name] = c; });
-      const customChars = (state.characters || []).filter(c => c.custom);
       state.characters = allChars.map(ch => {
         const saved = savedByName[ch.name];
         if (saved) return { ...ch, ...saved, max: 10, level: parseInt(saved.level) || 0 };
         return ch;
-      });
-      // Re-append custom user-added chars that aren't in DB
-      customChars.forEach(cc => {
-        if (!state.characters.find(ch => ch.name === cc.name)) {
-          state.characters.push({ ...cc, max: 10, level: parseInt(cc.level) || 0 });
-        }
       });
 
       if (!state.decorations_owned) state.decorations_owned = {};
@@ -146,30 +139,7 @@ function charImg(name, size) {
 
 // ---- Collection helpers ----
 function getAllCollections() {
-  const fromDB = DMK_CHARS.map(ch => ch[1]);
-  const fromCustom = state.characters.filter(c => c.custom).map(c => c.collection || '');
-  return [...new Set([...fromDB, ...fromCustom])].filter(Boolean).sort();
-}
-
-function showCollSuggestions() {
-  const input = getEl('new-char-collection');
-  const dd    = getEl('coll-dropdown');
-  const q     = input.value.trim().toLowerCase();
-  const all   = getAllCollections();
-  const matches = q ? all.filter(col => col.toLowerCase().includes(q)) : all;
-  if (!matches.length) { dd.style.display = 'none'; return; }
-  dd.innerHTML = matches.map(col =>
-    `<div style="padding:7px 12px;font-size:12px;cursor:pointer;border-bottom:1px solid rgba(255,255,255,0.04);"
-       onmousedown="pickCollection('${col.replace(/'/g,"'")}')"
-       onmouseover="this.style.background='rgba(245,200,66,0.1)'"
-       onmouseout="this.style.background=''">${col}</div>`
-  ).join('');
-  dd.style.display = 'block';
-}
-
-function pickCollection(val) {
-  getEl('new-char-collection').value = val;
-  getEl('coll-dropdown').style.display = 'none';
+  return [...new Set(DMK_CHARS.map(ch => ch[1]))].filter(Boolean).sort();
 }
 
 let _lastCollList = '';
@@ -185,59 +155,7 @@ function populateCollFilter() {
     cols.map(col => `<option value="${col}" ${col === current ? 'selected' : ''}>${col}</option>`).join('');
 }
 
-document.addEventListener('click', e => {
-  if (!e.target.closest('#new-char-collection') && !e.target.closest('#coll-dropdown')) {
-    const dd = getEl('coll-dropdown');
-    if (dd) dd.style.display = 'none';
-  }
-});
 // ---- end collection helpers ----
-
-function toggleAddForm() {
-  const form = getEl('add-char-form');
-  const btn  = getEl('add-char-toggle');
-  const open = form.style.display === 'none';
-  form.style.display = open ? 'block' : 'none';
-  btn.textContent = open ? '✕ Cancel' : '＋ New Character';
-  if (open) getEl('new-char-name').focus();
-}
-
-function addCustomChar() {
-  const name       = getEl('new-char-name').value.trim();
-  const collection = getEl('new-char-collection').value.trim() || 'Custom';
-  const emoji      = getEl('new-char-emoji').value.trim() || '🎪';
-  const typeCode   = getEl('new-char-type').value;
-  const level      = parseInt(getEl('new-char-level').value);
-  const errEl      = getEl('add-char-error');
-
-  if (!name) { errEl.textContent = 'Name is required.'; errEl.style.display='inline'; return; }
-
-  // Check against both DB and custom chars
-  const exists = state.characters.find(ch => ch.name.toLowerCase() === name.toLowerCase());
-  if (exists) { errEl.textContent = `"${name}" is already in your Kingdom!`; errEl.style.display='inline'; return; }
-
-  errEl.style.display = 'none';
-  state.characters.push({
-    id: 'custom_' + Date.now(),
-    name, collection,
-    type: TYPE_MAP[typeCode] || 'storyline',
-    emoji, level,
-    max: 10,
-    welcomed: level > 0,
-    custom: true   // flag so we know it was user-added
-  });
-
-  // Reset form
-  getEl('new-char-name').value = '';
-  getEl('new-char-collection').value = '';
-  getEl('new-char-emoji').value = '';
-  getEl('new-char-type').value = 's';
-  getEl('new-char-level').value = '0';
-  toggleAddForm();
-  saveState();
-  renderChars();
-}
-
 
 // ============ CHARACTERS ============
 
@@ -283,16 +201,7 @@ function removeChar(id) {
   saveState(); renderChars();
 }
 
-function deleteCustomChar(id) {
-  const ch = state.characters.find(x => x.id === id);
-  if (!ch || !ch.custom) return;
-  if (!confirm(`Remove "${ch.name}" from your Kingdom?`)) return;
-  state.characters = state.characters.filter(x => x.id !== id);
-  saveState(); renderChars();
-}
-
 let charFilter = 'all';
-let _charCollFilter = ''; // persisted collection filter
 
 function filterChars(f, btn) {
   charFilter = f;
@@ -319,9 +228,7 @@ function renderChars() {
   populateCollFilter();
 
   const collFilter = getEl('collection-filter')?.value || '';
-  if (collFilter) _charCollFilter = collFilter; // persist latest selection
-  const activeCollFilter = collFilter || _charCollFilter;
-  if (activeCollFilter) chars = chars.filter(c => (c.collection || '') === activeCollFilter);
+  if (collFilter) chars = chars.filter(c => (c.collection || '') === collFilter);
 
   if (grid) {
   if (!chars.length) {
@@ -352,7 +259,7 @@ function renderChars() {
         <div class="char-emoji">${charImg(c.name, 40) || c.emoji || '🎪'}</div>
         <div class="char-info">
           <div class="char-name">${c.name}</div>
-          <div class="char-type">${typeLabel} · ${collIcon(collLabel, 14)}${collLabel}${c.custom ? ' <span style="font-size:9px;background:rgba(120,180,255,0.15);color:#8af;padding:1px 5px;border-radius:4px;margin-left:3px;">custom</span>' : ''}</div>
+          <div class="char-type">${typeLabel} · ${collIcon(collLabel, 14)}${collLabel}</div>
         </div>
       </div>
       <div class="level-display">
@@ -364,7 +271,6 @@ function renderChars() {
         ${actionBtn}
         <button class="btn-sm btn-minus" data-action="leveldown" data-id="${c.id}">−Lvl</button>
         ${c.welcomed ? `<button class="btn-sm btn-minus" style="font-size:10px;" data-action="remove" data-id="${c.id}">Unwelcome</button>` : ''}
-      ${c.custom ? `<button class="btn-sm btn-minus" style="font-size:10px;background:rgba(220,60,60,0.15);" data-action="delete" data-id="${c.id}">🗑 Delete</button>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -385,7 +291,6 @@ if (grid) {
     if (action === 'leveldown') levelDown(id);
     if (action === 'welcome')   welcomeChar(id);
     if (action === 'remove')    removeChar(id);
-    if (action === 'delete')    deleteCustomChar(id);
   });
 }
 
@@ -1504,19 +1409,19 @@ function renderTokens() {
           <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
         </div>`
       ).join('');
-      return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'};">
+      return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'}" id="tokrow_${expandId}">
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="flex:1;min-width:0;">
             <div style="font-size:12px;font-weight:700;">${token} Token</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            <button onclick="adjustToken('${c.name.replace(/'/g,"\'")}','${token.replace(/'/g,"\'")}', -1)"
+            <button class="tok-adj" data-char="${c.name.replace(/"/g,'&quot;')}" data-token="${token.replace(/"/g,'&quot;')}" data-delta="-1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
-            <span style="font-weight:800;font-size:14px;min-width:28px;text-align:center;color:${enough ? 'var(--green)' : 'var(--red)'};">${have}</span>
-            <button onclick="adjustToken('${c.name.replace(/'/g,"\'")}','${token.replace(/'/g,"\'")}', 1)"
+            <span id="tokcnt_${expandId}" style="font-weight:800;font-size:14px;min-width:28px;text-align:center;color:${enough ? 'var(--green)' : 'var(--red)'};">${have}</span>
+            <button class="tok-adj" data-char="${c.name.replace(/"/g,'&quot;')}" data-token="${token.replace(/"/g,'&quot;')}" data-delta="1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
             <span style="font-size:11px;color:var(--muted);min-width:40px;">/ ${need}</span>
-            ${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);font-size:11px;">-'+(need-have)+'</span>'}
+            <span id="tokst_${expandId}" style="font-size:11px;">${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);">-'+(need-have)+'</span>'}</span>
             ${hasAny ? `<button onclick="toggleTokExpand('${expandId}')" id="btn_${expandId}"
               style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>` : ''}
           </div>
@@ -1545,7 +1450,7 @@ function renderTokens() {
         ${readyBadge}
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">${tokensHtml}</div>
-      ${allReady && !isWishlistChar ? `<button onclick="levelUpChar('${c.name.replace(/'/g,"\'")}',${needed.nextLevel})"
+      ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g,'&quot;')}" data-level="${needed.nextLevel}"
         style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:rgba(52,211,153,0.15);color:var(--green);">
         ✨ Mark as Level ${needed.nextLevel}
       </button>` : ''}
@@ -1558,7 +1463,35 @@ function adjustToken(charName, token, delta) {
   if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
   state.token_inventory[charName][token] = Math.max(0, (state.token_inventory[charName][token] || 0) + delta);
   saveState();
-  renderTokens();
+
+  // Update in-place — find the row by its stable id
+  const expandId = ('tok_' + charName + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
+  const cntEl  = getEl('tokcnt_' + expandId);
+  const stEl   = getEl('tokst_'  + expandId);
+  const rowEl  = getEl('tokrow_' + expandId);
+  if (!cntEl) { renderTokens(); return; } // row not rendered, fall back
+
+  const have = state.token_inventory[charName][token];
+  const td   = DMK_CHAR_TOKENS[charName];
+  const char = state.characters.find(c => c.name === charName);
+  const needed = (td && char) ? getNeededQty(charName, char.level) : null;
+  if (!needed) { renderTokens(); return; }
+
+  const tIdx   = needed.tokens.indexOf(token);
+  const need   = tIdx >= 0 ? needed.quantities[tIdx] : 0;
+  const enough = have >= need;
+
+  cntEl.textContent = have;
+  cntEl.style.color = enough ? 'var(--green)' : 'var(--red)';
+  stEl.innerHTML    = enough
+    ? '<span style="color:var(--green);font-size:12px;">✓</span>'
+    : `<span style="color:var(--red);">-${need - have}</span>`;
+  rowEl.style.borderColor = enough ? 'rgba(52,211,153,0.3)' : 'var(--border)';
+
+  // Re-render the whole card only if ready-state changed (border + badge + level button)
+  const allReady = needed.tokens.every((t, i) => (state.token_inventory?.[charName]?.[t] || 0) >= needed.quantities[i]);
+  const wasReady = rowEl.closest('.card')?.querySelector('.tok-levelup') !== null;
+  if (allReady !== wasReady) renderTokens();
 }
 
 function levelUpChar(charName, newLevel) {
@@ -1589,6 +1522,14 @@ function toggleTokExpand(id) {
   el.style.display = open ? 'none' : 'block';
   if (btn) btn.textContent = open ? '▼' : '▲';
 }
+
+// Delegated listeners — safe for any character/token name including apostrophes
+document.addEventListener('click', e => {
+  const adj = e.target.closest('.tok-adj');
+  if (adj) { adjustToken(adj.dataset.char, adj.dataset.token, +adj.dataset.delta); return; }
+  const lvl = e.target.closest('.tok-levelup');
+  if (lvl) { levelUpChar(lvl.dataset.char, +lvl.dataset.level); }
+});
 
 
 // ============ FLOATS ============
