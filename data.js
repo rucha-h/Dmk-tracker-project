@@ -1,3 +1,4 @@
+//Add new key-value pair to DMK_FLOAT_TOKENS object for each new collection, with the collection name as the key and an array of the collection's tokens as the value.
 const DMK_FLOAT_TOKENS = {
   "Mickey and Friends": ["Mickey Ears Hat", "Goofy Ears Hat", "Daisy Ears Hat", "Pluto Collar"],
   "Toy Story": ["Woody Ears Hat", "Jessie Ears Hat", "Sarge's Bucket", "Sarge Ears Hat"],
@@ -66,6 +67,7 @@ const DMK_FLOAT_TOKENS = {
   "Star Wars": ["Boba's Blaster", "Imperial Stormtrooper's Blaster", "Imperial Stormtrooper Ears Hat", "Lando's Cape", "Lando Calrissian Ears Hat"]
 };
 
+//Add new row to DMK_FLOATS array and new key-value pair to DMK_FLOAT_TOKENS object for each new collection. 
 const DMK_FLOATS = [
   { "collection": "Mickey and Friends", "name": "Mickey and Friends", "cost": "150", "time": "2h (± 8h)", "magic": "50", "gems": "3", "magic_reward": "150" },
   { "collection": "Toy Story", "name": "Toy Story", "cost": "400", "time": "2h (± 8h)", "magic": "125", "gems": "4", "magic_reward": "450" },
@@ -133,6 +135,7 @@ const DMK_FLOATS = [
   { "collection": "Avatar", "name": "Avatar", "cost": "500", "time": "2h (± 8h)", "magic": "250", "gems": "5", "magic_reward": "500" },
   { "collection": "Disney Fairies", "name": "Disney Fairies", "cost": "500", "time": "2h (± 8h)", "magic": "250", "gems": "5", "magic_reward": "500" }];
 
+  // Add new key-value pair to DMK_CHAR_TOKENS object for each new character, with the character's name as the key and an object containing the character's tokens and level requirements as the value.
 const DMK_CHAR_TOKENS = {
   "22": { "tokens": ["Personality Profile", "22's Maple Seed", "Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   "Mickey Mouse": { "tokens": ["Mickey Balloon", "Mickey Gloves", "Mickey Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
@@ -566,10 +569,13 @@ const DMK_CHAR_TOKENS = {
   "Mrs. Incredible": { "tokens": ["The Incredibles Symbol", "Mrs. Incredible Mask", "Mrs. Incredible Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 4] }, { "level": 5, "quantities": [20, 7, 5] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 13, 8] }, { "level": 8, "quantities": [35, 16, 10] }, { "level": 9, "quantities": [40, 20, 14] }, { "level": 10, "quantities": [50, 25, 20] }] },
   "Perdita": { "tokens": ["Dog Kibble", "Anita's Hat", "Perdita Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Randall Boggs": { "tokens": ["Scream Canister", "Boo's Drawing of Randall", "Randall Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
-  "Silvermist": { "tokens": ["Gossamer Wings", "Silvermist's Dewdrop", "Silvermist Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] }
+  "Silvermist": { "tokens": ["Gossamer Wings", "Silvermist's Dewdrop", "Silvermist Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
+  "Elizabeth Swann": { "tokens": ["Pirate Flag", "Hat and Sword", "Elizabeth Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 15, 10] }, { "level": 2, "quantities": [6, 2, 1] }, { "level": 3, "quantities": [8, 4, 2] }, { "level": 4, "quantities": [12, 6, 4] }, { "level": 5, "quantities": [16, 8, 6] }, { "level": 6, "quantities": [20, 12, 8] }, { "level": 7, "quantities": [25, 16, 12] }, { "level": 8, "quantities": [30, 22, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 40, 25] }] },
+  "EVE": { "tokens": ["Plant Symbol", "EVE's Plant", "EVE Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] }
 };
 
 //TOKEN Activities & floats for DMK characters. Floats are 2h, all other activities are 4h unless otherwise noted. Characters with a token activity that is 6h or longer are marked in red on the app.
+//Add new characters and activities as they are released, and update the time for any existing activities if they change in the game. 
 const DMK_TOKEN_ACTIVITIES = {
   "\"Drink Me\" Potion": [
     { "char": "March Hare", "activity": "Nothing Whatever!", "char_level": "Level 3", "time": "4h" },
@@ -7758,10 +7764,19 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Goofy", "activity": "Grab a Bite", "char_level": "Level 5", "time": "6h" },
     { "char": "Mrs. Incredible", "activity": "Keeping Up Appearances", "char_level": "Level 5", "time": "6h" },
     { "char": "Training Camp", "activity": "Preparing Practice Dummies", "char_level": "Level 0", "time": "60m" }
+  ],
+  "Elizabeth Ears Hat": [
+    { "char": "Bo Peep", "activity": "Check Al's Toy Barn", "char_level": "Level 2", "time": "2h" },
+    { "char": "Jack Sparrow", "activity": "Live the Pirate's Life", "char_level": "Level 2", "time": "2h" },
+    { "char": "Will Turner", "activity": "Practice Social Skills", "char_level": "Level 2", "time": "4h" },
+    { "char": "The Kraken", "activity": "Tossing Barrels", "char_level": "Level 3", "time": "4h" },
+    { "char": "Tortuga Tavern", "activity": "Preparing the Grog", "char_level": "Level 4", "time": "8h" }
   ]
 };
 
 //Enchantments for DMK characters. Enchantments with a timing of 6h or longer are marked in red on the app.
+//Additionally, the base token and cost are included for each enchantment, as well as the total cost of all levels of the enchantment. The total cost is used to determine the order in which to prioritize enchantments when resources are limited.
+//Add new enchantments to the end of the list, and keep the list sorted by collection and then by name within each collection.
 const DMK_ENCHANTMENTS = [
   {
     "collection": "Mickey and Friends", "name": "Chip 'n' Dale Treehouse", "base_token": "Chip Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [
@@ -8019,6 +8034,13 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Disney Fairies", "name": "Ladybug Painting Station", "base_token": "Silvermist's Dewdrop", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Silvermist Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Rosetta's Hair Clip", "cost": 120, "total": 200 }, { "level": 3, "token": "Rosetta Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Vidia Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Disney Fairies", "name": "Pixie Hollow", "base_token": "Gossamer Wings", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Thimble", "cost": 80, "total": 160 }, { "level": 2, "token": "Tinker Bell Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Periwinkle's Frost Flower", "cost": 120, "total": 240 }, { "level": 4, "token": "Periwinkle Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] }];
 
+// This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
+// Note that some tokens can be obtained from multiple attractions, and the cost and timing may vary between sources.
+// The "enchant_level" field indicates the level of enchantment required to obtain the token from that source, which can affect the drop rate and cost.
+// The "timing" field indicates how often the token can be obtained from that source, which can help players plan their farming strategy.
+// The "cost" field indicates the number of tokens required to enchant the attraction to that level, which can help players prioritize which attractions to focus on.
+// This data can be used to create a comprehensive guide for players looking to farm specific tokens, as well as to analyze the most efficient farming routes and strategies for different collections and attractions.
+//Add any additional tokens and their sources as needed to keep the data up to date with the latest game content and updates.
 const TOKEN_SOURCES = {
   "Chip Ears Hat": [{ "attraction": "Chip 'n' Dale Treehouse", "collection": "Mickey and Friends", "enchant_level": 0, "timing": "Every 6h", "cost": 0 }, { "attraction": "Pluto's House", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 4h", "cost": 60 }],
   "Dale Ears Hat": [{ "attraction": "Chip 'n' Dale Treehouse", "collection": "Mickey and Friends", "enchant_level": 1, "timing": "Every 6h", "cost": 60 }, { "attraction": "Pluto's House", "collection": "Mickey and Friends", "enchant_level": 4, "timing": "Every 4h", "cost": 80 }],
@@ -8814,6 +8836,8 @@ const TOKEN_SOURCES = {
 
 // ============ CHARACTER DATABASE ============
 // format: [name, collection, type (s=storyline, p=premium, e=event), emoji]
+// note: storyline characters are unlocked by collecting all 5 enchantments for an attraction, premium characters are unlocked by purchasing them with gems, and event characters are unlocked by participating in special events
+//add new attractions and characters to the end of the list to avoid breaking existing character IDs
 const DMK_ATTRACTIONS = [
   { id: 'attr_0', name: 'Chip \'n\' Dale Treehouse', collection: 'Mickey and Friends', emoji: '🐭', elixir: false, size: '10x10', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
   { id: 'attr_1', name: 'Daisy\'s Diner', collection: 'Mickey and Friends', emoji: '🐭', elixir: false, size: '9x9', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
@@ -9073,6 +9097,7 @@ const DMK_ATTRACTIONS = [
 ];
 
 //Consessions
+//Add new concessions here, and update the exchange rate, elixir, time, xp, magic, and magic per hour values as needed. The exchange rate is the amount of magic required to purchase the concession, while the elixir is the amount of elixir required to purchase the concession. The time is the amount of time it takes for the concession to produce magic, while the xp is the amount of experience points earned from purchasing the concession. The magic is the amount of magic produced by the concession, while the magic per hour is the amount of magic produced per hour by the concession.
 const DMK_CONCESSIONS_DATA = [
   {"collection": "Mickey and Friends", "name": "1-Stop Apprentice Shop", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
   {"collection": "Mickey and Friends", "name": "Blossom Ears Hairband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
@@ -9337,14 +9362,14 @@ const DMK_CONCESSIONS_DATA = [
   {"collection": "Avatar", "name": "Plush Ilu Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
   {"collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
   {"collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}];
+  {"collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}
+];
 
-// ============================================================
-// DMK_DECORATIONS — Add this block to your data.js file
 // Categories: Trophy | Greenery | Monument | Scenery | Amenity
 // Rarities:   Common(2⚗️) | Uncommon(4⚗️) | Rare(7⚗️) | Epic(12⚗️) | Legendary(20⚗️)
 // elixir = cauldron yield when conjured at Merlin's Cauldron
-// ============================================================
+// exchange_rate = cauldron yield when exchanged at the Market for a duplicate item
+//add new items to the end of the list, and make sure to update the exchange_rate for each item based on its rarity (Common: 2x elixir, Uncommon: 4x elixir, Rare: 7x elixir, Epic: 12x elixir, Legendary: 20x elixir)
 const DMK_DECORATIONS = [
   { name: "101 Dalmatians Gold Trophy", category: "Trophy", collection: "Dalmatians", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "15-Layer Cake", category: "Scenery", collection: "Sleeping Beauty", size: "3×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -9662,6 +9687,8 @@ const DMK_DECORATIONS = [
   { name: "Zootopia Gold Trophy", category: "Trophy", collection: "Zootopia", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
 ]; 
 
+// Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
+//Add new characters to the end of the list, and keep it sorted alphabetically by collection, then by name
 const DMK_CHARS = [
   // Sword in the Stone
   ["Merlin", "The Sword in the Stone", "s", "🧙"],
@@ -10228,6 +10255,8 @@ const DMK_CHARS = [
   ["Tuk", "Avatar", "s", "💙"],
  ];
 
+ // Collections
+ //Add more collections as needed, but these are the ones that have been confirmed to be in the game so far
 const COLLECTION_ICONS = {
   'Aladdin': 'Cc-aladdin-l.png',
   'Alice in Wonderland': 'Cc-alice_in_wonderland-l.png',
@@ -10299,6 +10328,9 @@ const COLLECTION_ICONS = {
   'Zootopia': 'Cc-zootopia-l.png',
 };
 
+// Character images
+// These are the URLs for the character images in the game. They are used to display the character icons in the app. The keys are the character names, and the values are the URLs for the images.
+//Add more characters as needed, but these are the ones that have been confirmed to be in the game so far
 const CHAR_URLS = {
   'Thomas O\'Malley': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/3/3c/Cp-thomas_omalley.png/revision/latest?cb=20230913122303',
   'Mamá Coco': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/c/cc/Cp-mam%C3%A1_coco.png/revision/latest?cb=20200727231245',
@@ -10779,6 +10811,8 @@ const CHAR_URLS = {
   'Zurg': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/9/95/Cp-zurg.png/revision/latest?cb=20200727232843',
 };
 
+// DMK costumes data
+//Add new costumes to the end of the list, and make sure to keep the format consistent
 const DMK_COSTUMES = [
   { char: 'Aladdin', collection: 'Aladdin', costume: 'Prince Ali' },
   { char: 'Jasmine', collection: 'Aladdin', costume: 'Comfy' },
@@ -10868,7 +10902,7 @@ const DMK_COSTUMES = [
 // ============ STORYLINE ARCS DATABASE ============
 // Source: dmk.fandom.com — each entry mirrors an official wiki Storyline page.
 // Quest names match the wiki exactly. Quests follow wiki linear order within each arc.
-
+// Add new arcs to the end of the list, and make sure to keep the format consistent
 const STORYLINE_ARCS = [
 
   // ══════ ACT 1 ══════
