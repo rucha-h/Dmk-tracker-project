@@ -753,11 +753,13 @@ let attrFilter = 'all';
 
 function loadAttractions() {
   if (!state.attractions) state.attractions = [];
-  // Merge DB with saved state — preserve built status
+  // Merge DB with saved state — preserve built and enchant_level
   const saved = {};
-  state.attractions.forEach(a => { saved[a.id] = a.built; });
+  state.attractions.forEach(a => { saved[a.id] = { built: a.built, enchant_level: a.enchant_level || 0 }; });
   state.attractions = DMK_ATTRACTIONS.map(a => ({
-    ...a, built: saved[a.id] || false
+    ...a,
+    built: saved[a.id]?.built || false,
+    enchant_level: saved[a.id]?.enchant_level || 0
   }));
 }
 
@@ -1167,6 +1169,15 @@ document.addEventListener('click', e => {
 // ============ ENCHANTMENTS TAB ============
 
 
+function setEnchantLevel(id, level) {
+  const a = state.attractions.find(x => x.id === id);
+  if (!a || !a.built) return; // must be built first
+  a.enchant_level = level;
+  saveState();
+  renderEnchantmentsTab();
+  updateDashboard();
+}
+
 function filterEncBuilt(f) {
   _encBuiltFilter = f;
   ['all','built','notbuilt'].forEach(k => {
@@ -1213,6 +1224,12 @@ function renderEnchantmentsTab() {
 
   list.innerHTML = items.map(e => {
     const isBuilt = builtNames.includes(e.name);
+    const attrState = state.attractions?.find(a => a.name === e.name);
+    const enchLevel = attrState?.enchant_level || 0;
+    const maxLevel = ENCHANT_COSTS.length;
+    const isMaxed = enchLevel >= maxLevel;
+
+    // Token drops table
     const baseHtml = e.base_token
       ? `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);">
           <span style="font-size:10px;font-weight:700;color:#f59e0b;min-width:20px;">Base</span>
@@ -1222,13 +1239,57 @@ function renderEnchantmentsTab() {
     const levelsHtml = baseHtml + e.levels.map(l => {
       if (!l.token) return '';
       const isDouble = l.token === 'Two Drop Chances';
-      return `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);">
+      const isUnlocked = enchLevel >= l.level;
+      return `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);opacity:${isUnlocked ? '1' : '0.35'};">
         <span style="font-size:10px;font-weight:700;color:${lvlColors[l.level]};min-width:20px;">L${l.level}</span>
         <span style="font-size:12px;flex:1;${isDouble?'color:var(--gold);font-weight:700;':''}">${isDouble ? '✦ Two Drop Chances' : l.token + ' Token'}</span>
         <span style="font-size:10px;color:var(--muted);">+${l.cost} <span style="opacity:0.6;">(${l.total} total)</span></span>
+        ${isUnlocked ? '<span style="font-size:10px;color:var(--green);">✓</span>' : ''}
       </div>`;
     }).join('');
-    return `<div class="card" style="padding:12px 14px;border-color:${isBuilt?'var(--accent)':'var(--border)'};">
+
+    // Enchant level tracker
+    const dotRow = Array.from({length: maxLevel}, (_, i) => {
+      const lvl = i + 1;
+      const done = enchLevel >= lvl;
+      const col = BLUEPRINT_COLOR[ENCHANT_COSTS[i].blueprint];
+      if (!isBuilt) {
+        return `<span style="width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+          font-size:9px;font-weight:800;border:2px solid var(--border);
+          background:transparent;color:var(--border);cursor:not-allowed;opacity:0.4;"
+          title="Build this attraction first">${lvl}</span>`;
+      }
+      return `<span style="width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
+        font-size:9px;font-weight:800;cursor:pointer;border:2px solid ${col};
+        background:${done ? col : 'transparent'};color:${done ? '#fff' : col};"
+        onclick="setEnchantLevel('${attrState?.id}', ${done && enchLevel === lvl ? lvl - 1 : lvl})"
+        title="Level ${lvl}: ${ENCHANT_COSTS[i].blueprint} Blueprint">${lvl}</span>`;
+    }).join('');
+
+    // Next level cost panel — only show for built attractions
+    const nextCost = isBuilt && !isMaxed ? ENCHANT_COSTS[enchLevel] : null;
+    const nextCostHtml = !isBuilt
+      ? `<div style="margin-top:8px;padding:6px 10px;background:var(--card2);border-radius:8px;font-size:11px;color:var(--muted);">Build this attraction to start enchanting.</div>`
+      : nextCost ? `
+      <div style="margin-top:8px;padding:8px 10px;background:var(--card2);border-radius:8px;font-size:11px;">
+        <div style="font-size:10px;font-weight:700;color:var(--muted);letter-spacing:0.05em;margin-bottom:5px;">NEXT: LEVEL ${enchLevel + 1}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+          <span style="background:var(--card);border-radius:6px;padding:2px 8px;">
+            🔵 10 <span style="color:${BLUEPRINT_COLOR[nextCost.blueprint]};font-weight:700;">${nextCost.blueprint}</span> Blueprints
+          </span>
+          <span style="background:var(--card);border-radius:6px;padding:2px 8px;">
+            🔶 ${nextCost.relics.toLocaleString()} ${e.relic || e.collection} Relics
+          </span>
+          <span style="background:var(--card);border-radius:6px;padding:2px 8px;">
+            ✨ ${nextCost.magic.toLocaleString()} Magic
+          </span>
+          <span style="background:var(--card);border-radius:6px;padding:2px 8px;">
+            ⏱ ${nextCost.time}
+          </span>
+        </div>
+      </div>` : `<div style="margin-top:8px;padding:6px 10px;background:rgba(57,232,124,0.08);border-radius:8px;font-size:11px;color:var(--green);font-weight:700;">⭐ Fully Enchanted</div>`;
+
+    return `<div class="card" style="padding:12px 14px;border-color:${isBuilt ? (enchLevel > 0 ? 'var(--green)' : 'var(--accent)') : 'var(--border)'};">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
         <div>
           <div style="font-size:13px;font-weight:700;">${isBuilt?'✅':'○'} ${e.name}</div>
@@ -1239,7 +1300,18 @@ function renderEnchantmentsTab() {
           <div style="font-size:10px;color:var(--muted);">Base: ${e.base_cost} elixir</div>
         </div>
       </div>
-      <div style="border-top:1px solid var(--border);padding-top:6px;">${levelsHtml}</div>
+
+      <!-- Enchant level tracker -->
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:8px;">
+        <span style="font-size:10px;font-weight:700;color:var(--muted);flex-shrink:0;">ENCHANT</span>
+        <div style="display:flex;gap:4px;">${dotRow}</div>
+        <span style="font-size:11px;color:${isMaxed ? 'var(--green)' : 'var(--muted)'};margin-left:auto;">${isMaxed ? '⭐ MAX' : enchLevel + '/' + maxLevel}</span>
+      </div>
+
+      ${nextCostHtml}
+
+      <!-- Token drops -->
+      <div style="border-top:1px solid var(--border);padding-top:6px;margin-top:8px;">${levelsHtml}</div>
     </div>`;
   }).join('');
 }
