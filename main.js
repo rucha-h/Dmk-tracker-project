@@ -318,6 +318,29 @@ function toggleArcQuest(arcId, questId) {
   if (q) { q.done = !q.done; }
   else { state.quests.push({ id: key, done: true }); }
   saveState();
+
+  // Feature 4: auto-advance — if this completes the arc, collapse it and open the next todo
+  const arc = STORYLINE_ARCS.find(a => a.id === arcId);
+  if (arc) {
+    const allDone = arc.quests.every(quest => getArcQuestState(arcId, quest.id));
+    if (allDone) {
+      const body = getEl('arc-body-' + arcId);
+      if (body) body.style.display = 'none';
+      const currentIndex = STORYLINE_ARCS.findIndex(a => a.id === arcId);
+      for (let i = currentIndex + 1; i < STORYLINE_ARCS.length; i++) {
+        const nextArc = STORYLINE_ARCS[i];
+        const nextDone = nextArc.quests.filter(quest => getArcQuestState(nextArc.id, quest.id)).length;
+        if (nextDone < nextArc.quests.length) {
+          const nextBody = getEl('arc-body-' + nextArc.id);
+          if (nextBody) nextBody.style.display = '';
+          break;
+        }
+      }
+      renderQuests();
+      return;
+    }
+  }
+
   renderQuests();
 }
 
@@ -326,6 +349,159 @@ function filterArcs(f, btn) {
   document.querySelectorAll('#tab-campaign .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderQuests();
+}
+
+function expandAllArcs() {
+  document.querySelectorAll('[id^="arc-body-"]').forEach(el => el.style.display = '');
+}
+
+function collapseAllArcs() {
+  document.querySelectorAll('[id^="arc-body-"]').forEach(el => el.style.display = 'none');
+}
+
+function renderQuests() {
+  let totalQ = 0, doneQ = 0, totalSide = 0, doneSide = 0;
+  STORYLINE_ARCS.forEach(arc => {
+    arc.quests.forEach(q => {
+      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id)) doneSide++; }
+      else          { totalQ++;    if (getArcQuestState(arc.id, q.id)) doneQ++; }
+    });
+  });
+
+  const pct = totalQ > 0 ? Math.round(doneQ / totalQ * 100) : 0;
+  const story_pct_label = getEl('story-pct-label');
+  if (story_pct_label) story_pct_label.textContent = `${doneQ} / ${totalQ} main quests (${pct}%) · ${doneSide}/${totalSide} side`;
+  const story_prog_bar = getEl('story-prog-bar');
+  if (story_prog_bar) story_prog_bar.style.width = pct + '%';
+
+  const pillRow = getEl('arc-pill-row');
+  const arcStats = STORYLINE_ARCS.map(arc => {
+    const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id)).length;
+    const t = arc.quests.length;
+    const status = d === t ? 'done' : d > 0 ? 'progress' : 'todo';
+    return { arc, d, t, status };
+  });
+
+  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a,b)=>a-b);
+  if (pillRow) {
+    pillRow.innerHTML = actNums.map(actNum => {
+      const actArcs = arcStats.filter(x => x.arc.act === actNum);
+      const aD = actArcs.reduce((s,x)=>s+x.d,0);
+      const aT = actArcs.reduce((s,x)=>s+x.t,0);
+      const aPct = aT > 0 ? Math.round(aD/aT*100) : 0;
+      const col = aPct===100 ? 'var(--green)' : aPct>0 ? 'var(--gold)' : 'var(--muted)';
+      const bg  = aPct===100 ? 'rgba(57,232,124,0.12)' : aPct>0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
+      const landNames = {1:'Toontown',2:'Tomorrowland',3:'Fantasyland',4:'Frontierland',5:'Adventureland'};
+      return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum]||''}: ${aD}/${aT}</span>`;
+    }).join('');
+  }
+
+  const search = (getEl('campaign-search')?.value || '').trim().toLowerCase();
+
+  let arcs = arcStats;
+  if (arcFilter === 'done')       arcs = arcs.filter(x => x.status === 'done');
+  if (arcFilter === 'inprogress') arcs = arcs.filter(x => x.status === 'progress');
+  if (arcFilter === 'todo')       arcs = arcs.filter(x => x.status === 'todo');
+  if (arcFilter === 'main')       arcs = arcs.filter(x => !x.arc.side);
+  if (arcFilter === 'side')       arcs = arcs.filter(x => !!x.arc.side);
+
+  if (search) {
+    arcs = arcs.filter(({ arc }) =>
+      arc.title.toLowerCase().includes(search) ||
+      arc.quests.some(q =>
+        q.name.toLowerCase().includes(search) ||
+        (q.chars || []).some(c => c.toLowerCase().includes(search))
+      )
+    );
+  }
+
+  const container = getEl('arc-list');
+  if (!arcs.length) {
+    container.innerHTML = '<div class="empty-state"><div class="es-icon">📖</div><p>No arcs match this filter.</p></div>';
+    return;
+  }
+
+  const firstActive = arcs.find(x => x.status === 'progress') || arcs.find(x => x.status === 'todo');
+
+  if (container) {
+    container.innerHTML = arcs.map(({ arc, d, t, status }) => {
+      const arcPct = t > 0 ? Math.round(d / t * 100) : 0;
+      const statusColor = status === 'done' ? 'var(--green)' : status === 'progress' ? 'var(--gold)' : 'var(--muted)';
+      const statusIcon  = status === 'done' ? '✓' : status === 'progress' ? '◑' : '○';
+      const isSide = !!arc.side;
+      const headerBg = isSide
+        ? (status === 'done' ? 'rgba(57,232,124,0.10)' : status === 'progress' ? 'rgba(87,210,255,0.10)' : 'rgba(87,210,255,0.04)')
+        : (status === 'done' ? 'rgba(57,232,124,0.08)' : status === 'progress' ? 'rgba(245,200,66,0.07)' : 'rgba(255,255,255,0.03)');
+
+      const isOpen = status === 'progress' || arc === firstActive?.arc || !!search;
+      const remaining = t - d;
+
+      const questsHtml = arc.quests.map(q => {
+        const done = getArcQuestState(arc.id, q.id);
+        const matchesSearch = search && (
+          q.name.toLowerCase().includes(search) ||
+          (q.chars || []).some(c => c.toLowerCase().includes(search))
+        );
+        const charsHtml = q.chars && q.chars.length
+          ? q.chars.map(c => {
+              const charMatches = search && c.toLowerCase().includes(search);
+              return `<span style="font-size:10px;background:${charMatches ? 'rgba(245,200,66,0.25)' : 'rgba(255,255,255,0.07)'};
+                padding:1px 6px;border-radius:6px;margin-right:3px;
+                ${charMatches ? 'color:var(--gold);font-weight:700;' : ''}">${c}</span>`;
+            }).join('')
+          : '';
+        return `
+          <div class="quest-item ${done ? 'done' : ''}"
+            data-arc="${arc.id}" data-quest="${q.id}"
+            style="cursor:pointer;user-select:none;${matchesSearch ? 'background:rgba(245,200,66,0.05);border-radius:8px;' : ''}">
+            <div class="quest-check">${done ? '✓' : ''}</div>
+            <div class="quest-content" style="flex:1;min-width:0;">
+              <div class="quest-name">${q.name}</div>
+              ${charsHtml ? `<div style="margin-top:4px;">${charsHtml}</div>` : ''}
+              ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${q.tip}</div>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+
+      return `
+      <div class="card" style="margin-bottom:10px;border-color:${statusColor}22;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;background:${headerBg};border-radius:10px;padding:10px 12px;cursor:pointer;" onclick="toggleArcCollapse('${arc.id}')">
+          <span style="font-size:24px;">${arc.emoji}</span>
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:10px;font-weight:800;background:rgba(245,200,66,0.18);color:var(--gold);padding:1px 7px;border-radius:6px;">ACT ${arc.act}</span>
+              ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
+              <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection||'', 18)}${arc.title}</span>
+            </div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${arc.desc}</div>
+            ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${arc.unlock}</div>` : ''}
+            ${status !== 'done' && remaining > 0 ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${remaining} quest${remaining > 1 ? 's' : ''} remaining</div>` : ''}
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <div style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
+            <div style="font-size:10px;color:var(--muted);">${arcPct}%</div>
+          </div>
+        </div>
+        <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
+          <div style="height:100%;width:${arcPct}%;border-radius:10px;background:linear-gradient(90deg,var(--teal),${statusColor});transition:width 0.4s;"></div>
+        </div>
+        <div id="arc-body-${arc.id}" class="quest-list" style="${isOpen ? '' : 'display:none;'}">
+          ${questsHtml}
+        </div>
+      </div>`;
+    }).join('');
+
+    container.querySelectorAll('.quest-item[data-arc]').forEach(el => {
+      el.addEventListener('click', () => {
+        toggleArcQuest(el.dataset.arc, el.dataset.quest);
+      });
+    });
+  }
+}
+
+function toggleArcCollapse(arcId) {
+  const body = getEl('arc-body-' + arcId);
+  if (body) body.style.display = body.style.display === 'none' ? '' : 'none';
 }
 
 function renderQuests() {
