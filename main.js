@@ -1208,7 +1208,7 @@ function renderEnchantmentsTab() {
     if (_encBuiltFilter === 'notbuilt' && isBuilt) return false;
     if (coll && e.collection !== coll) return false;
     if (search) {
-      const tokenNames = e.levels.map(l => l.token.toLowerCase()).join(' ');
+      const tokenNames = e.levels.map(l => (l.token || '').toLowerCase()).join(' ');
       if (!e.name.toLowerCase().includes(search) && !tokenNames.includes(search) && !e.collection.toLowerCase().includes(search)) return false;
     }
     return true;
