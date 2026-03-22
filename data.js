@@ -135,7 +135,7 @@ const DMK_FLOATS = [
   { "collection": "Avatar", "name": "Avatar", "cost": "500", "time": "2h (± 8h)", "magic": "250", "gems": "5", "magic_reward": "500" },
   { "collection": "Disney Fairies", "name": "Disney Fairies", "cost": "500", "time": "2h (± 8h)", "magic": "250", "gems": "5", "magic_reward": "500" }];
 
-  // Add new key-value pair to DMK_CHAR_TOKENS object for each new character, with the character's name as the key and an object containing the character's tokens and level requirements as the value.
+// Add new key-value pair to DMK_CHAR_TOKENS object for each new character, with the character's name as the key and an object containing the character's tokens and level requirements as the value.
 const DMK_CHAR_TOKENS = {
   "22": { "tokens": ["Personality Profile", "22's Maple Seed", "Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   "Mickey Mouse": { "tokens": ["Mickey Balloon", "Mickey Gloves", "Mickey Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
@@ -571,7 +571,764 @@ const DMK_CHAR_TOKENS = {
   "Randall Boggs": { "tokens": ["Scream Canister", "Boo's Drawing of Randall", "Randall Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
   "Silvermist": { "tokens": ["Gossamer Wings", "Silvermist's Dewdrop", "Silvermist Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   "Elizabeth Swann": { "tokens": ["Pirate Flag", "Hat and Sword", "Elizabeth Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 15, 10] }, { "level": 2, "quantities": [6, 2, 1] }, { "level": 3, "quantities": [8, 4, 2] }, { "level": 4, "quantities": [12, 6, 4] }, { "level": 5, "quantities": [16, 8, 6] }, { "level": 6, "quantities": [20, 12, 8] }, { "level": 7, "quantities": [25, 16, 12] }, { "level": 8, "quantities": [30, 22, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 40, 25] }] },
-  "EVE": { "tokens": ["Plant Symbol", "EVE's Plant", "EVE Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] }
+  "EVE": { "tokens": ["Plant Symbol", "EVE's Plant", "EVE Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
+  "Wart": { "tokens": ["\"The Sword in the Stone\" Book", "King Arthur's Crown", "Wart Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
+  "Chip": { "tokens": ["Mickey Balloon", "Acorn", "Chip Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 8, 6] }, { "level": 2, "quantities": [5, 3, 2] }, { "level": 3, "quantities": [10, 4, 3] }, { "level": 4, "quantities": [15, 6, 4] }, { "level": 5, "quantities": [20, 8, 6] }, { "level": 6, "quantities": [25, 10, 8] }, { "level": 7, "quantities": [30, 14, 10] }, { "level": 8, "quantities": [35, 18, 14] }, { "level": 9, "quantities": [40, 24, 20] }, { "level": 10, "quantities": [50, 30, 26] }] },
+  "Dale": { "tokens": ["Mickey Balloon", "Peanut", "Dale Ears Hat"], "levels": [{ "level": 1, "quantities": [35, 8, 4] }, { "level": 2, "quantities": [5, 3, 1] }, { "level": 3, "quantities": [10, 4, 2] }, { "level": 4, "quantities": [15, 6, 3] }, { "level": 5, "quantities": [20, 8, 4] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 14, 8] }, { "level": 8, "quantities": [35, 18, 12] }, { "level": 9, "quantities": [40, 24, 18] }, { "level": 10, "quantities": [50, 30, 24] }] },
+  "Scrooge McDuck": { "tokens": ["A Found Coin", "Scrooge McDuck's Piggy Bank", "Scrooge McDuck Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
+  "Huey": { "tokens": ["A Found Coin", "Huey's Rocket Toy", "Huey Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 20, 20] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
+  "Dewey": {
+    "tokens": ["A Found Coin", "Dewey's Toy Plane", "Dewey Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [40, 15, 12] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 35, 35] }
+    ]
+  },
+  "Louie": {
+    "tokens": ["A Found Coin", "Louie's Toy Car", "Louie Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [60, 12, 12] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 8, 8] },
+      { "level": 6, "quantities": [50, 12, 12] },
+      { "level": 7, "quantities": [60, 16, 16] },
+      { "level": 8, "quantities": [70, 20, 20] },
+      { "level": 9, "quantities": [80, 25, 25] },
+      { "level": 10, "quantities": [100, 30, 30] }
+    ]
+  },
+  "General Hux": {
+    "tokens": ["Kyber Crystal", "First Order Emblem", "General Hux Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 40] }
+    ]
+  },
+  "The Child": {
+    "tokens": ["Kyber Crystal", "The Child Hover Pram", "The Child Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 8, 8] },
+      { "level": 6, "quantities": [50, 12, 12] },
+      { "level": 7, "quantities": [60, 16, 16] },
+      { "level": 8, "quantities": [70, 20, 20] },
+      { "level": 9, "quantities": [80, 25, 25] },
+      { "level": 10, "quantities": [100, 30, 30] }
+    ]
+  },
+  "Greef Karga": {
+    "tokens": ["Kyber Crystal", "Bounty Puck", "Greef Karga Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 30] },
+      { "level": 10, "quantities": [100, 50, 40] }
+    ]
+  },
+  "Kuiil": {
+    "tokens": ["Kyber Crystal", "Kuiil Goggles", "Kuiil Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Leia Organa": {
+    "tokens": ["Kyber Crystal", "Leia's Blaster", "Leia Organa Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Fennec Shand": {
+    "tokens": ["Kyber Crystal", "Fennec's Rifle", "Fennec Shand Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Lando Calrissian": {
+    "tokens": ["Kyber Crystal", "Lando's Cape", "Lando Calrissian Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Moff Gideon": {
+    "tokens": ["Kyber Crystal", "Gideon's Chestplate", "Moff Gideon Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 5] },
+      { "level": 3, "quantities": [10, 10, 10] },
+      { "level": 4, "quantities": [20, 20, 20] },
+      { "level": 5, "quantities": [40, 40, 40] },
+      { "level": 6, "quantities": [50, 50, 50] },
+      { "level": 7, "quantities": [60, 60, 60] },
+      { "level": 8, "quantities": [70, 70, 70] },
+      { "level": 9, "quantities": [80, 80, 80] },
+      { "level": 10, "quantities": [100, 100, 100] }
+    ]
+  },
+  "Emperor Palpatine": {
+    "tokens": ["Kyber Crystal", "Palpatine's Cane", "Emperor Palpatine Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "First Order Stormtrooper": {
+    "tokens": ["Kyber Crystal", "FO Stormtrooper Helmet", "FO Stormtrooper Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "TIE Fighter Pilot": {
+    "tokens": ["Kyber Crystal", "TIE Fighter", "TIE Fighter Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Imperial Stormtrooper": {
+    "tokens": ["Kyber Crystal", "Imperial Stormtrooper's Blaster", "Imperial Stormtrooper Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Wendy Darling": {
+    "tokens": ["Pixie Dust", "Needle and Thread", "Wendy Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [20, 35, 35] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [7, 4, 3] },
+      { "level": 4, "quantities": [9, 6, 4] },
+      { "level": 5, "quantities": [12, 8, 6] },
+      { "level": 6, "quantities": [15, 10, 8] },
+      { "level": 7, "quantities": [18, 12, 10] },
+      { "level": 8, "quantities": [22, 16, 12] },
+      { "level": 9, "quantities": [26, 20, 16] },
+      { "level": 10, "quantities": [30, 25, 20] }
+    ]
+  },
+  "Jack Sparrow": {
+    "tokens": ["Pirate Flag", "Magic Compass", "Jack Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [6, 2, 2] },
+      { "level": 3, "quantities": [8, 4, 4] },
+      { "level": 4, "quantities": [12, 6, 6] },
+      { "level": 5, "quantities": [16, 10, 8] },
+      { "level": 6, "quantities": [20, 14, 12] },
+      { "level": 7, "quantities": [25, 20, 16] },
+      { "level": 8, "quantities": [30, 26, 22] },
+      { "level": 9, "quantities": [40, 32, 30] },
+      { "level": 10, "quantities": [50, 40, 40] }
+    ]
+  },
+  "Captain Barbossa": {
+    "tokens": ["Pirate Flag", "Barbossa's Hat", "Barbossa Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [40, 35, 25] },
+      { "level": 2, "quantities": [6, 2, 1] },
+      { "level": 3, "quantities": [8, 4, 2] },
+      { "level": 4, "quantities": [12, 6, 4] },
+      { "level": 5, "quantities": [16, 8, 6] },
+      { "level": 6, "quantities": [20, 12, 8] },
+      { "level": 7, "quantities": [25, 16, 12] },
+      { "level": 8, "quantities": [30, 22, 16] },
+      { "level": 9, "quantities": [40, 30, 20] },
+      { "level": 10, "quantities": [50, 40, 25] }
+    ]
+  },
+  "Davy Jones": {
+    "tokens": ["Pirate Flag", "Heart Chest", "Davy Jones Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [6, 2, 2] },
+      { "level": 3, "quantities": [8, 4, 4] },
+      { "level": 4, "quantities": [12, 6, 6] },
+      { "level": 5, "quantities": [16, 10, 10] },
+      { "level": 6, "quantities": [20, 14, 14] },
+      { "level": 7, "quantities": [25, 20, 20] },
+      { "level": 8, "quantities": [30, 26, 26] },
+      { "level": 9, "quantities": [40, 32, 32] },
+      { "level": 10, "quantities": [50, 40, 40] }
+    ]
+  },
+  "Dawn Bellwether": {
+    "tokens": ["Pawpsicle", "Dawn Bellwether's Stack of Folders", "Dawn Bellwether Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [50, 25, 20] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 20] },
+      { "level": 8, "quantities": [70, 35, 25] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Lady": {
+    "tokens": ["Plate of Spaghetti", "Lady's Collar", "Lady Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [60, 20, 20] },
+      { "level": 2, "quantities": [5, 2, 1] },
+      { "level": 3, "quantities": [10, 3, 2] },
+      { "level": 4, "quantities": [20, 5, 3] },
+      { "level": 5, "quantities": [40, 8, 5] },
+      { "level": 6, "quantities": [50, 12, 8] },
+      { "level": 7, "quantities": [60, 16, 12] },
+      { "level": 8, "quantities": [70, 20, 16] },
+      { "level": 9, "quantities": [80, 25, 20] },
+      { "level": 10, "quantities": [100, 30, 25] }
+    ]
+  },
+  "Tramp": {
+    "tokens": ["Plate of Spaghetti", "Tramp's Bone", "Tramp Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [20, 15, 10] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Jock": {
+    "tokens": ["Plate of Spaghetti", "Jock's Coat", "Jock Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Tony": {
+    "tokens": ["Plate of Spaghetti", "Tony's Accordion", "Tony Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [30, 15, 15] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 35, 35] }
+    ]
+  },
+  "Joe": {
+    "tokens": ["Plate of Spaghetti", "Wine Bottle Candle", "Joe Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [40, 20, 15] },
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 8] },
+      { "level": 6, "quantities": [50, 15, 12] },
+      { "level": 7, "quantities": [60, 20, 16] },
+      { "level": 8, "quantities": [70, 25, 20] },
+      { "level": 9, "quantities": [80, 30, 25] },
+      { "level": 10, "quantities": [100, 35, 30] }
+    ]
+  },
+  "Trusty": {
+    "tokens": ["Plate of Spaghetti", "Trusty's Bandage", "Trusty Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "The Mayor": {
+    "tokens": ["Pumpkin King Head", "Mayor's Badge", "Mayor Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 40] }
+    ]
+  },
+  "Yokai": {
+    "tokens": ["Microbot", "Abigail's Photo", "Yokai Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Prince Eric": {
+    "tokens": ["Seashells", "Flute", "Prince Eric Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Calhoun": {
+    "tokens": ["Wifi", "Calhoun's Pack", "Calhoun Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Tiana": {
+    "tokens": ["Gumbo", "Beignets", "Tiana Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 8] },
+      { "level": 6, "quantities": [50, 15, 12] },
+      { "level": 7, "quantities": [60, 20, 16] },
+      { "level": 8, "quantities": [70, 25, 20] },
+      { "level": 9, "quantities": [80, 30, 25] },
+      { "level": 10, "quantities": [100, 35, 30] }
+    ]
+  },
+  "Prince Naveen": {
+    "tokens": ["Gumbo", "Swampy Ukulele", "Prince Naveen Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 40] }
+    ]
+  },
+  "Louis": {
+    "tokens": ["Gumbo", "Louis's Trumpet", "Louis Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 30, 30] },
+      { "level": 10, "quantities": [100, 40, 35] }
+    ]
+  },
+  "Ray": {
+    "tokens": ["Gumbo", "Ray's Tiny Caterpillar", "Ray Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 35] },
+      { "level": 10, "quantities": [100, 50, 50] }
+    ]
+  },
+  "Dr. Facilier": {
+    "tokens": ["Gumbo", "Dr. Facilier Pendant", "Dr. Facilier Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 8, 8] },
+      { "level": 6, "quantities": [50, 12, 12] },
+      { "level": 7, "quantities": [60, 16, 16] },
+      { "level": 8, "quantities": [70, 20, 20] },
+      { "level": 9, "quantities": [80, 25, 25] },
+      { "level": 10, "quantities": [100, 30, 30] }
+    ]
+  },
+  "Ezra": {
+    "tokens": ["Haunted Mansion Sign", "Ezra's Top Hat", "Ezra Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Gus": {
+    "tokens": ["Haunted Mansion Sign", "Gus's Ball and Chain", "Gus Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Hatbox Ghost": {
+    "tokens": ["Haunted Mansion Sign", "Ghostly Hatbox", "Hatbox Ghost Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 4] },
+      { "level": 4, "quantities": [20, 5, 6] },
+      { "level": 5, "quantities": [40, 10, 8] },
+      { "level": 6, "quantities": [50, 15, 12] },
+      { "level": 7, "quantities": [60, 25, 16] },
+      { "level": 8, "quantities": [70, 35, 22] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Madame Leota": {
+    "tokens": ["Haunted Mansion Sign", "Madame Leota's Séance Candles", "Madame Leota Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 20] },
+      { "level": 8, "quantities": [70, 35, 25] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Phineas": {
+    "tokens": ["Haunted Mansion Sign", "Phineas's Carpet Bag", "Phineas Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Pickwick": {
+    "tokens": ["Haunted Mansion Sign", "Pickwick's Hat and Cane", "Pickwick Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 2] },
+      { "level": 3, "quantities": [10, 10, 3] },
+      { "level": 4, "quantities": [20, 20, 5] },
+      { "level": 5, "quantities": [40, 40, 10] },
+      { "level": 6, "quantities": [50, 50, 15] },
+      { "level": 7, "quantities": [60, 60, 25] },
+      { "level": 8, "quantities": [70, 70, 35] },
+      { "level": 9, "quantities": [80, 80, 50] },
+      { "level": 10, "quantities": [100, 100, 65] }
+    ]
+  },
+  "The Bride": {
+    "tokens": ["Haunted Mansion Sign", "The Bride's Hatchet", "The Bride Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 4] },
+      { "level": 4, "quantities": [20, 5, 6] },
+      { "level": 5, "quantities": [40, 10, 8] },
+      { "level": 6, "quantities": [50, 15, 12] },
+      { "level": 7, "quantities": [60, 25, 16] },
+      { "level": 8, "quantities": [70, 35, 22] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Meg": {
+    "tokens": ["Muses' Vase", "White Flower", "Meg Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 3, 2] },
+      { "level": 3, "quantities": [10, 4, 3] },
+      { "level": 4, "quantities": [20, 6, 6] },
+      { "level": 5, "quantities": [40, 12, 12] },
+      { "level": 6, "quantities": [50, 18, 18] },
+      { "level": 7, "quantities": [60, 20, 20] },
+      { "level": 8, "quantities": [70, 25, 25] },
+      { "level": 9, "quantities": [80, 35, 30] },
+      { "level": 10, "quantities": [100, 50, 40] }
+    ]
+  },
+  "Charles Muntz": {
+    "tokens": ["Ellie Badge", "Charles Muntz's Cane", "Charles Muntz Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 2] },
+      { "level": 3, "quantities": [10, 10, 3] },
+      { "level": 4, "quantities": [20, 20, 5] },
+      { "level": 5, "quantities": [40, 40, 10] },
+      { "level": 6, "quantities": [50, 50, 20] },
+      { "level": 7, "quantities": [60, 60, 30] },
+      { "level": 8, "quantities": [70, 70, 40] },
+      { "level": 9, "quantities": [80, 80, 50] },
+      { "level": 10, "quantities": [100, 100, 60] }
+    ]
+  },
+  "Orange Bird": {
+    "tokens": ["Enchanted Key", "Orange Bird's Citrus Slice", "Orange Bird Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [35, 10, 10] },
+      { "level": 6, "quantities": [40, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 20] },
+      { "level": 8, "quantities": [70, 35, 25] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Figment": {
+    "tokens": ["Enchanted Key", "Figment's Paintbrush", "Figment Ears Hat"],
+    "levels": [
+      { "level": 1, "quantities": [75, 60, 40] },
+      { "level": 2, "quantities": [5, 3, 2] },
+      { "level": 3, "quantities": [10, 8, 3] },
+      { "level": 4, "quantities": [20, 12, 5] },
+      { "level": 5, "quantities": [35, 20, 10] },
+      { "level": 6, "quantities": [40, 27, 15] },
+      { "level": 7, "quantities": [60, 35, 20] },
+      { "level": 8, "quantities": [70, 45, 25] },
+      { "level": 9, "quantities": [80, 55, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Honest John": {
+    "tokens": ["Pinocchio Book", "Honest John's Cane", "Honest John Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Rosetta": {
+    "tokens": ["Gossamer Wings", "Rosetta's Hair Clip", "Rosetta Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Vidia": {
+    "tokens": ["Gossamer Wings", "Vidia's Hairband", "Vidia Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 20] },
+      { "level": 8, "quantities": [70, 35, 25] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Winifred Sanderson": {
+    "tokens": ["Black Flame Candle", "Winifred's Broom", "Winifred Sanderson Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 1] },
+      { "level": 3, "quantities": [10, 3, 2] },
+      { "level": 4, "quantities": [20, 5, 3] },
+      { "level": 5, "quantities": [40, 10, 5] },
+      { "level": 6, "quantities": [50, 15, 8] },
+      { "level": 7, "quantities": [60, 20, 12] },
+      { "level": 8, "quantities": [70, 25, 16] },
+      { "level": 9, "quantities": [80, 30, 20] },
+      { "level": 10, "quantities": [100, 40, 25] }
+    ]
+  },
+  "Mary Sanderson": {
+    "tokens": ["Black Flame Candle", "Mary's Cauldron", "Mary Sanderson Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Sarah Sanderson": {
+    "tokens": ["Black Flame Candle", "Sarah's Pretty Spider", "Sarah Sanderson Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 5] },
+      { "level": 3, "quantities": [10, 10, 10] },
+      { "level": 4, "quantities": [20, 20, 20] },
+      { "level": 5, "quantities": [40, 40, 40] },
+      { "level": 6, "quantities": [50, 50, 50] },
+      { "level": 7, "quantities": [60, 60, 60] },
+      { "level": 8, "quantities": [70, 70, 70] },
+      { "level": 9, "quantities": [80, 80, 80] },
+      { "level": 10, "quantities": [100, 100, 100] }
+    ]
+  },
+  "Pongo": {
+    "tokens": ["Dog Kibble", "Roger's Hat", "Pongo Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ]
+  },
+  "Claude Frollo": {
+    "tokens": ["Festival of Fools Mask", "Claude Frollo's Jeweled Ring", "Claude Frollo Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 2] },
+      { "level": 3, "quantities": [10, 10, 3] },
+      { "level": 4, "quantities": [20, 20, 5] },
+      { "level": 5, "quantities": [40, 40, 10] },
+      { "level": 6, "quantities": [50, 50, 15] },
+      { "level": 7, "quantities": [60, 60, 25] },
+      { "level": 8, "quantities": [70, 70, 35] },
+      { "level": 9, "quantities": [80, 80, 50] },
+      { "level": 10, "quantities": [100, 100, 65] }
+    ]
+  }
 };
 
 //TOKEN Activities & floats for DMK characters. Floats are 2h, all other activities are 4h unless otherwise noted. Characters with a token activity that is 6h or longer are marked in red on the app.
@@ -7771,17 +8528,736 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Will Turner", "activity": "Practice Social Skills", "char_level": "Level 2", "time": "4h" },
     { "char": "The Kraken", "activity": "Tossing Barrels", "char_level": "Level 3", "time": "4h" },
     { "char": "Tortuga Tavern", "activity": "Preparing the Grog", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Wart Ears Hat": [
+    { "char": "Boo", "activity": "Sneak Up on Guests", "char_level": "Level 7", "time": "2h" },
+    { "char": "Merlin", "activity": "Complain About the Dark Ages", "char_level": "Level 2", "time": "2h" },
+    { "char": "Archimedes", "activity": "Demonstrate the Art of Flying", "char_level": "Level 5", "time": "6h" },
+    { "char": "Huey", "activity": "Following the Clues", "char_level": "Level 10", "time": "6h" },
+    { "char": "Pascal + Flynn", "activity": "Wake-Up Call", "char_level": "Level 4", "time": "6h" },
+    { "char": "King Arthur Carrousel", "activity": "Regally Revolving", "char_level": "Level 1", "time": "12h" }
+  ],
+  "Acorn": [
+    { "char": "Dale", "activity": "Where's Chip?", "char_level": "Level 1", "time": "60m" },
+    { "char": "Daisy Duck", "activity": "Talk Up Diner", "char_level": "Level 3", "time": "2h" },
+    { "char": "Flora", "activity": "Sewing at Home", "char_level": "Level 2", "time": "2h" },
+    { "char": "Mickey Mouse", "activity": "Sparkler", "char_level": "Level 1", "time": "2h" },
+    { "char": "Elsa", "activity": "Open the Gates", "char_level": "Level 2", "time": "4h" },
+    { "char": "Huey + Dewey", "activity": "Play a Game Together", "char_level": "Level 5", "time": "6h" },
+    { "char": "Chip 'n' Dale Treehouse", "activity": "Gathering Acorns", "char_level": "Level 2", "time": "6h" }
+  ],
+  "Peanut": [
+    { "char": "Chip", "activity": "Where's Dale?", "char_level": "Level 1", "time": "60m" },
+    { "char": "Buzz Lightyear", "activity": "Space Orbiting", "char_level": "Level 2", "time": "2h" },
+    { "char": "Mickey Mouse", "activity": "Sparkler", "char_level": "Level 1", "time": "2h" },
+    { "char": "Sally", "activity": "Crafting Sweets", "char_level": "Level 5", "time": "2h" },
+    { "char": "Mickey Mouse + Minnie Mouse", "activity": "Musical Duet", "char_level": "Level 9", "time": "2h" },
+    { "char": "Chip 'n' Dale Treehouse", "activity": "Gathering Acorns", "char_level": "Level 3", "time": "6h" }
+  ],
+  "Dale Ears Hat": [
+    { "char": "Chip", "activity": "Count the Acorns", "char_level": "Level 2", "time": "4h" },
+    { "char": "Kristoff", "activity": "Make a Trade", "char_level": "Level 5", "time": "6h" },
+    { "char": "Pete", "activity": "Refined Music", "char_level": "Level 4", "time": "6h" },
+    { "char": "Will Turner", "activity": "Testing the Blade", "char_level": "Level 6", "time": "6h" },
+    { "char": "Mickey Mouse + Goofy", "activity": "Group Music Trip", "char_level": "Level 6", "time": "6h" },
+    { "char": "Pluto's House", "activity": "Hiding Bones", "char_level": "Level 4", "time": "4h" },
+    { "char": "Chip 'n' Dale Treehouse", "activity": "Gathering Acorns", "char_level": "Level 1", "time": "6h" }
+  ],
+  "Huey's Rocket Toy": [
+    { "char": "Dewey", "activity": "Look for Uncle", "char_level": "Level 2", "time": "2h" },
+    { "char": "Scrooge McDuck", "activity": "Go For a Swim", "char_level": "Level 4", "time": "4h" },
+    { "char": "Mother Gothel", "activity": "Spy on Royalty", "char_level": "Level 5", "time": "6h" },
+    { "char": "Flynn", "activity": "My Nose Isn't Right!", "char_level": "Level 2", "time": "8h" },
+    { "char": "Anastasia Tremaine + Cinderella", "activity": "Talk about Forgiveness", "char_level": "Level 7", "time": "8h" },
+    { "char": "The Golden Condor", "activity": "Searching for Treasures", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Barbossa's Hat": [
+    { "char": "Will Turner + Elizabeth Swann", "activity": "Make Plans", "char_level": "Level 3", "time": "2h" },
+    { "char": "Jack Sparrow", "activity": "Hiding from Trouble", "char_level": "Level 5", "time": "4h" },
+    { "char": "Mother Gothel", "activity": "The Vain Life", "char_level": "Level 1", "time": "4h" },
+    { "char": "Yokai + Honey Lemon", "activity": "Internal Attack", "char_level": "Level 8", "time": "6h" },
+    { "char": "Pirates of the Caribbean", "activity": "Setting Sail for Adventure", "char_level": "Level 2", "time": "12h" }
+  ],
+  "Beignets": [
+    { "char": "Charlotte La Bouff + Prince Naveen", "activity": "Discuss Other Princes", "char_level": "Level 1", "time": "2h" },
+    { "char": "Charlotte La Bouff", "activity": "Enjoy Some Beignets", "char_level": "Level 1", "time": "4h" },
+    { "char": "Prince Naveen", "activity": "Listening to Jazz Music", "char_level": "Level 2", "time": "6h" },
+    { "char": "Eudora", "activity": "Enjoy Firefly Lights", "char_level": "Level 3", "time": "8h" },
+    { "char": "Mama Odie's Tree", "activity": "Stirring the Magic Gumbo", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Bounty Puck": [
+    { "char": "BB-8", "activity": "Search for a Ship", "char_level": "Level 1", "time": "6h" },
+    { "char": "Greef Karga", "activity": "Hand Out Bounties", "char_level": "Level 1", "time": "6h" },
+    { "char": "Kuiil", "activity": "Looking for Blurrg", "char_level": "Level 1", "time": "6h" },
+    { "char": "The Mandalorian", "activity": "Reclaim Ship Parts", "char_level": "Level 2", "time": "6h" },
+    { "char": "R2-D2 + C-3PO", "activity": "Test Compatibility", "char_level": "Level 6", "time": "8h" },
+    { "char": "First Order Stormtrooper + Kylo Ren", "activity": "Organize Scouting Parties", "char_level": "Level 4", "time": "24h" },
+    { "char": "Nevarro City", "activity": "Looking for Bounties", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Calhoun Ears Hat": [
+    { "char": "Anna", "activity": "Wandering the Halls", "char_level": "Level 2", "time": "2h" },
+    { "char": "Bo Peep", "activity": "Visit Pizza Planet", "char_level": "Level 7", "time": "2h" },
+    { "char": "Spamley", "activity": "Pop Around", "char_level": "Level 2", "time": "2h" },
+    { "char": "Shank", "activity": "Gathering Game Info", "char_level": "Level 2", "time": "2h" },
+    { "char": "Vanellope", "activity": "Check Out the Sites", "char_level": "Level 3", "time": "2h" },
+    { "char": "The Internet", "activity": "Connecting...", "char_level": "Level 2", "time": "6h" }
+  ],
+  "Charles Muntz Ears Hat": [
+    { "char": "Carl Fredricksen", "activity": "Relax in His Chair", "char_level": "Level 3", "time": "4h" },
+    { "char": "Kevin", "activity": "Mistake Balloons for Food", "char_level": "Level 4", "time": "4h" },
+    { "char": "Jasmine + Abu", "activity": "An Apple for Me", "char_level": "Level 3", "time": "4h" },
+    { "char": "Cinderella", "activity": "Explore the Fairgrounds", "char_level": "Level 2", "time": "8h" },
+    { "char": "Daisy Duck", "activity": "Musical Break", "char_level": "Level 2", "time": "8h" },
+    { "char": "Dug", "activity": "Point!", "char_level": "Level 5", "time": "8h" },
+    { "char": "Pete", "activity": "No More Noise!", "char_level": "Level 1", "time": "8h" },
+    { "char": "Minnie Mouse", "activity": "Check on Goofy", "char_level": "Level 8", "time": "12h" },
+    { "char": "Zurg", "activity": "New Toys", "char_level": "Level 4", "time": "12h" },
+    { "char": "Carl's House", "activity": "Inflating Balloons", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Claude Frollo Ears Hat": [
+    { "char": "Phoebus", "activity": "Seal Off the Area", "char_level": "Level 2", "time": "2h" },
+    { "char": "Geppetto", "activity": "Sweep Up Woodchips", "char_level": "Level 3", "time": "4h" },
+    { "char": "Jiminy Cricket", "activity": "Ride a Seahorse", "char_level": "Level 3", "time": "4h" },
+    { "char": "Zurg + Hamm", "activity": "Learn Comedy from Hamm", "char_level": "Level 1", "time": "6h" },
+    { "char": "Bells of Notre Dame", "activity": "Cleaning the Cloisters", "char_level": "Level 1", "time": "4h" }
+  ],
+  "Dawn Bellwether Ears Hat": [
+    { "char": "Clawhauser", "activity": "Piece Together Clues", "char_level": "Level 5", "time": "6h" },
+    { "char": "Gazelle", "activity": "Sing Above Treetops", "char_level": "Level 7", "time": "8h" },
+    { "char": "Chief Bogo", "activity": "Gazelle Dance", "char_level": "Level 10", "time": "12h" },
+    { "char": "Chip", "activity": "Explore a Boat", "char_level": "Level 10", "time": "12h" },
+    { "char": "Flash", "activity": "Drop Off Information", "char_level": "Level 10", "time": "12h" },
+    { "char": "Flynn", "activity": "Search for Missing Jewels", "char_level": "Level 1", "time": "12h" },
+    { "char": "Fauna + Aurora", "activity": "Safe at Home", "char_level": "Level 4", "time": "14h" },
+    { "char": "Minnie Mouse + Daisy Duck", "activity": "Tea Time", "char_level": "Level 3", "time": "16h" },
+    { "char": "Little Rodentia", "activity": "Baking Donuts", "char_level": "Level 2", "time": "16h" }
+  ],
+  "Dawn Bellwether's Stack of Folders": [
+    { "char": "Clawhauser", "activity": "Step Over Narrow Streets", "char_level": "Level 4", "time": "6h" },
+    { "char": "Mr. Big", "activity": "Order Guards to Check the Vines", "char_level": "Level 6", "time": "8h" },
+    { "char": "Chief Bogo", "activity": "Gazelle Dance", "char_level": "Level 10", "time": "12h" },
+    { "char": "Flash", "activity": "Drop Off Information", "char_level": "Level 10", "time": "12h" },
+    { "char": "Judy Hopps + Nick Wilde", "activity": "Traffic Duty", "char_level": "Level 4", "time": "12h" },
+    { "char": "Pascal + Rapunzel", "activity": "Performing Ventriloquy", "char_level": "Level 6", "time": "12h" },
+    { "char": "Little Rodentia", "activity": "Baking Donuts", "char_level": "Level 1", "time": "16h" }
+  ],
+  "Davy Jones Ears Hat": [
+    { "char": "Tia Dalma + Captain Barbossa", "activity": "Making Plans", "char_level": "Level 7", "time": "4h" },
+    { "char": "Jack Sparrow", "activity": "Really Bad Eggs", "char_level": "Level 6", "time": "6h" },
+    { "char": "Will Turner", "activity": "Testing the Blade", "char_level": "Level 6", "time": "6h" },
+    { "char": "Mickey Mouse", "activity": "Visit Goofy's Playhouse", "char_level": "Level 4", "time": "8h" },
+    { "char": "Davy Jones's Organ", "activity": "Playing a Haunting Melody", "char_level": "Level 1", "time": "6h" }
+  ],
+  "Dewey Ears Hat": [
+    { "char": "Huey", "activity": "Grab Belongings", "char_level": "Level 4", "time": "4h" },
+    { "char": "Louie", "activity": "Wait for Uncle", "char_level": "Level 3", "time": "4h" },
+    { "char": "Scrooge McDuck", "activity": "Go For a Swim", "char_level": "Level 4", "time": "4h" },
+    { "char": "Goofy", "activity": "Grab a Bite", "char_level": "Level 5", "time": "6h" },
+    { "char": "Woody", "activity": "Play the Claw", "char_level": "Level 7", "time": "8h" },
+    { "char": "Daisy Duck", "activity": "Visit Minnie's House", "char_level": "Level 7", "time": "12h" },
+    { "char": "The Money Bin", "activity": "Diving into Riches", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Dr. Facilier Ears Hat": [
+    { "char": "Charlotte La Bouff", "activity": "Enjoy Some Beignets", "char_level": "Level 1", "time": "4h" },
+    { "char": "Charlotte La Bouff", "activity": "Talk with Big Daddy", "char_level": "Level 1", "time": "4h" },
+    { "char": "Tiana", "activity": "Finding New Flavors", "char_level": "Level 3", "time": "4h" },
+    { "char": "Louis + Mama Odie", "activity": "Discuss Wishes", "char_level": "Level 3", "time": "4h" },
+    { "char": "Mama Odie", "activity": "Walk Through the Bayou", "char_level": "Level 6", "time": "8h" },
+    { "char": "Dr. Facilier's Voodoo Emporium", "activity": "Reading the Cards", "char_level": "Level 3", "time": "6h" }
+  ],
+  "Emperor Palpatine Ears Hat": [
+    { "char": "Darth Vader", "activity": "Tremor in the Force", "char_level": "Level 2", "time": "2h" },
+    { "char": "Flash", "activity": "Visit a Small Shop", "char_level": "Level 2", "time": "4h" },
+    { "char": "Nick Wilde", "activity": "Try On the Uniform", "char_level": "Level 5", "time": "4h" },
+    { "char": "TIE Fighter Pilot", "activity": "Observe Airspace", "char_level": "Level 3", "time": "4h" },
+    { "char": "Ducky + Buzz Lightyear", "activity": "Tell Space Jokes", "char_level": "Level 6", "time": "6h" },
+    { "char": "Gideon's Light Cruiser", "activity": "Readying Dark Troopers", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Enchanted Key": [
+    { "char": "Buzz Lightyear", "activity": "Investigate Space Traders", "char_level": "Level 4", "time": "24h" },
+    { "char": "Enchanted Tiki Room", "activity": "Aligning the Torches", "char_level": "Level 3", "time": "12h" }
+  ],
+  "Ezra Ears Hat": [
+    { "char": "Goofy", "activity": "Try to Scare", "char_level": "Level 1", "time": "4h" },
+    { "char": "WALL•E", "activity": "Re-Charge", "char_level": "Level 4", "time": "4h" },
+    { "char": "Barrel", "activity": "Sweet Tooth", "char_level": "Level 6", "time": "6h" },
+    { "char": "Chief Bogo", "activity": "Track Down Suspect", "char_level": "Level 1", "time": "6h" },
+    { "char": "Huey", "activity": "Following the Clues", "char_level": "Level 10", "time": "6h" },
+    { "char": "Rowlf", "activity": "Play a Wandering Melody", "char_level": "Level 5", "time": "6h" },
+    { "char": "Judy Hopps + Nick Wilde", "activity": "Grab a Small Snack", "char_level": "Level 6", "time": "6h" },
+    { "char": "Celia Mae", "activity": "Manage Desk", "char_level": "Level 5", "time": "12h" },
+    { "char": "Daisy Duck", "activity": "Visit Minnie's House", "char_level": "Level 7", "time": "12h" },
+    { "char": "Haunted Mansion", "activity": "Setting up Warning Signs", "char_level": "Level 0", "time": "12h" }
+  ],
+  "Ezra's Top Hat": [
+    { "char": "Randall Boggs + Roz", "activity": "Lecture by Roz", "char_level": "Level 1", "time": "2h" },
+    { "char": "The Captain", "activity": "Look at Earthly Objects", "char_level": "Level 3", "time": "4h" },
+    { "char": "EVE", "activity": "Scan for Lifeforms", "char_level": "Level 5", "time": "6h" },
+    { "char": "Kermit", "activity": "Think of Muppet Friends", "char_level": "Level 5", "time": "6h" },
+    { "char": "Lock", "activity": "Knock Three Times", "char_level": "Level 6", "time": "6h" },
+    { "char": "Mike Wazowski + Sulley", "activity": "Rehearse Show", "char_level": "Level 5", "time": "6h" },
+    { "char": "The Haunted Mansion", "activity": "Haunting the Walls", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Fennec Shand Ears Hat": [
+    { "char": "Boba Fett", "activity": "Reclaim Armor", "char_level": "Level 2", "time": "2h" },
+    { "char": "C-3PO", "activity": "Offer Expertise", "char_level": "Level 3", "time": "2h" },
+    { "char": "Rey", "activity": "Stock Up on Rations", "char_level": "Level 2", "time": "4h" },
+    { "char": "The Child + Cara Dune", "activity": "Wait in the Desert", "char_level": "Level 5", "time": "4h" },
+    { "char": "Poe", "activity": "Play Your Strengths", "char_level": "Level 3", "time": "6h" }
+  ],
+  "Fennec's Rifle": [
+    { "char": "Ahsoka Tano", "activity": "Provide Counsel", "char_level": "Level 2", "time": "2h" },
+    { "char": "R2-D2 + Finn", "activity": "Get Up to Speed", "char_level": "Level 2", "time": "2h" },
+    { "char": "Fennec Shand", "activity": "Seek Bounty", "char_level": "Level 3", "time": "4h" },
+    { "char": "The Mandalorian + Greef Karga", "activity": "Look Over Bounties", "char_level": "Level 4", "time": "4h" },
+    { "char": "Luke Skywalker", "activity": "Looking to the Horizon", "char_level": "Level 5", "time": "6h" }
+  ],
+  "Figment Ears Hat": [
+    { "char": "Davy Jones + Will Turner", "activity": "Rolling the Dice", "char_level": "Level 4", "time": "12h" },
+    { "char": "Mickey Mouse", "activity": "Visit Donald's Boat", "char_level": "Level 10", "time": "24h" }
+  ],
+  "Figment's Paintbrush": [
+    { "char": "Davy Jones + Elizabeth Swann", "activity": "Duel of Swords", "char_level": "Level 3", "time": "12h" },
+    { "char": "Zurg + Buzz Lightyear", "activity": "Face Off with Buzz", "char_level": "Level 1", "time": "24h" }
+  ],
+  "FO Stormtrooper Ears Hat": [
+    { "char": "Sarge + Buzz Lightyear", "activity": "Alpha to Eagle-Eye", "char_level": "Level 10", "time": "2h" },
+    { "char": "Kylo Ren", "activity": "Question Everything", "char_level": "Level 2", "time": "4h" },
+    { "char": "R2-D2", "activity": "Interface with Friends", "char_level": "Level 3", "time": "4h" },
+    { "char": "BB-8", "activity": "Search for a Ship", "char_level": "Level 1", "time": "6h" },
+    { "char": "Poe", "activity": "Get Out of the Cockpit", "char_level": "Level 2", "time": "6h" },
+    { "char": "Rey", "activity": "Relax", "char_level": "Level 3", "time": "6h" },
+    { "char": "Cara Dune + The Child", "activity": "Protect the Kid", "char_level": "Level 9", "time": "12h" },
+    { "char": "Cantina", "activity": "Cleaning Cups", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Flute": [
+    { "char": "Bullseye", "activity": "To the Watering Hole", "char_level": "Level 4", "time": "4h" },
+    { "char": "Pleakley", "activity": "Relax on the Beach", "char_level": "Level 3", "time": "4h" },
+    { "char": "Sebastian", "activity": "Thinking of Solutions", "char_level": "Level 1", "time": "4h" },
+    { "char": "Flounder", "activity": "Swim Around the City", "char_level": "Level 4", "time": "4h" },
+    { "char": "Ursula", "activity": "Explore New Deals", "char_level": "Level 3", "time": "4h" },
+    { "char": "Atlantica", "activity": "Holding Court Underwater", "char_level": "Level 0", "time": "8h" }
+  ],
+  "FO Stormtrooper Helmet": [
+    { "char": "General Hux", "activity": "Make Yourself Known", "char_level": "Level 3", "time": "2h" },
+    { "char": "Kylo Ren", "activity": "Remnants of the Past", "char_level": "Level 1", "time": "2h" },
+    { "char": "C-3PO + Rey", "activity": "Supply Information", "char_level": "Level 8", "time": "2h" },
+    { "char": "BB-8", "activity": "Acquire Data", "char_level": "Level 2", "time": "4h" },
+    { "char": "Finn", "activity": "Make Connections", "char_level": "Level 2", "time": "4h" },
+    { "char": "Greef Karga", "activity": "Hand Out Bounties", "char_level": "Level 1", "time": "6h" },
+    { "char": "Kuiil + The Mandalorian", "activity": "Explain the Mission", "char_level": "Level 7", "time": "6h" },
+    { "char": "First Order Stormtrooper", "activity": "Demand Quality", "char_level": "Level 3", "time": "8h" },
+    { "char": "Woody", "activity": "Play the Claw", "char_level": "Level 7", "time": "8h" },
+    { "char": "Resistance Speeders", "activity": "Adjusting Course", "char_level": "Level 3", "time": "8h" }
+  ],
+  "General Hux Ears Hat": [
+    { "char": "BB-8 + Finn", "activity": "Maintaining Friendships", "char_level": "Level 3", "time": "2h" },
+    { "char": "Poe", "activity": "Get Out of the Cockpit", "char_level": "Level 2", "time": "6h" },
+    { "char": "Poe", "activity": "Play Your Strengths", "char_level": "Level 3", "time": "6h" },
+    { "char": "Mike Wazowski", "activity": "Perform Stand-Up", "char_level": "Level 2", "time": "6h" },
+    { "char": "Kylo Ren + General Hux", "activity": "Oversee Operations", "char_level": "Level 6", "time": "6h" },
+    { "char": "First Order Stormtrooper", "activity": "Demand Quality", "char_level": "Level 3", "time": "8h" },
+    { "char": "Kuiil + The Mandalorian", "activity": "I Have Spoken", "char_level": "Level 2", "time": "12h" },
+    { "char": "R2-D2", "activity": "Salvage Data", "char_level": "Level 7", "time": "24h" },
+    { "char": "Resistance X-Wing", "activity": "Fueling Up", "char_level": "Level 1", "time": "6h" },
+    { "char": "Treadspeeder Base", "activity": "Gathering Communications", "char_level": "Level 1", "time": "6h" },
+    { "char": "Resistance Speeders", "activity": "Adjusting Course", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Ghostly Hatbox": [
+    { "char": "Dale", "activity": "Feeling Goofy", "char_level": "Level 7", "time": "2h" },
+    { "char": "Phineas", "activity": "Appear in Photos", "char_level": "Level 2", "time": "2h" },
+    { "char": "Jack Skellington", "activity": "Thinking Time", "char_level": "Level 2", "time": "4h" },
+    { "char": "Bo Peep", "activity": "RC Racing Lady", "char_level": "Level 5", "time": "6h" },
+    { "char": "The Haunted Mansion", "activity": "Haunting the Walls", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Gideon's Chestplate": [
+    { "char": "Ahsoka Tano", "activity": "Provide Counsel", "char_level": "Level 2", "time": "2h" },
+    { "char": "Mike Wazowski", "activity": "Submit Files", "char_level": "Level 1", "time": "2h" },
+    { "char": "Fennec Shand", "activity": "Seek Bounty", "char_level": "Level 3", "time": "4h" },
+    { "char": "Bullseye", "activity": "Watch Parachutes", "char_level": "Level 3", "time": "6h" },
+    { "char": "Gideon's Light Cruiser", "activity": "Readying Dark Troopers", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Greef Karga Ears Hat": [
+    { "char": "Cara Dune + The Mandalorian", "activity": "Sort Out Details", "char_level": "Level 5", "time": "4h" },
+    { "char": "Kuiil", "activity": "Looking for Blurrg", "char_level": "Level 1", "time": "6h" },
+    { "char": "The Child", "activity": "Explore the Ship", "char_level": "Level 3", "time": "6h" },
+    { "char": "The Mandalorian", "activity": "Look for Bounty", "char_level": "Level 1", "time": "6h" },
+    { "char": "Finn + Rey", "activity": "Greater Understanding", "char_level": "Level 5", "time": "6h" },
+    { "char": "Poe + General Hux", "activity": "Recon First Order", "char_level": "Level 2", "time": "6h" },
+    { "char": "Cara Dune", "activity": "Look Out for a Fight", "char_level": "Level 2", "time": "8h" },
+    { "char": "Nevarro City", "activity": "Looking for Bounties", "char_level": "Level 3", "time": "8h" },
+    { "char": "Sandcrawler", "activity": "Negotiating with Jawas", "char_level": "Level 2", "time": "12h" }
+  ],
+  "Gus's Ball and Chain": [
+    { "char": "Ezra", "activity": "Prank Guests", "char_level": "Level 2", "time": "2h" },
+    { "char": "Hatbox Ghost", "activity": "Perform Hat Trick", "char_level": "Level 3", "time": "4h" },
+    { "char": "Zurg", "activity": "Spread Cheer for an Event?", "char_level": "Level 1", "time": "4h" },
+    { "char": "Bunny + Ducky", "activity": "Get Excited!", "char_level": "Level 5", "time": "4h" },
+    { "char": "Buzz Lightyear", "activity": "Pizza Party", "char_level": "Level 4", "time": "6h" },
+    { "char": "The Haunted Mansion", "activity": "Haunting the Walls", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Hatbox Ghost Ears Hat": [
+    { "char": "Madame Leota", "activity": "Float Above the Table", "char_level": "Level 4", "time": "4h" },
+    { "char": "Mowgli + Bagheera", "activity": "Dangerous Sleeping Spot", "char_level": "Level 5", "time": "4h" },
+    { "char": "Ezra", "activity": "Put On a Show", "char_level": "Level 5", "time": "6h" },
+    { "char": "The Captain", "activity": "Explore New Home", "char_level": "Level 5", "time": "6h" },
+    { "char": "The Mayor + Sally", "activity": "Work On Holiday Ideas", "char_level": "Level 8", "time": "6h" },
+    { "char": "EVE", "activity": "Find Malfunctioning Robots", "char_level": "Level 6", "time": "8h" },
+    { "char": "Fauna", "activity": "Spreading Green Cheer", "char_level": "Level 2", "time": "8h" },
+    { "char": "Minnie Mouse", "activity": "Check on Donald", "char_level": "Level 10", "time": "8h" },
+    { "char": "Mother Gothel", "activity": "Recruit Help for Plans", "char_level": "Level 7", "time": "8h" },
+    { "char": "Chip", "activity": "Explore a Boat", "char_level": "Level 10", "time": "12h" },
+    { "char": "Donald Duck", "activity": "Clean the Deck", "char_level": "Level 8", "time": "12h" },
+    { "char": "Rapunzel + Flynn", "activity": "Visit Strange Kingdom", "char_level": "Level 5", "time": "12h" },
+    { "char": "Haunted Mansion", "activity": "Setting up Warning Signs", "char_level": "Level 4", "time": "12h" }
+  ],
+  "Haunted Mansion Sign": [
+    { "char": "Ezra", "activity": "Dearly Departed Ezra", "char_level": "Level 1", "time": "60m" },
+    { "char": "Gus", "activity": "Here Lies Gus", "char_level": "Level 1", "time": "60m" },
+    { "char": "Hatbox Ghost", "activity": "What's in the Hatbox?", "char_level": "Level 1", "time": "60m" },
+    { "char": "Madame Leota", "activity": "Peer into Tomorrow", "char_level": "Level 1", "time": "60m" },
+    { "char": "Phineas", "activity": "Rest in Peace, Professor", "char_level": "Level 1", "time": "60m" },
+    { "char": "Pickwick", "activity": "Hover in Elegance", "char_level": "Level 1", "time": "60m" },
+    { "char": "Randall Boggs", "activity": "Complain about Food", "char_level": "Level 2", "time": "60m" },
+    { "char": "The Bride", "activity": "Till Death Do Us Part", "char_level": "Level 1", "time": "60m" },
+    { "char": "Hollywood Tower of Terror", "activity": "Scaring Visitors", "char_level": "Level 1", "time": "60m" }
+  ],
+  "Heart Chest": [
+    { "char": "Tia Dalma + Captain Barbossa", "activity": "Making Plans", "char_level": "Level 7", "time": "4h" },
+    { "char": "Elizabeth Swann", "activity": "Commission a Ship", "char_level": "Level 6", "time": "6h" },
+    { "char": "Goofy", "activity": "Swab the Deck", "char_level": "Level 6", "time": "6h" },
+    { "char": "Davy Jones's Organ", "activity": "Playing a Haunting Melody", "char_level": "Level 0", "time": "6h" },
+    { "char": "Lost Boys' Hideout", "activity": "Who's Shovin'?", "char_level": "Level 1", "time": "24h" }
+  ],
+  "Honest John Ears Hat": [
+    { "char": "Blue Fairy", "activity": "Deliver Magical Message", "char_level": "Level 2", "time": "2h" },
+    { "char": "Figaro", "activity": "Snuggle Up at Home", "char_level": "Level 2", "time": "2h" },
+    { "char": "Pinocchio", "activity": "An Actor's Life", "char_level": "Level 4", "time": "6h" },
+    { "char": "Pinocchio's Daring Journey", "activity": "Watching Out for Whales", "char_level": "Level 1", "time": "4h" }
+  ],
+  "Honest John's Cane": [
+    { "char": "Geppetto", "activity": "In the Belly of the Beast", "char_level": "Level 2", "time": "2h" },
+    { "char": "Zurg", "activity": "Spread Cheer for an Event?", "char_level": "Level 1", "time": "4h" },
+    { "char": "Jiminy Cricket", "activity": "Keep Out of Trouble", "char_level": "Level 4", "time": "6h" },
+    { "char": "Stromboli", "activity": "Count Up Profits", "char_level": "Level 4", "time": "6h" },
+    { "char": "Geppetto's Workshop", "activity": "Sweeping up Woodchips", "char_level": "Level 2", "time": "6h" },
+    { "char": "Pinocchio Village Haus", "activity": "Warming the Hearth", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Imperial Stormtrooper Ears Hat": [
+    { "char": "Lando Calrissian", "activity": "Feel Something Watching", "char_level": "Level 2", "time": "2h" },
+    { "char": "Luke Skywalker", "activity": "Look Over the Plans", "char_level": "Level 3", "time": "4h" },
+    { "char": "Yoda", "activity": "See Visions of the Future", "char_level": "Level 3", "time": "4h" },
+    { "char": "Chewbacca", "activity": "Something Smells", "char_level": "Level 4", "time": "6h" },
+    { "char": "Star Wars Float", "activity": "Star Wars Float", "char_level": "Float", "time": "2h" },
+    { "char": "Cloud City", "activity": "Mining Tibanna Gas", "char_level": "Level 3", "time": "4h" }
+  ],
+  "Imperial Stormtrooper's Blaster": [
+    { "char": "Boba Fett", "activity": "Watch for Trouble", "char_level": "Level 1", "time": "2h" },
+    { "char": "Darth Vader", "activity": "Tremor in the Force", "char_level": "Level 2", "time": "2h" },
+    { "char": "TIE Fighter Pilot", "activity": "Observe Airspace", "char_level": "Level 3", "time": "4h" },
+    { "char": "Leia Organa + Han Solo", "activity": "In That Thing?", "char_level": "Level 8", "time": "6h" },
+    { "char": "Star Wars Float", "activity": "Star Wars Float", "char_level": "Float", "time": "2h" },
+    { "char": "Dagobah", "activity": "Making Rocks Float", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Jack Ears Hat": [
+    { "char": "Davy Jones", "activity": "Striking Fear in Pirates", "char_level": "Level 2", "time": "4h" },
+    { "char": "Prince Charming", "activity": "Jousting Practice", "char_level": "Level 4", "time": "4h" }
+  ],
+  "Jock's Coat": [
+    { "char": "Jock", "activity": "Neighborhood Watch", "char_level": "Level 1", "time": "6h" },
+    { "char": "Pete", "activity": "Visit Mickey's House", "char_level": "Level 2", "time": "8h" },
+    { "char": "Tony", "activity": "Entertain Customers", "char_level": "Level 2", "time": "8h" },
+    { "char": "Lady + Joe", "activity": "Garnish Some Attention", "char_level": "Level 5", "time": "8h" },
+    { "char": "Tramp", "activity": "Sniff Out a Rat", "char_level": "Level 4", "time": "12h" },
+    { "char": "Lady and Tramp's Home", "activity": "Socializing with the Neighbors", "char_level": "Level 1", "time": "6h" }
+  ],
+  "Joe Ears Hat": [
+    { "char": "John Darling", "activity": "Dealing with Pirates", "char_level": "Level 4", "time": "4h" },
+    { "char": "Jock", "activity": "Neighborhood Watch", "char_level": "Level 1", "time": "6h" },
+    { "char": "Lady", "activity": "Reminisce", "char_level": "Level 2", "time": "6h" },
+    { "char": "Joe", "activity": "Deliver Bones", "char_level": "Level 3", "time": "8h" },
+    { "char": "Tony", "activity": "Entertain Customers", "char_level": "Level 2", "time": "8h" },
+    { "char": "Cinderella", "activity": "Give a Tour", "char_level": "Level 10", "time": "12h" },
+    { "char": "Mowgli + Baloo", "activity": "Forget About Worries", "char_level": "Level 6", "time": "12h" },
+    { "char": "The Beaver Dam", "activity": "Tending to the Animals", "char_level": "Level 4", "time": "12h" }
+  ],
+  "Kuiil Ears Hat": [
+    { "char": "Hamm", "activity": "Space Pig", "char_level": "Level 5", "time": "4h" },
+    { "char": "Cara Dune + The Mandalorian", "activity": "Sort Out Details", "char_level": "Level 5", "time": "4h" },
+    { "char": "Rey + Kylo Ren", "activity": "Unexpected Visions", "char_level": "Level 3", "time": "4h" },
+    { "char": "First Order Stormtrooper + General Hux", "activity": "Enact Code Enforcements", "char_level": "Level 2", "time": "4h" },
+    { "char": "Cara Dune", "activity": "Scout the City", "char_level": "Level 2", "time": "6h" },
+    { "char": "Poe + Finn", "activity": "Plan Ahead", "char_level": "Level 4", "time": "6h" },
+    { "char": "Greef Karga + Cara Dune", "activity": "A Meeting", "char_level": "Level 3", "time": "8h" },
+    { "char": "Kuiil + The Mandalorian", "activity": "I Have Spoken", "char_level": "Level 2", "time": "12h" },
+    { "char": "Sandcrawler", "activity": "Negotiating with Jawas", "char_level": "Level 4", "time": "12h" }
+  ],
+  "Kuiil Goggles": [
+    { "char": "C-3PO", "activity": "Offer Expertise", "char_level": "Level 3", "time": "2h" },
+    { "char": "Kuiil + The Child", "activity": "Patiently Waiting", "char_level": "Level 6", "time": "2h" },
+    { "char": "The Mandalorian + Kuiil", "activity": "Negotiate Together", "char_level": "Level 3", "time": "2h" },
+    { "char": "The Child", "activity": "Explore the Ship", "char_level": "Level 3", "time": "6h" },
+    { "char": "R2-D2 + BB-8", "activity": "Complete the Map", "char_level": "Level 4", "time": "6h" },
+    { "char": "Jessie", "activity": "Visit Buzz's Space", "char_level": "Level 9", "time": "12h" },
+    { "char": "Razor Crest", "activity": "Operating at Peak Efficiency", "char_level": "Level 1", "time": "6h" }
+  ],
+  "Lady Ears Hat": [
+    { "char": "Jock + Trusty", "activity": "Check for the Others", "char_level": "Level 7", "time": "4h" },
+    { "char": "Joe", "activity": "Food Prep", "char_level": "Level 3", "time": "6h" },
+    { "char": "Jock", "activity": "Aye, M' Dear", "char_level": "Level 4", "time": "8h" },
+    { "char": "Joe", "activity": "A Day's Work", "char_level": "Level 3", "time": "8h" },
+    { "char": "Lady", "activity": "Dunk Some Donuts", "char_level": "Level 3", "time": "8h" },
+    { "char": "Tramp", "activity": "Log Puller Maintenance", "char_level": "Level 3", "time": "8h" },
+    { "char": "Wendy Darling + Peter Pan", "activity": "Revisiting Old Tales", "char_level": "Level 6", "time": "8h" },
+    { "char": "Lady and Tramp's Home", "activity": "Socializing with the Neighbors", "char_level": "Level 4", "time": "6h" }
+  ],
+  "Lady's Collar": [
+    { "char": "Jock + Trusty", "activity": "Check for the Others", "char_level": "Level 7", "time": "4h" },
+    { "char": "Jock", "activity": "Neighborhood Watch", "char_level": "Level 1", "time": "6h" },
+    { "char": "Shere Khan", "activity": "Interrogating the Snake", "char_level": "Level 4", "time": "6h" },
+    { "char": "Tony", "activity": "Cook Up a Feast", "char_level": "Level 3", "time": "6h" },
+    { "char": "Tony", "activity": "Where's Butch?", "char_level": "Level 5", "time": "12h" },
+    { "char": "Tramp", "activity": "Sniff Out a Rat", "char_level": "Level 4", "time": "12h" },
+    { "char": "Tony's Restaurant", "activity": "Entertaining Guests", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Lando Calrissian Ears Hat": [
+    { "char": "Imperial Stormtrooper", "activity": "Wade Through Fog", "char_level": "Level 2", "time": "2h" },
+    { "char": "Yoda", "activity": "Pick Rootleaf", "char_level": "Level 2", "time": "2h" },
+    { "char": "Leia Organa", "activity": "My Only Hope", "char_level": "Level 3", "time": "4h" },
+    { "char": "TIE Fighter Pilot", "activity": "Man the Stations", "char_level": "Level 4", "time": "6h" },
+    { "char": "Star Wars Float", "activity": "Star Wars Float", "char_level": "Float", "time": "2h" },
+    { "char": "Dagobah", "activity": "Making Rocks Float", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Lando's Cape": [
+    { "char": "Luke Skywalker", "activity": "Cautiously Eat Stew", "char_level": "Level 1", "time": "2h" },
+    { "char": "Chewbacca", "activity": "Negotiate", "char_level": "Level 3", "time": "4h" },
+    { "char": "Darth Vader", "activity": "Inspect the Ship", "char_level": "Level 3", "time": "4h" },
+    { "char": "Han Solo", "activity": "Meet at Docking Bay 94", "char_level": "Level 4", "time": "6h" },
+    { "char": "Star Wars Float", "activity": "Star Wars Float", "char_level": "Float", "time": "2h" },
+    { "char": "Cloud City", "activity": "Mining Tibanna Gas", "char_level": "Level 1", "time": "4h" }
+  ],
+  "Leia Organa Ears Hat": [
+    { "char": "C-3PO", "activity": "Where Did I Leave That?", "char_level": "Level 1", "time": "4h" },
+    { "char": "Han Solo", "activity": "Get Reward", "char_level": "Level 3", "time": "4h" },
+    { "char": "TIE Fighter Pilot", "activity": "Observe Airspace", "char_level": "Level 3", "time": "4h" },
+    { "char": "Kylo Ren", "activity": "Know Thy Enemy", "char_level": "Level 2", "time": "6h" },
+    { "char": "Millennium Falcon", "activity": "Making the Kessel Run", "char_level": "Level 3", "time": "4h" },
+    { "char": "Yavin 4 Base", "activity": "Planning an Attack", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Louie Ears Hat": [
+    { "char": "Huey", "activity": "Grab Belongings", "char_level": "Level 4", "time": "4h" },
+    { "char": "Scrooge McDuck", "activity": "Judge the Boat", "char_level": "Level 3", "time": "4h" },
+    { "char": "Dewey", "activity": "Create Some Fun", "char_level": "Level 4", "time": "6h" },
+    { "char": "Daisy Duck", "activity": "Spread Flowers", "char_level": "Level 4", "time": "8h" },
+    { "char": "Woody + Bullseye", "activity": "Ride Like the Wind", "char_level": "Level 9", "time": "12h" },
+    { "char": "Rapunzel's Tower", "activity": "Letting Down Locks", "char_level": "Level 4", "time": "6h" },
+    { "char": "The Money Bin", "activity": "Diving into Riches", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Louie's Toy Car": [
+    { "char": "Scrooge McDuck", "activity": "Go For a Swim", "char_level": "Level 4", "time": "4h" },
+    { "char": "Mother Gothel", "activity": "Spy on Royalty", "char_level": "Level 5", "time": "6h" },
+    { "char": "Roz + Mike Wazowski", "activity": "Scold Mike", "char_level": "Level 2", "time": "6h" },
+    { "char": "Daisy Duck + Mickey Mouse", "activity": "Talk at the Diner", "char_level": "Level 5", "time": "12h" },
+    { "char": "The Money Bin", "activity": "Diving into Riches", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Louis Ears Hat": [
+    { "char": "Eudora", "activity": "Stroll through the City", "char_level": "Level 2", "time": "60m" },
+    { "char": "Tiana", "activity": "Picking Up Supplies", "char_level": "Level 4", "time": "2h" },
+    { "char": "Prince Naveen", "activity": "Playing Some Jazz", "char_level": "Level 1", "time": "4h" },
+    { "char": "The Bayou Journey", "activity": "Spinning the Water Wheel", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Madame Leota Ears Hat": [
+    { "char": "Pickwick", "activity": "Tip Your Hat to the Crowd", "char_level": "Level 5", "time": "12h" },
+    { "char": "Colette + Linguini", "activity": "Mark of a Chef", "char_level": "Level 10", "time": "12h" },
+    { "char": "Hatbox Ghost + The Bride", "activity": "Present a Ghoulish Hat Box", "char_level": "Level 9", "time": "12h" },
+    { "char": "Jock + Tramp", "activity": "A Stern Talking-To", "char_level": "Level 5", "time": "12h" },
+    { "char": "Lady + Trusty", "activity": "A Word to the Wise", "char_level": "Level 10", "time": "12h" },
+    { "char": "Madame Medusa", "activity": "Start Up the Swamp-Mobile", "char_level": "Level 10", "time": "14h" },
+    { "char": "Yzma", "activity": "Find a Bigger Box", "char_level": "Level 7", "time": "16h" },
+    { "char": "Remy", "activity": "Most Famous Kitchen in Paris", "char_level": "Level 10", "time": "24h" },
+    { "char": "The Séance Circle", "activity": "Floating in the Cyclone of Omens", "char_level": "Level 4", "time": "12h" }
+  ],
+  "Madame Leota's Séance Candles": [
+    { "char": "Phineas + Gus", "activity": "Eye Floating Objects", "char_level": "Level 6", "time": "6h" },
+    { "char": "Ezra", "activity": "Seat Guests Properly", "char_level": "Level 8", "time": "8h" },
+    { "char": "Miss Bianca", "activity": "Sing the Rescue Aid Society Anthem", "char_level": "Level 9", "time": "8h" },
+    { "char": "Mr. Smee", "activity": "Check the Hold for Leaks", "char_level": "Level 8", "time": "12h" },
+    { "char": "Captain Hook + Peter Pan", "activity": "Heated Discussion", "char_level": "Level 8", "time": "12h" },
+    { "char": "Colette + Linguini", "activity": "Mark of a Chef", "char_level": "Level 10", "time": "12h" },
+    { "char": "Meeko + Pocahontas", "activity": "Friendly Reminders", "char_level": "Level 6", "time": "12h" },
+    { "char": "Yzma", "activity": "Find a Bigger Box", "char_level": "Level 7", "time": "16h" },
+    { "char": "The Séance Circle", "activity": "Floating in the Cyclone of Omens", "char_level": "Level 3", "time": "12h" }
+  ],
+  "Mary Sanderson Ears Hat": [
+    { "char": "Buzz Lightyear + Jessie", "activity": "Memory Reset", "char_level": "Level 5", "time": "2h" },
+    { "char": "Rapunzel", "activity": "Create Artwork", "char_level": "Level 1", "time": "4h" },
+    { "char": "White Rabbit", "activity": "Goodbye, I'm Late!", "char_level": "Level 2", "time": "4h" },
+    { "char": "Winifred Sanderson", "activity": "Twist the Bones", "char_level": "Level 3", "time": "4h" },
+    { "char": "Fauna + Flora", "activity": "Working Together", "char_level": "Level 1", "time": "6h" },
+    { "char": "The Sanderson House", "activity": "Finding Brooms", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Mayor Ears Hat": [
+    { "char": "Sally", "activity": "Make Soup", "char_level": "Level 6", "time": "4h" },
+    { "char": "Zero", "activity": "Beg for a Treat", "char_level": "Level 5", "time": "4h" },
+    { "char": "The Mayor", "activity": "Oversee Preparations", "char_level": "Level 5", "time": "6h" },
+    { "char": "Oogie Boogie's Spin", "activity": "Splitting a Seam", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Mayor's Badge": [
+    { "char": "Jack Skellington", "activity": "Serenade the Moon", "char_level": "Level 7", "time": "8h" },
+    { "char": "Oogie Boogie", "activity": "Check the Competition", "char_level": "Level 2", "time": "8h" },
+    { "char": "The Mayor", "activity": "Enjoy a Graveyard Walk", "char_level": "Level 6", "time": "8h" },
+    { "char": "Broomstick Graveyard", "activity": "Flying over the Moon", "char_level": "Level 4", "time": "4h" },
+    { "char": "Finkelstein Tower", "activity": "Testing Halloween Experiments", "char_level": "Level 4", "time": "6h" }
+  ],
+  "Moff Gideon Ears Hat": [
+    { "char": "Bo-Katan Kryze", "activity": "Serve a Higher Purpose", "char_level": "Level 2", "time": "2h" },
+    { "char": "Boba Fett", "activity": "Search Through Wares", "char_level": "Level 3", "time": "4h" },
+    { "char": "Roz", "activity": "Attend a Show", "char_level": "Level 7", "time": "4h" },
+    { "char": "Merryweather + Flora", "activity": "Magical Duel", "char_level": "Level 10", "time": "4h" },
+    { "char": "Zurg + Hamm", "activity": "Learn Comedy from Hamm", "char_level": "Level 1", "time": "6h" },
+    { "char": "Gideon's Light Cruiser", "activity": "Readying Dark Troopers", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Orange Bird Ears Hat": [
+    { "char": "Figment", "activity": "Imagine New Worlds", "char_level": "Level 4", "time": "12h" },
+    { "char": "Michael Darling + John Darling", "activity": "Prepare for an Adventure", "char_level": "Level 8", "time": "24h" }
+  ],
+  "Orange Bird's Citrus Slice": [
+    { "char": "Figment", "activity": "Chatter Cheerfully with Birds", "char_level": "Level 3", "time": "12h" },
+    { "char": "Mr. Smee", "activity": "Starch the Captain's Cravats", "char_level": "Level 6", "time": "12h" }
+  ],
+  "Palpatine's Cane": [
+    { "char": "Lando Calrissian", "activity": "Feel Something Watching", "char_level": "Level 2", "time": "2h" },
+    { "char": "Imperial Stormtrooper", "activity": "Provide Backup", "char_level": "Level 4", "time": "4h" },
+    { "char": "Prince Phillip", "activity": "Entertain the Court", "char_level": "Level 7", "time": "4h" },
+    { "char": "Zurg", "activity": "Spread Cheer for an Event?", "char_level": "Level 1", "time": "4h" },
+    { "char": "Rex", "activity": "Party with Jessie", "char_level": "Level 8", "time": "6h" },
+    { "char": "Gideon's Light Cruiser", "activity": "Readying Dark Troopers", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Phineas Ears Hat": [
+    { "char": "Bullseye", "activity": "Visit the Barn", "char_level": "Level 2", "time": "2h" },
+    { "char": "Hatbox Ghost", "activity": "Haunt the Attic", "char_level": "Level 2", "time": "2h" },
+    { "char": "Jessie", "activity": "Racing Queen", "char_level": "Level 3", "time": "4h" },
+    { "char": "Oogie Boogie + Jack Skellington", "activity": "Scary Face-Off", "char_level": "Level 5", "time": "4h" },
+    { "char": "Pickwick", "activity": "Join the Midnight Waltz", "char_level": "Level 4", "time": "6h" },
+    { "char": "Haunted Mansion", "activity": "Setting up Warning Signs", "char_level": "Level 2", "time": "12h" }
+  ],
+  "Phineas's Carpet Bag": [
+    { "char": "Gus", "activity": "Sing in Graveyard", "char_level": "Level 2", "time": "2h" },
+    { "char": "Ezra", "activity": "Inspect Doom Buggy", "char_level": "Level 3", "time": "4h" },
+    { "char": "Randall Boggs", "activity": "Go Scaring", "char_level": "Level 1", "time": "4h" },
+    { "char": "Shock", "activity": "Frightful Fun", "char_level": "Level 6", "time": "6h" },
+    { "char": "Dewey", "activity": "Discovering Solutions", "char_level": "Level 10", "time": "8h" },
+    { "char": "Nick Wilde", "activity": "Walk Downtown", "char_level": "Level 2", "time": "8h" },
+    { "char": "The Haunted Mansion", "activity": "Haunting the Walls", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Pickwick Ears Hat": [
+    { "char": "Gus", "activity": "Polish Crystal Ball", "char_level": "Level 6", "time": "6h" },
+    { "char": "The Bride", "activity": "Fade In and Out of Dark Halls", "char_level": "Level 5", "time": "6h" },
+    { "char": "Hatbox Ghost", "activity": "Grin from the Shadows", "char_level": "Level 5", "time": "8h" },
+    { "char": "Chip + Dale", "activity": "Crack the Nut", "char_level": "Level 3", "time": "8h" },
+    { "char": "Mickey Mouse + Daisy Duck", "activity": "Costume Judge", "char_level": "Level 1", "time": "8h" },
+    { "char": "The Séance Circle", "activity": "Floating in the Cyclone of Omens", "char_level": "Level 2", "time": "12h" }
+  ],
+  "Pickwick's Hat and Cane": [
+    { "char": "Gus (Cinderella)", "activity": "Forage for Corn Around Horses", "char_level": "Level 3", "time": "4h" },
+    { "char": "Madame Leota", "activity": "Call Forth Spirits", "char_level": "Level 3", "time": "4h" },
+    { "char": "Gus", "activity": "Polish Crystal Ball", "char_level": "Level 6", "time": "6h" },
+    { "char": "Ezra + Phineas", "activity": "Watch Candles Flicker", "char_level": "Level 5", "time": "6h" },
+    { "char": "Hatbox Ghost", "activity": "Grin from the Shadows", "char_level": "Level 5", "time": "8h" },
+    { "char": "The Séance Circle", "activity": "Floating in the Cyclone of Omens", "char_level": "Level 1", "time": "12h" }
+  ],
+  "Plate of Spaghetti": [
+    { "char": "Bambi", "activity": "Bird!", "char_level": "Level 1", "time": "60m" },
+    { "char": "EVE", "activity": "Investigate Bubbly Object", "char_level": "Level 1", "time": "60m" },
+    { "char": "Jock", "activity": "Strange Relations", "char_level": "Level 3", "time": "60m" },
+    { "char": "Joe", "activity": "Take a Break", "char_level": "Level 1", "time": "60m" },
+    { "char": "Lady", "activity": "Solo Constitutional", "char_level": "Level 1", "time": "60m" },
+    { "char": "Pascal", "activity": "Enjoying Grapes", "char_level": "Level 1", "time": "60m" },
+    { "char": "Tony", "activity": "Italian Inspiration", "char_level": "Level 1", "time": "60m" },
+    { "char": "Tramp", "activity": "Find Dining", "char_level": "Level 1", "time": "60m" },
+    { "char": "Trusty", "activity": "Sensational Smells", "char_level": "Level 2", "time": "60m" },
+    { "char": "Trusty", "activity": "Working Sniffer", "char_level": "Level 1", "time": "4h" },
+    { "char": "Jock", "activity": "Neighborhood Watch", "char_level": "Level 1", "time": "6h" },
+    { "char": "Star Adventurer", "activity": "Going for the Big Prizes", "char_level": "Level 1", "time": "60m" },
+    { "char": "The Jolly Roger", "activity": "Piping Up the Crew", "char_level": "Level 4", "time": "60m" },
+    { "char": "Tony's Restaurant", "activity": "Entertaining Guests", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Prince Eric Ears Hat": [
+    { "char": "Daisy Duck", "activity": "Talk Up Diner", "char_level": "Level 3", "time": "2h" },
+    { "char": "Jumba", "activity": "Tinker with Systems", "char_level": "Level 2", "time": "2h" },
+    { "char": "Scuttle", "activity": "Inspecting Items", "char_level": "Level 2", "time": "2h" },
+    { "char": "King Triton", "activity": "Visiting Ariel", "char_level": "Level 2", "time": "2h" },
+    { "char": "Ariel", "activity": "Add to Collection", "char_level": "Level 3", "time": "2h" },
+    { "char": "Under the Sea", "activity": "Jamming with a Hot Crustacean Band", "char_level": "Level 0", "time": "4h" }
+  ],
+  "Prince Naveen Ears Hat": [
+    { "char": "Louis", "activity": "Jazz Tunes", "char_level": "Level 1", "time": "2h" },
+    { "char": "Dr. Facilier", "activity": "Speak with Friends", "char_level": "Level 2", "time": "4h" },
+    { "char": "Eudora", "activity": "An Afternoon Stroll", "char_level": "Level 1", "time": "4h" },
+    { "char": "Goin' Down the Bayou", "activity": "Floating All the Way Down", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Ray Ears Hat": [
+    { "char": "Dr. Facilier", "activity": "Investigate Tiana's", "char_level": "Level 4", "time": "6h" },
+    { "char": "Charlotte La Bouff + Eudora", "activity": "Dress Commissions", "char_level": "Level 5", "time": "6h" },
+    { "char": "Tiana + Mama Odie", "activity": "Taste-Testing Gumbo", "char_level": "Level 6", "time": "6h" },
+    { "char": "Henry J. Waternoose", "activity": "Claim Your Favorite Seat", "char_level": "Level 6", "time": "8h" },
+    { "char": "Mrs. Jumbo", "activity": "Go for a Ride", "char_level": "Level 9", "time": "12h" },
+    { "char": "Tramp + Tony", "activity": "Order Off the Menu", "char_level": "Level 9", "time": "12h" },
+    { "char": "The Bayou Journey", "activity": "Spinning the Water Wheel", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Ray's Tiny Caterpillar": [
+    { "char": "Dr. Facilier", "activity": "Investigate Tiana's", "char_level": "Level 4", "time": "6h" },
+    { "char": "Jaq", "activity": "New Mouse in the House!", "char_level": "Level 5", "time": "6h" },
+    { "char": "Tiana + Prince Naveen", "activity": "Teasing Nature", "char_level": "Level 2", "time": "6h" },
+    { "char": "Dewey", "activity": "Discovering Solutions", "char_level": "Level 10", "time": "8h" },
+    { "char": "Lady", "activity": "Dunk Some Donuts", "char_level": "Level 3", "time": "8h" },
+    { "char": "Louis", "activity": "Sing Along", "char_level": "Level 5", "time": "8h" },
+    { "char": "Mama Odie's Tree", "activity": "Stirring the Magic Gumbo", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Swampy Ukulele": [
+    { "char": "Mama Odie", "activity": "Enjoying Great Food", "char_level": "Level 7", "time": "2h" },
+    { "char": "Louis", "activity": "Jazz Tunes", "char_level": "Level 1", "time": "2h" },
+    { "char": "Charlotte La Bouff + Prince Naveen", "activity": "Discuss Other Princes", "char_level": "Level 1", "time": "2h" },
+    { "char": "Sebastian", "activity": "Thinking of Solutions", "char_level": "Level 1", "time": "4h" },
+    { "char": "Tiana + Prince Naveen", "activity": "Teasing Nature", "char_level": "Level 2", "time": "6h" },
+    { "char": "Bo Peep", "activity": "Visit Space Sheep", "char_level": "Level 4", "time": "8h" },
+    { "char": "Dr. Facilier + Mama Odie", "activity": "Face Off", "char_level": "Level 5", "time": "8h" },
+    { "char": "Prince Charming", "activity": "Tour Countryside", "char_level": "Level 6", "time": "12h" },
+    { "char": "Atlantica", "activity": "Holding Court Underwater", "char_level": "Level 0", "time": "8h" },
+    { "char": "Goin' Down the Bayou", "activity": "Floating All the Way Down", "char_level": "Level 1", "time": "8h" }
+  ],
+  "TIE Fighter": [
+    { "char": "Darth Vader", "activity": "Tremor in the Force", "char_level": "Level 2", "time": "2h" },
+    { "char": "Chewbacca", "activity": "Negotiate", "char_level": "Level 3", "time": "4h" },
+    { "char": "Luke Skywalker", "activity": "Look Over the Plans", "char_level": "Level 3", "time": "4h" },
+    { "char": "Mike Wazowski", "activity": "Canister Juggling", "char_level": "Level 10", "time": "12h" },
+    { "char": "Marauder Shuttle", "activity": "Transporting Troops", "char_level": "Level 0", "time": "6h" },
+    { "char": "Yavin 4 Base", "activity": "Planning an Attack", "char_level": "Level 3", "time": "8h" }
+  ],
+  "TIE Fighter Ears Hat": [
+    { "char": "Han Solo", "activity": "Got It Where It Counts", "char_level": "Level 2", "time": "2h" },
+    { "char": "Celia Mae", "activity": "Attend a Show", "char_level": "Level 1", "time": "6h" },
+    { "char": "Leia Organa", "activity": "Down the Garbage Chute", "char_level": "Level 6", "time": "6h" },
+    { "char": "Millennium Falcon", "activity": "Making the Kessel Run", "char_level": "Level 4", "time": "4h" },
+    { "char": "Marauder Shuttle", "activity": "Transporting Troops", "char_level": "Level 1", "time": "6h" }
+  ],
+  "The Bride Ears Hat": [
+    { "char": "Ducky", "activity": "Go for a Ride", "char_level": "Level 4", "time": "4h" },
+    { "char": "Goofy", "activity": "Try to Scare", "char_level": "Level 1", "time": "4h" },
+    { "char": "Drizella Tremaine + Anastasia Tremaine", "activity": "A Teasing Dance", "char_level": "Level 5", "time": "4h" },
+    { "char": "Hatbox Ghost + Phineas", "activity": "Compare Hats", "char_level": "Level 6", "time": "4h" },
+    { "char": "Pascal + Rapunzel", "activity": "Trying On Costumes", "char_level": "Level 5", "time": "4h" },
+    { "char": "Ernesto de la Cruz", "activity": "Talk of Success", "char_level": "Level 4", "time": "6h" },
+    { "char": "Gus + Madame Leota", "activity": "Shield Eyes from Bright Light", "char_level": "Level 5", "time": "8h" },
+    { "char": "The Haunted Mansion", "activity": "Haunting the Walls", "char_level": "Level 4", "time": "8h" }
+  ],
+  "The Bride's Hatchet": [
+    { "char": "Gus", "activity": "Pick Up a Ride", "char_level": "Level 3", "time": "4h" },
+    { "char": "Drizella Tremaine + Anastasia Tremaine", "activity": "A Teasing Dance", "char_level": "Level 5", "time": "4h" },
+    { "char": "Pascal + Rapunzel", "activity": "Trying On Costumes", "char_level": "Level 5", "time": "4h" },
+    { "char": "Ezra", "activity": "Put On a Show", "char_level": "Level 5", "time": "6h" },
+    { "char": "Toy Alien", "activity": "The Claw", "char_level": "Level 6", "time": "6h" },
+    { "char": "Zurg", "activity": "Do Some Lurking", "char_level": "Level 1", "time": "6h" },
+    { "char": "Ezra + Madame Leota", "activity": "Gaze Into the Crystal Ball", "char_level": "Level 7", "time": "6h" },
+    { "char": "Mamá Imelda", "activity": "Visiting Home", "char_level": "Level 5", "time": "8h" },
+    { "char": "Mickey Mouse + Daisy Duck", "activity": "Costume Judge", "char_level": "Level 1", "time": "8h" },
+    { "char": "Haunted Mansion", "activity": "Setting up Warning Signs", "char_level": "Level 1", "time": "12h" }
+  ],
+  "The Child Ears Hat": [
+    { "char": "Kuiil", "activity": "Craft a Crib", "char_level": "Level 2", "time": "4h" },
+    { "char": "Cara Dune", "activity": "Explore the Area", "char_level": "Level 4", "time": "6h" },
+    { "char": "Cara Dune", "activity": "Look for Mando", "char_level": "Level 3", "time": "6h" },
+    { "char": "Kuiil", "activity": "Await Instructions", "char_level": "Level 3", "time": "6h" },
+    { "char": "Cara Dune", "activity": "Look Out for a Fight", "char_level": "Level 2", "time": "8h" },
+    { "char": "General Hux + Kylo Ren", "activity": "Optimize Process", "char_level": "Level 9", "time": "12h" },
+    { "char": "Poe + BB-8", "activity": "Fine Tuning", "char_level": "Level 10", "time": "24h" },
+    { "char": "Razor Crest", "activity": "Operating at Peak Efficiency", "char_level": "Level 4", "time": "6h" }
+  ],
+  "The Child Hover Pram": [
+    { "char": "Kuiil", "activity": "Craft a Crib", "char_level": "Level 2", "time": "4h" },
+    { "char": "The Mandalorian + Greef Karga", "activity": "Look Over Bounties", "char_level": "Level 4", "time": "4h" },
+    { "char": "Kuiil", "activity": "Await Instructions", "char_level": "Level 3", "time": "6h" },
+    { "char": "The Child", "activity": "Wait for Mando", "char_level": "Level 1", "time": "6h" },
+    { "char": "Greef Karga + The Mandalorian", "activity": "Discuss the Guild", "char_level": "Level 4", "time": "6h" },
+    { "char": "C-3PO", "activity": "File a Complaint", "char_level": "Level 5", "time": "8h" },
+    { "char": "Greef Karga + The Mandalorian", "activity": "Retrieving Bounties", "char_level": "Level 3", "time": "8h" },
+    { "char": "Finn + Rey", "activity": "Help Out", "char_level": "Level 9", "time": "12h" },
+    { "char": "R2-D2 + First Order Stormtrooper", "activity": "Casual Concerns", "char_level": "Level 8", "time": "12h" },
+    { "char": "Nevarro City", "activity": "Looking for Bounties", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Tony's Accordion": [
+    { "char": "Trusty", "activity": "Working Sniffer", "char_level": "Level 1", "time": "4h" },
+    { "char": "Tony", "activity": "Cook Up a Feast", "char_level": "Level 3", "time": "6h" },
+    { "char": "Tramp", "activity": "Private Entrance", "char_level": "Level 2", "time": "6h" },
+    { "char": "Joe", "activity": "Play for Visitors", "char_level": "Level 4", "time": "8h" },
+    { "char": "Mowgli", "activity": "Lost in a Look", "char_level": "Level 5", "time": "8h" },
+    { "char": "Rapunzel + Flynn", "activity": "Visit Strange Kingdom", "char_level": "Level 5", "time": "12h" },
+    { "char": "Lady and Tramp's Home", "activity": "Socializing with the Neighbors", "char_level": "Level 2", "time": "6h" },
+    { "char": "Tony's Restaurant", "activity": "Entertaining Guests", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Tramp's Bone": [
+    { "char": "Trusty", "activity": "Working Sniffer", "char_level": "Level 1", "time": "4h" },
+    { "char": "Mowgli", "activity": "Picking Prickly Pears", "char_level": "Level 4", "time": "6h" },
+    { "char": "Tony", "activity": "Cook Up a Feast", "char_level": "Level 3", "time": "6h" },
+    { "char": "Tramp + Lady", "activity": "Family Matters", "char_level": "Level 3", "time": "6h" },
+    { "char": "Tramp", "activity": "Log Puller Maintenance", "char_level": "Level 3", "time": "8h" },
+    { "char": "Tinker Bell", "activity": "Do Some Fixing-Up", "char_level": "Level 10", "time": "12h" },
+    { "char": "Tia Dalma + Will Turner", "activity": "Discussing Fates", "char_level": "Level 5", "time": "12h" },
+    { "char": "Lady and Tramp's Home", "activity": "Socializing with the Neighbors", "char_level": "Level 0", "time": "6h" }
+  ],
+  "Trusty's Bandage": [
+    { "char": "Jock", "activity": "Heart of the Village", "char_level": "Level 2", "time": "6h" },
+    { "char": "Tramp", "activity": "Private Entrance", "char_level": "Level 2", "time": "6h" },
+    { "char": "Fauna", "activity": "Spreading Green Cheer", "char_level": "Level 2", "time": "8h" },
+    { "char": "Trusty", "activity": "You Don't Say", "char_level": "Level 4", "time": "8h" },
+    { "char": "The Beaver Dam", "activity": "Tending to the Animals", "char_level": "Level 0", "time": "12h" }
+  ],
+  "Vidia Ears Hat": [
+    { "char": "Miss Bianca", "activity": "Sing the Rescue Aid Society Anthem", "char_level": "Level 9", "time": "8h" },
+    { "char": "Silvermist", "activity": "Fine-Tune the Sprayer", "char_level": "Level 8", "time": "8h" },
+    { "char": "Merryweather + Fauna", "activity": "Tea Time!", "char_level": "Level 7", "time": "8h" },
+    { "char": "Bunny + Woody", "activity": "Imagine Ideas", "char_level": "Level 8", "time": "12h" },
+    { "char": "Linguini + Colette", "activity": "Anyone Can Cook", "char_level": "Level 7", "time": "12h" },
+    { "char": "Ladybug Painting Station", "activity": "Mixing Black Paint", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Wine Bottle Candle": [
+    { "char": "Jock", "activity": "Heart of the Village", "char_level": "Level 2", "time": "6h" },
+    { "char": "Lady", "activity": "Check on Beaver", "char_level": "Level 4", "time": "6h" },
+    { "char": "Tramp", "activity": "Private Entrance", "char_level": "Level 2", "time": "6h" },
+    { "char": "Joe", "activity": "Deliver Bones", "char_level": "Level 3", "time": "8h" },
+    { "char": "Wendy Darling + Peter Pan", "activity": "Revisiting Old Tales", "char_level": "Level 6", "time": "8h" },
+    { "char": "Sulley", "activity": "Be the Life of the Party", "char_level": "Level 10", "time": "12h" },
+    { "char": "Lady and Tramp's Home", "activity": "Socializing with the Neighbors", "char_level": "Level 3", "time": "6h" }
+  ],
+  "Winifred Sanderson Ears Hat": [
+    { "char": "Mad Hatter", "activity": "Must Have Tea", "char_level": "Level 5", "time": "4h" },
+    { "char": "Mary Sanderson", "activity": "Hide from Witch Hunters", "char_level": "Level 4", "time": "4h" },
+    { "char": "Prince Phillip", "activity": "Check for Maleficent", "char_level": "Level 1", "time": "4h" },
+    { "char": "Cinderella + Prince Charming", "activity": "Dance the Waltz", "char_level": "Level 10", "time": "4h" },
+    { "char": "Mother Gothel", "activity": "Spy on Royalty", "char_level": "Level 5", "time": "6h" },
+    { "char": "Minnie Mouse", "activity": "Hang Out at Home", "char_level": "Level 1", "time": "8h" },
+    { "char": "Bo Peep + Woody", "activity": "Walk around the Carnival", "char_level": "Level 5", "time": "8h" },
+    { "char": "The Sanderson House", "activity": "Finding Brooms", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Yokai Ears Hat": [
+    { "char": "Hiro", "activity": "Create Training Courses", "char_level": "Level 5", "time": "4h" },
+    { "char": "Fred", "activity": "Organizing Collections", "char_level": "Level 3", "time": "4h" },
+    { "char": "Wasabi", "activity": "Relaxing with Tea", "char_level": "Level 3", "time": "4h" },
+    { "char": "Nala", "activity": "Seeking Advice", "char_level": "Level 3", "time": "6h" },
+    { "char": "San Fransokyo City", "activity": "Being Dazzled by City Lights", "char_level": "Level 0", "time": "4h" }
   ]
 };
 
+//This is used to calculate the cost of enchanting a character's item. The cost increases with each level of enchantment, and the blueprint required also changes. The time required for each enchantment is also included, as this is a factor in determining which enchantments to prioritize when resources are limited.
 const ENCHANT_COSTS = [
-  { level: 1, blueprint: 'Common',    relics: 10,   magic: 2500,   time: '2h'  },
-  { level: 2, blueprint: 'Uncommon',  relics: 50,   magic: 5000,   time: '4h'  },
-  { level: 3, blueprint: 'Rare',      relics: 200,  magic: 15000,  time: '8h'  },
-  { level: 4, blueprint: 'Epic',      relics: 600,  magic: 60000,  time: '12h' },
+  { level: 1, blueprint: 'Common', relics: 10, magic: 2500, time: '2h' },
+  { level: 2, blueprint: 'Uncommon', relics: 50, magic: 5000, time: '4h' },
+  { level: 3, blueprint: 'Rare', relics: 200, magic: 15000, time: '8h' },
+  { level: 4, blueprint: 'Epic', relics: 600, magic: 60000, time: '12h' },
   { level: 5, blueprint: 'Legendary', relics: 1200, magic: 300000, time: '24h' },
 ];
 
+//This is used to determine the color of the blueprint in the app, based on its rarity. The colors are taken from Tailwind CSS's color palette, and are used to visually differentiate between the different rarities of blueprints.
 const BLUEPRINT_COLOR = {
   Common: '#9ca3af',
   Uncommon: '#34d399',
@@ -7794,34 +9270,34 @@ const BLUEPRINT_COLOR = {
 //Additionally, the base token and cost are included for each enchantment, as well as the total cost of all levels of the enchantment. The total cost is used to determine the order in which to prioritize enchantments when resources are limited.
 //Add new enchantments to the end of the list, and keep the list sorted by collection and then by name within each collection.
 const DMK_ENCHANTMENTS = [
-  { "collection": "Mickey and Friends", "name": "Chip 'n' Dale Treehouse", "base_token": "Chip Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Dale Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Acorn", "cost": 90, "total": 150 }, { "level": 3, "token": "Peanut", "cost": 90, "total": 180 }, { "level": 4, "token": "Dagger", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]},
-  { "collection": "Mickey and Friends", "name": "Daisy's Diner", "base_token": "Daisy Bow", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Daisy Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Minnie Bow", "cost": 90, "total": 150 }, { "level": 3, "token": "Dewey's Toy Plane", "cost": 90, "total": 180 }, { "level": 4, "token": "Sailor Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]},
-  { "collection": "Mickey and Friends", "name": "Donald's Boat", "base_token": "Scrooge McDuck's Piggy Bank", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Mowgli's Basket", "cost": 60, "total": 120 }, { "level": 2, "token": "Sailor Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Donald Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Michael Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]},
-  { "collection": "Mickey and Friends", "name": "Goofy's Playhouse", "base_token": "Goofy's Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Goofy Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Astro Blasters Blaster", "cost": 90, "total": 150 }, { "level": 3, "token": "Baobab Fruit", "cost": 90, "total": 180 }, { "level": 4, "token": "Doc Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]},
-  { "collection": "Mickey and Friends", "name": "Mickey's Fun Wheel", "base_token": "Mickey Balloon", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pixar Ball", "cost": 10, "total": 20 }, { "level": 2, "token": "Pumpkin", "cost": 15, "total": 25 }, { "level": 3, "token": "Pixie Dust", "cost": 15, "total": 30 }, { "level": 4, "token": "Plant Symbol", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }]},
-  { "collection": "Mickey and Friends", "name": "Mickey's House", "base_token": "Mickey Gloves", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Mickey Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Lady Tremaine's Ring", "cost": 180, "total": 300 }, { "level": 3, "token": "Bowler Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Zazu Ears Hat", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }]},
-  { "collection": "Mickey and Friends", "name": "Mickey's PhilharMagic", "base_token": "Lady Tremaine's Ring", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Prince Charming's Prince Gloves", "cost": 40, "total": 80 }, { "level": 2, "token": "Prince Charming Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Drizella Tremaine Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Buzz Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }]},
+  { "collection": "Mickey and Friends", "name": "Chip 'n' Dale Treehouse", "base_token": "Chip Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Dale Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Acorn", "cost": 90, "total": 150 }, { "level": 3, "token": "Peanut", "cost": 90, "total": 180 }, { "level": 4, "token": "Dagger", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Mickey and Friends", "name": "Daisy's Diner", "base_token": "Daisy Bow", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Daisy Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Minnie Bow", "cost": 90, "total": 150 }, { "level": 3, "token": "Dewey's Toy Plane", "cost": 90, "total": 180 }, { "level": 4, "token": "Sailor Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Mickey and Friends", "name": "Donald's Boat", "base_token": "Scrooge McDuck's Piggy Bank", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Mowgli's Basket", "cost": 60, "total": 120 }, { "level": 2, "token": "Sailor Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Donald Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Michael Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Mickey and Friends", "name": "Goofy's Playhouse", "base_token": "Goofy's Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Goofy Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Astro Blasters Blaster", "cost": 90, "total": 150 }, { "level": 3, "token": "Baobab Fruit", "cost": 90, "total": 180 }, { "level": 4, "token": "Doc Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Mickey and Friends", "name": "Mickey's Fun Wheel", "base_token": "Mickey Balloon", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pixar Ball", "cost": 10, "total": 20 }, { "level": 2, "token": "Pumpkin", "cost": 15, "total": 25 }, { "level": 3, "token": "Pixie Dust", "cost": 15, "total": 30 }, { "level": 4, "token": "Plant Symbol", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }] },
+  { "collection": "Mickey and Friends", "name": "Mickey's House", "base_token": "Mickey Gloves", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Mickey Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Lady Tremaine's Ring", "cost": 180, "total": 300 }, { "level": 3, "token": "Bowler Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Zazu Ears Hat", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
+  { "collection": "Mickey and Friends", "name": "Mickey's PhilharMagic", "base_token": "Lady Tremaine's Ring", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Prince Charming's Prince Gloves", "cost": 40, "total": 80 }, { "level": 2, "token": "Prince Charming Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Drizella Tremaine Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Buzz Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
   { "collection": "Mickey and Friends", "name": "Minnie's House", "base_token": "Red Apple", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Toy Saddle", "cost": 40, "total": 80 }, { "level": 2, "token": "Palm Fan", "cost": 60, "total": 100 }, { "level": 3, "token": "Minnie Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "John's Umbrella", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
-  { "collection": "Mickey and Friends", "name": "Pluto's House", "base_token": "Pluto Collar", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Pluto Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "Fairy Godmother Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Chip Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Dale Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }]},
-  { "collection": "Mickey and Friends", "name": "Steamboat Willie", "base_token": "Mickey Balloon", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pixar Ball", "cost": 10, "total": 20 }, { "level": 2, "token": "Scream Canister", "cost": 15, "total": 25 }, { "level": 3, "token": "Gem of Fates", "cost": 15, "total": 30 }, { "level": 4, "token": "Muses' Vase", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }]},
+  { "collection": "Mickey and Friends", "name": "Pluto's House", "base_token": "Pluto Collar", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Pluto Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "Fairy Godmother Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Chip Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Dale Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
+  { "collection": "Mickey and Friends", "name": "Steamboat Willie", "base_token": "Mickey Balloon", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pixar Ball", "cost": 10, "total": 20 }, { "level": 2, "token": "Scream Canister", "cost": 15, "total": 25 }, { "level": 3, "token": "Gem of Fates", "cost": 15, "total": 30 }, { "level": 4, "token": "Muses' Vase", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }] },
   { "collection": "Toy Story", "name": "Al's Toy Barn", "base_token": "Rex Ears Hat", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Sarge's Bucket", "cost": 40, "total": 80 }, { "level": 2, "token": "Thimble", "cost": 60, "total": 100 }, { "level": 3, "token": "Violet Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Blaster", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
-  { "collection": "Toy Story", "name": "Buzz Lightyear's Astro Blasters", "base_token": "Bo Peep's Bonnet", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Monsters", "cost": 40, "total": 80 }, { "level": 2, "token": "Boo Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Wasabi Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Blaster", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }]},
-  { "collection": "Toy Story", "name": "Jessie's Snack Roundup", "base_token": "Lasso", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Jessie Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Hamm Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Rex Ears Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Bullseye Ears Hat", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }]},
-  { "collection": "Toy Story", "name": "Pizza Planet", "base_token": "Woody Ears Hat", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Sarge Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "WALL•E Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Lumiere Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Zurg Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }]},
-  { "collection": "Toy Story", "name": "RC Racers", "base_token": "Rex Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Lady Tremaine Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Carpet Tassels", "cost": 90, "total": 150 }, { "level": 3, "token": "Merryweather Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Aurora Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]},
-  { "collection": "Toy Story", "name": "Slinky Dog Dash", "base_token": "Bo Peep Ears Hat", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Partysaurus Helmet", "cost": 40, "total": 80 }, { "level": 2, "token": "A Toy", "cost": 60, "total": 100 }, { "level": 3, "token": "Comet Target", "cost": 60, "total": 120 }, { "level": 4, "token": "Bunny Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] }, 
+  { "collection": "Toy Story", "name": "Buzz Lightyear's Astro Blasters", "base_token": "Bo Peep's Bonnet", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Monsters", "cost": 40, "total": 80 }, { "level": 2, "token": "Boo Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Wasabi Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Blaster", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
+  { "collection": "Toy Story", "name": "Jessie's Snack Roundup", "base_token": "Lasso", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Jessie Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Hamm Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Rex Ears Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Bullseye Ears Hat", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
+  { "collection": "Toy Story", "name": "Pizza Planet", "base_token": "Woody Ears Hat", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Sarge Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "WALL•E Ears Hat", "cost": 60, "total": 100 }, { "level": 3, "token": "Lumiere Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Zurg Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
+  { "collection": "Toy Story", "name": "RC Racers", "base_token": "Rex Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Lady Tremaine Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Carpet Tassels", "cost": 90, "total": 150 }, { "level": 3, "token": "Merryweather Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Aurora Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Toy Story", "name": "Slinky Dog Dash", "base_token": "Bo Peep Ears Hat", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Partysaurus Helmet", "cost": 40, "total": 80 }, { "level": 2, "token": "A Toy", "cost": 60, "total": 100 }, { "level": 3, "token": "Comet Target", "cost": 60, "total": 120 }, { "level": 4, "token": "Bunny Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
   { "collection": "Toy Story", "name": "Star Adventurer", "base_token": "Autumn Leaves", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Plate of Spaghetti", "cost": 10, "total": 20 }, { "level": 2, "token": "Delivery Bundle", "cost": 15, "total": 25 }, { "level": 3, "token": "Map", "cost": 15, "total": 30 }, { "level": 4, "token": "Message in a Bottle", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }] },
-  { "collection": "Toy Story", "name": "Toy Soldiers Parachute Drop", "base_token": "Woody Ears Hat", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Sarge Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Prince Charming's Prince Gloves", "cost": 180, "total": 300 }, { "level": 3, "token": "Celia's Headset", "cost": 180, "total": 360 }, { "level": 4, "token": "John's Umbrella", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }]}, 
+  { "collection": "Toy Story", "name": "Toy Soldiers Parachute Drop", "base_token": "Woody Ears Hat", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Sarge Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Prince Charming's Prince Gloves", "cost": 180, "total": 300 }, { "level": 3, "token": "Celia's Headset", "cost": 180, "total": 360 }, { "level": 4, "token": "John's Umbrella", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
   { "collection": "Toy Story", "name": "Toy Story Mania", "base_token": "Pixar Ball", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pumpkin", "cost": 10, "total": 20 }, { "level": 2, "token": "Pirate Flag", "cost": 15, "total": 25 }, { "level": 3, "token": "Pixie Dust", "cost": 15, "total": 30 }, { "level": 4, "token": "English Shortbow", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }] },
-  { "collection": "Cinderella", "name": "Cinderella's Manor House", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Gus's Beads", "cost": 80, "total": 160 }, { "level": 2, "token": "Jaq's Cap", "cost": 120, "total": 200 }, { "level": 3, "token": "Gus Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Jaq Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }]},
-  { "collection": "Cinderella", "name": "Prince Charming's Regal Carrousel", "base_token": "Lady Tremaine's Ring", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Magical Wand", "cost": 60, "total": 120 }, { "level": 2, "token": "Lady Tremaine Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Cinderella Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Glass Slipper", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }]}, 
-  { "collection": "Cinderella", "name": "Princess Fairytale Hall", "base_token": "Prince Charming Ears Hat", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Blue Fairy Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Flora Ears Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Green Fairy Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Gold Crown", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] }, 
-  { "collection": "Star Wars", "name": "Cantina", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Finn's Vest", "cost": 80, "total": 160 }, { "level": 2, "token": "Poe Dameron Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Kylo Ren Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "FO Stormtrooper Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] }, 
-  { "collection": "Star Wars", "name": "Cloud City", "base_token": "Kyber Crystal", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Lando's Cape", "cost": 40, "total": 80 }, { "level": 2, "token": "Boba's Blaster", "cost": 60, "total": 100 }, { "level": 3, "token": "Imperial Stormtrooper Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Yoda Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] }, 
+  { "collection": "Cinderella", "name": "Cinderella's Manor House", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Gus's Beads", "cost": 80, "total": 160 }, { "level": 2, "token": "Jaq's Cap", "cost": 120, "total": 200 }, { "level": 3, "token": "Gus Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Jaq Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
+  { "collection": "Cinderella", "name": "Prince Charming's Regal Carrousel", "base_token": "Lady Tremaine's Ring", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Magical Wand", "cost": 60, "total": 120 }, { "level": 2, "token": "Lady Tremaine Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Cinderella Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Glass Slipper", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Cinderella", "name": "Princess Fairytale Hall", "base_token": "Prince Charming Ears Hat", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Blue Fairy Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Flora Ears Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Green Fairy Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Gold Crown", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
+  { "collection": "Star Wars", "name": "Cantina", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Finn's Vest", "cost": 80, "total": 160 }, { "level": 2, "token": "Poe Dameron Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Kylo Ren Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "FO Stormtrooper Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
+  { "collection": "Star Wars", "name": "Cloud City", "base_token": "Kyber Crystal", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Lando's Cape", "cost": 40, "total": 80 }, { "level": 2, "token": "Boba's Blaster", "cost": 60, "total": 100 }, { "level": 3, "token": "Imperial Stormtrooper Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Yoda Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
   { "collection": "Star Wars", "name": "Dagobah", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Lando Calrissian Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Imperial Stormtrooper's Blaster", "cost": 120, "total": 200 }, { "level": 3, "token": "Boba Fett Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Yoda's Gimer Stick", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
-  { "collection": "Star Wars", "name": "Garbage Compactor", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Han's Blaster", "cost": 80, "total": 160 }, { "level": 2, "token": "Han Solo Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Vader's Lightsaber", "cost": 120, "total": 240 }, { "level": 4, "token": "Darth Vader Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }]}, 
+  { "collection": "Star Wars", "name": "Garbage Compactor", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Han's Blaster", "cost": 80, "total": 160 }, { "level": 2, "token": "Han Solo Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Vader's Lightsaber", "cost": 120, "total": 240 }, { "level": 4, "token": "Darth Vader Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Star Wars", "name": "Gideon's Light Cruiser", "base_token": "Gideon's Chestplate", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Moff Gideon Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Palpatine's Cane", "cost": 120, "total": 200 }, { "level": 3, "token": "Emperor Palpatine Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Bo-Katan's Jetpack", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
-  { "collection": "Star Wars", "name": "Luke's Home", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Leia's Blaster", "cost": 80, "total": 160 }, { "level": 2, "token": "Bandolier", "cost": 120, "total": 200 }, { "level": 3, "token": "Chewbacca Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Han Solo Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }]},
+  { "collection": "Star Wars", "name": "Luke's Home", "base_token": "Kyber Crystal", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Leia's Blaster", "cost": 80, "total": 160 }, { "level": 2, "token": "Bandolier", "cost": 120, "total": 200 }, { "level": 3, "token": "Chewbacca Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Han Solo Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Star Wars", "name": "Marauder Shuttle", "base_token": "TIE Fighter", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "TIE Fighter Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Bandolier", "cost": 90, "total": 150 }, { "level": 3, "token": "Chewbacca Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "Darth Vader Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
   { "collection": "Star Wars", "name": "Millennium Falcon", "base_token": "Luke's Lightsaber", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Luke Skywalker Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "Leia's Blaster", "cost": 60, "total": 100 }, { "level": 3, "token": "Leia Organa Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "TIE Fighter Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
   { "collection": "Star Wars", "name": "Nevarro City", "base_token": "Bounty Puck", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Threepio Arm", "cost": 80, "total": 160 }, { "level": 2, "token": "Beskar Steel Ingot", "cost": 120, "total": 200 }, { "level": 3, "token": "Greef Karga Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "The Child Hover Pram", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
@@ -7839,8 +9315,11 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Pirates of the Caribbean", "name": "Sea Serpent Swing", "base_token": "Pirate Flag", "base_cost": "10", "timing": "Every 60m", "levels": [{ "level": 1, "token": "Pinocchio Book", "cost": 10, "total": 20 }, { "level": 2, "token": "4*Town CD", "cost": 15, "total": 25 }, { "level": 3, "token": "Festival of Fools Mask", "cost": 15, "total": 30 }, { "level": 4, "token": "Snowflake", "cost": 20, "total": 35 }, { "level": 5, "token": "Two Drop Chances", "cost": 20, "total": 40 }] },
   { "collection": "Pirates of the Caribbean", "name": "The Kraken", "base_token": "Feathered Hat and Sword", "base_cost": "40", "timing": "Every 4h", "levels": [{ "level": 1, "token": "Will Ears Hat", "cost": 40, "total": 80 }, { "level": 2, "token": "Hat and Sword", "cost": 60, "total": 100 }, { "level": 3, "token": "Elizabeth Ears Hat", "cost": 60, "total": 120 }, { "level": 4, "token": "Barbossa Ears Hat", "cost": 80, "total": 140 }, { "level": 5, "token": "Two Drop Chances", "cost": 80, "total": 160 }] },
   { "collection": "Pirates of the Caribbean", "name": "Tortuga Tavern", "base_token": "Magic Compass", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Feathered Hat and Sword", "cost": 80, "total": 160 }, { "level": 2, "token": "Hat and Sword", "cost": 120, "total": 200 }, { "level": 3, "token": "Will Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Elizabeth Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
-  { "collection": "WALL•E", "name": "The Axiom", "base_token": "EVE Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "The Captain Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "M-O Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "WALL•E Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "BURN•E Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] }, { "collection": "WALL•E", "name": "WALL•E's House", "base_token": "EVE's Plant", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "The Captain's Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "M-O's Cleaner", "cost": 120, "total": 200 }, { "level": 3, "token": "Fire Extinguisher", "cost": 120, "total": 240 }, { "level": 4, "token": "BURN•E's Blowtorch", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] }, { "collection": "Tangled", "name": "Rapunzel's Tower", "base_token": "Wanted Satchel", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Maximus Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Flynn Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Glowing Lantern", "cost": 90, "total": 180 }, { "level": 4, "token": "Louie Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
-  { "collection": "Tangled", "name": "Snuggly Duckling", "base_token": "Red Apple", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Pascal's Dress", "cost": 60, "total": 120 }, { "level": 2, "token": "Pascal Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Dagger", "cost": 90, "total": 180 }, { "level": 4, "token": "Mother Gothel Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] }, { "collection": "Zootopia", "name": "Little Rodentia", "base_token": "Flash's Mug", "base_cost": "330", "timing": "Every 16h", "levels": [{ "level": 1, "token": "Dawn Bellwether's Stack of Folders", "cost": 330, "total": 660 }, { "level": 2, "token": "Dawn Bellwether Ears Hat", "cost": 495, "total": 825 }, { "level": 3, "token": "Gazelle's Microphone", "cost": 495, "total": 990 }, { "level": 4, "token": "Gazelle Ears Hat", "cost": 660, "total": 1155 }, { "level": 5, "token": "Two Drop Chances", "cost": 660, "total": 1320 }] },
+  { "collection": "WALL•E", "name": "The Axiom", "base_token": "EVE Ears Hat", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "The Captain Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "M-O Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "WALL•E Ears Hat", "cost": 90, "total": 180 }, { "level": 4, "token": "BURN•E Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "WALL•E", "name": "WALL•E's House", "base_token": "EVE's Plant", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "The Captain's Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "M-O's Cleaner", "cost": 120, "total": 200 }, { "level": 3, "token": "Fire Extinguisher", "cost": 120, "total": 240 }, { "level": 4, "token": "BURN•E's Blowtorch", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
+  { "collection": "Tangled", "name": "Rapunzel's Tower", "base_token": "Wanted Satchel", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Maximus Ears Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Flynn Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Glowing Lantern", "cost": 90, "total": 180 }, { "level": 4, "token": "Louie Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Tangled", "name": "Snuggly Duckling", "base_token": "Red Apple", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Pascal's Dress", "cost": 60, "total": 120 }, { "level": 2, "token": "Pascal Ears Hat", "cost": 90, "total": 150 }, { "level": 3, "token": "Dagger", "cost": 90, "total": 180 }, { "level": 4, "token": "Mother Gothel Ears Hat", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
+  { "collection": "Zootopia", "name": "Little Rodentia", "base_token": "Flash's Mug", "base_cost": "330", "timing": "Every 16h", "levels": [{ "level": 1, "token": "Dawn Bellwether's Stack of Folders", "cost": 330, "total": 660 }, { "level": 2, "token": "Dawn Bellwether Ears Hat", "cost": 495, "total": 825 }, { "level": 3, "token": "Gazelle's Microphone", "cost": 495, "total": 990 }, { "level": 4, "token": "Gazelle Ears Hat", "cost": 660, "total": 1155 }, { "level": 5, "token": "Two Drop Chances", "cost": 660, "total": 1320 }] },
   { "collection": "Zootopia", "name": "Rainforest Skyway", "base_token": "Mr. Big's Diamond Ring", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Mr. Big Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Clawhauser's Chocolate Donut", "cost": 120, "total": 200 }, { "level": 3, "token": "Clawhauser Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": null, "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Zootopia", "name": "Zootopia P.D.", "base_token": "Nick's Tie", "base_cost": "120", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Flash Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Judy Ears Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Nick Ears Hat", "cost": 180, "total": 360 }, { "level": 4, "token": null, "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
   { "collection": "Sword in the Stone", "name": "King Arthur Carrousel", "base_token": "Merlin Ears Hat", "base_cost": "120", "timing": "Every 12h", "levels": [{ "level": 1, "token": "Wart Ears Hat", "cost": 120, "total": 240 }, { "level": 2, "token": "Archimedes Ears Hat", "cost": 180, "total": 300 }, { "level": 3, "token": "Sir Ector Ears Hat", "cost": 180, "total": 360 }, { "level": 4, "token": "Madam Mim Ears Hat", "cost": 240, "total": 420 }, { "level": 5, "token": "Two Drop Chances", "cost": 240, "total": 480 }] },
@@ -9068,270 +10547,270 @@ const DMK_ATTRACTIONS = [
 //Consessions
 //Add new concessions here, and update the exchange rate, elixir, time, xp, magic, and magic per hour values as needed. The exchange rate is the amount of magic required to purchase the concession, while the elixir is the amount of elixir required to purchase the concession. The time is the amount of time it takes for the concession to produce magic, while the xp is the amount of experience points earned from purchasing the concession. The magic is the amount of magic produced by the concession, while the magic per hour is the amount of magic produced per hour by the concession.
 const DMK_CONCESSIONS_DATA = [
-  {"collection": "Mickey and Friends", "name": "1-Stop Apprentice Shop", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Mickey and Friends", "name": "Blossom Ears Hairband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Mickey and Friends", "name": "Goofy Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey Candy Apple Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey Celebration Donut Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey Ice-Cream Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey Mouse Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey's Gloves Boutique", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Mickey and Friends", "name": "Mickey's Hat Emporium", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Mickey and Friends", "name": "Minnie Mouse Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Mickey and Friends", "name": "Steamboat Willie Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Toy Story", "name": "Partysaurus Party Supply", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Toy Story", "name": "Sox Plushie Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Toy Story", "name": "Space Ranger Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Cinderella", "name": "Cinderella's Tiara Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Star Wars", "name": "Blue Lightsaber Stand", "category": "Souvenir Stand", "exchange_rate": "12000", "elixir": "1000", "time": "8h", "xp": "3", "magic": "60", "magic_per_hour": "7.50"}, 
-  {"collection": "Star Wars", "name": "Blue Milk Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56"}, 
-  {"collection": "Star Wars", "name": "Chewbacca Chocolate Cupcake Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "Star Wars", "name": "Death Star Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Star Wars", "name": "Ration Box Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Star Wars", "name": "Rebel Helmet Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Star Wars", "name": "Red Lightsaber Stand", "category": "Souvenir Stand", "exchange_rate": "10000", "elixir": "1250", "time": "12h", "xp": "3", "magic": "105", "magic_per_hour": "8.75"}, 
-  {"collection": "Star Wars", "name": "Stormtrooper Helmet Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Star Wars", "name": "The Child Plush Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Peter Pan", "name": "Captain Hook's Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Peter Pan", "name": "Peter Pan's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Pirates of the Caribbean", "name": "Hat & Beard Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Pirates of the Caribbean", "name": "Wooden Sword Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Monsters, Inc.", "name": "Scary Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "WALL•E", "name": "Cherry Nutrient Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "WALL•E", "name": "Donut in a Cup Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "WALL•E", "name": "Lunch Box Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Tangled", "name": "Rapunzel's Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Tangled", "name": "The Lost Princess Ice Cream Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Sleeping Beauty", "name": "Maleficent Horns Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Sleeping Beauty", "name": "Maleficent Waffle Cone Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Zootopia", "name": "Carrot Farm", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Zootopia", "name": "Pawpsicle Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Zootopia", "name": "Pink Donut Delight Shake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Zootopia", "name": "ZPD Bowler Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Sword in the Stone", "name": "Ornate Storybook Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Lady and the Tramp", "name": "Lady Ears Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Lady and the Tramp", "name": "Spaghetti Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Lady and the Tramp", "name": "Tramp Ears Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Dumbo", "name": "Dumbo Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Dumbo", "name": "Peanut Concession", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "A Spark of Grape Shake", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56"}, 
-  {"collection": "Disney Parks", "name": "Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Disney Parks", "name": "Bakery", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Berry-Vanilla Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Bunny Ears Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Burger Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Churro Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Cotton Candy Cart", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Creperie", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Croissant Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Cupcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "DMK 1st-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 2nd-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 3rd-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 4th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "4", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 5th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 6th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 7th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 8th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "DMK 9th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "Disney100 Platinum Ears Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "Earth Day Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Grilled Three-Cheese Sandwich Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Parks", "name": "Hot Chocolate Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Hot Dog Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Ice Cream Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Lunar Balloon Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Disney Parks", "name": "Lunar New Year Sugar Cookie Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Lunchbox Tart Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Parks", "name": "Marshmallow Snowflake Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Parks", "name": "Mickey Gold Medal Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Disney Parks", "name": "Mickey Waffles Concession", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "Disney Parks", "name": "Minnie Ears Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Parks", "name": "Oktoberfest Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Oswald Ears Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "5", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Disney Parks", "name": "Patisserie", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Peppermint Lollipops Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Pizza Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Popcorn Cart", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Pretzel Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Pumpkin Demitasse Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56"}, 
-  {"collection": "Disney Parks", "name": "Pumpkin Pie Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "Disney Parks", "name": "Ramen Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "Reindeer Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Rose Stand", "category": "Souvenir Stand", "exchange_rate": "12000", "elixir": "1000", "time": "8h", "xp": "3", "magic": "60", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Santa Mickey Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Slushies Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Smoothie Shop", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Parks", "name": "Soda Concession", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Sparkly Cupcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "St. Patrick's Day Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Stars and Stripes Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Steamed Dumplings Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Disney Parks", "name": "Sushi Concession", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Disney Parks", "name": "Turkey Legs Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Disney Parks", "name": "WDW 50th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Pocahontas", "name": "Colors of the Wind Cone Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "Pocahontas", "name": "Meeko Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Ratatouille", "name": "Chef's Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Ratatouille", "name": "Gourmet Chocolate Cake Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Ratatouille", "name": "Gusteau's Recipe Book Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Ratatouille", "name": "Ratatouille Dish Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "The Rescuers", "name": "Faux Fur Hat and Scarf Stand", "category": "Headwear Stand", "exchange_rate": "14875", "elixir": "875", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "The Rescuers", "name": "Marshmallow Gummy Mug Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Incredibles", "name": "Edna's Glasses Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Incredibles", "name": "Frozone's Sno-Cone", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Incredibles", "name": "Incredibreeze Orange Juice Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Incredibles", "name": "Jack-Jack Cookie Num Nums Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Incredibles", "name": "Syndrome Wig Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Nightmare Before Christmas", "name": "Barrel's Lollipop Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Nightmare Before Christmas", "name": "Cackling Concession", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Nightmare Before Christmas", "name": "Electrifying Thirst Zapper Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Nightmare Before Christmas", "name": "Nightmare Mask Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Frozen", "name": "Arendelle Festival Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Frozen", "name": "Elsa Tiara Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Frozen", "name": "Fruitcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Frozen", "name": "Snowman Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Mulan", "name": "Breakfast Congee Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Mulan", "name": "Herbal Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Mulan", "name": "Plumed Soldier Helmet Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Mulan", "name": "Sparkler Concession", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Beauty and the Beast", "name": "Beast Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Beauty and the Beast", "name": "Cup of Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Beauty and the Beast", "name": "LeFou's Brew Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Lion King", "name": "Animal Rice Crackers Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Lion King", "name": "Chocolate Crocodile Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Lion King", "name": "Coconut Smoothie Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Lion King", "name": "Face Paint Studio", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Lion King", "name": "Gummy Grubs Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Lion King", "name": "Lion King Mask Shop", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Lion King", "name": "Prideland Punch Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Aladdin", "name": "Abu Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Aladdin", "name": "Cobra Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Aladdin", "name": "Jafar's Lamp Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Aladdin", "name": "The Lamp Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Aladdin", "name": "Tiger Tail Shake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Alice in Wonderland", "name": "Giant Cookie Shop", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Alice in Wonderland", "name": "Sweet Citrus Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Alice in Wonderland", "name": "The Tweedles' Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Alice in Wonderland", "name": "Unbirthday Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "Bubbling Potion Drink Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "Candy-Apple Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "Dwarf Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "Snow White Bow Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "The Queen's Crown Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Snow White and the Seven Dwarfs", "name": "Wooden Squirrel Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Winnie the Pooh", "name": "Eeyore Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Winnie the Pooh", "name": "Marching Drum Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Winnie the Pooh", "name": "Pot of Honey Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25"}, 
-  {"collection": "Winnie the Pooh", "name": "Tigger Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "4", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Winnie the Pooh", "name": "Winnie the Pooh Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Lilo & Stitch", "name": "Lei of Flowers Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Lilo & Stitch", "name": "Pineapple Sunset Lemonade Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Lilo & Stitch", "name": "Sand Pail Sundae Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Lilo & Stitch", "name": "Scrump Backpack Kiosk", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Lilo & Stitch", "name": "Stitch Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Big Hero 6", "name": "Baymax Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Big Hero 6", "name": "Baymax Bao Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Little Mermaid", "name": "Croquette Sandwich Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Little Mermaid", "name": "Refreshing Salty Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Little Mermaid", "name": "Starfish Hairband Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Little Mermaid", "name": "Toy Trident Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Wreck-It Ralph", "name": "Bunny Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Wreck-It Ralph", "name": "Burnt Pie Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Wreck-It Ralph", "name": "Giant Cherry Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Wreck-It Ralph", "name": "Kitty Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Wreck-It Ralph", "name": "Pancake Milkshake Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56"}, 
-  {"collection": "Wreck-It Ralph", "name": "Taffyta Berry Helmet Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Wreck-It Ralph", "name": "Vanellope Ice Cream Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Princess and the Frog", "name": "Cuddle Plushy Ray Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Princess and the Frog", "name": "Dr. Facilier's Top Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Princess and the Frog", "name": "Froggy Cream Soda Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Princess and the Frog", "name": "Swamp Gumbo Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Moana", "name": "Coconut Ice Cream Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Moana", "name": "Coconut Milk Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Moana", "name": "Grilled Pineapple Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Moana", "name": "Hook Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Moana", "name": "Oar Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Moana", "name": "Shell Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Finding Nemo", "name": "Anemone Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Finding Nemo", "name": "Dory Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Finding Nemo", "name": "Nemo Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88"}, 
-  {"collection": "Finding Nemo", "name": "Turtle Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Coco", "name": "Ceramic Cup Hot Chocolate Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Coco", "name": "Ernesto Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Haunted Mansion", "name": "Boo-Mint Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Haunted Mansion", "name": "Knickersnacks of the Crypt Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Haunted Mansion", "name": "Sinister Gargoyle with Flaming Candles Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Haunted Mansion", "name": "The Haunted Mansion Cupcake Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Haunted Mansion", "name": "The Haunted Mansion Ears Headband", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67"}, 
-  {"collection": "Onward", "name": "Manticore Milkshake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Onward", "name": "Staff of Magic Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Hercules", "name": "Bowl of Fruit Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00"}, 
-  {"collection": "Hercules", "name": "Herculade Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "Hercules", "name": "Protein-Infused Ice Cream Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Hercules", "name": "Zeus' Lightning Bolt Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Brave", "name": "Bear Mug Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Brave", "name": "Brass Bear Mask Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Brave", "name": "Iced Pastry Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Brave", "name": "Straw Bear Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Raya and the Last Dragon", "name": "Fish Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Raya and the Last Dragon", "name": "Kumandra Soup Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Luca", "name": "Pasta Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Luca", "name": "Sea Monster Soda Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Dalmatians", "name": "Cruella De Vil Wig Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Dalmatians", "name": "Dalmatian Ears Hairband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Dalmatians", "name": "Dalmatian Macaron Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Dalmatians", "name": "Dalmatian Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Pinocchio", "name": "Jiminy Cricket's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Pinocchio", "name": "Pinocchio's Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Robin Hood", "name": "Blackberry Pie Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Robin Hood", "name": "Robin Hood's Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Up", "name": "Baby Bird Plushie Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Up", "name": "Wilderness Explorers Cap Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Turning Red", "name": "Digital Pet Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Turning Red", "name": "Doughnut Holes Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "Turning Red", "name": "Red Panda Plushy Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Hocus Pocus", "name": "Fizzy Green Potion Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Hocus Pocus", "name": "Winifred Sanderson Wig Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Hunchback of Notre Dame", "name": "Festival Cap and Bells Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Hunchback of Notre Dame", "name": "Festival Scepter Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Soul", "name": "Mr. Mittens Milkshake Mug Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Soul", "name": "New York-Style Pizza Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Encanto", "name": "Encanto Mouse Ears Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Encanto", "name": "Jaguar Plush Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Inside Out", "name": "Anger Foam Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Inside Out", "name": "Broccoli Pizza Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Inside Out", "name": "Pouchy Bag Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Inside Out", "name": "Rainbow Unicorn Slushie Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Indiana Jones", "name": "Indiana Jones's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Indiana Jones", "name": "Indiana Jones's Whip Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Aristocats", "name": "Marie Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Aristocats", "name": "Vanilla Crème Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Black Cauldron", "name": "Bubbling Cauldron Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Black Cauldron", "name": "The Horned King Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "The Muppets", "name": "Animal Mask Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "The Muppets", "name": "Dragonfly Ripple and Honey Cones Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00"}, 
-  {"collection": "The Muppets", "name": "Peppermint Milkshake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}, 
-  {"collection": "The Muppets", "name": "Sam Eagle Sipper Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Ice Age", "name": "Acorn Popcorn Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Ice Age", "name": "Dandelion Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Ice Age", "name": "Dino Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Ice Age", "name": "Frosty Sparkling Water Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56"}, 
-  {"collection": "Ice Age", "name": "Plush Sloth Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Bug's Life", "name": "Delicious Dew Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00"}, 
-  {"collection": "Bug's Life", "name": "Leaf Travel Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Silly Symphony", "name": "Little Red Riding Hood's Basket Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Silly Symphony", "name": "The Big Bad Wolf's Top Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50"}, 
-  {"collection": "Cars", "name": "Bacon Mac and Cheese Bread Cone Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50"}, 
-  {"collection": "Cars", "name": "Victory Flag Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Fox and the Hound", "name": "Forest Blueberry Pie Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75"}, 
-  {"collection": "Fox and the Hound", "name": "Tiny Copper Keychain Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Avatar", "name": "Banshee Visor Mask Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33"}, 
-  {"collection": "Avatar", "name": "Plush Ilu Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31"}, 
-  {"collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00"}, 
-  {"collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75"}
+  { "collection": "Mickey and Friends", "name": "1-Stop Apprentice Shop", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Mickey and Friends", "name": "Blossom Ears Hairband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Mickey and Friends", "name": "Goofy Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Mickey and Friends", "name": "Mickey Candy Apple Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Mickey and Friends", "name": "Mickey Celebration Donut Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Mickey and Friends", "name": "Mickey Ice-Cream Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Mickey and Friends", "name": "Mickey Mouse Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Mickey and Friends", "name": "Mickey's Gloves Boutique", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Mickey and Friends", "name": "Mickey's Hat Emporium", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Mickey and Friends", "name": "Minnie Mouse Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Mickey and Friends", "name": "Steamboat Willie Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Toy Story", "name": "Partysaurus Party Supply", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Toy Story", "name": "Sox Plushie Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Toy Story", "name": "Space Ranger Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Cinderella", "name": "Cinderella's Tiara Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Star Wars", "name": "Blue Lightsaber Stand", "category": "Souvenir Stand", "exchange_rate": "12000", "elixir": "1000", "time": "8h", "xp": "3", "magic": "60", "magic_per_hour": "7.50" },
+  { "collection": "Star Wars", "name": "Blue Milk Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
+  { "collection": "Star Wars", "name": "Chewbacca Chocolate Cupcake Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "Star Wars", "name": "Death Star Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Star Wars", "name": "Ration Box Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Star Wars", "name": "Rebel Helmet Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Star Wars", "name": "Red Lightsaber Stand", "category": "Souvenir Stand", "exchange_rate": "10000", "elixir": "1250", "time": "12h", "xp": "3", "magic": "105", "magic_per_hour": "8.75" },
+  { "collection": "Star Wars", "name": "Stormtrooper Helmet Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Star Wars", "name": "The Child Plush Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Peter Pan", "name": "Captain Hook's Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Peter Pan", "name": "Peter Pan's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Pirates of the Caribbean", "name": "Hat & Beard Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Pirates of the Caribbean", "name": "Wooden Sword Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Monsters, Inc.", "name": "Scary Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "WALL•E", "name": "Cherry Nutrient Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "WALL•E", "name": "Donut in a Cup Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "WALL•E", "name": "Lunch Box Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Tangled", "name": "Rapunzel's Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Tangled", "name": "The Lost Princess Ice Cream Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Sleeping Beauty", "name": "Maleficent Horns Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Sleeping Beauty", "name": "Maleficent Waffle Cone Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Zootopia", "name": "Carrot Farm", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Zootopia", "name": "Pawpsicle Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Zootopia", "name": "Pink Donut Delight Shake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Zootopia", "name": "ZPD Bowler Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Sword in the Stone", "name": "Ornate Storybook Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Lady and the Tramp", "name": "Lady Ears Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Lady and the Tramp", "name": "Spaghetti Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Lady and the Tramp", "name": "Tramp Ears Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Dumbo", "name": "Dumbo Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Dumbo", "name": "Peanut Concession", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "A Spark of Grape Shake", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
+  { "collection": "Disney Parks", "name": "Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Disney Parks", "name": "Bakery", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Berry-Vanilla Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Bunny Ears Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Burger Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Churro Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Cotton Candy Cart", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Creperie", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Croissant Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Cupcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "DMK 1st-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 2nd-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 3rd-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 4th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "4", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 5th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 6th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 7th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 8th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 9th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "Disney100 Platinum Ears Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "Earth Day Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Grilled Three-Cheese Sandwich Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Disney Parks", "name": "Hot Chocolate Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Hot Dog Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Ice Cream Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Lunar Balloon Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Disney Parks", "name": "Lunar New Year Sugar Cookie Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Lunchbox Tart Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Disney Parks", "name": "Marshmallow Snowflake Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Disney Parks", "name": "Mickey Gold Medal Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Disney Parks", "name": "Mickey Waffles Concession", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "Disney Parks", "name": "Minnie Ears Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Disney Parks", "name": "Oktoberfest Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Oswald Ears Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "5", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "Patisserie", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Peppermint Lollipops Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Pizza Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Popcorn Cart", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Pretzel Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Pumpkin Demitasse Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
+  { "collection": "Disney Parks", "name": "Pumpkin Pie Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "Disney Parks", "name": "Ramen Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "Reindeer Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Rose Stand", "category": "Souvenir Stand", "exchange_rate": "12000", "elixir": "1000", "time": "8h", "xp": "3", "magic": "60", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Santa Mickey Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Slushies Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Smoothie Shop", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Disney Parks", "name": "Soda Concession", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Sparkly Cupcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "St. Patrick's Day Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Stars and Stripes Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Steamed Dumplings Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Disney Parks", "name": "Sushi Concession", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Disney Parks", "name": "Turkey Legs Concession", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Disney Parks", "name": "WDW 50th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Pocahontas", "name": "Colors of the Wind Cone Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "Pocahontas", "name": "Meeko Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Ratatouille", "name": "Chef's Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Ratatouille", "name": "Gourmet Chocolate Cake Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Ratatouille", "name": "Gusteau's Recipe Book Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Ratatouille", "name": "Ratatouille Dish Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "The Rescuers", "name": "Faux Fur Hat and Scarf Stand", "category": "Headwear Stand", "exchange_rate": "14875", "elixir": "875", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "The Rescuers", "name": "Marshmallow Gummy Mug Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Incredibles", "name": "Edna's Glasses Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Incredibles", "name": "Frozone's Sno-Cone", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Incredibles", "name": "Incredibreeze Orange Juice Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Incredibles", "name": "Jack-Jack Cookie Num Nums Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Incredibles", "name": "Syndrome Wig Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Nightmare Before Christmas", "name": "Barrel's Lollipop Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Nightmare Before Christmas", "name": "Cackling Concession", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Nightmare Before Christmas", "name": "Electrifying Thirst Zapper Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Nightmare Before Christmas", "name": "Nightmare Mask Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Frozen", "name": "Arendelle Festival Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Frozen", "name": "Elsa Tiara Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Frozen", "name": "Fruitcake Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Frozen", "name": "Snowman Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Mulan", "name": "Breakfast Congee Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Mulan", "name": "Herbal Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Mulan", "name": "Plumed Soldier Helmet Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Mulan", "name": "Sparkler Concession", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Beauty and the Beast", "name": "Beast Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Beauty and the Beast", "name": "Cup of Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Beauty and the Beast", "name": "LeFou's Brew Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Lion King", "name": "Animal Rice Crackers Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Lion King", "name": "Chocolate Crocodile Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Lion King", "name": "Coconut Smoothie Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Lion King", "name": "Face Paint Studio", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Lion King", "name": "Gummy Grubs Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Lion King", "name": "Lion King Mask Shop", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Lion King", "name": "Prideland Punch Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Aladdin", "name": "Abu Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Aladdin", "name": "Cobra Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Aladdin", "name": "Jafar's Lamp Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Aladdin", "name": "The Lamp Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Aladdin", "name": "Tiger Tail Shake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Alice in Wonderland", "name": "Giant Cookie Shop", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Alice in Wonderland", "name": "Sweet Citrus Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Alice in Wonderland", "name": "The Tweedles' Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Alice in Wonderland", "name": "Unbirthday Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "Bubbling Potion Drink Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "Candy-Apple Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "Dwarf Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "Snow White Bow Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "The Queen's Crown Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Snow White and the Seven Dwarfs", "name": "Wooden Squirrel Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Winnie the Pooh", "name": "Eeyore Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Winnie the Pooh", "name": "Marching Drum Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Winnie the Pooh", "name": "Pot of Honey Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
+  { "collection": "Winnie the Pooh", "name": "Tigger Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "4", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Winnie the Pooh", "name": "Winnie the Pooh Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Lilo & Stitch", "name": "Lei of Flowers Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Lilo & Stitch", "name": "Pineapple Sunset Lemonade Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Lilo & Stitch", "name": "Sand Pail Sundae Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Lilo & Stitch", "name": "Scrump Backpack Kiosk", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Lilo & Stitch", "name": "Stitch Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Big Hero 6", "name": "Baymax Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Big Hero 6", "name": "Baymax Bao Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Little Mermaid", "name": "Croquette Sandwich Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Little Mermaid", "name": "Refreshing Salty Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Little Mermaid", "name": "Starfish Hairband Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Little Mermaid", "name": "Toy Trident Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Wreck-It Ralph", "name": "Bunny Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Wreck-It Ralph", "name": "Burnt Pie Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Wreck-It Ralph", "name": "Giant Cherry Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Wreck-It Ralph", "name": "Kitty Balloon Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Wreck-It Ralph", "name": "Pancake Milkshake Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
+  { "collection": "Wreck-It Ralph", "name": "Taffyta Berry Helmet Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Wreck-It Ralph", "name": "Vanellope Ice Cream Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Princess and the Frog", "name": "Cuddle Plushy Ray Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Princess and the Frog", "name": "Dr. Facilier's Top Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Princess and the Frog", "name": "Froggy Cream Soda Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Princess and the Frog", "name": "Swamp Gumbo Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Moana", "name": "Coconut Ice Cream Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Moana", "name": "Coconut Milk Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Moana", "name": "Grilled Pineapple Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Moana", "name": "Hook Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Moana", "name": "Oar Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Moana", "name": "Shell Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Finding Nemo", "name": "Anemone Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Finding Nemo", "name": "Dory Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Finding Nemo", "name": "Nemo Wishable Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
+  { "collection": "Finding Nemo", "name": "Turtle Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Coco", "name": "Ceramic Cup Hot Chocolate Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Coco", "name": "Ernesto Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Haunted Mansion", "name": "Boo-Mint Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Haunted Mansion", "name": "Knickersnacks of the Crypt Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Haunted Mansion", "name": "Sinister Gargoyle with Flaming Candles Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Haunted Mansion", "name": "The Haunted Mansion Cupcake Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Haunted Mansion", "name": "The Haunted Mansion Ears Headband", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Onward", "name": "Manticore Milkshake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Onward", "name": "Staff of Magic Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Hercules", "name": "Bowl of Fruit Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
+  { "collection": "Hercules", "name": "Herculade Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Hercules", "name": "Protein-Infused Ice Cream Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Hercules", "name": "Zeus' Lightning Bolt Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Brave", "name": "Bear Mug Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Brave", "name": "Brass Bear Mask Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Brave", "name": "Iced Pastry Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Brave", "name": "Straw Bear Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Raya and the Last Dragon", "name": "Fish Lantern Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Raya and the Last Dragon", "name": "Kumandra Soup Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Luca", "name": "Pasta Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Luca", "name": "Sea Monster Soda Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Dalmatians", "name": "Cruella De Vil Wig Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Dalmatians", "name": "Dalmatian Ears Hairband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Dalmatians", "name": "Dalmatian Macaron Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Dalmatians", "name": "Dalmatian Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Pinocchio", "name": "Jiminy Cricket's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Pinocchio", "name": "Pinocchio's Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Robin Hood", "name": "Blackberry Pie Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Robin Hood", "name": "Robin Hood's Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Up", "name": "Baby Bird Plushie Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Up", "name": "Wilderness Explorers Cap Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Turning Red", "name": "Digital Pet Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Turning Red", "name": "Doughnut Holes Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "Turning Red", "name": "Red Panda Plushy Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Hocus Pocus", "name": "Fizzy Green Potion Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Hocus Pocus", "name": "Winifred Sanderson Wig Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Hunchback of Notre Dame", "name": "Festival Cap and Bells Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Hunchback of Notre Dame", "name": "Festival Scepter Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Soul", "name": "Mr. Mittens Milkshake Mug Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Soul", "name": "New York-Style Pizza Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Encanto", "name": "Encanto Mouse Ears Headband Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Encanto", "name": "Jaguar Plush Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Inside Out", "name": "Anger Foam Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Inside Out", "name": "Broccoli Pizza Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Inside Out", "name": "Pouchy Bag Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Inside Out", "name": "Rainbow Unicorn Slushie Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Indiana Jones", "name": "Indiana Jones's Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Indiana Jones", "name": "Indiana Jones's Whip Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Aristocats", "name": "Marie Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Aristocats", "name": "Vanilla Crème Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Black Cauldron", "name": "Bubbling Cauldron Milkshake Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Black Cauldron", "name": "The Horned King Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "The Muppets", "name": "Animal Mask Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "The Muppets", "name": "Dragonfly Ripple and Honey Cones Stand", "category": "Food Stand", "exchange_rate": "14875", "elixir": "875", "time": "60m", "xp": "3", "magic": "5", "magic_per_hour": "5.00" },
+  { "collection": "The Muppets", "name": "Peppermint Milkshake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "The Muppets", "name": "Sam Eagle Sipper Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Ice Age", "name": "Acorn Popcorn Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Ice Age", "name": "Dandelion Tea Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Ice Age", "name": "Dino Hat Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Ice Age", "name": "Frosty Sparkling Water Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
+  { "collection": "Ice Age", "name": "Plush Sloth Toy Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Bug's Life", "name": "Delicious Dew Stand", "category": "Drink Stand", "exchange_rate": "8125", "elixir": "1625", "time": "12h", "xp": "3", "magic": "120", "magic_per_hour": "10.00" },
+  { "collection": "Bug's Life", "name": "Leaf Travel Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Silly Symphony", "name": "Little Red Riding Hood's Basket Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Silly Symphony", "name": "The Big Bad Wolf's Top Hat Stand", "category": "Headwear Stand", "exchange_rate": "12000", "elixir": "1000", "time": "4h", "xp": "3", "magic": "30", "magic_per_hour": "7.50" },
+  { "collection": "Cars", "name": "Bacon Mac and Cheese Bread Cone Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Cars", "name": "Victory Flag Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Fox and the Hound", "name": "Forest Blueberry Pie Stand", "category": "Food Stand", "exchange_rate": "10000", "elixir": "1250", "time": "4h", "xp": "3", "magic": "35", "magic_per_hour": "8.75" },
+  { "collection": "Fox and the Hound", "name": "Tiny Copper Keychain Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Avatar", "name": "Banshee Visor Mask Stand", "category": "Headwear Stand", "exchange_rate": "10000", "elixir": "1250", "time": "6h", "xp": "3", "magic": "50", "magic_per_hour": "8.33" },
+  { "collection": "Avatar", "name": "Plush Ilu Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" }
 ];
 
 // Categories: Trophy | Greenery | Monument | Scenery | Amenity
@@ -9654,7 +11133,7 @@ const DMK_DECORATIONS = [
   { name: "Wreck-It Ralph Gold Trophy", category: "Trophy", collection: "Wreck-It Ralph", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Zen Fence", category: "Scenery", collection: "Big Hero 6", size: "6×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Zootopia Gold Trophy", category: "Trophy", collection: "Zootopia", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-]; 
+];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
 //Add new characters to the end of the list, and keep it sorted alphabetically by collection, then by name
@@ -10222,10 +11701,10 @@ const DMK_CHARS = [
   ["Kiri", "Avatar", "s", "💙"],
   ["Neytiri", "Avatar", "s", "💙"],
   ["Tuk", "Avatar", "s", "💙"],
- ];
+];
 
- // Collections
- //Add more collections as needed, but these are the ones that have been confirmed to be in the game so far
+// Collections
+//Add more collections as needed, but these are the ones that have been confirmed to be in the game so far
 const COLLECTION_ICONS = {
   'Aladdin': 'Cc-aladdin-l.png',
   'Alice in Wonderland': 'Cc-alice_in_wonderland-l.png',
