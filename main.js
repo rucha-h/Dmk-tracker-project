@@ -62,7 +62,7 @@ function loadState() {
       (state.characters || []).forEach(c => { savedByName[c.name] = c; });
       state.characters = allChars.map(ch => {
         const saved = savedByName[ch.name];
-        if (saved) return { ...ch, ...saved, max: 10, level: parseInt(saved.level) || 0 };
+        if (saved) return { ...ch, ...saved, name: ch.name, collection: ch.collection, type: ch.type, max: 10, level: parseInt(saved.level) || 0 };
         return ch;
       });
 
