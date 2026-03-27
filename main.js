@@ -318,29 +318,6 @@ function toggleArcQuest(arcId, questId) {
   if (q) { q.done = !q.done; }
   else { state.quests.push({ id: key, done: true }); }
   saveState();
-
-  // Feature 4: auto-advance — if this completes the arc, collapse it and open the next todo
-  const arc = STORYLINE_ARCS.find(a => a.id === arcId);
-  if (arc) {
-    const allDone = arc.quests.every(quest => getArcQuestState(arcId, quest.id));
-    if (allDone) {
-      const body = getEl('arc-body-' + arcId);
-      if (body) body.style.display = 'none';
-      const currentIndex = STORYLINE_ARCS.findIndex(a => a.id === arcId);
-      for (let i = currentIndex + 1; i < STORYLINE_ARCS.length; i++) {
-        const nextArc = STORYLINE_ARCS[i];
-        const nextDone = nextArc.quests.filter(quest => getArcQuestState(nextArc.id, quest.id)).length;
-        if (nextDone < nextArc.quests.length) {
-          const nextBody = getEl('arc-body-' + nextArc.id);
-          if (nextBody) nextBody.style.display = '';
-          break;
-        }
-      }
-      renderQuests();
-      return;
-    }
-  }
-
   renderQuests();
 }
 
@@ -433,7 +410,10 @@ function renderQuests() {
         ? (status === 'done' ? 'rgba(57,232,124,0.10)' : status === 'progress' ? 'rgba(87,210,255,0.10)' : 'rgba(87,210,255,0.04)')
         : (status === 'done' ? 'rgba(57,232,124,0.08)' : status === 'progress' ? 'rgba(245,200,66,0.07)' : 'rgba(255,255,255,0.03)');
 
-      const isOpen = status === 'progress' || arc === firstActive?.arc || !!search;
+      const isOpen = search
+        ? true  // always open when searching
+        : (getEl('arc-body-' + arc.id)?.style.display !== 'none'  // preserve current state if already rendered
+            ?? (status === 'progress' || arc === firstActive?.arc)); // initial open logic on first render
       const remaining = t - d;
 
       const questsHtml = arc.quests.map(q => {
