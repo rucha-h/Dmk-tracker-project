@@ -15,26 +15,11 @@ let _encBuiltFilter = 'all';
 let state = {
   characters: [],
   quests: [],
-  daily: [],
   resources: { magic: 0, gems: 0, tokens: 0, rare: 0 },
   attractions: [],
   costumes: [],
   decorations_owned: {},
 };
-
-// ============ DEFAULT DATA ============
-const defaultDaily = [
-  { id: 'd1', text: 'Collect Daily Calendar reward', points: '🎁 Daily Chest', done: false },
-  { id: 'd2', text: 'Watch in-game announcement (free Gems)', points: '💎 +Gems', done: false },
-  { id: 'd3', text: 'Grant visitor wishes (fill Happiness Meter)', points: '😊 Better drops', done: false },
-  { id: 'd4', text: 'Run the Parade', points: '✨ Magic + Tokens', done: false },
-  { id: 'd5', text: 'Collect from all attractions & concessions', points: '✨ Passive Magic', done: false },
-  { id: 'd6', text: 'Send all characters on tasks (none idle)', points: '🔄 Max efficiency', done: false },
-  { id: 'd7', text: 'Check for enchanted chests in Kingdom', points: '📦 Free chests', done: false },
-  { id: 'd8', text: 'Level up any ready characters', points: '💎 +Gems', done: false },
-  { id: 'd9', text: 'Mark new decorations as owned in Decorations tab', points: '🎀 Decorations', done: false },
-  { id: 'd10', text: 'Set overnight 8-hour tasks before bed', points: '🌙 Overnight earn', done: false },
-];
 
 // ============ LOAD / SAVE ============
 // Build canonical character list from DMK_CHARS
@@ -70,13 +55,11 @@ function loadState() {
     } else {
       state.characters = allChars;
       state.quests = [];
-      state.daily = defaultDaily.map(d => ({ ...d }));
       state.decorations_owned = {};
     }
   } catch(e) {
     state.characters = allChars;
     state.quests = [];
-    state.daily = defaultDaily.map(d => ({ ...d }));
     state.decorations_owned = {};
   }
 }
@@ -108,7 +91,6 @@ function switchTab(id, btnEl) {
   if (id === 'characters') { if (firstVisit) populateCollFilter(); renderChars(); return; }
   if (id === 'campaign')   { renderQuests(); return; }
   if (id === 'decorations') { if (firstVisit) initDecCollFilter(); renderDecorations(); return; }
-  if (id === 'daily')      { renderDaily(); return; }
   if (id === 'costumes')   { renderCostumes(); return; }
   if (id === 'enchantments') { if (firstVisit) initEncCollFilter(); renderEnchantmentsTab(); return; }
   if (id === 'floats')     { renderFloats(); return; }
@@ -740,30 +722,6 @@ function renderDecorations() {
   }).join('');
 }
 
-// ============ DAILY ============
-function toggleDaily(id) {
-  const d = state.daily.find(x => x.id === id);
-  if (d) d.done = !d.done;
-  saveState(); renderDaily();
-}
-
-function resetDaily() {
-  state.daily.forEach(d => d.done = false);
-  saveState(); renderDaily();
-}
-
-function renderDaily() {
-  const list = getEl('daily-list');
-  if (!list) return;
-  list.innerHTML = state.daily.map(d => `
-    <div class="daily-item ${d.done ? 'done' : ''}" onclick="toggleDaily('${d.id}')">
-      <div class="daily-cb">${d.done ? '✓' : ''}</div>
-      <div class="daily-text">${d.text}</div>
-      <div class="daily-points">${d.points}</div>
-    </div>
-  `).join('');
-}
-
 // ============ DASHBOARD ============
 function updateDashboard() {
   const chars = state.characters;
@@ -778,7 +736,6 @@ function updateDashboard() {
       });
     });
   }
-  const dailyDone = state.daily.filter(d => d.done).length;
 
   const stat_chars = getEl('stat-chars')
   if (stat_chars) stat_chars.textContent = welcomed + ' / ' + chars.length;
@@ -788,8 +745,6 @@ function updateDashboard() {
   
   const stat_quests = getEl('stat-quests');
   if (stat_quests) stat_quests.textContent = questsDone + '/' + totalArqQuests;
-  const stat_daily = getEl('stat-daily');
-  if (stat_daily) stat_daily.textContent = dailyDone + '/' + state.daily.length;
 
   if (state.attractions && state.attractions.length) {
     const attrBuilt = state.attractions.filter(a => a.built).length;
@@ -845,7 +800,6 @@ function updateDashboard() {
 
   const storyPct = totalArqQuests > 0 ? Math.round(questsDone / totalArqQuests * 100) : 0;
   const charsPct = chars.length > 0 ? Math.round(welcomed / chars.length * 100) : 0;
-  const dailyPct = state.daily.length > 0 ? Math.round(dailyDone / state.daily.length * 100) : 0;
 
   const dashStoryPct = getEl('dash-story-pct');
   if (dashStoryPct) dashStoryPct.textContent = storyPct + '%';
@@ -855,10 +809,6 @@ function updateDashboard() {
   if (dashCharsPct) dashCharsPct.textContent = charsPct + '%';
   const dashCharsBar = getEl('dash-chars-bar');
   if (dashCharsBar) dashCharsBar.style.width = charsPct + '%';
-  const dashDailyPct = getEl('dash-daily-pct');
-  if (dashDailyPct) dashDailyPct.textContent = dailyPct + '%';
-  const dashDailyBar = getEl('dash-daily-bar');
-  if (dashDailyBar) dashDailyBar.style.width = dailyPct + '%';
 
   // Sync resource inputs
   const res_magic = getEl('res-magic');
@@ -874,7 +824,6 @@ function updateDashboard() {
 
   // Focus list
   const focusItems = [];
-  if (dailyPct < 100) focusItems.push({ icon: '📅', text: `<strong>${state.daily.length - dailyDone} daily tasks</strong> remaining — complete them for Magic, Gems & free chests.` });
   const missingDecorations = DMK_DECORATIONS
     ? DMK_DECORATIONS.filter(d => !state.decorations_owned?.[d.name])
     : [];
@@ -1165,7 +1114,6 @@ if (!state.concessions_owned) state.concessions_owned = {};
 updateDashboard();
 renderChars();
 renderQuests();
-renderDaily();
 renderDecorations();
 renderTokens();
 renderFloats();
