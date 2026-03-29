@@ -12383,7 +12383,6 @@ const STORYLINE_ARCS = [
       { name: "Bring Music to the World", chars: [], tip: "Build Mickey's PhilharMagic — 500 Magic (60s)." },
       { name: 'The Plan, Pt. 2', chars: ['Goofy'], tip: 'Goofy Lv1 — Head to the PhilharMagic! (12s).' },
       { name: 'The Plan, Pt. 3', chars: ['Goofy'], tip: 'Goofy Lv1 — Practice for Practice (12s).' },
-      { name: 'Where Are the Toys?', chars: [], tip: "Build Al's Toy Barn — 750 Magic (2m)." },
       { name: 'Classical Season', chars: ['Mickey Mouse'], tip: 'Mickey Lv2 — Play the Trumpet (30s).' },
       { name: "Season's Eatings", chars: ['Goofy'], tip: 'Goofy Lv1 — Celebrate at Home (60s).' },
       { name: 'An Ounce of Prevention...', chars: ['Goofy'], tip: 'Goofy Lv2 — Check the Fun Wheel (2m).' },
@@ -12399,26 +12398,12 @@ const STORYLINE_ARCS = [
       { name: 'I Miss Minnie!, Pt. 3', chars: ['Mickey Mouse'], tip: 'Mickey Lv3 — Head to the PhilharMagic (4m).' },
       { name: "Good Magic", chars: ['Mickey Mouse'], tip: "Mickey Lv3 — Search for Assistance (5s). 🔓 Merlin's Spell Book." },
       { name: 'I Miss Minnie!, Pt. 4', chars: ['Mickey Mouse'], tip: 'Mickey Lv3 — Go Through Photo Albums (5m).' },
-      { name: 'Square Dances', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (5m).' },
-      { name: 'Dance by Default', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (5m).' },
-      { name: 'Different Priorities', chars: ['Woody', 'Jessie'], tip: 'Woody Lv2 + Jessie Lv2 — Negotiate (5m).' },
       { name: 'All Sorts of Handy, Pt. 1', chars: ['Goofy'], tip: 'Goofy Lv2 — Study Lighting (2m) + Adjust the Lights (4m).' },
       { name: "How Enchanting!", chars: [], tip: "Get Mickey's Fun Wheel Enchantment Level 1 (5m)." },
-      { name: 'The Rustle Hustle', chars: ['Jessie'], tip: 'Jessie Lv2 — Visit the Snack Roundup (60s).' },
-      { name: 'Always on My Mind', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (4m) + Yodel in the Streets (2m).' },
-      { name: 'Playing Dress Up', chars: ['Jessie'], tip: 'Jessie Lv2 — Decorate the Toy Barn (5m).' },
       { name: 'Tuba Trouble', chars: ['Goofy'], tip: 'Goofy Lv3 — Free the Bee! (3m).' },
       { name: 'Discovery Rewards Level 5', chars: [], tip: '🔓 Milestone. Requires Welcome a Piggy Bank (Hamm).' },
       { name: 'Fabric Searching', chars: ['Mickey Mouse'], tip: 'Mickey Lv3 — Search for Fabric (60s). 🔓 Costume Shop.' },
       { name: 'Dress like a Pirate', chars: [], tip: 'Get Mickey Mouse/Pirate costume — 50 Magic (30s).' },
-      { name: 'Without Her Flock, Pt. 1', chars: ['Bo Peep'], tip: 'Bo Peep Lv1 — Host a Sing-Along (6m).' },
-      { name: 'Without Her Flock, Pt. 2', chars: ['Bo Peep', 'Woody'], tip: 'Bo Peep Lv4 + Woody Lv3 — Share Some Quality Time (10m). 🔓 Star Wars Storyline.' },
-      { name: 'Without Her Flock, Pt. 3', chars: ['Bo Peep'], tip: "Bo Peep Lv4 — Check Al's Toy Barn (6m)." },
-      { name: "I Know What's Best", chars: ['Jessie', 'Woody'], tip: 'Jessie Lv2 — Plan at the Toy Barn (5m). Woody Lv3 — Practice Lassoing (5m).' },
-      { name: 'Cooler Heads Prevail', chars: ['Woody', 'Jessie'], tip: 'Woody Lv3 + Jessie Lv2 — Plan a "Yodeo" (6m).' },
-      { name: "Let's Put On a Show", chars: ['Woody', 'Jessie'], tip: 'Woody Lv3 + Jessie Lv2 — Perform a "Yodeo" Act (5m each).' },
-      { name: 'Stake Out', chars: ['Woody'], tip: 'Woody Lv3 — Find the Strange Activity (6m).' },
-      { name: 'Howlin\' Dogs', chars: ['Woody'], tip: 'Woody Lv4 — Rest up at the Roundup (10m).' },
       { name: 'The Plan, Pt. 4', chars: [], tip: 'Unlock Toontown Top-Center Expansion — 1,000 Magic (5m).' },
       { name: 'The Goofy Factor', chars: ['Goofy'], tip: 'Goofy Lv3 — Think at the Fun Wheel (3m).' },
       { name: 'The Plan, Pt. 5', chars: ['Goofy', 'Mickey Mouse'], tip: 'Goofy Lv4 + Mickey Lv3 — Make a New Plan (10m).' },
@@ -12437,17 +12422,32 @@ const STORYLINE_ARCS = [
       { name: 'Welcome a Sheriff', chars: ['Woody'], tip: '⭐ Welcome Woody — 250 Magic (6s). Triggers alongside Cheer Up Pete Pt.1.' },
       { name: 'Systems Check', chars: ['Woody'], tip: 'Woody Lv1 — Pull String (10s).' },
       { name: 'Lonely Heart, Pt. 1', chars: ['Woody'], tip: 'Woody Lv2 — Walk off His Loneliness (20s).' },
+      { name: 'Where Are the Toys?', chars: [], tip: "Build Al's Toy Barn — 750 Magic (2m)." },
       { name: 'Lonely Heart, Pt. 2', chars: ['Woody'], tip: "Woody Lv2 — Head to the Toy Barn (30s)." },
       { name: 'Welcome a Shepherdess', chars: ['Bo Peep'], tip: '⭐ Welcome Bo Peep — 500 Magic (6s).' },
       { name: 'Discovery Rewards Level 3', chars: [], tip: '🔓 Milestone.' },
       { name: 'Welcome a Cowgirl', chars: ['Jessie'], tip: '⭐ Welcome Jessie — 750 Magic (6s). 🔓 Discovery Rewards Lv4 (with Don\'t Forget Condiments!).' },
       { name: 'Find an Enchanted Chest', chars: [], tip: 'Unlock Treasure Bank Expansion — FREE. 🔓 Daily Rewards Calendar.' },
       { name: 'Lights On!', chars: [], tip: 'Unlock Parade Tent Expansion — 300 Magic (6m).' },
-      { name: 'Welcome a Piggy Bank', chars: ['Hamm'], tip: '⭐ Welcome Hamm — 1,500 Magic (6s). 🔓 Discovery Rewards Lv5.' },
-      { name: 'Second Home', chars: ['Woody'], tip: 'Side — Woody Lv3 — Rest up at the Roundup (5m).' },
       { name: 'Mission: Fun, Pt. 1', chars: ['Woody'], tip: 'Side — Woody Lv2 — Have Fun at the Toy Barn (60s).' },
       { name: 'Mission: Fun, Pt. 2', chars: ['Woody'], tip: 'Side — Woody Lv2 — Enjoy His Job (2m).' },
+      { name: 'Square Dances', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (5m).' },
+      { name: 'Dance by Default', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (5m).' },
+      { name: 'Different Priorities', chars: ['Woody', 'Jessie'], tip: 'Woody Lv2 + Jessie Lv2 — Negotiate (5m).' },
+      { name: 'Welcome a Piggy Bank', chars: ['Hamm'], tip: '⭐ Welcome Hamm — 1,500 Magic (6s). 🔓 Discovery Rewards Lv5.' },
+      { name: 'The Rustle Hustle', chars: ['Jessie'], tip: 'Jessie Lv2 — Visit the Snack Roundup (60s).' },
+      { name: 'Always on My Mind', chars: ['Jessie'], tip: 'Jessie Lv2 — Dance the Hey-Howdy-Hey (4m) + Yodel in the Streets (2m).' },
+      { name: 'Playing Dress Up', chars: ['Jessie'], tip: 'Jessie Lv2 — Decorate the Toy Barn (5m).' },
+      { name: 'Second Home', chars: ['Woody'], tip: 'Side — Woody Lv3 — Rest up at the Roundup (5m).' },
+      { name: 'Without Her Flock, Pt. 1', chars: ['Bo Peep'], tip: 'Bo Peep Lv1 — Host a Sing-Along (6m).' },
+      { name: 'Without Her Flock, Pt. 2', chars: ['Bo Peep', 'Woody'], tip: 'Bo Peep Lv4 + Woody Lv3 — Share Some Quality Time (10m). 🔓 Star Wars Storyline.' },
+      { name: 'Without Her Flock, Pt. 3', chars: ['Bo Peep'], tip: "Bo Peep Lv4 — Check Al's Toy Barn (6m)." },
+      { name: "I Know What's Best", chars: ['Jessie', 'Woody'], tip: 'Jessie Lv2 — Plan at the Toy Barn (5m). Woody Lv3 — Practice Lassoing (5m).' },
+      { name: 'Cooler Heads Prevail', chars: ['Woody', 'Jessie'], tip: 'Woody Lv3 + Jessie Lv2 — Plan a "Yodeo" (6m).' },
       { name: 'Welcome a Soldier', chars: ['Sarge'], tip: '⭐ Welcome Sarge — 2,000 Magic (6s). 🔓 Discovery Rewards Lv6.' },
+      { name: "Let's Put On a Show", chars: ['Woody', 'Jessie'], tip: 'Woody Lv3 + Jessie Lv2 — Perform a "Yodeo" Act (5m each).' },
+      { name: 'Stake Out', chars: ['Woody'], tip: 'Woody Lv3 — Find the Strange Activity (6m).' },
+      { name: 'Howlin\' Dogs', chars: ['Woody'], tip: 'Woody Lv4 — Rest up at the Roundup (10m).' },
     ]
   },
 
@@ -12472,12 +12472,12 @@ const STORYLINE_ARCS = [
       { name: 'Lighten Up', chars: ['Mickey Mouse'], tip: 'Mickey Lv3 — Build Some Lights! (4m). After I Miss Minnie Pt.4.' },
       { name: 'All Sorts of Handy, Pt. 2', chars: ['Goofy'], tip: 'Goofy Lv2 — Fix Lightbulbs for Mickey (6m). After All Sorts of Handy Pt.1.' },
       { name: 'Fun Wheel Fun', chars: ['Goofy'], tip: 'Goofy Lv2 — Check the Fun Wheel (5m). Requires Hooray?' },
-      { name: 'My Tummy Is My Buddy, Pt. 1', chars: ['Goofy'], tip: "Goofy Lv3 — Use Mickey's Kitchen (6m). After Stake Out." },
-      { name: 'My Tummy Is My Buddy, Pt. 2', chars: ['Goofy'], tip: 'Goofy Lv4 — Munch on His Sandwich (10m).' },
-      { name: 'Second Helpings', chars: ['Goofy'], tip: "Goofy Lv5 — Use Mickey's Kitchen (4h) + Enjoy Sandwiches (4h). After The Plan Pt.5." },
       { name: "Goin' Pro, Pt. 1", chars: ['Goofy', 'Mickey Mouse'], tip: 'Goofy Lv3 + Mickey Lv3 — Head to the PhilharMagic (3m). After Cooler Heads Prevail.' },
       { name: "Goin' Pro, Pt. 2", chars: ['Goofy'], tip: "Goofy Lv3 — Rest up at Mickey's House (6m)." },
       { name: "Goin' Pro, Pt. 3", chars: ['Goofy'], tip: 'Goofy Lv3 — Play at the PhilharMagic (10m).' },
+      { name: 'My Tummy Is My Buddy, Pt. 1', chars: ['Goofy'], tip: "Goofy Lv3 — Use Mickey's Kitchen (6m). After Stake Out." },
+      { name: 'My Tummy Is My Buddy, Pt. 2', chars: ['Goofy'], tip: 'Goofy Lv4 — Munch on His Sandwich (10m).' },
+      { name: 'Second Helpings', chars: ['Goofy'], tip: "Goofy Lv5 — Use Mickey's Kitchen (4h) + Enjoy Sandwiches (4h). After The Plan Pt.5." },
       { name: "California... Thrilling!", chars: [], tip: "Get California Screamin' Thrill Level 1 (Instant). After Surprise Addition." },
     ]
   },
@@ -12533,37 +12533,6 @@ const STORYLINE_ARCS = [
       { name: 'In Plain Sight', chars: ['Cinderella', 'Prince Charming'], tip: 'Cinderella Lv3 + Prince Charming Lv4 \u2014 Decorate the Carrousel (6h).' },
       { name: 'Stop That Mouse!', chars: ['Drizella Tremaine', 'Anastasia Tremaine'], tip: 'Drizella Lv2 + Anastasia Lv2 \u2014 A Carrousel Distraction (8h).' },
       { name: 'Mice of the Party!', chars: ['Cinderella', 'Prince Charming', 'Drizella Tremaine', 'Anastasia Tremaine', 'Gus (Cinderella)'], tip: 'Arc finale \u2014 all Cinderella chars at the Carrousel (4h each).' },
-    ]
-  },
-
-  {
-    id: 'a1_cinderella', act: 1, title: 'Cinderella', emoji: '👸',
-    unlock: 'Discovery Rewards Level 6 (Mickey & Friends Act 1)',
-    desc: 'Lady Love Lost → Slippery Slippers → The Common Touch → Mice Heist → Glass Slipper → A Royal Threat.',
-    quests: [
-      { name: 'Lady Love Lost, Pt. 1', chars: ['Merlin'], tip: 'Merlin Lv1 (2h).' },
-      { name: 'Lady Love Lost, Pt. 2', chars: ['Merlin'], tip: 'Merlin Lv2 (4h).' },
-      { name: 'Lady Love Lost, Pt. 3', chars: ['Merlin'], tip: "Build Prince Charming's Regal Carrousel — 5,000 Magic. Merlin Lv3 (4h)." },
-      { name: 'Welcome a Dreamer', chars: ['Cinderella'], tip: '⭐ Welcome Cinderella — FREE via Discovery Rewards 6.' },
-      { name: 'Lady Love Lost, Pt. 4', chars: ['Cinderella', 'Merlin'], tip: 'Cinderella Lv3 + Merlin Lv3 (8h).' },
-      { name: 'Slippery Slippers, Pt. 1', chars: ['Cinderella'], tip: 'Cinderella Lv1 (4h).' },
-      { name: 'Slippery Slippers, Pt. 2', chars: ['Cinderella'], tip: 'Cinderella Lv2 (6h).' },
-      { name: 'Slippery Slippers, Pt. 3', chars: ['Cinderella'], tip: 'Build Fantasy Faire — 13,500 Magic. Cinderella Lv3 (4h).' },
-      { name: 'Slippery Slippers, Pt. 4', chars: ['Cinderella', 'Prince Charming'], tip: 'Cinderella Lv3 + Prince Charming Lv3 (8h).' },
-      { name: 'The Common Touch, Pt. 1', chars: ['Prince Charming'], tip: 'Prince Charming Lv4 (4h).' },
-      { name: 'The Common Touch, Pt. 2', chars: ['Prince Charming'], tip: 'Prince Charming Lv4 (2h).' },
-      { name: 'The Common Touch, Pt. 3', chars: ['Cinderella', 'Prince Charming'], tip: '' },
-      { name: 'Mice Heist, Pt. 1', chars: ['Jaq'], tip: '⭐ Welcome Jaq first.' },
-      { name: 'Mice Heist, Pt. 2', chars: ['Jaq', 'Gus'], tip: '⭐ Welcome Gus.' },
-      { name: 'Mice Heist, Pt. 3', chars: ['Jaq', 'Gus'], tip: '' },
-      { name: 'Mice Heist, Pt. 4', chars: ['Jaq', 'Gus'], tip: '' },
-      { name: 'Bibbidi-Bobbidi-Boo', chars: ['Fairy Godmother'], tip: '⭐ Welcome Fairy Godmother.' },
-      { name: 'The Glass Slipper, Pt. 1', chars: ['Cinderella', 'Fairy Godmother'], tip: '' },
-      { name: 'The Glass Slipper, Pt. 2', chars: ['Cinderella', 'Fairy Godmother'], tip: '' },
-      { name: 'The Glass Slipper, Pt. 3', chars: ['Cinderella', 'Fairy Godmother', 'Prince Charming'], tip: '' },
-      { name: 'A Royal Threat, Pt. 1', chars: ['Cinderella'], tip: '⭐ Welcome Lady Tremaine.' },
-      { name: 'A Royal Threat, Pt. 2', chars: ['Lady Tremaine', 'Anastasia Tremaine', 'Drizella Tremaine'], tip: '⭐ Welcome Anastasia & Drizella Tremaine.' },
-      { name: 'A Royal Threat, Pt. 3', chars: ['Cinderella', 'Prince Charming', 'Fairy Godmother'], tip: 'Arc finale.' },
     ]
   },
 
@@ -12653,16 +12622,9 @@ const STORYLINE_ARCS = [
     quests: [
       { name: 'Welcome a Blacksmith', chars: ['Will Turner'], tip: '⭐ Welcome Will Turner — 7,500 Magic (2h).' },
       { name: 'Lay of the Land', chars: ['Will Turner'], tip: 'Will Lv1 — Learn More (60m).' },
-      { name: 'Informal Information Gathering', chars: [], tip: 'Build Tortuga Tavern — 15,000 Magic (6h).' },
-      { name: 'Tavern Talk', chars: ['Will Turner'], tip: 'Will Lv2 — To the Tavern (2h). 🔓 Best of Blacksmiths Pt.2.' },
-      { name: 'Welcome a Governor\'s Daughter', chars: ['Elizabeth Swann'], tip: '⭐ Welcome Elizabeth Swann — 17,500 Magic (4h).' },
-      { name: 'A Ship to Sail', chars: ['Elizabeth Swann', 'Will Turner'], tip: 'Elizabeth Lv1 — Seek the Ship (2h). Will Lv2 — Look Into Curse (4h).' },
       { name: 'Best of Blacksmiths, Pt. 1', chars: ['Will Turner'], tip: 'Will Lv1 — Display Sword-Making (2h).' },
       { name: 'Best of Blacksmiths, Pt. 2', chars: ['Will Turner'], tip: 'Will Lv2 — Display Sword Skills (4h). Requires Tavern Talk.' },
-      { name: 'Display of Skills', chars: ['Elizabeth Swann', 'Will Turner'], tip: 'Elizabeth Lv3 — Blacksmith Skills (4h). Will Lv2 + Elizabeth Lv2 — Sword Fight for Fun (4h). 🔓 To the Tavern for News.' },
       { name: 'To the Tavern for News', chars: ['Will Turner'], tip: 'Will Lv3 — Stay Up to Date (6h). Requires Display of Skills.' },
-      { name: 'Hide around the Corner', chars: ['Elizabeth Swann'], tip: 'Elizabeth Lv3 — Hide at the Tavern (2h). Requires Catch Up with Dear Will.' },
-      { name: 'In Search of Answers', chars: ['Elizabeth Swann', 'Will Turner', 'Jack Sparrow'], tip: 'Elizabeth Lv4 — Entertain Guests (4h). Will Lv2 — Recruit Help (4h). Jack Lv3 — Talk with Others (4h). 🔓 A Pirate\'s Life Pt.4.' },
       { name: 'Pirates Together, Pt. 1', chars: ['Will Turner', 'Elizabeth Swann'], tip: 'Will Lv3 + Elizabeth Lv2 — Practice Sword Skills (4h).' },
       { name: 'Pirates Together, Pt. 2', chars: ['Will Turner', 'Elizabeth Swann'], tip: 'Will Lv4 + Elizabeth Lv3 — Tavern Trip (4h).' },
       { name: 'Find a Crew', chars: ['Will Turner'], tip: 'Will Lv3 — Find a Crew (6h).' },
@@ -12670,6 +12632,13 @@ const STORYLINE_ARCS = [
       { name: "A Pirate's Life for Me, Pt. 2", chars: ['Will Turner'], tip: 'Will Lv3 — Tavern Cheer (60m).' },
       { name: "A Pirate's Life for Me, Pt. 3", chars: ['Will Turner', 'Elizabeth Swann'], tip: 'Will Lv5 + Elizabeth Lv4 — Practice Swordplay (4h). 🔓 PotC Storyline (Act 3).' },
       { name: "A Pirate's Life for Me, Pt. 4", chars: ['Will Turner', 'Elizabeth Swann'], tip: 'Will Lv4 + Elizabeth Lv5 — Proudly Sing! (4h). Requires In Search of Answers.' },
+      { name: 'Informal Information Gathering', chars: [], tip: 'Build Tortuga Tavern — 15,000 Magic (6h).' },
+      { name: 'Tavern Talk', chars: ['Will Turner'], tip: 'Will Lv2 — To the Tavern (2h). 🔓 Best of Blacksmiths Pt.2.' },
+      { name: 'Welcome a Governor\'s Daughter', chars: ['Elizabeth Swann'], tip: '⭐ Welcome Elizabeth Swann — 17,500 Magic (4h).' },
+      { name: 'A Ship to Sail', chars: ['Elizabeth Swann', 'Will Turner'], tip: 'Elizabeth Lv1 — Seek the Ship (2h). Will Lv2 — Look Into Curse (4h).' },
+      { name: 'Display of Skills', chars: ['Elizabeth Swann', 'Will Turner'], tip: 'Elizabeth Lv3 — Blacksmith Skills (4h). Will Lv2 + Elizabeth Lv2 — Sword Fight for Fun (4h). 🔓 To the Tavern for News.' },
+      { name: 'Hide around the Corner', chars: ['Elizabeth Swann'], tip: 'Elizabeth Lv3 — Hide at the Tavern (2h). Requires Catch Up with Dear Will.' },
+      { name: 'In Search of Answers', chars: ['Elizabeth Swann', 'Will Turner', 'Jack Sparrow'], tip: 'Elizabeth Lv4 — Entertain Guests (4h). Will Lv2 — Recruit Help (4h). Jack Lv3 — Talk with Others (4h). 🔓 A Pirate\'s Life Pt.4.' },
     ]
   },
 
@@ -12792,6 +12761,7 @@ const STORYLINE_ARCS = [
       { name: 'Welcome a Scarer', chars: ['Randall Boggs'], tip: '⭐ Welcome Randall Boggs — 35,000 Magic (2h). Side quest after Music to My Ears.' },
       { name: 'View from the Tower, Pt. 1', chars: ['Rapunzel'], tip: 'Side — Rapunzel (8h). After A Garden with a View.' },
       { name: 'View from the Tower, Pt. 2', chars: ['Rapunzel'], tip: 'Side — Rapunzel (12h).' },
+      { name: 'Welcome an Emperor', chars: ['Zurg'], tip: '⭐ Welcome Zurg — 65,000 Magic (24h). Side quest after View from the Tower Pt.2.' },
       { name: 'View from the Tower, Pt. 3', chars: ['Rapunzel'], tip: 'Side — Rapunzel (16h).' },
       { name: 'Hanging Out', chars: ['Rapunzel', 'Flynn'], tip: 'Side — Rapunzel + Flynn (24h).' },
       { name: 'View from the Tower, Pt. 4', chars: ['Rapunzel'], tip: 'Side — Rapunzel (16h).' },
@@ -12804,9 +12774,39 @@ const STORYLINE_ARCS = [
       { name: 'The Dance-Off, Pt. 6', chars: ['Rapunzel', 'Flynn'], tip: 'Side — (12h).' },
       { name: 'Finding Chip', chars: ['Chip'], tip: '⭐ Welcome Chip — 20,000 Magic (60m). Side quest after I See the Light.' },
       { name: 'Finding Dale', chars: ['Dale'], tip: '⭐ Welcome Dale — 20,000 Magic (60m). Side quest after Finding Chip.' },
-      { name: 'Welcome an Emperor', chars: ['Zurg'], tip: '⭐ Welcome Zurg — 65,000 Magic (24h). Side quest after View from the Tower Pt.2.' },
       { name: 'A Musical Defense', chars: ['Prince Phillip', 'Aurora'], tip: 'Side — Prince Phillip + Aurora (48h). After Love Conquers All.' },
       { name: 'Welcome a Mother', chars: ['Mother Gothel'], tip: '⭐ Welcome Mother Gothel — 95,000 Magic (24h). Side quest after Mother, May I?' },
+    ]
+  },
+
+  {
+    id: 'a3_ducktales', act: 3, title: 'DuckTales', emoji: '🦆',
+    unlock: "Landlocked, Pt. 4 (Mickey & Friends Act 3) — Build Donald's Boat",
+    desc: 'Huey, Dewey, Louie, Webby Vanderquack and Launchpad McQuack. Woo-oo!',
+    quests: [
+      { name: 'Welcome an Older Triplet', chars: ['Huey'], tip: '⭐ Welcome Huey — 50,000 Magic (6h).' },
+      { name: 'First Among Equals', chars: ['Huey'], tip: 'Huey Lv1 — Search for the Treasure (2h).' },
+      { name: 'Welcome a Middle Triplet', chars: ['Dewey'], tip: '⭐ Welcome Dewey — 60,000 Magic (12h).' },
+      { name: 'Second to None', chars: ['Dewey'], tip: 'Dewey Lv1 — Search for the Treasure (6h).' },
+      { name: 'Welcome a Younger Triplet', chars: ['Louie'], tip: '⭐ Welcome Louie — 70,000 Magic (16h).' },
+      { name: 'Third Time\'s the Charm', chars: ['Louie'], tip: 'Louie Lv1 — Search for the Treasure (12h).' },
+      { name: 'Woo-oo!', chars: ['Huey', 'Dewey', 'Louie'], tip: 'All three triplets Lv2 — Help Find the Treasure (6h each).' },
+      { name: 'Welcome an Honorary Niece', chars: ['Webby'], tip: '⭐ Welcome Webby Vanderquack — 80,000 Magic (6s).' },
+      { name: 'Whither, Webby?', chars: ['Webby'], tip: 'Webby Lv1 — Check Her Map (2h).' },
+      { name: 'Mirror, Mirror?', chars: ['Webby'], tip: 'Webby Lv2 — Try a Different Way (2h).' },
+      { name: 'Cleared for Launch', chars: ['Launchpad McQuack'], tip: 'Launchpad Lv2 — Start Up the Golden Condor (4h).' },
+      { name: 'Eyes in the Sky', chars: ['Webby', 'Launchpad McQuack'], tip: 'Webby Lv2 + Launchpad Lv2 — Go Up in the Condor (6h).' },
+      { name: 'Quadruple Check', chars: ['Huey', 'Webby'], tip: 'Huey Lv3 + Webby Lv2 — Fly in the Golden Condor (8h).' },
+      { name: 'You Guessed It!', chars: ['Huey', 'Dewey', 'Louie', 'Webby', 'Launchpad McQuack'], tip: 'Arc finale — all DuckTales chars at the Golden Condor. Huey+Dewey Lv2 Teatime (2h), Louie+Webby+Launchpad Picnic (2h).' },
+    ]
+  },
+
+  {
+    id: 'sq_a3_ducktales', act: 3, side: true, title: 'DuckTales Side Quest', emoji: '🦆',
+    unlock: 'Woo-oo! + Scrooge McDuck welcomed',
+    desc: 'A single side quest that requires Scrooge McDuck (premium character).',
+    quests: [
+      { name: 'Making New Tales', chars: ['Scrooge McDuck'], tip: 'Side — Scrooge Lv1 — Search for Opportunities (4h). Requires Scrooge McDuck welcomed + Woo-oo!' },
     ]
   },
 
@@ -12837,6 +12837,42 @@ const STORYLINE_ARCS = [
       { name: 'Surprise Witness', chars: ['Judy Hopps', 'Nick Wilde'], tip: 'Judy Lv3 + Nick Lv2 — At the Race Track (6h).' },
       { name: 'Hearsay', chars: ['Dawn Bellwether'], tip: 'Dawn Lv3 — Former Legal Team (8h).' },
       { name: 'Time for "Plan W"', chars: ['Judy Hopps', 'Nick Wilde', 'Dawn Bellwether'], tip: 'Arc finale — Judy Lv8 + Nick Lv8 — Tail a Person of Interest (4h). Dawn Lv4 + Lv4 — Business at the Track (4h).' },
+    ]
+  },
+
+  {
+    id: 'a3_sword_stone', act: 3, title: 'The Sword in the Stone', emoji: '⚔️',
+    unlock: 'Love Conquers All (Mickey & Friends Act 3)',
+    desc: 'Merlin, Wart, Sir Ector and Madam Mim. Branching dependency chains throughout.',
+    quests: [
+      { name: 'Welcome a Wizard', chars: ['Merlin'], tip: '⭐ Welcome Merlin — 30,000 Magic (6s).' },
+      { name: 'Mind your Latin!', chars: ['Merlin'], tip: 'Merlin Lv1 — Use Magic (60m).' },
+      { name: 'You Rang?', chars: ['Merlin'], tip: 'Merlin Lv1 — Check His Messages (2h). 🔓 The King Returns?' },
+      { name: 'Abra-ca-What?', chars: ['Merlin'], tip: 'Merlin Lv2 — Use New Magic (4h). Requires Whoso Pulleth… 🔓 Just as Soothsaid!' },
+      { name: 'Whoso Pulleth...', chars: [], tip: 'Build The Sword in the Stone — 75,000 Magic (2h). 🔓 Abra-ca-What?' },
+      { name: 'The King Returns?', chars: ['Merlin'], tip: 'Merlin Lv1 — Business with the Sword (4h). Requires You Rang?' },
+      { name: 'Just as Soothsaid!', chars: ['Merlin'], tip: 'Merlin Lv2 — Wait by the Sword (6h). Requires Abra-ca-What?' },
+      { name: 'Welcome a (Former) Squire', chars: ['Wart'], tip: '⭐ Welcome Wart — 64,000 Magic (6s).' },
+      { name: 'The King Has... Left', chars: ['Wart'], tip: 'Wart Lv1 — Run Around the Kingdom (60m).' },
+      { name: 'Like Old Times', chars: ['Wart'], tip: 'Wart Lv2 — Play Pretend (2h). 🔓 Magical Meditations.' },
+      { name: "If You Can Dream It...", chars: ['Wart'], tip: 'Wart Lv3 — Use Imaginative Magic (6h). Requires Tourna-What?! 🔓 No, YOU!' },
+      { name: 'Tourna-What?!', chars: ['Wart'], tip: 'Wart Lv2 — Run to the Sword (2h). 🔓 If You Can Dream It…' },
+      { name: 'Magical Meditations', chars: ['Wart'], tip: 'Wart Lv3 — Ponder at the Sword (4h). Requires Like Old Times.' },
+      { name: 'No, YOU!', chars: ['Merlin', 'Wart'], tip: 'Merlin Lv3 + Wart Lv3 — Discuss at the Sword (8h). Requires If You Can Dream It…' },
+      { name: 'Welcome a Foster Father', chars: ['Sir Ector'], tip: '⭐ Welcome Sir Ector — 108,000 Magic (6s).' },
+      { name: 'Surprise!', chars: ['Sir Ector'], tip: 'Sir Ector Lv1 — Look for Wart (2h).' },
+      { name: 'Knight vs. Kitchenware', chars: ['Sir Ector'], tip: "Sir Ector Lv2 — Tangle with Magic (4h). 🔓 Here's the Pitch…" },
+      { name: 'Long Runs the King!', chars: ['Sir Ector'], tip: 'Sir Ector Lv4 — Get Nervous Energy Out (8h). Requires Tourn, Tourn, Tourn… 🔓 Warts and All.' },
+      { name: 'Tourn, Tourn, Tourn...', chars: ['Sir Ector'], tip: 'Sir Ector Lv1 — Prepare the Carrousel (4h). 🔓 Long Runs the King!' },
+      { name: "Here's the Pitch...", chars: ['Sir Ector', 'Wart'], tip: "Sir Ector Lv4 + Wart Lv3 — Show Off Its Good Points! (6h). Requires Knight vs. Kitchenware." },
+      { name: 'Warts and All', chars: ['Wart', 'Sir Ector'], tip: 'Wart Lv3 + Sir Ector Lv4 — Argue at the Carrousel (10h). Requires Long Runs the King!' },
+      { name: 'Welcome a Witch', chars: ['Madam Mim'], tip: '⭐ Welcome Madam Mim — 180,000 Magic (6s).' },
+      { name: 'A Pinch of Bat Gizzard...', chars: ['Madam Mim'], tip: 'Madam Mim Lv1 — Work Her Dark Magic (2h).' },
+      { name: 'Head Start', chars: ['Madam Mim'], tip: 'Madam Mim Lv2 — Start Gloating Early (6h). 🔓 Not Mim-possible…' },
+      { name: "He's a Natural!", chars: ['Madam Mim'], tip: "Madam Mim Lv4 — Look Prank-able (10h). Requires How Many Paces? 🔓 Let the Games Begin!" },
+      { name: 'How Many Paces?', chars: ['Merlin', 'Madam Mim'], tip: 'Merlin Lv5 + Madam Mim Lv1 — Duel at the Carrousel! (4h). 🔓 He\'s a Natural!' },
+      { name: "Not Mim-possible...", chars: ['Merlin', 'Madam Mim'], tip: 'Merlin Lv5 + Madam Mim Lv3 — Plan at the Carrousel (8h). Requires Head Start.' },
+      { name: 'Let the Games Begin!', chars: ['Merlin', 'Wart', 'Madam Mim', 'Sir Ector'], tip: 'Arc finale — Merlin Lv5 + Wart Lv5 at the Carrousel (12h). Madam Mim Lv4 + Sir Ector Lv3 — Just Leave Her Like That! (12h). Requires He\'s a Natural!' },
     ]
   },
 
@@ -12878,75 +12914,9 @@ const STORYLINE_ARCS = [
     ]
   },
 
-  {
-    id: 'a3_ducktales', act: 3, title: 'DuckTales', emoji: '🦆',
-    unlock: "Landlocked, Pt. 4 (Mickey & Friends Act 3) — Build Donald's Boat",
-    desc: 'Huey, Dewey, Louie, Webby Vanderquack and Launchpad McQuack. Woo-oo!',
-    quests: [
-      { name: 'Welcome an Older Triplet', chars: ['Huey'], tip: '⭐ Welcome Huey — 50,000 Magic (6h).' },
-      { name: 'First Among Equals', chars: ['Huey'], tip: 'Huey Lv1 — Search for the Treasure (2h).' },
-      { name: 'Welcome a Middle Triplet', chars: ['Dewey'], tip: '⭐ Welcome Dewey — 60,000 Magic (12h).' },
-      { name: 'Second to None', chars: ['Dewey'], tip: 'Dewey Lv1 — Search for the Treasure (6h).' },
-      { name: 'Welcome a Younger Triplet', chars: ['Louie'], tip: '⭐ Welcome Louie — 70,000 Magic (16h).' },
-      { name: 'Third Time\'s the Charm', chars: ['Louie'], tip: 'Louie Lv1 — Search for the Treasure (12h).' },
-      { name: 'Woo-oo!', chars: ['Huey', 'Dewey', 'Louie'], tip: 'All three triplets Lv2 — Help Find the Treasure (6h each).' },
-      { name: 'Welcome an Honorary Niece', chars: ['Webby'], tip: '⭐ Welcome Webby Vanderquack — 80,000 Magic (6s).' },
-      { name: 'Whither, Webby?', chars: ['Webby'], tip: 'Webby Lv1 — Check Her Map (2h).' },
-      { name: 'Mirror, Mirror?', chars: ['Webby'], tip: 'Webby Lv2 — Try a Different Way (2h).' },
-      { name: 'Cleared for Launch', chars: ['Launchpad McQuack'], tip: 'Launchpad Lv2 — Start Up the Golden Condor (4h).' },
-      { name: 'Eyes in the Sky', chars: ['Webby', 'Launchpad McQuack'], tip: 'Webby Lv2 + Launchpad Lv2 — Go Up in the Condor (6h).' },
-      { name: 'Quadruple Check', chars: ['Huey', 'Webby'], tip: 'Huey Lv3 + Webby Lv2 — Fly in the Golden Condor (8h).' },
-      { name: 'You Guessed It!', chars: ['Huey', 'Dewey', 'Louie', 'Webby', 'Launchpad McQuack'], tip: 'Arc finale — all DuckTales chars at the Golden Condor. Huey+Dewey Lv2 Teatime (2h), Louie+Webby+Launchpad Picnic (2h).' },
-    ]
-  },
-
-  {
-    id: 'sq_a3_ducktales', act: 3, side: true, title: 'DuckTales Side Quest', emoji: '🦆',
-    unlock: 'Woo-oo! + Scrooge McDuck welcomed',
-    desc: 'A single side quest that requires Scrooge McDuck (premium character).',
-    quests: [
-      { name: 'Making New Tales', chars: ['Scrooge McDuck'], tip: 'Side — Scrooge Lv1 — Search for Opportunities (4h). Requires Scrooge McDuck welcomed + Woo-oo!' },
-    ]
-  },
-
   // ══════ ACT 4 ══════
 
   // === ACT 4: FRONTIERLAND ===
-  {
-    id: 'a3_sword_stone', act: 3, title: 'The Sword in the Stone', emoji: '⚔️',
-    unlock: 'Love Conquers All (Mickey & Friends Act 3)',
-    desc: 'Merlin, Wart, Sir Ector and Madam Mim. Branching dependency chains throughout.',
-    quests: [
-      { name: 'Welcome a Wizard', chars: ['Merlin'], tip: '⭐ Welcome Merlin — 30,000 Magic (6s).' },
-      { name: 'Mind your Latin!', chars: ['Merlin'], tip: 'Merlin Lv1 — Use Magic (60m).' },
-      { name: 'You Rang?', chars: ['Merlin'], tip: 'Merlin Lv1 — Check His Messages (2h). 🔓 The King Returns?' },
-      { name: 'Whoso Pulleth...', chars: [], tip: 'Build The Sword in the Stone — 75,000 Magic (2h). 🔓 Abra-ca-What?' },
-      { name: 'Abra-ca-What?', chars: ['Merlin'], tip: 'Merlin Lv2 — Use New Magic (4h). Requires Whoso Pulleth… 🔓 Just as Soothsaid!' },
-      { name: 'The King Returns?', chars: ['Merlin'], tip: 'Merlin Lv1 — Business with the Sword (4h). Requires You Rang?' },
-      { name: 'Just as Soothsaid!', chars: ['Merlin'], tip: 'Merlin Lv2 — Wait by the Sword (6h). Requires Abra-ca-What?' },
-      { name: 'Welcome a (Former) Squire', chars: ['Wart'], tip: '⭐ Welcome Wart — 64,000 Magic (6s).' },
-      { name: 'The King Has... Left', chars: ['Wart'], tip: 'Wart Lv1 — Run Around the Kingdom (60m).' },
-      { name: 'Like Old Times', chars: ['Wart'], tip: 'Wart Lv2 — Play Pretend (2h). 🔓 Magical Meditations.' },
-      { name: 'Tourna-What?!', chars: ['Wart'], tip: 'Wart Lv2 — Run to the Sword (2h). 🔓 If You Can Dream It…' },
-      { name: 'Magical Meditations', chars: ['Wart'], tip: 'Wart Lv3 — Ponder at the Sword (4h). Requires Like Old Times.' },
-      { name: "If You Can Dream It...", chars: ['Wart'], tip: 'Wart Lv3 — Use Imaginative Magic (6h). Requires Tourna-What?! 🔓 No, YOU!' },
-      { name: 'No, YOU!', chars: ['Merlin', 'Wart'], tip: 'Merlin Lv3 + Wart Lv3 — Discuss at the Sword (8h). Requires If You Can Dream It…' },
-      { name: 'Welcome a Foster Father', chars: ['Sir Ector'], tip: '⭐ Welcome Sir Ector — 108,000 Magic (6s).' },
-      { name: 'Surprise!', chars: ['Sir Ector'], tip: 'Sir Ector Lv1 — Look for Wart (2h).' },
-      { name: 'Knight vs. Kitchenware', chars: ['Sir Ector'], tip: "Sir Ector Lv2 — Tangle with Magic (4h). 🔓 Here's the Pitch…" },
-      { name: 'Tourn, Tourn, Tourn...', chars: ['Sir Ector'], tip: 'Sir Ector Lv1 — Prepare the Carrousel (4h). 🔓 Long Runs the King!' },
-      { name: "Here's the Pitch...", chars: ['Sir Ector', 'Wart'], tip: "Sir Ector Lv4 + Wart Lv3 — Show Off Its Good Points! (6h). Requires Knight vs. Kitchenware." },
-      { name: 'Long Runs the King!', chars: ['Sir Ector'], tip: 'Sir Ector Lv4 — Get Nervous Energy Out (8h). Requires Tourn, Tourn, Tourn… 🔓 Warts and All.' },
-      { name: 'Warts and All', chars: ['Wart', 'Sir Ector'], tip: 'Wart Lv3 + Sir Ector Lv4 — Argue at the Carrousel (10h). Requires Long Runs the King!' },
-      { name: 'Welcome a Witch', chars: ['Madam Mim'], tip: '⭐ Welcome Madam Mim — 180,000 Magic (6s).' },
-      { name: 'A Pinch of Bat Gizzard...', chars: ['Madam Mim'], tip: 'Madam Mim Lv1 — Work Her Dark Magic (2h).' },
-      { name: 'Head Start', chars: ['Madam Mim'], tip: 'Madam Mim Lv2 — Start Gloating Early (6h). 🔓 Not Mim-possible…' },
-      { name: 'How Many Paces?', chars: ['Merlin', 'Madam Mim'], tip: 'Merlin Lv5 + Madam Mim Lv1 — Duel at the Carrousel! (4h). 🔓 He\'s a Natural!' },
-      { name: "Not Mim-possible...", chars: ['Merlin', 'Madam Mim'], tip: 'Merlin Lv5 + Madam Mim Lv3 — Plan at the Carrousel (8h). Requires Head Start.' },
-      { name: "He's a Natural!", chars: ['Madam Mim'], tip: "Madam Mim Lv4 — Look Prank-able (10h). Requires How Many Paces? 🔓 Let the Games Begin!" },
-      { name: 'Let the Games Begin!', chars: ['Merlin', 'Wart', 'Madam Mim', 'Sir Ector'], tip: 'Arc finale — Merlin Lv5 + Wart Lv5 at the Carrousel (12h). Madam Mim Lv4 + Sir Ector Lv3 — Just Leave Her Like That! (12h). Requires He\'s a Natural!' },
-    ]
-  },
 
   {
     id: 'a4_ts', act: 4, title: 'Toy Story', emoji: '🤠',
@@ -12962,8 +12932,11 @@ const STORYLINE_ARCS = [
       { name: 'The Road Ahead...', chars: ['Bullseye'], tip: 'Bullseye Lv2 (4h).' },
       { name: 'Welcome (Another) Duck', chars: ['Ducky'], tip: '⭐ Welcome Ducky — 300,000 Magic (12h).' },
       { name: 'Year of the Duck', chars: ['Ducky'], tip: 'Ducky Lv1 (4h).' },
-      { name: 'Changing the Tune', chars: ['Bullseye', 'Ducky'], tip: 'Bullseye Lv7 + Ducky Lv7 (4h).' },
-      { name: 'Fearing the Wurst', chars: ['Bullseye', 'Ducky'], tip: 'Bullseye Lv6 + Ducky Lv6 (2h).' },
+      { name: 'Welcome (Another) Rabbit', chars: ['Bunny'], tip: '⭐ Welcome Bunny — 600,000 Magic (24h).' },
+      { name: 'Two Peas in a Plush Pod', chars: ['Bunny', 'Ducky'], tip: 'Bunny Lv1 + Ducky Lv2 Keep Bantering (12h).' },
+      { name: 'A Knight in Kneed', chars: ['Woody', 'Jessie'], tip: 'Woody Lv7 + Jessie Lv8 To the Barn! (6h).' },
+      { name: 'Changing the Tune', chars: ['Bo Peep', 'Woody'], tip: 'Bo Peep Lv7 + Woody Lv7 Dance and Sing! (4h).' },
+      { name: 'Fearing the Wurst', chars: ['Buzz Lightyear', 'Hamm'], tip: 'Buzz Lightyear Lv6 + Hamm Lv6 (2h).' },
       { name: 'New Horizons', chars: ['Bullseye', 'Woody'], tip: '🔓 Unlocks The Jungle Book Storyline (Act 4). Bullseye Lv7 + Woody Lv3 (24h).' },
     ]
   },
@@ -13000,8 +12973,8 @@ const STORYLINE_ARCS = [
       { name: 'Shere-ing of Grievances', chars: ['Mowgli'], tip: 'Mowgli Lv5 + Shere Khan — Face Shere Khan (12h). Note: Shere Khan is a premium character.' },
       { name: 'Catch a Tiger Off Guard', chars: ['Mowgli', 'Bagheera', 'Baloo', 'King Louie'], tip: 'Requires Grin and Bear It. All 4 chars Lv varies — Defeat Shere Khan (2h each). 40 token collection quest.' },
       { name: 'The Wildest Party Around!', chars: ['Mowgli', 'Baloo', 'Bagheera'], tip: 'Mowgli Lv5 — Pick Some Fruit (4h). Baloo Lv4 — Spruce Up the Oasis (12h). Bagheera Lv4 — Find Water (24h). 🔓 Peter Pan Storyline (Act 5).' },
-      { name: "What's Mine Is Yours", chars: [], tip: 'Unlock Big Thunder Mountain Railroad Expansion — 500,000 Magic (6s).' },
       { name: 'Welcome a Tiger', chars: ['Shere Khan'], tip: '⭐ Welcome Shere Khan — 820,529 Magic (24h). Arc finale.' },
+      { name: "What's Mine Is Yours", chars: [], tip: 'Unlock Big Thunder Mountain Railroad Expansion — 500,000 Magic (6s).' },
     ]
   },
 
@@ -13174,8 +13147,9 @@ const STORYLINE_ARCS = [
       { name: "... Oh. THERE It Is!", chars: [], tip: "Build Yzma's Lair — 400,000 Magic (8h). 🔓 Second Rescue's the Charm." },
       { name: 'The Easy Way', chars: ['Kuzco'], tip: 'Kuzco Lv4 — Take the New Path (12h).' },
       { name: "Second Rescue's the Charm", chars: ['Pacha'], tip: "Pacha Lv4 — Find Kuzco... Again (24h). Requires ... Oh. THERE It Is!" },
-      { name: 'A Last Resort', chars: ['Yzma'], tip: "Yzma Lv3 — Ask at Mudka's (4h). 🔓 Camp's in Session!" },
       { name: 'Watering Hole', chars: ['Kuzco'], tip: "Kuzco Lv5 — Recuperate at Mudka's (2h). 🔓 Hold the Door!" },
+      { name: "Camp's in Session!", chars: ['Pacha', 'Kuzco'], tip: "Pacha Lv5 + Kuzco Lv5 — Hang Out Together! (8h). Requires A Last Resort. 🔓 Ratatouille Storyline (Act 5)." },
+      { name: 'A Last Resort', chars: ['Yzma'], tip: "Yzma Lv3 — Ask at Mudka's (4h). 🔓 Camp's in Session!" },
       { name: 'Hold the Door!', chars: ['Kuzco', 'Yzma'], tip: "Kuzco Lv5 + Yzma Lv4 — Look Around Mudka's (6h). Requires Watering Hole." },
       { name: 'Welcome a New Mom', chars: ['Chicha'], tip: '⭐ Welcome Chicha — 750,000 Magic (24h).' },
       { name: 'Empty Nester', chars: ['Chicha'], tip: 'Chicha Lv1 — Figure Out What Happened (2h).' },
@@ -13184,7 +13158,6 @@ const STORYLINE_ARCS = [
       { name: 'Clearing the Air', chars: ['Pacha', 'Chicha'], tip: "Pacha Lv6 + Chicha Lv3 — Catch Up in Yzma's Lair (6h)." },
       { name: 'Glamping for Beginners', chars: ['Chicha', 'Kuzco'], tip: "Chicha Lv3 + Kuzco Lv6 — Say Hi in Yzma's Lair (8h)." },
       { name: 'A More Perfect World', chars: ['Chicha', 'Pacha', 'Kuzco'], tip: "Arc finale — Chicha Lv4 + Pacha Lv7 — Hang Out in Yzma's Lair (2h). Chicha Lv4 + Kuzco Lv7 — Hang Out in Yzma's Lair (2h)." },
-      { name: "Camp's in Session!", chars: ['Pacha', 'Kuzco'], tip: "Pacha Lv5 + Kuzco Lv5 — Hang Out Together! (8h). Requires A Last Resort. 🔓 Ratatouille Storyline (Act 5)." },
     ]
   },
 
@@ -13193,18 +13166,47 @@ const STORYLINE_ARCS = [
     unlock: "Camp's in Session! (Emperor's New Groove Act 5)",
     desc: "Remy, Linguini and Colette open Remy's Bistro. Final Course is the arc finale.",
     quests: [
-      { name: 'Welcome Remy', chars: ['Remy'], tip: '⭐ Welcome Remy — 500,000 Magic.' },
-      { name: 'Welcome Linguini', chars: ['Linguini'], tip: '⭐ Welcome Linguini.' },
-      { name: 'Sounds Like...?', chars: ['Remy', 'Linguini'], tip: '🔓 Required for Fourth Time\'s the Charm.' },
-      { name: "Fourth Time's the Charm", chars: ['Remy', 'Linguini'], tip: 'Remy Lv3 + Linguini Lv5 (60m).' },
-      { name: 'A Little Elbow Grease', chars: ['Remy'], tip: 'Remy Lv4 (4h).' },
-      { name: 'Soft Opening', chars: ['Remy', 'Linguini'], tip: 'Remy Lv4 (4h).' },
-      { name: "Today's Specials...", chars: ['Linguini'], tip: 'Linguini Lv2 (2h).' },
-      { name: 'Napkins at the Ready!', chars: ['Linguini'], tip: 'Linguini Lv2 (4h).' },
-      { name: 'Welcome Colette', chars: ['Colette'], tip: '⭐ Welcome Colette.' },
-      { name: 'Bonjour?', chars: ['Remy', 'Colette'], tip: 'Remy Lv6 + Colette Lv4 (6h).' },
-      { name: 'Surprise Me', chars: ['Remy', 'Linguini'], tip: 'Remy Lv7 + Linguini Lv3 (8h).' },
-      { name: 'Final Course', chars: ['Remy', 'Linguini', 'Colette'], tip: "⭐ Arc finale — Remy's Bistro complete! Remy Lv6 + Linguini Lv7 (2h)." },
+      // --- Remy ---
+      { name: 'Welcome a Little Chef', chars: ['Remy'], tip: '⭐ Welcome Remy — 500,000 Magic (6s).' },
+      { name: 'Multisensory Experience', chars: ['Remy'], tip: 'Remy Lv1 - Figure Out the Smell (4h).' },
+      { name: 'Visualize!', chars: ['Remy'], tip: 'Remy Lv2 - Brainstorm His Menu (8h).' },
+      { name: 'Anyone Can Cook!', chars: ['Remy'], tip: 'Build Gusteau\'s Kitchen — 500,000 Magic (24h).' },
+      { name: 'Amuse-Bouche', chars: ['Remy'], tip: 'Remy Lv2 - Experiment in the Kitchen (2h).' },
+      { name: 'Course Work', chars: ['Remy'], tip: 'Remy Lv3 - Think of Entrée Ideas (6h).' },
+      { name: 'Proof of Concept', chars: ['Remy'], tip: 'Remy Lv3 - Head Back to the Kitchen (2h).' },
+
+      // --- Linguini ---
+      { name: 'Welcome an Ex-Plongeur', chars: ['Linguini'], tip: '⭐ Welcome Linguini — 750,000 Magic (6s).' },
+      { name: 'Language Barrier', chars: ['Linguini'], tip: 'Linguini Lv1 - Write What Remy Wants (4h).' },
+      { name: "Let's Go Shopping!", chars: ['Linguini'], tip: '🔓 Unlocks Fourth Time\'s the Charm. Linguini Lv3 - Go Where Remy Tells Him (6h).' },
+
+      // --- Remy + Linguini ---
+      { name: 'Sounds Like...?', chars: ['Remy', 'Linguini'], tip: 'Remy Lv2 + Linguini Lv5 - Try Charades (4h).' },
+      { name: "Fourth Time's the Charm", chars: ['Remy', 'Linguini'], tip: '🔒 Requires Let\'s Go Shopping! Linguini Lv5 + Remy Lv3 - Regroup at the Kitchen (60m).' },
+      { name: 'A Little Elbow Grease', chars: ['Remy'], tip: 'Remy Lv4 - Fix Up the Kitchen (4h).' },
+      { name: 'Soft Opening', chars: ['Remy', 'Linguini'], tip: '🔓 Unlocks Café Society. Remy Lv4 - Answer the Kitchen Door (4h).' },
+      { name: 'Yellow Gold', chars: ['Remy'], tip: 'Remy Lv5 - Find the Oil Himself (12h).' },
+      { name: 'Café Society', chars: ['Remy', 'Linguini'], tip: '🔒 Requires Soft Opening. Remy Lv5 + Linguini Lv6 - Catch Up (4h).' },
+      { name: 'Start Your Ovens!', chars: ['Remy'], tip: 'Remy Lv6 - Cook! (24h).' },
+      { name: 'Dinner Is Served', chars: ['Remy', 'Linguini'], tip: '🔓 Unlocks The Rescuers Storyline (Act 5). Remy Lv6 + Linguini Lv7 - Bon Appétit! (2h).' },
+
+      // --- Emile ---
+      { name: "Welcome a Chef's Sibling", chars: ['Emile'], tip: '⭐ Welcome Emile — 800,000 Magic (6s).' },
+      { name: 'Ever Trashward', chars: ['Emile'], tip: 'Emile Lv1 - Give Directions (2h).' },
+      { name: 'The Five-Hour Rule', chars: ['Emile'], tip: 'Emile Lv2 - Enjoy His New Find (2h).' },
+      { name: 'Follow That Rat!', chars: ['Emile'], tip: 'Emile Lv2 - Lead the Way to Remy\'s (4h).' },
+      { name: 'Once More, Into the Trash', chars: ['Emile'], tip: 'Emile Lv2 - Grab a Bite at Remy\'s (4h).' },
+      { name: "It's a Rat-Mergency!!!", chars: ['Remy', 'Emile'], tip: 'Remy Lv7 + Emile Lv6 - Meet at the Kitchen (6h).' },
+      { name: "... AND a Maître d'Mergency!", chars: ['Linguini', 'Emile'], tip: 'Linguini Lv6 + Emile Lv3 - Check on Remy\'s (8h).' },
+
+      // --- Anton Ego ---
+      { name: 'Welcome a Critic', chars: ['Anton Ego'], tip: '⭐ Welcome Anton Ego — 1,000,000 Magic (6s).' },
+      { name: 'Hungry for the New', chars: ['Anton Ego'], tip: 'Anton Ego Lv1 - Prepare for Judgment (2h).' },
+      { name: "Today's Specials...", chars: ['Anton Ego'], tip: 'Anton Ego Lv2 - Peruse the Menu (2h).' },
+      { name: 'Napkins at the Ready!', chars: ['Anton Ego'], tip: 'Anton Ego Lv2 - Head to the Kitchen (4h).' },
+      { name: 'Bonjour?', chars: ['Remy', 'Colette'], tip: 'Remy Lv6 + Colette Lv4 - Get Acquainted at Remy\'s (6h).' },
+      { name: 'Surprise Me', chars: ['Remy', 'Linguini'], tip: 'Remy Lv7 + Linguini Lv3 - Tasting at the Kitchen (8h).' },
+      { name: 'Final Course', chars: ['Remy', 'Linguini', 'Colette', 'Anton Ego'], tip: "⭐ Arc finale — Remy's Bistro complete! Remy Lv6 + Linguini Lv7 (2h) · Anton Ego Lv4 + Colette Lv3 (2h)." },
     ]
   },
 
@@ -13241,145 +13243,6 @@ const STORYLINE_ARCS = [
       { name: 'Say It Again!', chars: ['Miss Bianca', 'Madame Medusa'], tip: 'Miss Bianca Lv4 + Madame Medusa Lv2 — Listen on the Riverboat (8h). Requires Quiet as a You-Know-What.' },
       { name: 'Not So Fast...', chars: ['Madame Medusa'], tip: "Madame Medusa Lv3 — Inspect Her Prize (4h)." },
       { name: 'Rescued AND Aided!', chars: ['Bernard', 'Penny (Rescuers)', 'Miss Bianca', 'Madame Medusa'], tip: 'Arc finale — Bernard Lv5 + Penny Lv5 — Meet Back Up! (2h). Miss Bianca Lv4 + Madame Medusa Lv3 — Give Her What For! (2h).' },
-    ]
-  },
-
-  // ============ SIDE QUEST ARCS ============
-
-  // ACT 1 SIDE QUESTS
-  {
-    id: 'sq_a1_sleeping_beauty', act: 1, side: true, title: 'Sleeping Beauty', emoji: '\u{1F478}',
-    unlock: 'Welcome Aurora (premium)',
-    desc: 'Aurora, the good fairies, and Maleficent. Unlocked when Aurora is welcomed.',
-    quests: [
-      { name: 'Once Upon a Dream', chars: ['Aurora'], tip: 'Aurora Lv1.' },
-      { name: 'Dreaming of Dancing', chars: ['Aurora'], tip: 'Aurora Lv2.' },
-      { name: 'A Walk in the Woods', chars: ['Aurora', 'Fauna'], tip: 'Aurora Lv2 + Fauna Lv1.' },
-      { name: 'Spinning Wheel Danger', chars: ['Flora'], tip: 'Flora Lv2.' },
-      { name: 'Welcome Good Fairies', chars: ['Flora', 'Fauna', 'Merryweather'], tip: '\u2B50 Welcome Merryweather — fairy trio together.' },
-      { name: 'Making a Dress', chars: ['Flora', 'Fauna', 'Merryweather'], tip: 'Classic pink vs. blue squabble.' },
-      { name: 'A True Love\u2019s Kiss', chars: ['Aurora', 'Flora'], tip: 'Aurora Lv3 + Flora Lv3.' },
-      { name: 'Maleficent\u2019s Return', chars: ['Maleficent'], tip: '\u2B50 Welcome Maleficent — villain arc begins.' },
-      { name: 'Cursing the Kingdom', chars: ['Maleficent'], tip: 'Maleficent Lv2.' },
-      { name: 'Dragon\u2019s Fire', chars: ['Maleficent'], tip: 'Maleficent Lv5 — dragon form!' },
-      { name: 'Happily Ever After?', chars: ['Aurora', 'Maleficent'], tip: 'Arc finale.' },
-    ]
-  },
-
-  {
-    id: 'sq_a1_snow_white', act: 1, side: true, title: 'Snow White', emoji: '\u{1F34E}',
-    unlock: 'Welcome Snow White (premium)',
-    desc: 'Snow White, the Seven Dwarfs, and the Evil Queen.',
-    quests: [
-      { name: 'Fairest of Them All', chars: ['Snow White'], tip: 'Snow White Lv1.' },
-      { name: 'Wishing Well', chars: ['Snow White'], tip: 'Snow White Lv2.' },
-      { name: 'Heigh-Ho!', chars: ['Grumpy'], tip: '\u2B50 Welcome Grumpy.' },
-      { name: 'Diamond Mine Shift', chars: ['Grumpy', 'Dopey'], tip: '\u2B50 Welcome Dopey.' },
-      { name: 'A Song for Bashful', chars: ['Snow White', 'Bashful'], tip: '\u2B50 Welcome Bashful.' },
-      { name: 'Soup\u2019s On!', chars: ['Snow White', 'Doc'], tip: '\u2B50 Welcome Doc.' },
-      { name: 'Yoo-Hoo! Sneezy!', chars: ['Sneezy', 'Happy'], tip: '\u2B50 Welcome Sneezy & Happy.' },
-      { name: 'A Poisoned Apple', chars: ['Evil Queen'], tip: '\u2B50 Welcome Evil Queen — villain!' },
-      { name: 'Mirror Mirror', chars: ['Evil Queen'], tip: 'Evil Queen Lv2.' },
-      { name: 'True Love\u2019s Power', chars: ['Snow White', 'Doc'], tip: 'Arc finale.' },
-    ]
-  },
-
-  {
-    id: 'sq_a1_alice', act: 1, side: true, title: 'Alice in Wonderland', emoji: '\u{1F430}',
-    unlock: 'Welcome White Rabbit (premium)',
-    desc: 'Down the rabbit hole — Alice, White Rabbit, Mad Hatter, Cheshire Cat, Queen of Hearts.',
-    quests: [
-      { name: 'I\u2019m Late, I\u2019m Late!', chars: ['White Rabbit'], tip: '\u2B50 Welcome White Rabbit Lv1.' },
-      { name: 'Down the Rabbit Hole', chars: ['White Rabbit', 'Alice'], tip: '\u2B50 Welcome Alice Lv1.' },
-      { name: 'Curiouser and Curiouser', chars: ['Alice'], tip: 'Alice Lv2.' },
-      { name: 'A Mad Tea Party', chars: ['Mad Hatter'], tip: '\u2B50 Welcome Mad Hatter.' },
-      { name: 'No Room! No Room!', chars: ['Mad Hatter', 'Alice'], tip: 'Mad Hatter Lv2 + Alice Lv2.' },
-      { name: 'We\u2019re All Mad Here', chars: ['Cheshire Cat'], tip: '\u2B50 Welcome Cheshire Cat.' },
-      { name: 'Off with Their Heads!', chars: ['Queen of Hearts'], tip: '\u2B50 Welcome Queen of Hearts.' },
-      { name: 'Give In to the Rhythm', chars: ['Mad Hatter', 'Alice'], tip: 'Prerequisite: Let\u2019s Get Positive. Mad Hatter Lv3 + Alice Lv3 (4h).' },
-      { name: 'Painting the Roses Red', chars: ['Queen of Hearts'], tip: 'Queen of Hearts Lv2.' },
-      { name: 'The Trial', chars: ['Alice', 'Queen of Hearts'], tip: 'Alice Lv4 + Queen of Hearts Lv3.' },
-      { name: 'Back from Wonderland', chars: ['Alice', 'White Rabbit'], tip: 'Arc finale.' },
-    ]
-  },
-
-  // ACT 2 SIDE QUESTS
-  {
-    id: 'sq_a2_sleeping_beauty', act: 2, side: true, title: 'Sleeping Beauty (Act 2)', emoji: '\u{1F478}',
-    unlock: 'Complete Sleeping Beauty Act 1 side arc',
-    desc: 'Continuation with higher-level fairy and villain quests.',
-    quests: [
-      { name: 'Fairy Council', chars: ['Flora', 'Fauna', 'Merryweather'], tip: 'Fairy trio Lv4+.' },
-      { name: 'Dark Spindle', chars: ['Maleficent'], tip: 'Maleficent Lv3.' },
-      { name: 'Protecting the Princess', chars: ['Aurora', 'Flora'], tip: 'Aurora Lv4 + Flora Lv4.' },
-      { name: 'Wings and Wands', chars: ['Fauna', 'Merryweather'], tip: 'Fauna Lv4 + Merryweather Lv4.' },
-      { name: 'Turning the Tables', chars: ['Aurora', 'Maleficent'], tip: 'Aurora Lv5 + Maleficent Lv4.' },
-      { name: 'Peace in the Kingdom', chars: ['Aurora', 'Flora', 'Fauna', 'Merryweather'], tip: 'Arc finale.' },
-    ]
-  },
-
-  {
-    id: 'sq_a2_snow_white', act: 2, side: true, title: 'Snow White (Act 2)', emoji: '\u{1F34E}',
-    unlock: 'Complete Snow White Act 1 side arc',
-    desc: 'The Dwarfs go on new Kingdom adventures.',
-    quests: [
-      { name: 'Back to the Mine', chars: ['Grumpy', 'Dopey'], tip: 'Grumpy Lv4 + Dopey Lv4.' },
-      { name: 'Apple for the Teacher', chars: ['Snow White', 'Doc'], tip: 'Snow White Lv4 + Doc Lv4.' },
-      { name: 'Sneeze-Free Zone', chars: ['Sneezy'], tip: 'Sneezy Lv4.' },
-      { name: 'Seven-Way Harmony', chars: ['Happy', 'Bashful'], tip: 'All dwarfs Lv4+ choral performance.' },
-      { name: 'Queen\u2019s Last Plot', chars: ['Evil Queen'], tip: 'Evil Queen Lv3 — final scheme.' },
-      { name: 'Bluebirds and Butterflies', chars: ['Snow White'], tip: 'Arc finale — Snow White Lv5.' },
-    ]
-  },
-
-  {
-    id: 'sq_a2_alice', act: 2, side: true, title: 'Alice in Wonderland (Act 2)', emoji: '\u{1F430}',
-    unlock: 'Complete Alice in Wonderland Act 1 side arc',
-    desc: 'More Wonderland madness at higher levels.',
-    quests: [
-      { name: 'Looking Glass Logic', chars: ['Alice', 'Cheshire Cat'], tip: 'Alice Lv4 + Cheshire Cat Lv3.' },
-      { name: 'More Tea!', chars: ['Mad Hatter'], tip: 'Mad Hatter Lv4.' },
-      { name: 'The Jabberwock', chars: ['White Rabbit', 'Alice'], tip: 'White Rabbit Lv4 + Alice Lv5.' },
-      { name: 'Order in Court', chars: ['Queen of Hearts'], tip: 'Queen of Hearts Lv4.' },
-      { name: 'Escape from Wonderland', chars: ['Alice', 'Cheshire Cat'], tip: 'Alice Lv5 + Cheshire Cat Lv4.' },
-      { name: 'Back to Reality', chars: ['Alice'], tip: 'Arc finale — Alice Lv6.' },
-    ]
-  },
-
-  // ACT 3 SIDE QUESTS
-
-  // ACT 4 SIDE QUESTS
-  {
-    id: 'sq_a4_lilo_stitch', act: 4, side: true, title: 'Lilo & Stitch', emoji: '\u{1F33A}',
-    unlock: 'Available in Act 4 (Frontierland region)',
-    desc: 'Lilo, Stitch, Nani, Jumba, Pleakley — ohana means family.',
-    quests: [
-      { name: 'Aloha!', chars: ['Lilo'], tip: '\u2B50 Welcome Lilo Lv1.' },
-      { name: 'Ohana Means Family', chars: ['Lilo', 'Stitch'], tip: '\u2B50 Welcome Stitch — Lilo Lv1 + Stitch Lv1.' },
-      { name: '626 on the Loose', chars: ['Stitch'], tip: 'Stitch Lv2 — causes chaos.' },
-      { name: 'Big Sister Duty', chars: ['Nani'], tip: '\u2B50 Welcome Nani Lv1.' },
-      { name: 'Experiment Files', chars: ['Jumba'], tip: '\u2B50 Welcome Jumba Lv1.' },
-      { name: 'Earth Studies', chars: ['Pleakley'], tip: '\u2B50 Welcome Pleakley Lv1.' },
-      { name: 'Beach Day', chars: ['Lilo', 'Stitch', 'Nani'], tip: 'Lilo Lv3 + Stitch Lv2 + Nani Lv2.' },
-      { name: 'Galactic Visitors', chars: ['Jumba', 'Pleakley'], tip: 'Jumba Lv2 + Pleakley Lv2.' },
-      { name: 'No Place Like Home', chars: ['Lilo', 'Stitch'], tip: 'Arc finale — Lilo Lv4 + Stitch Lv4.' },
-    ]
-  },
-
-  {
-    id: 'sq_a4_winnie_pooh', act: 4, side: true, title: 'Winnie the Pooh', emoji: '\u{1F36F}',
-    unlock: 'Available in Act 4',
-    desc: 'Pooh, Tigger, Piglet and Eeyore in the Hundred Acre Wood.',
-    quests: [
-      { name: 'A Very Important Thing', chars: ['Winnie the Pooh'], tip: '\u2B50 Welcome Winnie the Pooh Lv1.' },
-      { name: 'Where\u2019s the Honey?', chars: ['Winnie the Pooh'], tip: 'Pooh Lv2.' },
-      { name: 'Bouncing with Tigger', chars: ['Tigger'], tip: '\u2B50 Welcome Tigger Lv1.' },
-      { name: 'Small and Timid', chars: ['Piglet'], tip: '\u2B50 Welcome Piglet Lv1.' },
-      { name: 'Gloomy Day', chars: ['Eeyore'], tip: '\u2B50 Welcome Eeyore Lv1.' },
-      { name: 'Expotition to the North Pole', chars: ['Winnie the Pooh', 'Piglet'], tip: 'Pooh Lv3 + Piglet Lv2.' },
-      { name: 'Bouncing Practice', chars: ['Tigger', 'Winnie the Pooh'], tip: 'Tigger Lv2 + Pooh Lv3.' },
-      { name: 'Tail Finding', chars: ['Eeyore', 'Piglet'], tip: 'Eeyore Lv2 + Piglet Lv2 — find Eeyore\u2019s tail.' },
-      { name: 'A Grand Adventure', chars: ['Winnie the Pooh', 'Tigger', 'Piglet', 'Eeyore'], tip: 'Arc finale — all friends together.' },
     ]
   },
 
