@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DMK Helper — Free-to-Play Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DMK Helper — Free-to-Play Tracker</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<div class="app">
+  <div class="app">
 
-  <header>
-    <span class="castle-icon">🏰</span>
-    <h1>Magic Kingdoms</h1>
-    <p>✨ F2P Helper & Tracker ✨</p>
-  </header>
+    <header>
+      <span class="castle-icon">🏰</span>
+      <h1>Magic Kingdoms</h1>
+      <p>✨ F2P Helper & Tracker ✨</p>
+    </header>
 
-  <nav class="tabs">
-  <a class="tab active" href="index.html">
-    <span class="tab-icon">🗺️</span>Dashboard
-  </a>
-  <a class="tab" href="characters.html">
-    <span class="tab-icon">🌟</span>Characters
-  </a>
-  <a class="tab" href="attractions.html">
-    <span class="tab-icon">🏗️</span>Attractions
-  </a>
-  <a class="tab" href="costumes.html">
-    <span class="tab-icon">👗</span>Costumes
-  </a>
-  <a class="tab" href="tokens.html">
-    <span class="tab-icon">🪙</span>Tokens
-  </a>
-  <a class="tab" href="floats.html">
-    <span class="tab-icon">🎡</span>Floats
-  </a>
-  <a class="tab" href="concessions.html">
-    <span class="tab-icon">🍦</span>Concessions
-  </a>
-  <a class="tab" href="enchantments.html">
-    <span class="tab-icon">⚡</span>Enchantments
-  </a>
-  <a class="tab" href="campaign.html">
-    <span class="tab-icon">📖</span>Campaign
-  </a>
-  <a class="tab" href="decorations.html">
-    <span class="tab-icon">🎀</span>Decorations
-  </a>
-  <a class="tab" href="tips.html">
-    <span class="tab-icon">💡</span>F2P Tips
-  </a>
-</nav>
+    <nav class="tabs">
+      <a class="tab active" href="index.html">
+        <span class="tab-icon">🗺️</span>Dashboard
+      </a>
+      <a class="tab" href="characters.html">
+        <span class="tab-icon">🌟</span>Characters
+      </a>
+      <a class="tab" href="attractions.html">
+        <span class="tab-icon">🏗️</span>Attractions
+      </a>
+      <a class="tab" href="costumes.html">
+        <span class="tab-icon">👗</span>Costumes
+      </a>
+      <a class="tab" href="tokens.html">
+        <span class="tab-icon">🪙</span>Tokens
+      </a>
+      <a class="tab" href="floats.html">
+        <span class="tab-icon">🎡</span>Floats
+      </a>
+      <a class="tab" href="concessions.html">
+        <span class="tab-icon">🍦</span>Concessions
+      </a>
+      <a class="tab" href="enchantments.html">
+        <span class="tab-icon">⚡</span>Enchantments
+      </a>
+      <a class="tab" href="campaign.html">
+        <span class="tab-icon">📖</span>Campaign
+      </a>
+      <a class="tab" href="decorations.html">
+        <span class="tab-icon">🎀</span>Decorations
+      </a>
+      <a class="tab" href="tips.html">
+        <span class="tab-icon">💡</span>F2P Tips
+      </a>
+    </nav>
 
- <div id="tab-dashboard" class="section active">
+    <div id="tab-dashboard" class="section active">
       <div class="stats-row">
         <div class="stat-box">
           <div class="stat-val" id="stat-chars">0</div>
@@ -74,43 +78,57 @@
           <span>Storyline Completion</span>
           <span id="dash-story-pct">0%</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-story-bar" style="width:0%"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-story-bar" style="width:0%"></div>
+        </div>
 
         <div class="prog-header">
           <span>Characters Welcomed</span>
           <span id="dash-chars-pct">0%</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-chars-bar" style="width:0%"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-chars-bar" style="width:0%"></div>
+        </div>
 
         <div class="prog-header">
           <span>Attractions Built</span>
           <span id="dash-attr-pct">0%</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-attr-bar" style="width:0%"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-attr-bar" style="width:0%"></div>
+        </div>
 
         <div class="prog-header">
           <span>Costumes Owned</span>
           <span id="dash-cos-pct" style="font-size:11px;color:var(--muted);">0 / 0</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-cos-bar" style="width:0%;background:#f472b6"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-cos-bar" style="width:0%;background:#f472b6"></div>
+        </div>
 
         <div class="prog-header">
           <span>Floats Owned</span>
           <span id="dash-float-pct" style="font-size:11px;color:var(--muted);">0 / 0</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-float-bar" style="width:0%;background:#60a5fa"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-float-bar" style="width:0%;background:#60a5fa"></div>
+        </div>
 
         <div class="prog-header">
           <span>Concessions Owned</span>
           <span id="dash-con-pct" style="font-size:11px;color:var(--muted);">0 / 0</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-con-bar" style="width:0%;background:#34d399"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-con-bar" style="width:0%;background:#34d399"></div>
+        </div>
 
         <div class="prog-header">
           <span>Decorations Owned</span>
           <span id="dash-dec-pct" style="font-size:11px;color:var(--muted);">0 / 0</span>
         </div>
-        <div class="prog-bar"><div class="prog-fill" id="dash-dec-bar" style="width:0%;background:#c084fc"></div></div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="dash-dec-bar" style="width:0%;background:#c084fc"></div>
+        </div>
 
         <div style="text-align:right;margin-top:4px;font-size:11px;color:var(--muted);" id="stat-attractions"></div>
       </div>
@@ -131,7 +149,8 @@
           <div class="resource-item">
             <div class="resource-icon">🌟</div>
             <div class="resource-name">Dreamsparks <span style="font-size:0.7em;opacity:0.7">(Act 6+)</span></div>
-            <div><input class="res-input" id="res-dreamsparks" type="number" value="0" min="0" oninput="saveState()"></div>
+            <div><input class="res-input" id="res-dreamsparks" type="number" value="0" min="0" oninput="saveState()">
+            </div>
           </div>
           <div class="resource-item">
             <div class="resource-icon">🪙</div>
@@ -150,8 +169,25 @@
         <div class="card-title"><span class="icon">🎯</span>F2P Focus — What To Do Next</div>
         <div id="focus-list" class="tip-list"></div>
       </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon">💾</span>Backup & Restore</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+          <button onclick="exportState()"
+            style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(87,210,255,0.12);color:var(--teal);">
+            ⬇ Export Backup
+          </button>
+          <button onclick="importState()"
+            style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(245,200,66,0.12);color:var(--gold);">
+            ⬆ Import Backup
+          </button>
+        </div>
+        <div style="margin-top:8px;font-size:11px;color:var(--muted);">Export saves a JSON file you can use to restore
+          progress or transfer to another device.</div>
+      </div>
     </div>
-<script src="data.js"></script>
-<script src="main.js"></script>
+    <script src="data.js"></script>
+    <script src="main.js"></script>
 </body>
+
 </html>
