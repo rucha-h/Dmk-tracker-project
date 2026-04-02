@@ -11963,6 +11963,7 @@ const CHAR_URLS = {
   'Guido': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/6/69/Cp-guido.png/revision/latest?cb=20250612204508',
   'Gurgi': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/2/26/Cp-gurgi.png/revision/latest?cb=20231014163354',
   'Gus': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/16/Cp-gus.png/revision/latest?cb=20211009163423',
+  'Gus (Cinderella)': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/5/52/Cp-gus_cinderella.png/revision/latest?cb=20250112012846',
   'Hades': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/b4/Cp-hades.png/revision/latest?cb=20200727230232',
   'Hamm': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/b1/Cp-hamm.png/revision/latest?cb=20200727230239',
   'Han Solo': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/17/Cp-han_solo.png/revision/latest?cb=20210420195700',
