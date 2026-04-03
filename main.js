@@ -3,7 +3,7 @@ function getEl(id) {
   return el ? el : null;   // returns null if not found
 }
 
-function getTokenSources(n){return TOKEN_SOURCES[n.replace(/ Token$/,"")] || TOKEN_SOURCES[n] || [];}
+function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
 // ============ FILTER STATE ============
 let _tokFilter = 'all';
@@ -24,8 +24,8 @@ let state = {
 // ============ LOAD / SAVE ============
 // Build canonical character list from DMK_CHARS
 function buildAllChars() {
-  return DMK_CHARS.map(([name, collection, typeCode, emoji], i) => ({
-    id: 'char_' + i,
+  return DMK_CHARS.map(([name, collection, typeCode, emoji]) => ({
+    id: 'char_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
     name, collection,
     type: TYPE_MAP[typeCode] || 'storyline',
     emoji: emoji || '🎪',
@@ -51,13 +51,38 @@ function loadState() {
         return ch;
       });
 
+      // One-time migration: rekey index-based char IDs to name-based IDs
+      const needsCharMigration = state.characters.some(c => /^char_\d+$/.test(c.id));
+      if (needsCharMigration) {
+        DMK_CHARS.forEach(([name], i) => {
+          const oldId = 'char_' + i;
+          const newId = 'char_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+          if (state.wishlist?.[oldId]) {
+            state.wishlist[newId] = state.wishlist[oldId];
+            delete state.wishlist[oldId];
+          }
+        });
+      }
+
+      // One-time migration: rekey double-prefixed quest IDs to single-prefixed
+      if (state.quests?.some(q => /^[a-z0-9_]+_[a-z0-9_]+_\d+$/.test(q.id) && q.id.split('_').length > 3)) {
+        state.quests = state.quests.map(q => {
+          const arc = STORYLINE_ARCS.find(a => q.id.startsWith(a.id + '_' + a.id + '_'));
+          if (arc) {
+            const i = q.id.slice((arc.id + '_' + arc.id + '_').length);
+            return { ...q, id: arc.id + '_' + i };
+          }
+          return q;
+        });
+      }
+
       if (!state.decorations_owned) state.decorations_owned = {};
     } else {
       state.characters = allChars;
       state.quests = [];
       state.decorations_owned = {};
     }
-  } catch(e) {
+  } catch (e) {
     state.characters = allChars;
     state.quests = [];
     state.decorations_owned = {};
@@ -65,13 +90,12 @@ function loadState() {
 }
 
 function saveState() {
-  // sync resource inputs
-  state.resources.magic = getEl('res-magic')?.value || 0;
-  state.resources.gems = getEl('res-gems')?.value || 0;
-  state.resources.tokens = getEl('res-tokens')?.value || 0;
-  state.resources.rare = getEl('res-rare')?.value || 0;
-  state.resources.dreamsparks = getEl('res-dreamsparks')?.value || 0;
-  try { localStorage.setItem('dmk-tracker-v2', JSON.stringify(state)); } catch(e) {}
+  const fields = ['magic', 'gems', 'tokens', 'rare', 'dreamsparks'];
+  fields.forEach(f => {
+    const el = getEl('res-' + f);
+    if (el) state.resources[f] = el.value;
+  });
+  try { localStorage.setItem('dmk-tracker-v2', JSON.stringify(state)); } catch (e) { }
 }
 
 // ============ TABS ============
@@ -89,12 +113,12 @@ function switchTab(id, btnEl) {
 
   if (id === 'dashboard') { updateDashboard(); return; }
   if (id === 'characters') { if (firstVisit) populateCollFilter(); renderChars(); return; }
-  if (id === 'campaign')   { renderQuests(); return; }
+  if (id === 'campaign') { renderQuests(); return; }
   if (id === 'decorations') { if (firstVisit) initDecCollFilter(); renderDecorations(); return; }
-  if (id === 'costumes')   { renderCostumes(); return; }
+  if (id === 'costumes') { renderCostumes(); return; }
   if (id === 'enchantments') { if (firstVisit) initEncCollFilter(); renderEnchantmentsTab(); return; }
-  if (id === 'floats')     { renderFloats(); return; }
-  if (id === 'tokens')     { renderTokens(); return; }
+  if (id === 'floats') { renderFloats(); return; }
+  if (id === 'tokens') { renderTokens(); return; }
   if (id === 'concessions') {
     if (!state.concessions_owned) state.concessions_owned = {};
     if (firstVisit) initConcessionCollFilter();
@@ -104,7 +128,7 @@ function switchTab(id, btnEl) {
 
 const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
 
-function collIcon(collection, size=20) {
+function collIcon(collection, size = 20) {
   const file = COLLECTION_ICONS[collection];
   if (!file) return '';
   const url = `https://disneymagicalkingdoms.fandom.com/wiki/Special:FilePath/${file}`;
@@ -187,7 +211,7 @@ let charFilter = 'all';
 
 function filterChars(f, btn) {
   charFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#tab-characters .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderChars();
 }
@@ -197,15 +221,15 @@ function renderChars() {
   const searchQ = (getEl('char-search-input')?.value || '').trim().toLowerCase();
 
   let chars = state.characters;
-  if (charFilter === 'welcomed')     chars = chars.filter(c => c.welcomed);
+  if (charFilter === 'welcomed') chars = chars.filter(c => c.welcomed);
   if (charFilter === 'not-welcomed') chars = chars.filter(c => !c.welcomed);
-  if (charFilter === 'wishlist')     chars = chars.filter(c => !c.welcomed && state.wishlist?.[c.id]);
-  if (charFilter === 'needs-level')  chars = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
-  if (charFilter === 'maxed')        chars = chars.filter(c => c.welcomed && parseInt(c.level) >= 10);
-  if (charFilter === 'storyline')    chars = chars.filter(c => c.type === 'storyline');
-  if (charFilter === 'event')        chars = chars.filter(c => c.type === 'event');
-  if (charFilter === 'premium')      chars = chars.filter(c => c.type === 'premium');
-  if (searchQ) chars = chars.filter(c => c.name.toLowerCase().includes(searchQ) || (c.collection||'').toLowerCase().includes(searchQ));
+  if (charFilter === 'wishlist') chars = chars.filter(c => !c.welcomed && state.wishlist?.[c.id]);
+  if (charFilter === 'needs-level') chars = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
+  if (charFilter === 'maxed') chars = chars.filter(c => c.welcomed && parseInt(c.level) >= 10);
+  if (charFilter === 'storyline') chars = chars.filter(c => c.type === 'storyline');
+  if (charFilter === 'event') chars = chars.filter(c => c.type === 'event');
+  if (charFilter === 'premium') chars = chars.filter(c => c.type === 'premium');
+  if (searchQ) chars = chars.filter(c => c.name.toLowerCase().includes(searchQ) || (c.collection || '').toLowerCase().includes(searchQ));
 
   populateCollFilter();
 
@@ -213,28 +237,28 @@ function renderChars() {
   if (collFilter) chars = chars.filter(c => (c.collection || '') === collFilter);
 
   if (grid) {
-  if (!chars.length) {
-    grid.innerHTML = `<div class="empty-state" id="char-empty"><div class="es-icon">🏰</div><p>No characters match this filter.</p></div>`;
-    return;
-  }
-
-  grid.innerHTML = chars.map(c => {
-    const level = parseInt(c.level) || 0;
-    const MAX = 10;
-    const pct = (level / MAX) * 100;
-    const maxed = c.welcomed && level >= MAX;
-    const typeLabel = c.type === 'storyline' ? '📖 Storyline' : c.type === 'premium' ? '💎 Premium' : '🎉 Event';
-    const collLabel = c.collection || '—';
-    let actionBtn = '';
-    if (!c.welcomed) {
-      actionBtn = `<button class="btn-sm btn-welcome" data-action="welcome" data-id="${c.id}">Welcome</button>`;
-    } else if (maxed) {
-      actionBtn = `<button class="btn-sm btn-plus" style="background:var(--gold);cursor:default;opacity:0.8;" disabled>★ MAX</button>`;
-    } else {
-      actionBtn = `<button class="btn-sm btn-plus" data-action="levelup" data-id="${c.id}">+Lvl</button>`;
+    if (!chars.length) {
+      grid.innerHTML = `<div class="empty-state" id="char-empty"><div class="es-icon">🏰</div><p>No characters match this filter.</p></div>`;
+      return;
     }
-    const isWishlisted = !c.welcomed && state.wishlist?.[c.id];
-    return `
+
+    grid.innerHTML = chars.map(c => {
+      const level = parseInt(c.level) || 0;
+      const MAX = 10;
+      const pct = (level / MAX) * 100;
+      const maxed = c.welcomed && level >= MAX;
+      const typeLabel = c.type === 'storyline' ? '📖 Storyline' : c.type === 'premium' ? '💎 Premium' : '🎉 Event';
+      const collLabel = c.collection || '—';
+      let actionBtn = '';
+      if (!c.welcomed) {
+        actionBtn = `<button class="btn-sm btn-welcome" data-action="welcome" data-id="${c.id}">Welcome</button>`;
+      } else if (maxed) {
+        actionBtn = `<button class="btn-sm btn-plus" style="background:var(--gold);cursor:default;opacity:0.8;" disabled>★ MAX</button>`;
+      } else {
+        actionBtn = `<button class="btn-sm btn-plus" data-action="levelup" data-id="${c.id}">+Lvl</button>`;
+      }
+      const isWishlisted = !c.welcomed && state.wishlist?.[c.id];
+      return `
     <div class="char-card ${c.welcomed ? 'welcomed' : 'not-welcomed'} ${maxed ? 'maxed' : ''}" style="position:relative;">
       ${!c.welcomed ? `<button onclick="toggleWishlist('${c.id}')" title="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}" style="position:absolute;top:5px;right:5px;background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:2px;z-index:2;">${isWishlisted ? '⭐' : '☆'}</button>` : ''}
       <div class="char-top">
@@ -255,31 +279,31 @@ function renderChars() {
         ${c.welcomed ? `<button class="btn-sm btn-minus" style="font-size:10px;" data-action="remove" data-id="${c.id}">Unwelcome</button>` : ''}
       </div>
     </div>`;
-  }).join('');
-}
+    }).join('');
+  }
 }
 
 // Single delegated listener on the grid container
 const grid = getEl('char-grid');
 if (grid) {
-  grid.addEventListener('click', function(e) {
+  grid.addEventListener('click', function (e) {
     const btn = e.target.closest('[data-action]');
     if (!btn) return;
 
     const id = btn.dataset.id;
     const action = btn.dataset.action;
 
-    if (action === 'levelup')   levelUp(id);
+    if (action === 'levelup') levelUp(id);
     if (action === 'leveldown') levelDown(id);
-    if (action === 'welcome')   welcomeChar(id);
-    if (action === 'remove')    removeChar(id);
+    if (action === 'welcome') welcomeChar(id);
+    if (action === 'remove') removeChar(id);
   });
 }
 
 
 // Assign stable IDs to every quest
 STORYLINE_ARCS.forEach(arc => {
-  arc.quests.forEach((q, i) => { q.id = arc.id + '_' + i; });
+  arc.quests.forEach((q, i) => { q.id = String(i); });
 });
 
 
@@ -323,7 +347,7 @@ function renderQuests() {
   STORYLINE_ARCS.forEach(arc => {
     arc.quests.forEach(q => {
       if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id)) doneSide++; }
-      else          { totalQ++;    if (getArcQuestState(arc.id, q.id)) doneQ++; }
+      else { totalQ++; if (getArcQuestState(arc.id, q.id)) doneQ++; }
     });
   });
 
@@ -341,28 +365,28 @@ function renderQuests() {
     return { arc, d, t, status };
   });
 
-  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a,b)=>a-b);
+  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a, b) => a - b);
   if (pillRow) {
     pillRow.innerHTML = actNums.map(actNum => {
       const actArcs = arcStats.filter(x => x.arc.act === actNum);
-      const aD = actArcs.reduce((s,x)=>s+x.d,0);
-      const aT = actArcs.reduce((s,x)=>s+x.t,0);
-      const aPct = aT > 0 ? Math.round(aD/aT*100) : 0;
-      const col = aPct===100 ? 'var(--green)' : aPct>0 ? 'var(--gold)' : 'var(--muted)';
-      const bg  = aPct===100 ? 'rgba(57,232,124,0.12)' : aPct>0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
-      const landNames = {1:'Toontown',2:'Tomorrowland',3:'Fantasyland',4:'Frontierland',5:'Adventureland'};
-      return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum]||''}: ${aD}/${aT}</span>`;
+      const aD = actArcs.reduce((s, x) => s + x.d, 0);
+      const aT = actArcs.reduce((s, x) => s + x.t, 0);
+      const aPct = aT > 0 ? Math.round(aD / aT * 100) : 0;
+      const col = aPct === 100 ? 'var(--green)' : aPct > 0 ? 'var(--gold)' : 'var(--muted)';
+      const bg = aPct === 100 ? 'rgba(57,232,124,0.12)' : aPct > 0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
+      const landNames = { 1: 'Toontown', 2: 'Tomorrowland', 3: 'Fantasyland', 4: 'Frontierland', 5: 'Adventureland' };
+      return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum] || ''}: ${aD}/${aT}</span>`;
     }).join('');
   }
 
   const search = (getEl('campaign-search')?.value || '').trim().toLowerCase();
 
   let arcs = arcStats;
-  if (arcFilter === 'done')       arcs = arcs.filter(x => x.status === 'done');
+  if (arcFilter === 'done') arcs = arcs.filter(x => x.status === 'done');
   if (arcFilter === 'inprogress') arcs = arcs.filter(x => x.status === 'progress');
-  if (arcFilter === 'todo')       arcs = arcs.filter(x => x.status === 'todo');
-  if (arcFilter === 'main')       arcs = arcs.filter(x => !x.arc.side);
-  if (arcFilter === 'side')       arcs = arcs.filter(x => !!x.arc.side);
+  if (arcFilter === 'todo') arcs = arcs.filter(x => x.status === 'todo');
+  if (arcFilter === 'main') arcs = arcs.filter(x => !x.arc.side);
+  if (arcFilter === 'side') arcs = arcs.filter(x => !!x.arc.side);
 
   if (search) {
     arcs = arcs.filter(({ arc }) =>
@@ -375,6 +399,8 @@ function renderQuests() {
   }
 
   const container = getEl('arc-list');
+  if (!container) return;
+
   if (!arcs.length) {
     container.innerHTML = '<div class="empty-state"><div class="es-icon">📖</div><p>No arcs match this filter.</p></div>';
     return;
@@ -382,11 +408,11 @@ function renderQuests() {
 
   const firstActive = arcs.find(x => x.status === 'progress') || arcs.find(x => x.status === 'todo');
 
-  if (container) {
+  {
     container.innerHTML = arcs.map(({ arc, d, t, status }) => {
       const arcPct = t > 0 ? Math.round(d / t * 100) : 0;
       const statusColor = status === 'done' ? 'var(--green)' : status === 'progress' ? 'var(--gold)' : 'var(--muted)';
-      const statusIcon  = status === 'done' ? '✓' : status === 'progress' ? '◑' : '○';
+      const statusIcon = status === 'done' ? '✓' : status === 'progress' ? '◑' : '○';
       const isSide = !!arc.side;
       const headerBg = isSide
         ? (status === 'done' ? 'rgba(57,232,124,0.10)' : status === 'progress' ? 'rgba(87,210,255,0.10)' : 'rgba(87,210,255,0.04)')
@@ -395,7 +421,7 @@ function renderQuests() {
       const isOpen = search
         ? true  // always open when searching
         : (getEl('arc-body-' + arc.id)?.style.display !== 'none'  // preserve current state if already rendered
-            ?? (status === 'progress' || arc === firstActive?.arc)); // initial open logic on first render
+          ?? (status === 'progress' || arc === firstActive?.arc)); // initial open logic on first render
       const remaining = t - d;
 
       const questsHtml = arc.quests.map(q => {
@@ -406,11 +432,11 @@ function renderQuests() {
         );
         const charsHtml = q.chars && q.chars.length
           ? q.chars.map(c => {
-              const charMatches = search && c.toLowerCase().includes(search);
-              return `<span style="font-size:10px;background:${charMatches ? 'rgba(245,200,66,0.25)' : 'rgba(255,255,255,0.07)'};
+            const charMatches = search && c.toLowerCase().includes(search);
+            return `<span style="font-size:10px;background:${charMatches ? 'rgba(245,200,66,0.25)' : 'rgba(255,255,255,0.07)'};
                 padding:1px 6px;border-radius:6px;margin-right:3px;
                 ${charMatches ? 'color:var(--gold);font-weight:700;' : ''}">${c}</span>`;
-            }).join('')
+          }).join('')
           : '';
         return `
           <div class="quest-item ${done ? 'done' : ''}"
@@ -433,7 +459,7 @@ function renderQuests() {
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
               <span style="font-size:10px;font-weight:800;background:rgba(245,200,66,0.18);color:var(--gold);padding:1px 7px;border-radius:6px;">ACT ${arc.act}</span>
               ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
-              <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection||'', 18)}${arc.title}</span>
+              <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection || '', 18)}${arc.title}</span>
             </div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">${arc.desc}</div>
             ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${arc.unlock}</div>` : ''}
@@ -466,133 +492,8 @@ function toggleArcCollapse(arcId) {
   if (body) body.style.display = body.style.display === 'none' ? '' : 'none';
 }
 
-function renderQuests() {
-  // Count totals — split main vs side
-  let totalQ = 0, doneQ = 0, totalSide = 0, doneSide = 0;
-  STORYLINE_ARCS.forEach(arc => {
-    arc.quests.forEach(q => {
-      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id)) doneSide++; }
-      else          { totalQ++;    if (getArcQuestState(arc.id, q.id)) doneQ++; }
-    });
-  });
-
-  const pct = totalQ > 0 ? Math.round(doneQ / totalQ * 100) : 0;
-  const story_pct_label = getEl('story-pct-label');
-if (story_pct_label) {
-  story_pct_label.textContent = `${doneQ} / ${totalQ} main quests (${pct}%) · ${doneSide}/${totalSide} side`;
-}
-  const story_prog_bar = getEl('story-prog-bar');
-if (story_prog_bar) {
-  story_prog_bar.style.width = pct + '%';
-}
-
-  // Arc status pills
-  const pillRow = getEl('arc-pill-row');
-  const arcStats = STORYLINE_ARCS.map(arc => {
-    const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id)).length;
-    const t = arc.quests.length;
-    const status = d === t ? 'done' : d > 0 ? 'progress' : 'todo';
-    return { arc, d, t, status };
-  });
-  const doneCt  = arcStats.filter(x => x.status === 'done').length;
-  const progCt  = arcStats.filter(x => x.status === 'progress').length;
-  const todoCt  = arcStats.filter(x => x.status === 'todo').length;
-  // Per-act quest progress pills
-  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a,b)=>a-b);
-  if (pillRow){
-  pillRow.innerHTML = actNums.map(actNum => {
-    const actArcs = arcStats.filter(x => x.arc.act === actNum);
-    const aD = actArcs.reduce((s,x)=>s+x.d,0);
-    const aT = actArcs.reduce((s,x)=>s+x.t,0);
-    const aPct = aT > 0 ? Math.round(aD/aT*100) : 0;
-    const col = aPct===100 ? 'var(--green)' : aPct>0 ? 'var(--gold)' : 'var(--muted)';
-    const bg  = aPct===100 ? 'rgba(57,232,124,0.12)' : aPct>0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
-    const landNames = {1:'Toontown',2:'Tomorrowland',3:'Fantasyland',4:'Frontierland',5:'Adventureland'};
-    return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum]||''}: ${aD}/${aT}</span>`;
-  }).join('');
-}
-  // Filter arcs
-  let arcs = arcStats;
-  if (arcFilter === 'done')       arcs = arcs.filter(x => x.status === 'done');
-  if (arcFilter === 'inprogress') arcs = arcs.filter(x => x.status === 'progress');
-  if (arcFilter === 'todo')       arcs = arcs.filter(x => x.status === 'todo');
-  if (arcFilter === 'main')       arcs = arcs.filter(x => !x.arc.side);
-  if (arcFilter === 'side')       arcs = arcs.filter(x => !!x.arc.side);
-
-  const container = getEl('arc-list');
-  if (!arcs.length) {
-    container.innerHTML = '<div class="empty-state"><div class="es-icon">📖</div><p>No arcs match this filter.</p></div>';
-    return;
-  }
-
-  if (container) {
-  container.innerHTML = arcs.map(({ arc, d, t, status }) => {
-    const arcPct = t > 0 ? Math.round(d / t * 100) : 0;
-    const statusColor = status === 'done' ? 'var(--green)' : status === 'progress' ? 'var(--gold)' : 'var(--muted)';
-    const statusIcon  = status === 'done' ? '✓' : status === 'progress' ? '◑' : '○';
-    const isSide = !!arc.side;
-    const headerBg    = isSide
-      ? (status === 'done' ? 'rgba(57,232,124,0.10)' : status === 'progress' ? 'rgba(87,210,255,0.10)' : 'rgba(87,210,255,0.04)')
-      : (status === 'done' ? 'rgba(57,232,124,0.08)' : status === 'progress' ? 'rgba(245,200,66,0.07)' : 'rgba(255,255,255,0.03)');
-
-          const questsHtml = arc.quests.map(q => {
-      const done = getArcQuestState(arc.id, q.id);
-      const charsHtml = q.chars && q.chars.length ? q.chars.map(c => `<span style="font-size:10px;background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:6px;margin-right:3px;">${c}</span>`).join('') : '';
-      return `
-        <div class="quest-item ${done ? 'done' : ''}" data-arc="${arc.id}" data-quest="${q.id}" style="cursor:pointer;user-select:none;">
-          <div class="quest-check">${done ? '✓' : ''}</div>
-          <div class="quest-content" style="flex:1;min-width:0;">
-            <div class="quest-name">${q.name}</div>
-            ${charsHtml ? `<div style="margin-top:4px;">${charsHtml}</div>` : ''}
-            ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${q.tip}</div>` : ''}
-          </div>
-        </div>`;
-    }).join('');
-
-    return `
-    <div class="card" style="margin-bottom:10px;border-color:${statusColor}22;">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;background:${headerBg};border-radius:10px;padding:10px 12px;cursor:pointer;" onclick="toggleArcCollapse('${arc.id}')">
-        <span style="font-size:24px;">${arc.emoji}</span>
-        <div style="flex:1;min-width:0;">
-          <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-            <span style="font-size:10px;font-weight:800;background:rgba(245,200,66,0.18);color:var(--gold);padding:1px 7px;border-radius:6px;">ACT ${arc.act}</span>
-            ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
-            <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection||'', 18)}${arc.title}</span>
-          </div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${arc.desc}</div>
-          ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${arc.unlock}</div>` : ''}
-        </div>
-        <div style="text-align:right;flex-shrink:0;">
-          <div style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
-          <div style="font-size:10px;color:var(--muted);">${arcPct}%</div>
-        </div>
-      </div>
-      <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
-        <div style="height:100%;width:${arcPct}%;border-radius:10px;background:linear-gradient(90deg,var(--teal),${statusColor});transition:width 0.4s;"></div>
-      </div>
-      <div id="arc-body-${arc.id}" class="quest-list">
-        ${questsHtml}
-      </div>
-    </div>`;
-  }).join('');
-
-   // Attach delegated click for quest toggling
-  container.querySelectorAll('.quest-item[data-arc]').forEach(el => {
-    el.addEventListener('click', () => {
-      toggleArcQuest(el.dataset.arc, el.dataset.quest);
-    });
-  });
-}
- 
-}
-
-function toggleArcCollapse(arcId) {
-  const body = getEl('arc-body-' + arcId);
-  if (body) body.style.display = body.style.display === 'none' ? '' : 'none';
-}
-
 // ============ DECORATIONS ============
-let _decFilter    = 'all';
+let _decFilter = 'all';
 let _decCatFilter = '';
 
 function setDecFilter(f, btn) {
@@ -639,19 +540,19 @@ function renderDecorations() {
   if (!grid) return;
 
   const search = (getEl('dec-search')?.value || '').toLowerCase();
-  const coll   = getEl('dec-coll-filter')?.value || '';
-  const sort   = getEl('dec-sort')?.value || 'name';
+  const coll = getEl('dec-coll-filter')?.value || '';
+  const sort = getEl('dec-sort')?.value || 'name';
 
   let items = DMK_DECORATIONS.filter(d => {
     const owned = state.decorations_owned?.[d.name];
-    if (_decFilter === 'owned'   && !owned) return false;
-    if (_decFilter === 'missing' && owned)  return false;
+    if (_decFilter === 'owned' && !owned) return false;
+    if (_decFilter === 'missing' && owned) return false;
     if (_decCatFilter && d.category !== _decCatFilter) return false;
     if (coll && d.collection !== coll) return false;
     if (search &&
-        !d.name.toLowerCase().includes(search) &&
-        !d.collection.toLowerCase().includes(search) &&
-        !d.category.toLowerCase().includes(search)) return false;
+      !d.name.toLowerCase().includes(search) &&
+      !d.collection.toLowerCase().includes(search) &&
+      !d.category.toLowerCase().includes(search)) return false;
     return true;
   });
 
@@ -673,8 +574,8 @@ function renderDecorations() {
   const countEl = getEl('dec-count');
   if (countEl) countEl.textContent = items.length + ' decorations';
 
-  const catEmoji    = { Trophy: '🏆', Greenery: '🌿', Monument: '🗿', Scenery: '🏞️', Amenity: '🪑' };
-  const catColor    = { Trophy: 'var(--gold)', Greenery: '#34d399', Monument: '#9ca3af', Scenery: '#60a5fa', Amenity: '#f472b6' };
+  const catEmoji = { Trophy: '🏆', Greenery: '🌿', Monument: '🗿', Scenery: '🏞️', Amenity: '🪑' };
+  const catColor = { Trophy: 'var(--gold)', Greenery: '#34d399', Monument: '#9ca3af', Scenery: '#60a5fa', Amenity: '#f472b6' };
   const rarityColor = { Common: '#9ca3af', Uncommon: '#34d399', Rare: '#60a5fa', Epic: '#c084fc', Legendary: '#fbbf24' };
 
   if (!items.length) {
@@ -683,11 +584,11 @@ function renderDecorations() {
   }
 
   grid.innerHTML = items.map(d => {
-    const owned     = state.decorations_owned?.[d.name];
-    const col       = catColor[d.category] || 'var(--muted)';
-    const rCol      = rarityColor[d.rarity] || 'var(--muted)';
+    const owned = state.decorations_owned?.[d.name];
+    const col = catColor[d.category] || 'var(--muted)';
+    const rCol = rarityColor[d.rarity] || 'var(--muted)';
     const borderCol = owned ? 'var(--green)' : 'var(--border)';
-    const bgStyle   = owned ? 'background:rgba(57,232,124,0.04);' : '';
+    const bgStyle = owned ? 'background:rgba(57,232,124,0.04);' : '';
 
     return `<div style="background:var(--card);border:1px solid ${borderCol};${bgStyle}border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
       <div style="display:flex;align-items:flex-start;gap:10px;">
@@ -741,8 +642,8 @@ function updateDashboard() {
   if (stat_chars) stat_chars.textContent = welcomed + ' / ' + chars.length;
   const stat_maxed = getEl('stat-maxed');
   if (stat_maxed) stat_maxed.textContent = maxed;
-  const totalArqQuests = STORYLINE_ARCS ? STORYLINE_ARCS.reduce((s,a)=>s+a.quests.length,0) : 0;
-  
+  const totalArqQuests = STORYLINE_ARCS ? STORYLINE_ARCS.reduce((s, a) => s + a.quests.length, 0) : 0;
+
   const stat_quests = getEl('stat-quests');
   if (stat_quests) stat_quests.textContent = questsDone + '/' + totalArqQuests;
 
@@ -898,7 +799,7 @@ function populateCostumeCollFilter() {
   const cur = sel.value;
   const cols = [...new Set(DMK_COSTUMES.map(c => c.collection))].sort();
   sel.innerHTML = '<option value="">All Collections</option>' +
-    cols.map(c => `<option value="${c}" ${c===cur?'selected':''}>${c}</option>`).join('');
+    cols.map(c => `<option value="${c}" ${c === cur ? 'selected' : ''}>${c}</option>`).join('');
 }
 
 function renderCostumes() {
@@ -918,7 +819,7 @@ function renderCostumes() {
     c.costume.toLowerCase().includes(search) ||
     c.collection.toLowerCase().includes(search));
   if (collFilter) costumes = costumes.filter(c => c.collection === collFilter);
-  if (costumeFilter === 'owned')   costumes = costumes.filter(c => c.owned);
+  if (costumeFilter === 'owned') costumes = costumes.filter(c => c.owned);
   if (costumeFilter === 'missing') costumes = costumes.filter(c => !c.owned);
 
   const total = state.costumes.length;
@@ -956,8 +857,8 @@ function renderCostumes() {
           <span style="color:var(--muted);font-size:10px;">${colOwned}/${colTotal}</span>
         </div>
         ${Object.keys(chars).sort().map(char => {
-          const charCostumes = chars[char];
-          return `
+      const charCostumes = chars[char];
+      return `
             <div style="margin-left:8px;margin-bottom:10px;">
               <div style="font-size:12px;color:var(--text);font-weight:700;margin-bottom:5px;opacity:0.85;">${char}</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;">
@@ -972,7 +873,7 @@ function renderCostumes() {
                   </button>`).join('')}
               </div>
             </div>`;
-        }).join('')}
+    }).join('')}
       </div>`;
   }).join('');
 }
@@ -1003,18 +904,18 @@ function populateAttrCollFilter() {
   _lastAttrCollList = key;
   const cur = sel.value;
   sel.innerHTML = '<option value="">All Collections</option>' +
-    cols.map(c => `<option value="${c}" ${c===cur?'selected':''}>${c}</option>`).join('');
+    cols.map(c => `<option value="${c}" ${c === cur ? 'selected' : ''}>${c}</option>`).join('');
 }
 
 function renderAttractions() {
-  const grid   = getEl('attr-grid');
+  const grid = getEl('attr-grid');
   const search = (getEl('attr-search-input')?.value || '').toLowerCase();
-  const coll   = getEl('attr-collection-filter')?.value || '';
+  const coll = getEl('attr-collection-filter')?.value || '';
   populateAttrCollFilter();
 
   const total = state.attractions.length;
   const built = state.attractions.filter(a => a.built).length;
-  const pct   = total > 0 ? Math.round(built / total * 100) : 0;
+  const pct = total > 0 ? Math.round(built / total * 100) : 0;
   const pctLabel = getEl('attr-pct-label');
   if (pctLabel) {
     getEl('attr-pct-label').textContent = `${built} / ${total} built (${pct}%)`;
@@ -1026,11 +927,11 @@ function renderAttractions() {
 
   let list = state.attractions;
   if (search) list = list.filter(a => a.name.toLowerCase().includes(search) || a.collection.toLowerCase().includes(search));
-  if (coll)   list = list.filter(a => a.collection === coll);
-  if (attrFilter === 'built')     list = list.filter(a => a.built);
+  if (coll) list = list.filter(a => a.collection === coll);
+  if (attrFilter === 'built') list = list.filter(a => a.built);
   if (attrFilter === 'not-built') list = list.filter(a => !a.built);
-  if (attrFilter === 'regular')   list = list.filter(a => !a.elixir);
-  if (attrFilter === 'elixir')    list = list.filter(a => a.elixir);
+  if (attrFilter === 'regular') list = list.filter(a => !a.elixir);
+  if (attrFilter === 'elixir') list = list.filter(a => a.elixir);
 
   if (!list.length) {
     grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><div class="es-icon">🏰</div><p>No attractions match this filter.</p></div>`;
@@ -1038,16 +939,16 @@ function renderAttractions() {
   }
 
   if (grid) {
-  grid.innerHTML = list.map(a => {
-    const builtCls = a.built ? 'border-color:var(--green);' : '';
-    const builtBg  = a.built ? 'background:rgba(57,232,124,0.06);' : '';
-    const elixirBadge = a.elixir
-      ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">⚗️ ELIXIR</span>`
-      : '';
-    const builtBadge = a.built
-      ? `<span style="font-size:10px;font-weight:800;background:rgba(57,232,124,0.18);color:var(--green);padding:1px 7px;border-radius:6px;">✓ BUILT</span>`
-      : '';
-    return `
+    grid.innerHTML = list.map(a => {
+      const builtCls = a.built ? 'border-color:var(--green);' : '';
+      const builtBg = a.built ? 'background:rgba(57,232,124,0.06);' : '';
+      const elixirBadge = a.elixir
+        ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">⚗️ ELIXIR</span>`
+        : '';
+      const builtBadge = a.built
+        ? `<span style="font-size:10px;font-weight:800;background:rgba(57,232,124,0.18);color:var(--green);padding:1px 7px;border-radius:6px;">✓ BUILT</span>`
+        : '';
+      return `
     <div style="background:var(--card);border:1px solid var(--border);${builtBg}${builtCls}border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <span style="font-size:26px;line-height:1;">${a.emoji}</span>
@@ -1080,29 +981,29 @@ function renderAttractions() {
         ${a.built ? '✓ Mark as Not Built' : '＋ Mark as Built'}
       </button>
       ${(() => {
-        const enc = DMK_ENCHANTMENTS ? DMK_ENCHANTMENTS.find(e => e.name === a.name) : null;
-        if (!enc) return '';
-        const lvlColors = ['','#9ca3af','#34d399','#60a5fa','#c084fc','#fbbf24'];
-        const baseChip = enc.base_token
-          ? `<span style="display:inline-flex;align-items:center;gap:3px;background:var(--card2);border-radius:6px;padding:2px 6px;font-size:10px;">
+          const enc = DMK_ENCHANTMENTS ? DMK_ENCHANTMENTS.find(e => e.name === a.name) : null;
+          if (!enc) return '';
+          const lvlColors = ['', '#9ca3af', '#34d399', '#60a5fa', '#c084fc', '#fbbf24'];
+          const baseChip = enc.base_token
+            ? `<span style="display:inline-flex;align-items:center;gap:3px;background:var(--card2);border-radius:6px;padding:2px 6px;font-size:10px;">
               <span style="color:#f59e0b;font-weight:700;">Base</span>
               <span>${enc.base_token}</span>
             </span>` : '';
-        const tokens = baseChip + enc.levels.filter(l => l.token).map(l => {
-          const isDouble = l.token === 'Two Drop Chances';
-          return `<span style="display:inline-flex;align-items:center;gap:3px;background:var(--card2);border-radius:6px;padding:2px 6px;font-size:10px;">
+          const tokens = baseChip + enc.levels.filter(l => l.token).map(l => {
+            const isDouble = l.token === 'Two Drop Chances';
+            return `<span style="display:inline-flex;align-items:center;gap:3px;background:var(--card2);border-radius:6px;padding:2px 6px;font-size:10px;">
             <span style="color:${lvlColors[l.level]};font-weight:700;">L${l.level}</span>
-            <span style="${isDouble?'color:var(--gold);font-weight:700;':''}">${isDouble ? '✦ 2x Drop' : l.token}</span>
+            <span style="${isDouble ? 'color:var(--gold);font-weight:700;' : ''}">${isDouble ? '✦ 2x Drop' : l.token}</span>
           </span>`;
-        }).join('');
-        return `<div style="border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
+          }).join('');
+          return `<div style="border-top:1px solid var(--border);padding-top:8px;margin-top:4px;">
           <div style="font-size:10px;color:var(--muted);margin-bottom:5px;">⚡ ENCHANTMENT TOKENS <span style="opacity:0.6;">(${enc.timing})</span></div>
           <div style="display:flex;flex-wrap:wrap;gap:4px;">${tokens}</div>
         </div>`;
-      })()}
+        })()}
     </div>`;
-  }).join('');
-}
+    }).join('');
+  }
 }
 
 // ============ INIT ============
@@ -1129,7 +1030,7 @@ function exportState() {
   const blob = new Blob([json], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
-  a.download = 'dmk-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.download = 'dmk-backup-' + new Date().toISOString().slice(0, 10) + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
 }
@@ -1148,7 +1049,7 @@ function importState() {
         if (!parsed.characters) throw new Error('Invalid backup file');
         localStorage.setItem('dmk-tracker-v2', JSON.stringify(parsed));
         location.reload();
-      } catch(err) {
+      } catch (err) {
         alert('Import failed: ' + err.message);
       }
     };
@@ -1160,7 +1061,7 @@ function importState() {
 
 function filterConOwned(f) {
   _conOwnerFilter = f;
-  ['all','owned','missing'].forEach(k => {
+  ['all', 'owned', 'missing'].forEach(k => {
     const btn = getEl('con-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
   });
@@ -1196,20 +1097,20 @@ function renderConcessions() {
     return true;
   });
 
-  if (sort === 'magic_per_hour') items.sort((a,b) => parseFloat(b.magic_per_hour||0) - parseFloat(a.magic_per_hour||0));
-  else if (sort === 'collection') items.sort((a,b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
-  else items.sort((a,b) => a.name.localeCompare(b.name));
+  if (sort === 'magic_per_hour') items.sort((a, b) => parseFloat(b.magic_per_hour || 0) - parseFloat(a.magic_per_hour || 0));
+  else if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
+  else items.sort((a, b) => a.name.localeCompare(b.name));
 
   const con_count = getEl('con-count');
   if (con_count) con_count.textContent = items.length + ' concessions';
 
-  const catIcon = { 'Food Stand':'🍔', 'Drink Stand':'🥤', 'Headwear Stand':'🎩', 'Souvenir Stand':'🎁' };
+  const catIcon = { 'Food Stand': '🍔', 'Drink Stand': '🥤', 'Headwear Stand': '🎩', 'Souvenir Stand': '🎁' };
 
   const cardHtml = (c) => {
     const owned = state.concessions_owned && state.concessions_owned[c.name];
     const mphNum = parseFloat(c.magic_per_hour || 0);
     const mphColor = mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--accent)' : 'var(--muted)';
-    return `<div class="card con-card" data-name="${c.name.replace(/"/g,'&quot;')}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
+    return `<div class="card con-card" data-name="${c.name.replace(/"/g, '&quot;')}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:600;line-height:1.3;">${owned ? '✅' : '○'} ${c.name}</div>
@@ -1284,7 +1185,7 @@ function setEnchantLevel(id, level) {
 
 function filterEncBuilt(f) {
   _encBuiltFilter = f;
-  ['all','built','notbuilt'].forEach(k => {
+  ['all', 'built', 'notbuilt'].forEach(k => {
     const btn = getEl('enc-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
   });
@@ -1318,13 +1219,13 @@ function renderEnchantmentsTab() {
     return true;
   });
 
-  if (sort === 'collection') items.sort((a,b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
-  else if (sort === 'timing') items.sort((a,b) => a.timing.localeCompare(b.timing) || a.name.localeCompare(b.name));
-  else items.sort((a,b) => a.name.localeCompare(b.name));
+  if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
+  else if (sort === 'timing') items.sort((a, b) => a.timing.localeCompare(b.timing) || a.name.localeCompare(b.name));
+  else items.sort((a, b) => a.name.localeCompare(b.name));
 
   getEl('enc-count').textContent = items.length + ' attractions';
-  const lvlColors = ['','#9ca3af','#34d399','#60a5fa','#c084fc','#fbbf24'];
-  const timingColor = t => (!t ? 'var(--muted)' : (t.includes('60m')||t.includes('1h')||t.includes('2h')) ? '#34d399' : (t.includes('4h')||t.includes('6h')) ? '#60a5fa' : 'var(--muted)');
+  const lvlColors = ['', '#9ca3af', '#34d399', '#60a5fa', '#c084fc', '#fbbf24'];
+  const timingColor = t => (!t ? 'var(--muted)' : (t.includes('60m') || t.includes('1h') || t.includes('2h')) ? '#34d399' : (t.includes('4h') || t.includes('6h')) ? '#60a5fa' : 'var(--muted)');
 
   list.innerHTML = items.map(e => {
     const isBuilt = builtNames.includes(e.name);
@@ -1346,14 +1247,14 @@ function renderEnchantmentsTab() {
       const isUnlocked = enchLevel >= l.level;
       return `<div style="display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border);opacity:${isUnlocked ? '1' : '0.35'};">
         <span style="font-size:10px;font-weight:700;color:${lvlColors[l.level]};min-width:20px;">L${l.level}</span>
-        <span style="font-size:12px;flex:1;${isDouble?'color:var(--gold);font-weight:700;':''}">${isDouble ? '✦ Two Drop Chances' : l.token + ' Token'}</span>
+        <span style="font-size:12px;flex:1;${isDouble ? 'color:var(--gold);font-weight:700;' : ''}">${isDouble ? '✦ Two Drop Chances' : l.token + ' Token'}</span>
         <span style="font-size:10px;color:var(--muted);">+${l.cost} <span style="opacity:0.6;">(${l.total} total)</span></span>
         ${isUnlocked ? '<span style="font-size:10px;color:var(--green);">✓</span>' : ''}
       </div>`;
     }).join('');
 
     // Enchant level tracker
-    const dotRow = Array.from({length: maxLevel}, (_, i) => {
+    const dotRow = Array.from({ length: maxLevel }, (_, i) => {
       const lvl = i + 1;
       const done = enchLevel >= lvl;
       const col = BLUEPRINT_COLOR[ENCHANT_COSTS[i].blueprint];
@@ -1396,8 +1297,8 @@ function renderEnchantmentsTab() {
     return `<div class="card" style="padding:12px 14px;border-color:${isBuilt ? (enchLevel > 0 ? 'var(--green)' : 'var(--accent)') : 'var(--border)'};">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
         <div>
-          <div style="font-size:13px;font-weight:700;">${isBuilt?'✅':'○'} ${e.name}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(e.collection,13)} ${e.collection}</div>
+          <div style="font-size:13px;font-weight:700;">${isBuilt ? '✅' : '○'} ${e.name}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(e.collection, 13)} ${e.collection}</div>
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-size:12px;font-weight:700;color:${timingColor(e.timing)};">⏱ ${e.timing}</div>
@@ -1426,7 +1327,7 @@ function renderEnchantmentsTab() {
 
 function filterTokens(f) {
   _tokFilter = f;
-  ['all','ready','missing','maxed','wishlist'].forEach(k => {
+  ['all', 'ready', 'missing', 'maxed', 'wishlist'].forEach(k => {
     const btn = getEl('tok-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
   });
@@ -1472,7 +1373,7 @@ function renderTokens() {
     if (!maxed && td) {
       const needed = getNeededQty(c.name, c.level);
       if (needed) {
-        const tokensMet = needed.tokens.filter((t,i) => (inv[t]||0) >= needed.quantities[i]).length;
+        const tokensMet = needed.tokens.filter((t, i) => (inv[t] || 0) >= needed.quantities[i]).length;
         ready = tokensMet === needed.tokens.length;
         pct = needed.tokens.length > 0 ? Math.round(tokensMet / needed.tokens.length * 100) : 0;
       }
@@ -1487,9 +1388,9 @@ function renderTokens() {
   if (_tokFilter === 'maxed') filtered = withStatus.filter(c => c.maxed);
 
   // Sort
-  if (sort === 'ready') filtered.sort((a,b) => (b.ready - a.ready) || a.name.localeCompare(b.name));
-  else if (sort === 'progress') filtered.sort((a,b) => (b.pct - a.pct) || a.name.localeCompare(b.name));
-  else filtered.sort((a,b) => a.name.localeCompare(b.name));
+  if (sort === 'ready') filtered.sort((a, b) => (b.ready - a.ready) || a.name.localeCompare(b.name));
+  else if (sort === 'progress') filtered.sort((a, b) => (b.pct - a.pct) || a.name.localeCompare(b.name));
+  else filtered.sort((a, b) => a.name.localeCompare(b.name));
 
   getEl('tok-count').textContent = filtered.length + ' characters';
 
@@ -1504,7 +1405,7 @@ function renderTokens() {
       needed.tokens.forEach((t, i) => {
         const have = state.token_inventory?.[c.name]?.[t] || 0;
         const need = needed.quantities[i];
-        const gap  = Math.max(0, need - have);
+        const gap = Math.max(0, need - have);
         if (gap > 0) totals[t] = (totals[t] || 0) + gap;
       });
     });
@@ -1553,7 +1454,7 @@ function renderTokens() {
       </div>`;
     }
 
-    const allReady = needed.tokens.every((t,i) => (c.inv[t]||0) >= needed.quantities[i]);
+    const allReady = needed.tokens.every((t, i) => (c.inv[t] || 0) >= needed.quantities[i]);
     const borderColor = allReady ? 'var(--green)' : 'var(--border)';
 
     const tokensHtml = needed.tokens.map((token, i) => {
@@ -1563,7 +1464,7 @@ function renderTokens() {
       const actSources = DMK_TOKEN_ACTIVITIES[token] || [];
       const enchSources = getTokenSources(token);
       const hasAny = actSources.length > 0 || enchSources.length > 0;
-      const expandId = ('tok_' + c.name + '_' + token).replace(/[^a-zA-Z0-9]/g,'_');
+      const expandId = ('tok_' + c.name + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
       const actRows = actSources.map(s =>
         `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
           <div style="display:flex;align-items:center;gap:6px;min-width:0;">
@@ -1576,10 +1477,10 @@ function renderTokens() {
           <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.time}</span>
         </div>`
       ).join('');
-      const enchRows = enchSources.slice(0,3).map(s =>
+      const enchRows = enchSources.slice(0, 3).map(s =>
         `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
           <div style="display:flex;align-items:center;gap:6px;">
-            <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L'+s.enchant_level}</span>
+            <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L' + s.enchant_level}</span>
             <span style="font-size:11px;font-weight:600;">${s.attraction}</span>
           </div>
           <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
@@ -1591,13 +1492,13 @@ function renderTokens() {
             <div style="font-size:12px;font-weight:700;">${token} Token</div>
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            <button class="tok-adj" data-char="${c.name.replace(/"/g,'&quot;')}" data-token="${token.replace(/"/g,'&quot;')}" data-delta="-1"
+            <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="-1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
             <span id="tokcnt_${expandId}" style="font-weight:800;font-size:14px;min-width:28px;text-align:center;color:${enough ? 'var(--green)' : 'var(--red)'};">${have}</span>
-            <button class="tok-adj" data-char="${c.name.replace(/"/g,'&quot;')}" data-token="${token.replace(/"/g,'&quot;')}" data-delta="1"
+            <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
             <span style="font-size:11px;color:var(--muted);min-width:40px;">/ ${need}</span>
-            <span id="tokst_${expandId}" style="font-size:11px;">${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);">-'+(need-have)+'</span>'}</span>
+            <span id="tokst_${expandId}" style="font-size:11px;">${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);">-' + (need - have) + '</span>'}</span>
             ${hasAny ? `<button onclick="toggleTokExpand('${expandId}')" id="btn_${expandId}"
               style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>` : ''}
           </div>
@@ -1626,7 +1527,7 @@ function renderTokens() {
         ${readyBadge}
       </div>
       <div style="display:flex;flex-direction:column;gap:6px;">${tokensHtml}</div>
-      ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g,'&quot;')}" data-level="${needed.nextLevel}"
+      ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g, '&quot;')}" data-level="${needed.nextLevel}"
         style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:rgba(52,211,153,0.15);color:var(--green);">
         ✨ Mark as Level ${needed.nextLevel}
       </button>` : ''}
@@ -1642,24 +1543,24 @@ function adjustToken(charName, token, delta) {
 
   // Update in-place — find the row by its stable id
   const expandId = ('tok_' + charName + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
-  const cntEl  = getEl('tokcnt_' + expandId);
-  const stEl   = getEl('tokst_'  + expandId);
-  const rowEl  = getEl('tokrow_' + expandId);
+  const cntEl = getEl('tokcnt_' + expandId);
+  const stEl = getEl('tokst_' + expandId);
+  const rowEl = getEl('tokrow_' + expandId);
   if (!cntEl) { renderTokens(); return; } // row not rendered, fall back
 
   const have = state.token_inventory[charName][token];
-  const td   = DMK_CHAR_TOKENS[charName];
+  const td = DMK_CHAR_TOKENS[charName];
   const char = state.characters.find(c => c.name === charName);
   const needed = (td && char) ? getNeededQty(charName, char.level) : null;
   if (!needed) { renderTokens(); return; }
 
-  const tIdx   = needed.tokens.indexOf(token);
-  const need   = tIdx >= 0 ? needed.quantities[tIdx] : 0;
+  const tIdx = needed.tokens.indexOf(token);
+  const need = tIdx >= 0 ? needed.quantities[tIdx] : 0;
   const enough = have >= need;
 
   cntEl.textContent = have;
   cntEl.style.color = enough ? 'var(--green)' : 'var(--red)';
-  stEl.innerHTML    = enough
+  stEl.innerHTML = enough
     ? '<span style="color:var(--green);font-size:12px;">✓</span>'
     : `<span style="color:var(--red);">-${need - have}</span>`;
   rowEl.style.borderColor = enough ? 'rgba(52,211,153,0.3)' : 'var(--border)';
@@ -1704,7 +1605,11 @@ document.addEventListener('click', e => {
   const adj = e.target.closest('.tok-adj');
   if (adj) { adjustToken(adj.dataset.char, adj.dataset.token, +adj.dataset.delta); return; }
   const lvl = e.target.closest('.tok-levelup');
-  if (lvl) { levelUpChar(lvl.dataset.char, +lvl.dataset.level); }
+  if (lvl) { levelUpChar(lvl.dataset.char, +lvl.dataset.level); return; }
+  const ownBtn = e.target.closest('.float-own-btn');
+  if (ownBtn) { toggleFloatOwned(ownBtn.dataset.name); return; }
+  const activeBtn = e.target.closest('.float-active-btn');
+  if (activeBtn) { toggleFloatActive(activeBtn.dataset.name); return; }
 });
 
 
@@ -1713,7 +1618,7 @@ document.addEventListener('click', e => {
 
 function filterFloats(f) {
   _floatFilter = f;
-  ['all','owned','active','inactive','unowned'].forEach(k => {
+  ['all', 'owned', 'active', 'inactive', 'unowned'].forEach(k => {
     const btn = getEl('float-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
   });
@@ -1741,9 +1646,9 @@ function renderFloats() {
   if (_floatFilter === 'inactive') floats = floats.filter(f => f.owned && !f.active);
   if (_floatFilter === 'unowned') floats = floats.filter(f => !f.owned);
 
-  if (sort === 'magic') floats.sort((a,b) => parseInt(b.magic_reward.replace(/,/g,'')) - parseInt(a.magic_reward.replace(/,/g,'')) || a.name.localeCompare(b.name));
-  else if (sort === 'cost') floats.sort((a,b) => parseInt(a.cost.replace(/,/g,'')) - parseInt(b.cost.replace(/,/g,'')) || a.name.localeCompare(b.name));
-  else floats.sort((a,b) => {
+  if (sort === 'magic') floats.sort((a, b) => parseInt(b.magic_reward.replace(/,/g, '')) - parseInt(a.magic_reward.replace(/,/g, '')) || a.name.localeCompare(b.name));
+  else if (sort === 'cost') floats.sort((a, b) => parseInt(a.cost.replace(/,/g, '')) - parseInt(b.cost.replace(/,/g, '')) || a.name.localeCompare(b.name));
+  else floats.sort((a, b) => {
     // Sort: active first, then inactive owned, then unowned
     const aScore = a.active ? 0 : a.owned ? 1 : 2;
     const bScore = b.active ? 0 : b.owned ? 1 : 2;
@@ -1754,7 +1659,7 @@ function renderFloats() {
 
   list.innerHTML = floats.map(f => {
     const floatToks = DMK_FLOAT_TOKENS[f.name] || [];
-    const magicNum = parseInt(f.magic_reward.replace(/,/g,'') || '0');
+    const magicNum = parseInt(f.magic_reward.replace(/,/g, '') || '0');
     const magicColor = magicNum >= 1000 ? 'var(--gold)' : magicNum >= 500 ? 'var(--accent)' : 'var(--text)';
     const borderColor = f.active ? 'var(--green)' : f.owned ? 'var(--accent)' : 'var(--border)';
     const opacity = f.owned ? '1' : '0.45';
@@ -1770,14 +1675,14 @@ function renderFloats() {
           <div style="font-size:11px;color:var(--muted);">${f.collection}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-          <button onclick="toggleFloatOwned('${f.name.replace(/'/g,"\'")}',event)"
-            style="font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid var(--border);background:${f.owned ? 'rgba(52,211,153,0.15)' : 'var(--card2)'};color:${f.owned ? 'var(--green)' : 'var(--muted)'};cursor:pointer;">
-            ${f.owned ? '✓ Owned' : '+ Own'}
-          </button>
-          ${f.owned ? `<button onclick="toggleFloatActive('${f.name.replace(/'/g,"\'")}',event)"
-            style="font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid var(--border);background:${f.active ? 'rgba(52,211,153,0.15)' : 'var(--card2)'};color:${f.active ? 'var(--green)' : 'var(--muted)'};cursor:pointer;">
-            ${statusIcon} ${statusLabel}
-          </button>` : `<span style="font-size:10px;color:var(--muted);">${statusIcon} ${statusLabel}</span>`}
+          <button class="float-own-btn" data-name="${f.name.replace(/"/g, '&quot;')}"
+  style="font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid var(--border);background:${f.owned ? 'rgba(52,211,153,0.15)' : 'var(--card2)'};color:${f.owned ? 'var(--green)' : 'var(--muted)'};cursor:pointer;">
+  ${f.owned ? '✓ Owned' : '+ Own'}
+</button>
+${f.owned ? `<button class="float-active-btn" data-name="${f.name.replace(/"/g, '&quot;')}"
+  style="font-size:10px;padding:2px 8px;border-radius:6px;border:1px solid var(--border);background:${f.active ? 'rgba(52,211,153,0.15)' : 'var(--card2)'};color:${f.active ? 'var(--green)' : 'var(--muted)'};cursor:pointer;">
+  ${statusIcon} ${statusLabel}
+</button>` : `<span style="font-size:10px;color:var(--muted);">${statusIcon} ${statusLabel}</span>`}
         </div>
       </div>
       <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
@@ -1796,11 +1701,9 @@ function renderFloats() {
   }).join('');
 }
 
-function toggleFloatOwned(name, event) {
-  event.stopPropagation();
+function toggleFloatOwned(name) {
   if (!state.floats_owned) state.floats_owned = {};
   state.floats_owned[name] = !state.floats_owned[name];
-  // If unowned, also deactivate
   if (!state.floats_owned[name]) {
     if (!state.floats_active) state.floats_active = {};
     state.floats_active[name] = false;
@@ -1809,8 +1712,7 @@ function toggleFloatOwned(name, event) {
   renderFloats();
 }
 
-function toggleFloatActive(name, event) {
-  event.stopPropagation();
+function toggleFloatActive(name) {
   if (!state.floats_active) state.floats_active = {};
   state.floats_active[name] = !state.floats_active[name];
   saveState();
