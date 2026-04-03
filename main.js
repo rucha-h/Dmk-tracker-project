@@ -3,6 +3,46 @@ function getEl(id) {
   return el ? el : null;   // returns null if not found
 }
 
+function showToast(msg, type = 'info') {
+  let container = getEl('toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toast-container';
+    container.style.cssText = `
+      position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:8px;
+      z-index:9999;pointer-events:none;`;
+    document.body.appendChild(container);
+  }
+  const toast = document.createElement('div');
+  const bg = type === 'warn' ? 'rgba(245,158,11,0.95)'
+    : type === 'error' ? 'rgba(239,68,68,0.95)'
+      : 'rgba(57,232,124,0.95)';
+  toast.style.cssText = `
+    background:${bg};color:#fff;font-family:'Nunito',sans-serif;
+    font-size:13px;font-weight:700;padding:10px 18px;border-radius:12px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.35);pointer-events:auto;
+    animation:toastIn 0.25s ease;max-width:320px;text-align:center;`;
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
+
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
 // ============ FILTER STATE ============
@@ -46,8 +86,8 @@ function loadState() {
       const savedByName = {};
       (state.characters || []).forEach(c => { savedByName[c.name] = c; });
       state.characters = allChars.map(ch => {
-        const saved = savedByName[ch.name];
-        if (saved) return { ...ch, ...saved, name: ch.name, collection: ch.collection, type: ch.type, max: 10, level: parseInt(saved.level) || 0 };
+        const savedChar = savedByName[ch.name];
+        if (savedChar) return { ...ch, ...savedChar, name: ch.name, collection: ch.collection, type: ch.type, max: 10, level: parseInt(savedChar.level) || 0 };
         return ch;
       });
 
@@ -95,38 +135,12 @@ function saveState() {
     const el = getEl('res-' + f);
     if (el) state.resources[f] = el.value;
   });
-  try { localStorage.setItem('dmk-tracker-v2', JSON.stringify(state)); } catch (e) { }
-}
-
-// ============ TABS ============
-const _tabRendered = {};
-
-function switchTab(id, btnEl) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  const section = getEl('tab-' + id);
-  if (section) section.classList.add('active');
-  if (btnEl) btnEl.classList.add('active');
-
-  const firstVisit = !_tabRendered[id];
-  _tabRendered[id] = true;
-
-  if (id === 'dashboard') { updateDashboard(); return; }
-  if (id === 'characters') { if (firstVisit) populateCollFilter(); renderChars(); return; }
-  if (id === 'campaign') { renderQuests(); return; }
-  if (id === 'decorations') { if (firstVisit) initDecCollFilter(); renderDecorations(); return; }
-  if (id === 'costumes') { renderCostumes(); return; }
-  if (id === 'enchantments') { if (firstVisit) initEncCollFilter(); renderEnchantmentsTab(); return; }
-  if (id === 'floats') { renderFloats(); return; }
-  if (id === 'tokens') { renderTokens(); return; }
-  if (id === 'concessions') {
-    if (!state.concessions_owned) state.concessions_owned = {};
-    if (firstVisit) initConcessionCollFilter();
-    renderConcessions();
+  try {
+    localStorage.setItem('dmk-tracker-v2', JSON.stringify(state));
+  } catch (e) {
+    showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
   }
 }
-
-const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
 
 function collIcon(collection, size = 20) {
   const file = COLLECTION_ICONS[collection];
@@ -171,7 +185,8 @@ function levelUp(id) {
   if (!c) return;
   if (!c.welcomed) { c.welcomed = true; c.level = 1; }
   else if (parseInt(c.level) < 10) c.level = parseInt(c.level) + 1;
-  saveState(); renderChars();
+  saveState();
+  renderChars();
 }
 
 function levelDown(id) {
@@ -179,7 +194,8 @@ function levelDown(id) {
   if (!c) return;
   if (parseInt(c.level) > 0) c.level = parseInt(c.level) - 1;
   if (parseInt(c.level) === 0) c.welcomed = false;
-  saveState(); renderChars();
+  saveState();
+  renderChars();
 }
 
 function toggleWishlist(id) {
@@ -187,7 +203,8 @@ function toggleWishlist(id) {
   if (!c || c.welcomed) return;
   if (!state.wishlist) state.wishlist = {};
   state.wishlist[id] = !state.wishlist[id];
-  saveState(); renderChars();
+  saveState();
+  renderChars();
 }
 
 function welcomeChar(id) {
@@ -196,7 +213,8 @@ function welcomeChar(id) {
   c.welcomed = true;
   if (c.level === 0) c.level = 1;
   if (state.wishlist) delete state.wishlist[c.id];
-  saveState(); renderChars();
+  saveState();
+  renderChars();
 }
 
 function removeChar(id) {
@@ -204,7 +222,8 @@ function removeChar(id) {
   if (!ch) return;
   ch.welcomed = false;
   ch.level = 0;
-  saveState(); renderChars();
+  saveState();
+  renderChars();
 }
 
 let charFilter = 'all';
@@ -264,8 +283,8 @@ function renderChars() {
       <div class="char-top">
         <div class="char-emoji">${charImg(c.name, 40) || c.emoji || '🎪'}</div>
         <div class="char-info">
-          <div class="char-name">${c.name}</div>
-          <div class="char-type">${typeLabel} · ${collIcon(collLabel, 14)}${collLabel}</div>
+          <div class="char-name">${esc(c.name)}</div>
+          <div class="char-type">${typeLabel} · ${collIcon(collLabel, 14)}${esc(collLabel)}</div>
         </div>
       </div>
       <div class="level-display">
@@ -444,7 +463,7 @@ function renderQuests() {
             style="cursor:pointer;user-select:none;${matchesSearch ? 'background:rgba(245,200,66,0.05);border-radius:8px;' : ''}">
             <div class="quest-check">${done ? '✓' : ''}</div>
             <div class="quest-content" style="flex:1;min-width:0;">
-              <div class="quest-name">${q.name}</div>
+              <div class="quest-name">${esc(q.name)}</div>
               ${charsHtml ? `<div style="margin-top:4px;">${charsHtml}</div>` : ''}
               ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${q.tip}</div>` : ''}
             </div>
@@ -459,7 +478,7 @@ function renderQuests() {
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
               <span style="font-size:10px;font-weight:800;background:rgba(245,200,66,0.18);color:var(--gold);padding:1px 7px;border-radius:6px;">ACT ${arc.act}</span>
               ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
-              <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection || '', 18)}${arc.title}</span>
+              <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection || '', 18)}${esc(arc.title)}</span>
             </div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">${arc.desc}</div>
             ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${arc.unlock}</div>` : ''}
@@ -594,8 +613,8 @@ function renderDecorations() {
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <span style="font-size:26px;line-height:1;">${d.emoji}</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-weight:800;font-size:13px;line-height:1.3;">${d.name}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(d.collection, 14)}${d.collection}</div>
+          <div style="font-weight:800;font-size:13px;line-height:1.3;">${esc(d.name)}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(d.collection, 14)}${esc(d.collection)}</div>
           <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;">
             <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${col};padding:1px 7px;border-radius:6px;">${catEmoji[d.category] || ''} ${d.category}</span>
             <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${rCol};padding:1px 7px;border-radius:6px;">${d.rarity || ''}</span>
@@ -793,11 +812,15 @@ function setCostumeFilter(f, btn) {
   renderCostumes();
 }
 
+let _lastCostumeCollList = '';
 function populateCostumeCollFilter() {
   const sel = getEl('costume-coll-filter');
   if (!sel) return;
-  const cur = sel.value;
   const cols = [...new Set(DMK_COSTUMES.map(c => c.collection))].sort();
+  const key = cols.join('|');
+  if (key === _lastCostumeCollList) return;
+  _lastCostumeCollList = key;
+  const cur = sel.value;
   sel.innerHTML = '<option value="">All Collections</option>' +
     cols.map(c => `<option value="${c}" ${c === cur ? 'selected' : ''}>${c}</option>`).join('');
 }
@@ -853,14 +876,14 @@ function renderCostumes() {
         <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
           padding:6px 10px;background:var(--card2);border-radius:8px;margin-bottom:8px;
           display:flex;justify-content:space-between;align-items:center;">
-          <span>${collIcon(col, 22)}${col}</span>
+          <span>${collIcon(col, 22)}${esc(col)}</span>
           <span style="color:var(--muted);font-size:10px;">${colOwned}/${colTotal}</span>
         </div>
         ${Object.keys(chars).sort().map(char => {
       const charCostumes = chars[char];
       return `
             <div style="margin-left:8px;margin-bottom:10px;">
-              <div style="font-size:12px;color:var(--text);font-weight:700;margin-bottom:5px;opacity:0.85;">${char}</div>
+              <div style="font-size:12px;color:var(--text);font-weight:700;margin-bottom:5px;opacity:0.85;">${esc(char)}</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;">
                 ${charCostumes.map(c => `
                   <button onclick="toggleCostume('${c.id}')"
@@ -917,13 +940,10 @@ function renderAttractions() {
   const built = state.attractions.filter(a => a.built).length;
   const pct = total > 0 ? Math.round(built / total * 100) : 0;
   const pctLabel = getEl('attr-pct-label');
-  if (pctLabel) {
-    getEl('attr-pct-label').textContent = `${built} / ${total} built (${pct}%)`;
-  }
+  if (pctLabel) pctLabel.textContent = `${built} / ${total} built (${pct}%)`;
+
   const progBar = getEl('attr-prog-bar');
-  if (progBar) {
-    progBar.style.width = pct + '%';
-  }
+  if (progBar) progBar.style.width = pct + '%';
 
   let list = state.attractions;
   if (search) list = list.filter(a => a.name.toLowerCase().includes(search) || a.collection.toLowerCase().includes(search));
@@ -953,8 +973,8 @@ function renderAttractions() {
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <span style="font-size:26px;line-height:1;">${a.emoji}</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-weight:800;font-size:13px;line-height:1.3;">${a.name}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(a.collection, 14)}${a.collection}</div>
+          <div style="font-weight:800;font-size:13px;line-height:1.3;">${esc(a.name)}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(a.collection, 14)}${esc(a.collection)}</div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;">
             ${elixirBadge}${builtBadge}
           </div>
@@ -1012,16 +1032,18 @@ loadAttractions();
 loadCostumes();
 if (!state.decorations_owned) state.decorations_owned = {};
 if (!state.concessions_owned) state.concessions_owned = {};
-updateDashboard();
-renderChars();
-renderQuests();
-renderDecorations();
-renderTokens();
-renderFloats();
-initEncCollFilter(); renderEnchantmentsTab();
-initConcessionCollFilter(); renderConcessions();
-renderAttractions();
-renderCostumes();
+
+const _page = document.body.dataset.page;
+if (_page === 'dashboard') { updateDashboard(); }
+if (_page === 'characters') { populateCollFilter(); renderChars(); }
+if (_page === 'attractions') { renderAttractions(); }
+if (_page === 'costumes') { renderCostumes(); }
+if (_page === 'tokens') { renderTokens(); }
+if (_page === 'floats') { renderFloats(); }
+if (_page === 'concessions') { initConcessionCollFilter(); renderConcessions(); }
+if (_page === 'enchantments') { initEncCollFilter(); renderEnchantmentsTab(); }
+if (_page === 'campaign') { renderQuests(); }
+if (_page === 'decorations') { initDecCollFilter(); renderDecorations(); }
 
 
 // ============ EXPORT / IMPORT STATE ============
@@ -1033,6 +1055,7 @@ function exportState() {
   a.download = 'dmk-backup-' + new Date().toISOString().slice(0, 10) + '.json';
   a.click();
   URL.revokeObjectURL(a.href);
+  showToast('✅ Backup exported successfully!');
 }
 
 function importState() {
@@ -1046,11 +1069,17 @@ function importState() {
     reader.onload = ev => {
       try {
         const parsed = JSON.parse(ev.target.result);
-        if (!parsed.characters) throw new Error('Invalid backup file');
+        if (!parsed || typeof parsed !== 'object')
+          throw new Error('File is not a valid JSON object');
+        if (!Array.isArray(parsed.characters) || parsed.characters.length === 0)
+          throw new Error('Missing or empty characters list');
+        if (!parsed.resources || typeof parsed.resources !== 'object')
+          throw new Error('Missing resources data');
         localStorage.setItem('dmk-tracker-v2', JSON.stringify(parsed));
-        location.reload();
+        showToast('✅ Backup imported successfully!');
+        setTimeout(() => location.reload(), 1000);
       } catch (err) {
-        alert('Import failed: ' + err.message);
+        showToast('❌ Import failed: ' + err.message, 'error');
       }
     };
     reader.readAsText(file);
@@ -1297,8 +1326,8 @@ function renderEnchantmentsTab() {
     return `<div class="card" style="padding:12px 14px;border-color:${isBuilt ? (enchLevel > 0 ? 'var(--green)' : 'var(--accent)') : 'var(--border)'};">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
         <div>
-          <div style="font-size:13px;font-weight:700;">${isBuilt ? '✅' : '○'} ${e.name}</div>
-          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(e.collection, 13)} ${e.collection}</div>
+          <div style="font-size:13px;font-weight:700;">${isBuilt ? '✅' : '○'} ${esc(e.name)}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(e.collection, 13)} ${esc(e.collection)}</div>
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-size:12px;font-weight:700;color:${timingColor(e.timing)};">⏱ ${e.timing}</div>
@@ -1433,8 +1462,8 @@ function renderTokens() {
         <div style="display:flex;align-items:center;gap:10px;">
           ${charImg(c.name, 36)}
           <div style="flex:1;">
-            <div style="font-weight:700;font-size:13px;">${c.name}</div>
-            <div style="font-size:11px;color:var(--muted);">${c.collection}</div>
+            <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
+            <div style="font-size:11px;color:var(--muted);">${esc(c.collection)}</div>
           </div>
           <span style="font-size:11px;color:var(--gold);font-weight:700;">⭐ Max Level</span>
         </div>
@@ -1446,8 +1475,8 @@ function renderTokens() {
         <div style="display:flex;align-items:center;gap:10px;">
           ${charImg(c.name, 36)}
           <div style="flex:1;">
-            <div style="font-weight:700;font-size:13px;">${c.name}</div>
-            <div style="font-size:11px;color:var(--muted);">${c.collection}</div>
+            <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
+            <div style="font-size:11px;color:var(--muted);">${esc(c.collection)}</div>
           </div>
           <span style="font-size:11px;color:var(--muted);">No data</span>
         </div>
@@ -1671,8 +1700,8 @@ function renderFloats() {
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:24px;">🎡</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-weight:700;font-size:13px;">${f.name}</div>
-          <div style="font-size:11px;color:var(--muted);">${f.collection}</div>
+          <div style="font-weight:700;font-size:13px;">${esc(f.name)}</div>
+          <div style="font-size:11px;color:var(--muted);">${esc(f.collection)}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
           <button class="float-own-btn" data-name="${f.name.replace(/"/g, '&quot;')}"
@@ -1717,4 +1746,10 @@ function toggleFloatActive(name) {
   state.floats_active[name] = !state.floats_active[name];
   saveState();
   renderFloats();
+}
+
+// Scroll active tab into view on load
+const activeTab = document.querySelector('.tabs .tab.active');
+if (activeTab) {
+  activeTab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'instant' });
 }
