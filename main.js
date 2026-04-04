@@ -4,7 +4,7 @@ function getEl(id) {
   return el ? el : null;   // returns null if not found
 }
 
-function debounce(fn, delay = 150) {
+function debounce(fn, delay = 100) {
   let timer;
   return function (...args) {
     clearTimeout(timer);
@@ -380,7 +380,95 @@ function toggleArcQuest(arcId, questId) {
   if (q) { q.done = !q.done; }
   else { state.quests.push({ id: key, done: true }); }
   saveState();
-  renderQuests();
+
+  // Fall back to full re-render if search/filter is active — visibility may have changed
+  const search = (getEl('campaign-search')?.value || '').trim();
+  if (search || arcFilter !== 'all') { renderQuests(); return; }
+
+  const arc = STORYLINE_ARCS.find(a => a.id === arcId);
+  if (!arc) { renderQuests(); return; }
+
+  // Compute arc stats before and after the toggle
+  const questMap = buildQuestMap();
+  const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id, questMap)).length;
+  const t = arc.quests.length;
+  const newStatus = d === t ? 'done' : d > 0 ? 'progress' : 'todo';
+
+  // Reconstruct pre-toggle d to determine old status
+  const wasDone = q ? !q.done : false; // q.done reflects the NEW state after toggle above
+  const oldD = wasDone ? d - 1 : d + 1;
+  const oldStatus = oldD === t ? 'done' : oldD > 0 ? 'progress' : 'todo';
+
+  // If arc status changed, border/header colours need updating — full re-render
+  if (newStatus !== oldStatus) { renderQuests(); return; }
+
+  // --- In-place updates ---
+  const arcPct = t > 0 ? Math.round(d / t * 100) : 0;
+  const remaining = t - d;
+  const statusColor = newStatus === 'done' ? 'var(--green)' : newStatus === 'progress' ? 'var(--gold)' : 'var(--muted)';
+  const statusIcon  = newStatus === 'done' ? '✓' : newStatus === 'progress' ? '◑' : '○';
+
+  // 1. Toggle the quest item class and check mark
+  const questEl = document.querySelector(`.quest-item[data-arc="${arcId}"][data-quest="${questId}"]`);
+  if (questEl) {
+    const isDone = getArcQuestState(arcId, questId, questMap);
+    questEl.classList.toggle('done', isDone);
+    const checkEl = questEl.querySelector('.quest-check');
+    if (checkEl) checkEl.textContent = isDone ? '✓' : '';
+  }
+
+  // 2. Update arc header — count, pct, progress bar fill, remaining label
+  const arcCard = document.querySelector(`#arc-body-${arcId}`)?.closest('.card');
+  if (arcCard) {
+    const countEl = arcCard.querySelector('[data-arc-count]');
+    if (countEl) { countEl.textContent = `${statusIcon} ${d}/${t}`; countEl.style.color = statusColor; }
+
+    const pctEl = arcCard.querySelector('[data-arc-pct]');
+    if (pctEl) pctEl.textContent = arcPct + '%';
+
+    const fillEl = arcCard.querySelector('[data-arc-fill]');
+    if (fillEl) { fillEl.style.width = arcPct + '%'; fillEl.style.background = `linear-gradient(90deg,var(--teal),${statusColor})`; }
+
+    const remEl = arcCard.querySelector('[data-arc-remaining]');
+    if (remEl) {
+      remEl.textContent = remaining > 0 ? `${remaining} quest${remaining > 1 ? 's' : ''} remaining` : '';
+      remEl.style.display = (newStatus !== 'done' && remaining > 0) ? '' : 'none';
+    }
+  }
+
+  // 3. Update top-level progress bar and act pills only
+  renderQuestsHeader();
+}
+
+// Updates only the top progress bar and act pills — called from toggleArcQuest in-place path
+function renderQuestsHeader() {
+  const questMap = buildQuestMap();
+  let totalQ = 0, doneQ = 0, totalSide = 0, doneSide = 0;
+  STORYLINE_ARCS.forEach(arc => {
+    arc.quests.forEach(q => {
+      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id, questMap)) doneSide++; }
+      else { totalQ++; if (getArcQuestState(arc.id, q.id, questMap)) doneQ++; }
+    });
+  });
+  const pct = totalQ > 0 ? Math.round(doneQ / totalQ * 100) : 0;
+  const story_pct_label = getEl('story-pct-label');
+  if (story_pct_label) story_pct_label.textContent = `${doneQ} / ${totalQ} main quests (${pct}%) · ${doneSide}/${totalSide} side`;
+  const story_prog_bar = getEl('story-prog-bar');
+  if (story_prog_bar) story_prog_bar.style.width = pct + '%';
+
+  const pillRow = getEl('arc-pill-row');
+  if (!pillRow) return;
+  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a, b) => a - b);
+  pillRow.innerHTML = actNums.map(actNum => {
+    const actArcs = STORYLINE_ARCS.filter(a => a.act === actNum);
+    const aD = actArcs.reduce((s, a) => s + a.quests.filter(q => getArcQuestState(a.id, q.id, questMap)).length, 0);
+    const aT = actArcs.reduce((s, a) => s + a.quests.length, 0);
+    const aPct = aT > 0 ? Math.round(aD / aT * 100) : 0;
+    const col = aPct === 100 ? 'var(--green)' : aPct > 0 ? 'var(--gold)' : 'var(--muted)';
+    const bg  = aPct === 100 ? 'rgba(57,232,124,0.12)' : aPct > 0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
+    const landNames = { 1: 'Toontown', 2: 'Tomorrowland', 3: 'Fantasyland', 4: 'Frontierland', 5: 'Adventureland' };
+    return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum] || ''}: ${aD}/${aT}</span>`;
+  }).join('');
 }
 
 function filterArcs(f, btn) {
@@ -399,42 +487,15 @@ function collapseAllArcs() {
 }
 
 function renderQuests() {
+  renderQuestsHeader();
+
   const questMap = buildQuestMap();
-  let totalQ = 0, doneQ = 0, totalSide = 0, doneSide = 0;
-  STORYLINE_ARCS.forEach(arc => {
-    arc.quests.forEach(q => {
-      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id, questMap)) doneSide++; }
-      else { totalQ++; if (getArcQuestState(arc.id, q.id, questMap)) doneQ++; }
-    });
-  });
-
-  const pct = totalQ > 0 ? Math.round(doneQ / totalQ * 100) : 0;
-  const story_pct_label = getEl('story-pct-label');
-  if (story_pct_label) story_pct_label.textContent = `${doneQ} / ${totalQ} main quests (${pct}%) · ${doneSide}/${totalSide} side`;
-  const story_prog_bar = getEl('story-prog-bar');
-  if (story_prog_bar) story_prog_bar.style.width = pct + '%';
-
-  const pillRow = getEl('arc-pill-row');
   const arcStats = STORYLINE_ARCS.map(arc => {
     const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id, questMap)).length;
     const t = arc.quests.length;
     const status = d === t ? 'done' : d > 0 ? 'progress' : 'todo';
     return { arc, d, t, status };
   });
-
-  const actNums = [...new Set(STORYLINE_ARCS.map(a => a.act))].sort((a, b) => a - b);
-  if (pillRow) {
-    pillRow.innerHTML = actNums.map(actNum => {
-      const actArcs = arcStats.filter(x => x.arc.act === actNum);
-      const aD = actArcs.reduce((s, x) => s + x.d, 0);
-      const aT = actArcs.reduce((s, x) => s + x.t, 0);
-      const aPct = aT > 0 ? Math.round(aD / aT * 100) : 0;
-      const col = aPct === 100 ? 'var(--green)' : aPct > 0 ? 'var(--gold)' : 'var(--muted)';
-      const bg = aPct === 100 ? 'rgba(57,232,124,0.12)' : aPct > 0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
-      const landNames = { 1: 'Toontown', 2: 'Tomorrowland', 3: 'Fantasyland', 4: 'Frontierland', 5: 'Adventureland' };
-      return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum] || ''}: ${aD}/${aT}</span>`;
-    }).join('');
-  }
 
   const search = (getEl('campaign-search')?.value || '').trim().toLowerCase();
 
@@ -522,15 +583,15 @@ function renderQuests() {
             </div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">${esc(arc.desc)}</div>
             ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${esc(arc.unlock)}</div>` : ''}
-            ${status !== 'done' && remaining > 0 ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${remaining} quest${remaining > 1 ? 's' : ''} remaining</div>` : ''}
+            ${status !== 'done' && remaining > 0 ? `<div data-arc-remaining style="font-size:10px;color:var(--muted);margin-top:2px;">${remaining} quest${remaining > 1 ? 's' : ''} remaining</div>` : `<div data-arc-remaining style="display:none;font-size:10px;color:var(--muted);margin-top:2px;"></div>`}
           </div>
           <div style="text-align:right;flex-shrink:0;">
-            <div style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
-            <div class="text-xs text-muted">${arcPct}%</div>
+            <div data-arc-count style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
+            <div data-arc-pct style="font-size:10px;color:var(--muted);">${arcPct}%</div>
           </div>
         </div>
         <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
-          <div style="height:100%;width:${arcPct}%;border-radius:10px;background:linear-gradient(90deg,var(--teal),${statusColor});transition:width 0.4s;"></div>
+          <div data-arc-fill style="height:100%;width:${arcPct}%;border-radius:10px;background:linear-gradient(90deg,var(--teal),${statusColor});transition:width 0.4s;"></div>
         </div>
         <div id="arc-body-${arc.id}" class="quest-list" style="${isOpen ? '' : 'display:none;'}">
           ${questsHtml}
