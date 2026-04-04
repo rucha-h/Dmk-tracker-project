@@ -6,7 +6,7 @@ function getEl(id) {
 
 function debounce(fn, delay = 150) {
   let timer;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timer);
     timer = setTimeout(() => fn.apply(this, args), delay);
   };
@@ -66,9 +66,9 @@ function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || 
 
 // ============ FILTER STATE ============
 let tokFilter = 'all';
-let floatFilter= 'all';
-let conOwnerFilter= 'all';
-let encBuiltFilter= 'all';
+let floatFilter = 'all';
+let conOwnerFilter = 'all';
+let encBuiltFilter = 'all';
 
 // ============ STATE ============
 let state = {
@@ -319,7 +319,7 @@ function renderChars() {
       </div>
       <div class="level-display">
         <span class="level-label">${c.welcomed ? 'LEVEL' : 'NOT WELCOMED'}</span>
-        <span class="level-val">${c.welcomed ? level + ' / ' + MAX : '—'}</span>
+        <span class="level-val">${c.welcomed ? level + ' / ' + MAX_CHAR_LEVEL : '—'}</span>
       </div>
       <div class="level-bar"><div class="level-bar-fill" style="width:${pct}%"></div></div>
       <div class="char-actions">
@@ -526,7 +526,7 @@ function renderQuests() {
           </div>
           <div style="text-align:right;flex-shrink:0;">
             <div style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
-            <div style="font-size:10px;color:var(--muted);">${arcPct}%</div>
+            <div class="text-xs text-muted">${arcPct}%</div>
           </div>
         </div>
         <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
@@ -552,11 +552,11 @@ function toggleArcCollapse(arcId) {
 }
 
 // ============ DECORATIONS ============
-let decFilter= 'all';
-let decCatFilter= '';
+let decFilter = 'all';
+let decCatFilter = '';
 
 function setDecFilter(f, btn) {
-  decFilter= f;
+  decFilter = f;
   ['all', 'owned', 'missing'].forEach(k => {
     const b = getEl('dec-btn-' + k);
     if (b) b.classList.toggle('active', k === f);
@@ -565,7 +565,7 @@ function setDecFilter(f, btn) {
 }
 
 function setDecCatFilter(f, btn) {
-  decCatFilter= f;
+  decCatFilter = f;
   ['', 'Trophy', 'Greenery', 'Monument', 'Scenery', 'Amenity'].forEach(k => {
     const id = 'dec-cat-' + (k === '' ? 'all' : k.toLowerCase());
     const b = getEl(id);
@@ -604,9 +604,9 @@ function renderDecorations() {
 
   let items = DMK_DECORATIONS.filter(d => {
     const owned = state.decorations_owned?.[d.name];
-    if (decFilter=== 'owned' && !owned) return false;
-    if (decFilter=== 'missing' && owned) return false;
-    if (decCatFilter&& d.category !== _decCatFilter) return false;
+    if (decFilter === 'owned' && !owned) return false;
+    if (decFilter === 'missing' && owned) return false;
+    if (decCatFilter && d.category !== decCatFilter) return false;
     if (coll && d.collection !== coll) return false;
     if (search &&
       !d.name.toLowerCase().includes(search) &&
@@ -832,10 +832,9 @@ function loadCostumes() {
   if (!state.costumes) state.costumes = [];
   const savedOwned = {};
   state.costumes.forEach(c => {
-    // migrate legacy index-based IDs to stable name-based IDs
+    if (!c || !c.char || !c.costume) return; // guard against null/malformed entries
     const stableId = 'cos_' + c.char + '|' + c.costume;
     savedOwned[stableId] = c.owned;
-    if (c.owned && /^cos_\d+$/.test(c.id)) savedOwned[stableId] = c.owned;
   });
   state.costumes = DMK_COSTUMES.map(c => ({
     id: 'cos_' + c.char + '|' + c.costume,
@@ -1134,7 +1133,7 @@ function importState() {
 
 
 function filterConOwned(f) {
-  conOwnerFilter= f;
+  conOwnerFilter = f;
   ['all', 'owned', 'missing'].forEach(k => {
     const btn = getEl('con-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1166,8 +1165,8 @@ function renderConcessions() {
     if (cat && c.category !== cat) return false;
     if (coll && c.collection !== coll) return false;
     const owned = state.concessions_owned && state.concessions_owned[c.name];
-    if (conOwnerFilter=== 'owned' && !owned) return false;
-    if (conOwnerFilter=== 'missing' && owned) return false;
+    if (conOwnerFilter === 'owned' && !owned) return false;
+    if (conOwnerFilter === 'missing' && owned) return false;
     return true;
   });
 
@@ -1192,7 +1191,7 @@ function renderConcessions() {
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-size:13px;font-weight:700;color:${mphColor};">✨${c.magic_per_hour}/hr</div>
-          <div style="font-size:10px;color:var(--muted);">⏱ ${c.time}</div>
+          <div class="text-xs text-muted">⏱ ${c.time}</div>
         </div>
       </div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);">
@@ -1258,7 +1257,7 @@ function setEnchantLevel(id, level) {
 }
 
 function filterEncBuilt(f) {
-  encBuiltFilter= f;
+  encBuiltFilter = f;
   ['all', 'built', 'notbuilt'].forEach(k => {
     const btn = getEl('enc-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1283,8 +1282,8 @@ function renderEnchantmentsTab() {
 
   let items = DMK_ENCHANTMENTS.filter(e => {
     const isBuilt = builtNames.includes(e.name);
-    if (encBuiltFilter=== 'built' && !isBuilt) return false;
-    if (encBuiltFilter=== 'notbuilt' && isBuilt) return false;
+    if (encBuiltFilter === 'built' && !isBuilt) return false;
+    if (encBuiltFilter === 'notbuilt' && isBuilt) return false;
     if (coll && e.collection !== coll) return false;
     if (search) {
       const tokenNames = e.levels.map(l => (l.token || '').toLowerCase()).join(' ');
@@ -1377,7 +1376,7 @@ function renderEnchantmentsTab() {
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div style="font-size:12px;font-weight:700;color:${timingColor(e.timing)};">⏱ ${e.timing}</div>
-          <div style="font-size:10px;color:var(--muted);">Base: ${e.base_cost} elixir</div>
+          <div class="text-xs text-muted">Base: ${e.base_cost} elixir</div>
         </div>
       </div>
 
@@ -1685,6 +1684,8 @@ document.addEventListener('click', e => {
   if (ownBtn) { toggleFloatOwned(ownBtn.dataset.name); return; }
   const activeBtn = e.target.closest('.float-active-btn');
   if (activeBtn) { toggleFloatActive(activeBtn.dataset.name); return; }
+  const conCard = e.target.closest('.con-card');
+  if (conCard) { toggleConcession(conCard.dataset.name); return; }
 });
 
 
@@ -1692,7 +1693,7 @@ document.addEventListener('click', e => {
 
 
 function filterFloats(f) {
-  floatFilter= f;
+  floatFilter = f;
   ['all', 'owned', 'active', 'inactive', 'unowned'].forEach(k => {
     const btn = getEl('float-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1716,10 +1717,10 @@ function renderFloats() {
     f.name.toLowerCase().includes(search) || f.collection.toLowerCase().includes(search)
   );
 
-  if (floatFilter=== 'owned') floats = floats.filter(f => f.owned);
-  if (floatFilter=== 'active') floats = floats.filter(f => f.owned && f.active);
-  if (floatFilter=== 'inactive') floats = floats.filter(f => f.owned && !f.active);
-  if (floatFilter=== 'unowned') floats = floats.filter(f => !f.owned);
+  if (floatFilter === 'owned') floats = floats.filter(f => f.owned);
+  if (floatFilter === 'active') floats = floats.filter(f => f.owned && f.active);
+  if (floatFilter === 'inactive') floats = floats.filter(f => f.owned && !f.active);
+  if (floatFilter === 'unowned') floats = floats.filter(f => !f.owned);
 
   if (sort === 'magic') floats.sort((a, b) => parseInt(b.magic_reward.replace(/,/g, '')) - parseInt(a.magic_reward.replace(/,/g, '')) || a.name.localeCompare(b.name));
   else if (sort === 'cost') floats.sort((a, b) => parseInt(a.cost.replace(/,/g, '')) - parseInt(b.cost.replace(/,/g, '')) || a.name.localeCompare(b.name));

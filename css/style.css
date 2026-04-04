@@ -1013,6 +1013,116 @@
     }
   }
 
+  /* ============ UTILITY CLASSES ============ */
+
+  /* Typography */
+  .text-xs   { font-size: 10px; }
+  .text-sm   { font-size: 11px; }
+  .text-base { font-size: 13px; }
+  .text-muted  { color: var(--muted); }
+  .text-gold   { color: var(--gold); }
+  .text-green  { color: var(--green); }
+  .text-red    { color: var(--red); }
+  .text-teal   { color: var(--teal); }
+  .fw-700 { font-weight: 700; }
+  .fw-800 { font-weight: 800; }
+
+  /* Layout */
+  .flex-row   { display: flex; align-items: center; }
+  .flex-1     { flex: 1; min-width: 0; }
+  .flex-end   { text-align: right; flex-shrink: 0; }
+  .mt-2  { margin-top: 2px; }
+  .mt-4  { margin-top: 4px; }
+  .mt-6  { margin-top: 6px; }
+  .mt-8  { margin-top: 8px; }
+  .mb-8  { margin-bottom: 8px; }
+  .mb-16 { margin-bottom: 16px; }
+
+  /* Badges — replaces the repeated font-size:10px;font-weight:800;padding:1px 7px;border-radius:6px pattern */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--muted);
+  }
+  .badge-gold   { background: rgba(245, 200, 66, 0.18);  color: var(--gold); }
+  .badge-green  { background: rgba(57, 232, 124, 0.18);  color: var(--green); }
+  .badge-teal   { background: rgba(87, 210, 255, 0.18);  color: var(--teal); }
+  .badge-red    { background: rgba(255, 92, 122, 0.18);  color: var(--red); }
+  .badge-muted  { background: rgba(255, 255, 255, 0.07); color: var(--muted); }
+
+  /* Stat cell — replaces background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center */
+  .stat-cell {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 5px 8px;
+    text-align: center;
+    font-size: 11px;
+  }
+  .stat-cell .stat-cell-label { color: var(--muted); }
+  .stat-cell .stat-cell-value { font-weight: 700; }
+
+  /* Collection section header — used in costumes, concessions, decorations */
+  .coll-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    background: var(--card2);
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .coll-header-count {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  /* Card action button — full-width toggle at bottom of item cards */
+  .card-action-btn {
+    width: 100%;
+    padding: 7px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    transition: opacity 0.15s;
+  }
+  .card-action-btn:hover { opacity: 0.85; }
+  .card-action-btn.owned  { background: rgba(57, 232, 124, 0.15); color: var(--green); }
+  .card-action-btn.unowned { background: rgba(245, 200, 66, 0.12); color: var(--gold); }
+
+  /* Mini progress bar — used inside cards (4px tall variant) */
+  .mini-prog-bar {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .mini-prog-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--teal), var(--gold));
+    transition: width 0.4s;
+  }
+
+  /* Section divider */
+  .divider { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+
+  /* ============ END UTILITY CLASSES ============ */
+
   @keyframes toastIn {
     from {
       opacity: 0;
