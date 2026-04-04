@@ -2,7 +2,7 @@
 
 A fan-made companion tool to help you track your progress in Disney Magic Kingdoms — characters, attractions, costumes, tokens, floats, concessions, enchantments, and more — all in one place, right in your browser. No account needed, no installation required.
 
-> ⚠️ Data is based on the game state **before Update 103**. Updates will be added over time.
+> ⚠️ Data is based on the game state **till Update 104**. Updates will be added over time.
 
 ---
 
