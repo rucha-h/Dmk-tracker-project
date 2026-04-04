@@ -1328,6 +1328,62 @@ const DMK_CHAR_TOKENS = {
       { "level": 9, "quantities": [80, 80, 50] },
       { "level": 10, "quantities": [100, 100, 65] }
     ]
+  },
+  "Horace": {
+    "tokens": ["Mickey Balloon", "Horace's Collar", "Horace Ears Hat"], 
+    "levels": [
+      { "level": 2, "quantities": [5, 5, 5] },
+      { "level": 3, "quantities": [10, 10, 10] },
+      { "level": 4, "quantities": [20, 20, 20] },   
+      { "level": 5, "quantities": [40, 40, 40] },
+      { "level": 6, "quantities": [50, 50, 50] },
+      { "level": 7, "quantities": [60, 60, 60] },
+      { "level": 8, "quantities": [70, 70, 70] },
+      { "level": 9, "quantities": [80, 80, 80] },  
+      { "level": 10, "quantities": [100, 100, 100] }
+    ]
+  },
+  "Clara Cluck": {
+    "tokens": ["Mickey Balloon", "Clara Cluck's Hat", "Clara Cluck Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ] 
+  },
+  "Ludwig Von Drake": {
+    "tokens": ["Mickey Balloon", "Ludwig Von Drake's Glasses and Pocket Watch", "Ludwig Von Drake Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ] 
+  },
+  "Clarabelle": {
+    "tokens": ["Mickey Balloon", "Clarabelle's Bell", "Clarabelle Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [40, 10, 10] },
+      { "level": 6, "quantities": [50, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 25] },
+      { "level": 8, "quantities": [70, 35, 35] },
+      { "level": 9, "quantities": [80, 50, 50] },
+      { "level": 10, "quantities": [100, 65, 65] }
+    ] 
   }
 };
 
@@ -9245,6 +9301,67 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Wasabi", "activity": "Relaxing with Tea", "char_level": "Level 3", "time": "4h" },
     { "char": "Nala", "activity": "Seeking Advice", "char_level": "Level 3", "time": "6h" },
     { "char": "San Fransokyo City", "activity": "Being Dazzled by City Lights", "char_level": "Level 0", "time": "4h" }
+  ],
+  "Horace's Collar": [
+    { "char": "Clara Cluck", "activity": "Sing a Tune with Ice Cream", "char_level": "Level 2", "time": "2h" },
+    { "char": "Chicha", "activity": "Not a Place for Kids", "char_level": "Level 3", "time": "4h" },
+    { "char": "Dawn Bellwether", "activity": "Stamp Official Documents", "char_level": "Level 4", "time": "4h" },
+    { "char": "Meeko", "activity": "Nap in Safety", "char_level": "Level 4", "time": "4h" },
+    { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 0", "time": "6h" }
+  ],
+   "Horace Ears Hat": [
+    { "char": "Chicha", "activity": "Not a Place for Kids", "char_level": "Level 3", "time": "4h" },
+    { "char": "Ludwig Von Drake", "activity": "Study Ice Cream Machine", "char_level": "Level 2", "time": "4h" },
+    { "char": "Pacha", "activity": "Happy Happy Birthday", "char_level": "Level 3", "time": "6h" },
+    { "char": "Tramp", "activity": "Log Puller Maintenance", "char_level": "Level 3", "time": "8h" },
+    { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 0", "time": "8h" }
+  ],
+   "Clara Cluck's Hat": [
+    { "char": "Horace", "activity": "Help Whip Up Ice Cream", "char_level": "Level 4", "time": "4h" },
+    { "char": "Pocahontas", "activity": "A Different Perspective", "char_level": "Level 6", "time": "4h" },
+    { "char": "Remy", "activity": "Figment of Imagination", "char_level": "Level 4", "time": "4h" },
+    { "char": "Ludwig Von Drake", "activity": "Prep for Invention Demo", "char_level": "Level 3", "time": "6h" },
+    { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 1", "time": "6h" }
+  ],
+   "Clara Cluck Ears Hat": [
+    { "char": "Clarabelle", "activity": "Spruce Up Your Café", "char_level": "Level 3", "time": "4h" },
+    { "char": "Kuzco", "activity": "Deep-Fried Doorstop", "char_level": "Level 2", "time": "6h" },
+    { "char": "Linguini", "activity": "Familiarizing with Vegetables", "char_level": "Level 6", "time": "6h" },
+    { "char": "Ludwig Von Drake", "activity": "Pitch Mechanical Scooper Idea", "char_level": "Level 4", "time": "6h" },
+    { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 1", "time": "8h" }
+  ],
+ "Ludwig Von Drake's Glasses and Pocket Watch": [
+    { "char": "Emile", "activity": "Taste the Cheese", "char_level": "Level 6", "time": "4h" },
+    { "char": "Clarabelle", "activity": "Marvel at Science Wonders", "char_level": "Level 4", "time": "6h" },
+    { "char": "Horace", "activity": "Fine-Tune the Mechanism", "char_level": "Level 5", "time": "6h" },
+    { "char": "The Ringmaster", "activity": "Check on the Animals", "char_level": "Level 7", "time": "6h" },
+    { "char": "Remy + Linguini", "activity": "Taste the Music", "char_level": "Level 8", "time": "6h" },
+    { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 2", "time": "6h" }
+  ],
+   "Ludwig Von Drake Ears Hat": [
+    { "char": "Clara Cluck", "activity": "Perform at the Lab Opening", "char_level": "Level 3", "time": "4h" },
+    { "char": "Baloo + Mowgli", "activity": "Keeping Out of Trouble", "char_level": "Level 5", "time": "6h" },
+    { "char": "Yzma + Kronk", "activity": "What Are You Doing?", "char_level": "Level 4", "time": "6h" },
+    { "char": "Clarabelle", "activity": "Soak Up a Scientist's Talk", "char_level": "Level 6", "time": "8h" },
+    { "char": "Mr. Stork", "activity": "Leave Lions Alone", "char_level": "Level 6", "time": "8h" },
+    { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 2", "time": "8h" }
+  ],
+   "Clarabelle's Bell": [
+    { "char": "Horace", "activity": "Borrow Ideas for Horaceland", "char_level": "Level 5", "time": "6h" },
+    { "char": "Ludwig Von Drake", "activity": "List Tech Upgrades for Parlor", "char_level": "Level 6", "time": "6h" },
+    { "char": "Bernard", "activity": "Represent the U.S.A.", "char_level": "Level 6", "time": "8h" },
+    { "char": "Mrs. Jumbo", "activity": "Look for Dumbo", "char_level": "Level 5", "time": "8h" },
+    { "char": "Joe + Lady", "activity": "Dogs Do Walk", "char_level": "Level 9", "time": "12h" },
+    { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 3", "time": "6h" }
+  ],
+   "Clarabelle Ears Hat": [
+    { "char": "Horace + Clara Cluck", "activity": "Craft a Frozen Masterpiece", "char_level": "Level 7", "time": "6h" },
+    { "char": "Bagheera", "activity": "Avoid Hypnosis", "char_level": "Level 5", "time": "8h" },
+    { "char": "Colette", "activity": "Clean Sleeves", "char_level": "Level 9", "time": "8h" },
+    { "char": "Ludwig Von Drake + Clarabelle", "activity": "Show a Robo-Waiter Sketch", "char_level": "Level 6", "time": "8h" },
+    { "char": "Tony", "activity": "Where's Butch?", "char_level": "Level 5", "time": "12h" },
+    { "char": "Jock + Tramp", "activity": "A Stern Talking-To", "char_level": "Level 5", "time": "12h" },
+    { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 3", "time": "8h" }
   ]
 };
 
@@ -9480,7 +9597,10 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Avatar", "name": "Banshee Rider", "base_token": "Jake Sully Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Kiri Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Tuk Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Neytiri Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Colonel Quaritch Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Avatar", "name": "Pandoran River Adventure", "base_token": "Throat Comm", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Gill Mantle", "cost": 60, "total": 120 }, { "level": 2, "token": "Woven Ikran", "cost": 90, "total": 150 }, { "level": 3, "token": "Beaded Necklace", "cost": 90, "total": 180 }, { "level": 4, "token": "RDA Dog Tag", "cost": 120, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 120, "total": 240 }] },
   { "collection": "Disney Fairies", "name": "Ladybug Painting Station", "base_token": "Silvermist's Dewdrop", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Silvermist Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Rosetta's Hair Clip", "cost": 120, "total": 200 }, { "level": 3, "token": "Rosetta Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Vidia Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
-  { "collection": "Disney Fairies", "name": "Pixie Hollow", "base_token": "Gossamer Wings", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Thimble", "cost": 80, "total": 160 }, { "level": 2, "token": "Tinker Bell Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Periwinkle's Frost Flower", "cost": 120, "total": 240 }, { "level": 4, "token": "Periwinkle Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] }];
+  { "collection": "Disney Fairies", "name": "Pixie Hollow", "base_token": "Gossamer Wings", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Thimble", "cost": 80, "total": 160 }, { "level": 2, "token": "Tinker Bell Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Periwinkle's Frost Flower", "cost": 120, "total": 240 }, { "level": 4, "token": "Periwinkle Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
+  { "collection": "Mickey and Friends", "name": "Clarabelle's Ice Cream", "base_token": "Horace's Collar", "base_cost": "40", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Clara Cluck's Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Ludwig Von Drake's Glasses and Pocket Watch", "cost": 30, "total": 150 }, { "level": 3, "token": "Clarabelle's Bell", "cost": 30, "total": 180 }, { "level": 4, "token": "Daisy Bow", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 30, "total": 240 }] },
+  { "collection": "Mickey and Friends", "name": "Ludwig's Lab", "base_token": "Horace Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Clara Cluck Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Ludwig Von Drake Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Clarabelle Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Daisy Ears Hat", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
+];
 
 // This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
 // Note that some tokens can be obtained from multiple attractions, and the cost and timing may vary between sources.
@@ -10279,7 +10399,15 @@ const TOKEN_SOURCES = {
   "Gossamer Wings": [{ "attraction": "Pixie Hollow", "collection": "Disney Fairies", "enchant_level": 0, "timing": "Every 8h", "cost": 0 }],
   "Tinker Bell Ears Hat": [{ "attraction": "Pixie Hollow", "collection": "Disney Fairies", "enchant_level": 2, "timing": "Every 8h", "cost": 120 }],
   "Periwinkle's Frost Flower": [{ "attraction": "Pixie Hollow", "collection": "Disney Fairies", "enchant_level": 3, "timing": "Every 8h", "cost": 120 }],
-  "Periwinkle Ears Hat": [{ "attraction": "Pixie Hollow", "collection": "Disney Fairies", "enchant_level": 4, "timing": "Every 8h", "cost": 160 }]
+  "Periwinkle Ears Hat": [{ "attraction": "Pixie Hollow", "collection": "Disney Fairies", "enchant_level": 4, "timing": "Every 8h", "cost": 160 }],
+  "Horace's Collar": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 0, "timing": "Every 6h", "cost": 60 }],
+  "Horace Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 0, "timing": "Every 8h", "cost": 80 }],
+  "Clara Cluck's Hat": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 1, "timing": "Every 6h", "cost": 60 }],
+  "Clara Cluck Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 1, "timing": "Every 8h", "cost": 80 }],
+  "Ludwig Von Drake's Glasses and Pocket Watch": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 2, "timing": "Every 6h", "cost": 60 }],
+  "Ludwig Von Drake Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
+  "Clarabelle's Bell": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 6h", "cost": 60 }],
+  "Clarabelle Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }]
 };
 
 // ============ CHARACTER DATABASE ============
@@ -10541,7 +10669,9 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_251', name: 'Banshee Rider', collection: 'Avatar', emoji: '💙', elixir: false, size: '11x11', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_252', name: 'Pandoran River Adventure', collection: 'Avatar', emoji: '💙', elixir: false, size: '10x9', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
   { id: 'attr_253', name: 'Ladybug Painting Station', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
-  { id: 'attr_254', name: 'Pixie Hollow', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
+  { id: 'attr_254', name: 'Pixie Hollow', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_255', name: 'Ludwig\'s Lab', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '9x9', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_256', name: 'Clarabelle\'s Ice Cream', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '7x9', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 }
 ];
 
 //Consessions
@@ -10810,7 +10940,8 @@ const DMK_CONCESSIONS_DATA = [
   { "collection": "Avatar", "name": "Plush Ilu Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
   { "collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
   { "collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
-  { "collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" }
+  { "collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Mickey & Friends", "name": "DMK 10th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" }
 ];
 
 // Categories: Trophy | Greenery | Monument | Scenery | Amenity
@@ -11133,6 +11264,8 @@ const DMK_DECORATIONS = [
   { name: "Wreck-It Ralph Gold Trophy", category: "Trophy", collection: "Wreck-It Ralph", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Zen Fence", category: "Scenery", collection: "Big Hero 6", size: "6×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Zootopia Gold Trophy", category: "Trophy", collection: "Zootopia", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
+  { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey & Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
+  { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey & Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
 ];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
@@ -11154,6 +11287,10 @@ const DMK_CHARS = [
   ["Pete", "Mickey & Friends", "s", "🐱"],
   ["Chip", "Mickey & Friends", "s", "🐿️"],
   ["Dale", "Mickey & Friends", "s", "🐿️"],
+  ["Horace", "Mickey & Friends", "e", "🐴"],
+  ["Clara Cluck", "Mickey & Friends", "e", "🐴"],
+  ["Ludwig Von Drake", "Mickey & Friends", "e", "🐴"],
+  ["Clarabelle", "Mickey & Friends", "e", "🐴"],
   // DuckTales
   ["Scrooge McDuck", "DuckTales", "s", "🎩"],
   ["Huey", "DuckTales", "s", "🦆"],
@@ -12258,6 +12395,10 @@ const CHAR_URLS = {
   'Zero': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/d/d0/Cp-zero.png/revision/latest?cb=20200727232836',
   'Zeus': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/ba/Cp-zeus.png/revision/latest?cb=20240516135254',
   'Zurg': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/9/95/Cp-zurg.png/revision/latest?cb=20200727232843',
+  'Horace': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/ac/Cp-horace.png/revision/latest?cb=20260316022903',
+  'Clara Cluck': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/19/Cp-clara_cluck.png/revision/latest?cb=20260316022848',
+  'Ludwig Von Drake': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/4/43/Cp-ludwig_von_drake.png/revision/latest?cb=20260316022911',
+  'Carabelle': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/d/d7/Cp-clarabelle.png/revision/latest?cb=20260316022855',
 };
 
 // DMK costumes data
@@ -12322,6 +12463,7 @@ const DMK_COSTUMES = [
   { char: 'Minnie Mouse', collection: 'Mickey and Friends', costume: 'Pirate' },
   { char: 'Minnie Mouse', collection: 'Mickey and Friends', costume: 'Spring' },
   { char: 'Minnie Mouse', collection: 'Mickey and Friends', costume: 'WDW 50th Anniversary' },
+  { char: 'Horace', collection: 'Mickey and Friends', costume: 'Band Uniform' },
   { char: 'Pete', collection: 'Mickey and Friends', costume: 'Classic' },
   { char: 'Pluto', collection: 'Mickey and Friends', costume: 'Lunar' },
   { char: 'Pluto', collection: 'Mickey and Friends', costume: 'Spring' },
