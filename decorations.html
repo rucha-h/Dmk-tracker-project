@@ -46,7 +46,7 @@
       <div class="card" style="padding:12px 16px;margin-bottom:10px;">
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <input type="text" id="dec-search" placeholder="🔍 Search decorations..." autocomplete="off"
-            oninput="renderDecorations()"
+            oninput="renderDecorationsDebounced()"
             style="flex:1;min-width:160px;font-size:13px;">
           <select id="dec-coll-filter" onchange="renderDecorations()"
             style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">

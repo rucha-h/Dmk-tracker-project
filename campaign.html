@@ -52,7 +52,7 @@
 
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
       <input type="text" id="campaign-search" placeholder="🔍 Search quests or characters..." autocomplete="off"
-        oninput="renderQuests()"
+        oninput="renderQuestsDebounced()"
         style="flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
       <button onclick="expandAllArcs()"
         style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕ Expand All</button>

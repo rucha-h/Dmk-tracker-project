@@ -1,7 +1,26 @@
+const MAX_CHAR_LEVEL = 10;
 function getEl(id) {
   const el = document.getElementById(id);
   return el ? el : null;   // returns null if not found
 }
+
+function debounce(fn, delay = 150) {
+  let timer;
+  return function(...args) {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn.apply(this, args), delay);
+  };
+}
+
+const renderCharsDebounced = debounce(renderChars);
+const renderAttractionsDebounced = debounce(renderAttractions);
+const renderQuestsDebounced = debounce(renderQuests);
+const renderConcessionsDebounced = debounce(renderConcessions);
+const renderCostumesDebounced = debounce(renderCostumes);
+const renderDecorationsDebounced = debounce(renderDecorations);
+const renderEnchantmentsTabDebounced = debounce(renderEnchantmentsTab);
+const renderFloatsDebounced = debounce(renderFloats);
+const renderTokensDebounced = debounce(renderTokens);
 
 function showToast(msg, type = 'info') {
   let container = getEl('toast-container');
@@ -46,10 +65,10 @@ const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
 // ============ FILTER STATE ============
-let _tokFilter = 'all';
-let _floatFilter = 'all';
-let _conOwnerFilter = 'all';
-let _encBuiltFilter = 'all';
+let tokFilter = 'all';
+let floatFilter= 'all';
+let conOwnerFilter= 'all';
+let encBuiltFilter= 'all';
 
 // ============ STATE ============
 let state = {
@@ -70,7 +89,7 @@ function buildAllChars() {
     type: TYPE_MAP[typeCode] || 'storyline',
     emoji: emoji || '🎪',
     level: 0,
-    max: 10,
+    max: MAX_CHAR_LEVEL,
     welcomed: false
   }));
 }
@@ -87,7 +106,7 @@ function loadState() {
       (state.characters || []).forEach(c => { savedByName[c.name] = c; });
       state.characters = allChars.map(ch => {
         const savedChar = savedByName[ch.name];
-        if (savedChar) return { ...ch, ...savedChar, name: ch.name, collection: ch.collection, type: ch.type, max: 10, level: parseInt(savedChar.level) || 0 };
+        if (savedChar) return { ...ch, ...savedChar, name: ch.name, collection: ch.collection, type: ch.type, max: MAX_CHAR_LEVEL, level: parseInt(savedChar.level) || 0 };
         return ch;
       });
 
@@ -129,17 +148,21 @@ function loadState() {
   }
 }
 
-function saveState() {
-  const fields = ['magic', 'gems', 'tokens', 'rare', 'dreamsparks'];
-  fields.forEach(f => {
-    const el = getEl('res-' + f);
-    if (el) state.resources[f] = el.value;
-  });
+const persistState = debounce(() => {
   try {
     localStorage.setItem('dmk-tracker-v2', JSON.stringify(state));
   } catch (e) {
     showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
   }
+}, 300);
+
+function saveState() {
+  const fields = ['magic', 'gems', 'tokens', 'rare', 'dreamsparks'];
+  fields.forEach(f => {
+    const el = getEl('res-' + f);
+    if (el) state.resources[f] = Number(el.value) || 0;
+  });
+  persistState();
 }
 
 function collIcon(collection, size = 20) {
@@ -183,8 +206,13 @@ function populateCollFilter() {
 function levelUp(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
-  if (!c.welcomed) { c.welcomed = true; c.level = 1; }
-  else if (parseInt(c.level) < 10) c.level = parseInt(c.level) + 1;
+  if (!c.welcomed) {
+    c.welcomed = true;
+    c.level = 1;
+  } else {
+    const currentLevel = parseInt(c.level);
+    if (currentLevel < MAX_CHAR_LEVEL) c.level = currentLevel + 1;
+  }
   saveState();
   renderChars();
 }
@@ -192,8 +220,11 @@ function levelUp(id) {
 function levelDown(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
-  if (parseInt(c.level) > 0) c.level = parseInt(c.level) - 1;
-  if (parseInt(c.level) === 0) c.welcomed = false;
+  const currentLevel = parseInt(c.level);
+  if (currentLevel > 0) {
+    c.level = currentLevel - 1;
+    if (c.level === 0) c.welcomed = false;
+  }
   saveState();
   renderChars();
 }
@@ -243,8 +274,8 @@ function renderChars() {
   if (charFilter === 'welcomed') chars = chars.filter(c => c.welcomed);
   if (charFilter === 'not-welcomed') chars = chars.filter(c => !c.welcomed);
   if (charFilter === 'wishlist') chars = chars.filter(c => !c.welcomed && state.wishlist?.[c.id]);
-  if (charFilter === 'needs-level') chars = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
-  if (charFilter === 'maxed') chars = chars.filter(c => c.welcomed && parseInt(c.level) >= 10);
+  if (charFilter === 'needs-level') chars = chars.filter(c => c.welcomed && parseInt(c.level) < MAX_CHAR_LEVEL);
+  if (charFilter === 'maxed') chars = chars.filter(c => c.welcomed && parseInt(c.level) >= MAX_CHAR_LEVEL);
   if (charFilter === 'storyline') chars = chars.filter(c => c.type === 'storyline');
   if (charFilter === 'event') chars = chars.filter(c => c.type === 'event');
   if (charFilter === 'premium') chars = chars.filter(c => c.type === 'premium');
@@ -263,9 +294,8 @@ function renderChars() {
 
     grid.innerHTML = chars.map(c => {
       const level = parseInt(c.level) || 0;
-      const MAX = 10;
-      const pct = (level / MAX) * 100;
-      const maxed = c.welcomed && level >= MAX;
+      const pct = (level / MAX_CHAR_LEVEL) * 100;
+      const maxed = c.welcomed && level >= MAX_CHAR_LEVEL;
       const typeLabel = c.type === 'storyline' ? '📖 Storyline' : c.type === 'premium' ? '💎 Premium' : '🎉 Event';
       const collLabel = c.collection || '—';
       let actionBtn = '';
@@ -329,11 +359,18 @@ STORYLINE_ARCS.forEach(arc => {
 // ============ CAMPAIGN STATE HELPERS ============
 let arcFilter = 'all';
 
-function getArcQuestState(arcId, questId) {
-  if (!state.quests) state.quests = [];
+function getArcQuestState(arcId, questId, questMap) {
   const key = arcId + '_' + questId;
+  if (questMap) return questMap.get(key) ?? false;
+  if (!state.quests) state.quests = [];
   const q = state.quests.find(x => x.id === key);
   return q ? q.done : false;
+}
+
+function buildQuestMap() {
+  const map = new Map();
+  (state.quests || []).forEach(q => map.set(q.id, q.done));
+  return map;
 }
 
 function toggleArcQuest(arcId, questId) {
@@ -362,11 +399,12 @@ function collapseAllArcs() {
 }
 
 function renderQuests() {
+  const questMap = buildQuestMap();
   let totalQ = 0, doneQ = 0, totalSide = 0, doneSide = 0;
   STORYLINE_ARCS.forEach(arc => {
     arc.quests.forEach(q => {
-      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id)) doneSide++; }
-      else { totalQ++; if (getArcQuestState(arc.id, q.id)) doneQ++; }
+      if (arc.side) { totalSide++; if (getArcQuestState(arc.id, q.id, questMap)) doneSide++; }
+      else { totalQ++; if (getArcQuestState(arc.id, q.id, questMap)) doneQ++; }
     });
   });
 
@@ -378,7 +416,7 @@ function renderQuests() {
 
   const pillRow = getEl('arc-pill-row');
   const arcStats = STORYLINE_ARCS.map(arc => {
-    const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id)).length;
+    const d = arc.quests.filter(q => getArcQuestState(arc.id, q.id, questMap)).length;
     const t = arc.quests.length;
     const status = d === t ? 'done' : d > 0 ? 'progress' : 'todo';
     return { arc, d, t, status };
@@ -437,14 +475,16 @@ function renderQuests() {
         ? (status === 'done' ? 'rgba(57,232,124,0.10)' : status === 'progress' ? 'rgba(87,210,255,0.10)' : 'rgba(87,210,255,0.04)')
         : (status === 'done' ? 'rgba(57,232,124,0.08)' : status === 'progress' ? 'rgba(245,200,66,0.07)' : 'rgba(255,255,255,0.03)');
 
+      const existingBody = getEl('arc-body-' + arc.id);
       const isOpen = search
-        ? true  // always open when searching
-        : (getEl('arc-body-' + arc.id)?.style.display !== 'none'  // preserve current state if already rendered
-          ?? (status === 'progress' || arc === firstActive?.arc)); // initial open logic on first render
+        ? true                                                        // always open when searching
+        : existingBody
+          ? existingBody.style.display !== 'none'                    // preserve current state if already rendered
+          : (status === 'progress' || arc === firstActive?.arc);     // initial open logic on first render
       const remaining = t - d;
 
       const questsHtml = arc.quests.map(q => {
-        const done = getArcQuestState(arc.id, q.id);
+        const done = getArcQuestState(arc.id, q.id, questMap);
         const matchesSearch = search && (
           q.name.toLowerCase().includes(search) ||
           (q.chars || []).some(c => c.toLowerCase().includes(search))
@@ -465,7 +505,7 @@ function renderQuests() {
             <div class="quest-content" style="flex:1;min-width:0;">
               <div class="quest-name">${esc(q.name)}</div>
               ${charsHtml ? `<div style="margin-top:4px;">${charsHtml}</div>` : ''}
-              ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${q.tip}</div>` : ''}
+              ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${esc(q.tip)}</div>` : ''}
             </div>
           </div>`;
       }).join('');
@@ -480,8 +520,8 @@ function renderQuests() {
               ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
               <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection || '', 18)}${esc(arc.title)}</span>
             </div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${arc.desc}</div>
-            ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${arc.unlock}</div>` : ''}
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${esc(arc.desc)}</div>
+            ${arc.unlock ? `<div style="font-size:10px;color:var(--teal);margin-top:2px;">🔓 Unlocks after: ${esc(arc.unlock)}</div>` : ''}
             ${status !== 'done' && remaining > 0 ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${remaining} quest${remaining > 1 ? 's' : ''} remaining</div>` : ''}
           </div>
           <div style="text-align:right;flex-shrink:0;">
@@ -512,11 +552,11 @@ function toggleArcCollapse(arcId) {
 }
 
 // ============ DECORATIONS ============
-let _decFilter = 'all';
-let _decCatFilter = '';
+let decFilter= 'all';
+let decCatFilter= '';
 
 function setDecFilter(f, btn) {
-  _decFilter = f;
+  decFilter= f;
   ['all', 'owned', 'missing'].forEach(k => {
     const b = getEl('dec-btn-' + k);
     if (b) b.classList.toggle('active', k === f);
@@ -525,7 +565,7 @@ function setDecFilter(f, btn) {
 }
 
 function setDecCatFilter(f, btn) {
-  _decCatFilter = f;
+  decCatFilter= f;
   ['', 'Trophy', 'Greenery', 'Monument', 'Scenery', 'Amenity'].forEach(k => {
     const id = 'dec-cat-' + (k === '' ? 'all' : k.toLowerCase());
     const b = getEl(id);
@@ -564,9 +604,9 @@ function renderDecorations() {
 
   let items = DMK_DECORATIONS.filter(d => {
     const owned = state.decorations_owned?.[d.name];
-    if (_decFilter === 'owned' && !owned) return false;
-    if (_decFilter === 'missing' && owned) return false;
-    if (_decCatFilter && d.category !== _decCatFilter) return false;
+    if (decFilter=== 'owned' && !owned) return false;
+    if (decFilter=== 'missing' && owned) return false;
+    if (decCatFilter&& d.category !== _decCatFilter) return false;
     if (coll && d.collection !== coll) return false;
     if (search &&
       !d.name.toLowerCase().includes(search) &&
@@ -632,10 +672,10 @@ function renderDecorations() {
           <div style="font-weight:700;color:${rCol};">${d.elixir || '—'}</div>
         </div>
       </div>
-      <button onclick="toggleDecOwned('${d.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'")}')"
-        style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
-        background:${owned ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
-        color:${owned ? 'var(--green)' : 'var(--gold)'};">
+      <button class="dec-card-btn" data-name="${esc(d.name)}"
+      style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
+      background:${owned ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
+      color:${owned ? 'var(--green)' : 'var(--gold)'};">
         ${owned ? '✓ Mark as Not Owned' : '＋ Mark as Owned'}
       </button>
     </div>`;
@@ -750,7 +790,7 @@ function updateDashboard() {
   if (missingDecorations.length > 0 && missingDecorations.length <= 20) {
     focusItems.push({ icon: '🎀', text: `<strong>${missingDecorations.length} decoration(s)</strong> almost complete — visit the Decorations tab to finish your collection.` });
   }
-  const needsLevel = chars.filter(c => c.welcomed && parseInt(c.level) < 10);
+  const needsLevel = chars.filter(c => c.welcomed && parseInt(c.level) < MAX_CHAR_LEVEL);
   if (needsLevel.length) focusItems.push({ icon: '⬆️', text: `<strong>${needsLevel.length} character(s)</strong> can be leveled up. Prioritize characters blocking quest progress!` });
   const notWelcomed = chars.filter(c => !c.welcomed);
   const notWelcomedStory = notWelcomed.filter(c => c.type === 'storyline');
@@ -791,11 +831,16 @@ function loadAttractions() {
 function loadCostumes() {
   if (!state.costumes) state.costumes = [];
   const savedOwned = {};
-  state.costumes.forEach(c => { savedOwned[c.id] = c.owned; });
-  state.costumes = DMK_COSTUMES.map((c, i) => ({
-    id: 'cos_' + i,
+  state.costumes.forEach(c => {
+    // migrate legacy index-based IDs to stable name-based IDs
+    const stableId = 'cos_' + c.char + '|' + c.costume;
+    savedOwned[stableId] = c.owned;
+    if (c.owned && /^cos_\d+$/.test(c.id)) savedOwned[stableId] = c.owned;
+  });
+  state.costumes = DMK_COSTUMES.map(c => ({
+    id: 'cos_' + c.char + '|' + c.costume,
     char: c.char, collection: c.collection, costume: c.costume,
-    owned: savedOwned['cos_' + i] || false
+    owned: savedOwned['cos_' + c.char + '|' + c.costume] || false
   }));
 }
 
@@ -1089,7 +1134,7 @@ function importState() {
 
 
 function filterConOwned(f) {
-  _conOwnerFilter = f;
+  conOwnerFilter= f;
   ['all', 'owned', 'missing'].forEach(k => {
     const btn = getEl('con-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1121,8 +1166,8 @@ function renderConcessions() {
     if (cat && c.category !== cat) return false;
     if (coll && c.collection !== coll) return false;
     const owned = state.concessions_owned && state.concessions_owned[c.name];
-    if (_conOwnerFilter === 'owned' && !owned) return false;
-    if (_conOwnerFilter === 'missing' && owned) return false;
+    if (conOwnerFilter=== 'owned' && !owned) return false;
+    if (conOwnerFilter=== 'missing' && owned) return false;
     return true;
   });
 
@@ -1193,10 +1238,10 @@ function toggleConcession(name) {
   renderConcessions();
 }
 
-// Delegated click handler — works for any name including apostrophes
+// Delegated click handler for decoration toggle buttons
 document.addEventListener('click', e => {
-  const card = e.target.closest('.con-card');
-  if (card) toggleConcession(card.dataset.name);
+  const btn = e.target.closest('.dec-card-btn');
+  if (btn) toggleDecOwned(btn.dataset.name);
 });
 
 
@@ -1213,7 +1258,7 @@ function setEnchantLevel(id, level) {
 }
 
 function filterEncBuilt(f) {
-  _encBuiltFilter = f;
+  encBuiltFilter= f;
   ['all', 'built', 'notbuilt'].forEach(k => {
     const btn = getEl('enc-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1238,8 +1283,8 @@ function renderEnchantmentsTab() {
 
   let items = DMK_ENCHANTMENTS.filter(e => {
     const isBuilt = builtNames.includes(e.name);
-    if (_encBuiltFilter === 'built' && !isBuilt) return false;
-    if (_encBuiltFilter === 'notbuilt' && isBuilt) return false;
+    if (encBuiltFilter=== 'built' && !isBuilt) return false;
+    if (encBuiltFilter=== 'notbuilt' && isBuilt) return false;
     if (coll && e.collection !== coll) return false;
     if (search) {
       const tokenNames = e.levels.map(l => (l.token || '').toLowerCase()).join(' ');
@@ -1252,7 +1297,8 @@ function renderEnchantmentsTab() {
   else if (sort === 'timing') items.sort((a, b) => a.timing.localeCompare(b.timing) || a.name.localeCompare(b.name));
   else items.sort((a, b) => a.name.localeCompare(b.name));
 
-  getEl('enc-count').textContent = items.length + ' attractions';
+  const encCount = getEl('enc-count');
+  if (encCount) encCount.textContent = items.length + ' attractions';
   const lvlColors = ['', '#9ca3af', '#34d399', '#60a5fa', '#c084fc', '#fbbf24'];
   const timingColor = t => (!t ? 'var(--muted)' : (t.includes('60m') || t.includes('1h') || t.includes('2h')) ? '#34d399' : (t.includes('4h') || t.includes('6h')) ? '#60a5fa' : 'var(--muted)');
 
@@ -1355,7 +1401,7 @@ function renderEnchantmentsTab() {
 
 
 function filterTokens(f) {
-  _tokFilter = f;
+  tokFilter = f;
   ['all', 'ready', 'missing', 'maxed', 'wishlist'].forEach(k => {
     const btn = getEl('tok-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1379,7 +1425,7 @@ function renderTokens() {
 
   // Welcomed characters always shown; wishlisted unwelcomed chars also included
   let chars;
-  if (_tokFilter === 'wishlist') {
+  if (tokFilter === 'wishlist') {
     chars = state.characters.filter(c => !c.welcomed && state.wishlist?.[c.id]);
   } else {
     chars = state.characters.filter(c => (c.welcomed && c.level < c.max) || state.wishlist?.[c.id]);
@@ -1412,9 +1458,9 @@ function renderTokens() {
 
   // Filter
   let filtered = withStatus;
-  if (_tokFilter === 'ready') filtered = withStatus.filter(c => c.ready);
-  if (_tokFilter === 'missing') filtered = withStatus.filter(c => !c.ready && !c.maxed);
-  if (_tokFilter === 'maxed') filtered = withStatus.filter(c => c.maxed);
+  if (tokFilter === 'ready') filtered = withStatus.filter(c => c.ready);
+  if (tokFilter === 'missing') filtered = withStatus.filter(c => !c.ready && !c.maxed);
+  if (tokFilter === 'maxed') filtered = withStatus.filter(c => c.maxed);
 
   // Sort
   if (sort === 'ready') filtered.sort((a, b) => (b.ready - a.ready) || a.name.localeCompare(b.name));
@@ -1646,7 +1692,7 @@ document.addEventListener('click', e => {
 
 
 function filterFloats(f) {
-  _floatFilter = f;
+  floatFilter= f;
   ['all', 'owned', 'active', 'inactive', 'unowned'].forEach(k => {
     const btn = getEl('float-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1670,10 +1716,10 @@ function renderFloats() {
     f.name.toLowerCase().includes(search) || f.collection.toLowerCase().includes(search)
   );
 
-  if (_floatFilter === 'owned') floats = floats.filter(f => f.owned);
-  if (_floatFilter === 'active') floats = floats.filter(f => f.owned && f.active);
-  if (_floatFilter === 'inactive') floats = floats.filter(f => f.owned && !f.active);
-  if (_floatFilter === 'unowned') floats = floats.filter(f => !f.owned);
+  if (floatFilter=== 'owned') floats = floats.filter(f => f.owned);
+  if (floatFilter=== 'active') floats = floats.filter(f => f.owned && f.active);
+  if (floatFilter=== 'inactive') floats = floats.filter(f => f.owned && !f.active);
+  if (floatFilter=== 'unowned') floats = floats.filter(f => !f.owned);
 
   if (sort === 'magic') floats.sort((a, b) => parseInt(b.magic_reward.replace(/,/g, '')) - parseInt(a.magic_reward.replace(/,/g, '')) || a.name.localeCompare(b.name));
   else if (sort === 'cost') floats.sort((a, b) => parseInt(a.cost.replace(/,/g, '')) - parseInt(b.cost.replace(/,/g, '')) || a.name.localeCompare(b.name));
@@ -1684,7 +1730,8 @@ function renderFloats() {
     return aScore - bScore || a.name.localeCompare(b.name);
   });
 
-  getEl('float-count').textContent = floats.length + ' floats';
+  const floatCount = getEl('float-count');
+  if (floatCount) floatCount.textContent = floats.length + ' floats';
 
   list.innerHTML = floats.map(f => {
     const floatToks = DMK_FLOAT_TOKENS[f.name] || [];

@@ -34,7 +34,7 @@
        <div class="card" style="margin-bottom:12px;">
     <div class="card-title">👗 Costumes</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
-      <input id="costume-search" type="text" placeholder="🔍 Search costume or character..." oninput="renderCostumes()"
+      <input id="costume-search" type="text" placeholder="🔍 Search costume or character..." oninput="renderCostumesDebounced()"
         style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:13px;">
       <select id="costume-coll-filter" onchange="renderCostumes()"
         style="padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:12px;">
