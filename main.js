@@ -141,13 +141,17 @@ function loadState() {
       (state.characters || []).forEach(c => { savedByName[c.name] = c; });
       state.characters = allChars.map(ch => {
         const savedChar = savedByName[ch.name];
-        if (savedChar) return { ...ch, ...savedChar, name: ch.name, collection: ch.collection, type: ch.type, max: MAX_CHAR_LEVEL, level: parseInt(savedChar.level) || 0 };
+        if (savedChar) {
+          const { id: _, ...savedWithoutId } = savedChar; // Exclude old id
+          return { ...ch, ...savedWithoutId, level: parseInt(savedChar.level) || 0 };
+        }
         return ch;
       });
 
       // One-time migration: rekey index-based char IDs to name-based IDs
       const needsCharMigration = state.characters.some(c => /^char_\d+$/.test(c.id));
-      if (needsCharMigration) {
+      const needsWishlistMigration = state.wishlist && Object.keys(state.wishlist).some(id => /^char_\d+$/.test(id));
+      if (needsCharMigration || needsWishlistMigration) {
         DMK_CHARS.forEach(([name], i) => {
           const oldId = 'char_' + i;
           const newId = 'char_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -180,6 +184,15 @@ function loadState() {
     state.characters = allChars;
     state.quests = [];
     state.decorations_owned = {};
+  }
+  // Clean up wishlist to only include characters that currently exist
+  if (state.wishlist) {
+    const existingIds = new Set(state.characters.map(c => c.id));
+    Object.keys(state.wishlist).forEach(id => {
+      if (!existingIds.has(id)) {
+        delete state.wishlist[id];
+      }
+    });
   }
 }
 
