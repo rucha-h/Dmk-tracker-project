@@ -12,6 +12,41 @@ function debounce(fn, delay = 100) {
   };
 }
 
+function initSearchClear(inputId, onClear) {
+  const input = getEl(inputId);
+  if (!input) return;
+
+  // Wrap input in a div if not already wrapped
+  if (!input.parentElement.classList.contains('search-wrap')) {
+    const wrap = document.createElement('div');
+    wrap.className = 'search-wrap';
+    // Preserve flex/min-width styles from the input
+    wrap.style.flex = input.style.flex || '1';
+    wrap.style.minWidth = input.style.minWidth || '160px';
+    input.style.flex = '';
+    input.style.minWidth = '';
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+  }
+
+  const btn = document.createElement('button');
+  btn.className = 'search-clear';
+  btn.textContent = '✕';
+  btn.title = 'Clear search';
+  input.parentElement.appendChild(btn);
+
+  input.addEventListener('input', () => {
+    btn.classList.toggle('visible', input.value.length > 0);
+  });
+
+  btn.addEventListener('click', () => {
+    input.value = '';
+    btn.classList.remove('visible');
+    input.focus();
+    onClear();
+  });
+}
+
 const renderCharsDebounced = debounce(renderChars);
 const renderAttractionsDebounced = debounce(renderAttractions);
 const renderQuestsDebounced = debounce(renderQuests);
@@ -157,7 +192,7 @@ const persistState = debounce(() => {
 }, 300);
 
 function saveState() {
-  const fields = ['magic', 'gems', 'tokens', 'rare', 'dreamsparks'];
+  const fields = ['magic', 'gems', 'dreamsparks'];
   fields.forEach(f => {
     const el = getEl('res-' + f);
     if (el) state.resources[f] = Number(el.value) || 0;
@@ -406,7 +441,7 @@ function toggleArcQuest(arcId, questId) {
   const arcPct = t > 0 ? Math.round(d / t * 100) : 0;
   const remaining = t - d;
   const statusColor = newStatus === 'done' ? 'var(--green)' : newStatus === 'progress' ? 'var(--gold)' : 'var(--muted)';
-  const statusIcon  = newStatus === 'done' ? '✓' : newStatus === 'progress' ? '◑' : '○';
+  const statusIcon = newStatus === 'done' ? '✓' : newStatus === 'progress' ? '◑' : '○';
 
   // 1. Toggle the quest item class and check mark
   const questEl = document.querySelector(`.quest-item[data-arc="${arcId}"][data-quest="${questId}"]`);
@@ -465,7 +500,7 @@ function renderQuestsHeader() {
     const aT = actArcs.reduce((s, a) => s + a.quests.length, 0);
     const aPct = aT > 0 ? Math.round(aD / aT * 100) : 0;
     const col = aPct === 100 ? 'var(--green)' : aPct > 0 ? 'var(--gold)' : 'var(--muted)';
-    const bg  = aPct === 100 ? 'rgba(57,232,124,0.12)' : aPct > 0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
+    const bg = aPct === 100 ? 'rgba(57,232,124,0.12)' : aPct > 0 ? 'rgba(245,200,66,0.1)' : 'rgba(255,255,255,0.05)';
     const landNames = { 1: 'Toontown', 2: 'Tomorrowland', 3: 'Fantasyland', 4: 'Frontierland', 5: 'Adventureland' };
     return `<span style="font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;background:${bg};color:${col}">Act ${actNum} ${landNames[actNum] || ''}: ${aD}/${aT}</span>`;
   }).join('');
@@ -836,10 +871,6 @@ function updateDashboard() {
   if (res_magic) res_magic.value = state.resources.magic || 0;
   const res_gems = getEl('res-gems');
   if (res_gems) res_gems.value = state.resources.gems || 0;
-  const res_tokens = getEl('res-tokens');
-  if (res_tokens) res_tokens.value = state.resources.tokens || 0;
-  const res_rare = getEl('res-rare');
-  if (res_rare) res_rare.value = state.resources.rare || 0;
   const res_dreamsparks = getEl('res-dreamsparks');
   if (res_dreamsparks) res_dreamsparks.value = state.resources.dreamsparks || 0;
 
@@ -897,7 +928,7 @@ function loadCostumes() {
     const stableId = 'cos_' + c.char + '|' + c.costume;
     savedOwned[stableId] = c.owned;
   });
-  state.costumes = DMK_COSTUMES.map(c => ({
+  state.costumes = DMK_COSTUMES.filter(c => c && c.char && c.costume).map(c => ({
     id: 'cos_' + c.char + '|' + c.costume,
     char: c.char, collection: c.collection, costume: c.costume,
     owned: savedOwned['cos_' + c.char + '|' + c.costume] || false
@@ -1140,15 +1171,42 @@ if (!state.concessions_owned) state.concessions_owned = {};
 
 const _page = document.body.dataset.page;
 if (_page === 'dashboard') { updateDashboard(); }
-if (_page === 'characters') { populateCollFilter(); renderChars(); }
-if (_page === 'attractions') { renderAttractions(); }
-if (_page === 'costumes') { renderCostumes(); }
-if (_page === 'tokens') { renderTokens(); }
-if (_page === 'floats') { renderFloats(); }
-if (_page === 'concessions') { initConcessionCollFilter(); renderConcessions(); }
-if (_page === 'enchantments') { initEncCollFilter(); renderEnchantmentsTab(); }
-if (_page === 'campaign') { renderQuests(); }
-if (_page === 'decorations') { initDecCollFilter(); renderDecorations(); }
+if (_page === 'characters') {
+  populateCollFilter(); renderChars();
+  initSearchClear('char-search-input', renderChars);
+}
+if (_page === 'attractions') {
+  renderAttractions();
+  initSearchClear('attr-search-input', renderAttractions);
+}
+if (_page === 'costumes') {
+  renderCostumes();
+  initSearchClear('costume-search', renderCostumes);
+}
+if (_page === 'tokens') {
+  renderTokens();
+  initSearchClear('tok-search', renderTokens);
+}
+if (_page === 'floats') {
+  renderFloats();
+  initSearchClear('float-search', renderFloats);
+}
+if (_page === 'concessions') {
+  initConcessionCollFilter(); renderConcessions();
+  initSearchClear('con-search', renderConcessions);
+}
+if (_page === 'enchantments') {
+  initEncCollFilter(); renderEnchantmentsTab();
+  initSearchClear('enc-search', renderEnchantmentsTab);
+}
+if (_page === 'campaign') {
+  renderQuests();
+  initSearchClear('campaign-search', renderQuests);
+}
+if (_page === 'decorations') {
+  initDecCollFilter(); renderDecorations();
+  initSearchClear('dec-search', renderDecorations);
+}
 
 
 // ============ EXPORT / IMPORT STATE ============
@@ -1159,7 +1217,7 @@ function exportState() {
   a.href = URL.createObjectURL(blob);
   a.download = 'dmk-backup-' + new Date().toISOString().slice(0, 10) + '.json';
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => URL.revokeObjectURL(a.href), 100);
   showToast('✅ Backup exported successfully!');
 }
 
@@ -1244,7 +1302,7 @@ function renderConcessions() {
     const owned = state.concessions_owned && state.concessions_owned[c.name];
     const mphNum = parseFloat(c.magic_per_hour || 0);
     const mphColor = mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--accent)' : 'var(--muted)';
-    return `<div class="card con-card" data-name="${c.name.replace(/"/g, '&quot;')}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
+    return `<div class="card con-card" data-name="${esc(c.name)}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:600;line-height:1.3;">${owned ? '✅' : '○'} ${c.name}</div>
@@ -1527,7 +1585,8 @@ function renderTokens() {
   else if (sort === 'progress') filtered.sort((a, b) => (b.pct - a.pct) || a.name.localeCompare(b.name));
   else filtered.sort((a, b) => a.name.localeCompare(b.name));
 
-  getEl('tok-count').textContent = filtered.length + ' characters';
+  const tokCount = getEl('tok-count');
+  if (tokCount) tokCount.textContent = filtered.length + ' characters';
 
   // Summary: aggregate tokens needed across all non-maxed welcomed chars
   const summaryEl = getEl('tok-summary');

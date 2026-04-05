@@ -10,6 +10,7 @@
     --bg: #07061a;
     --card: #12103a;
     --card2: #1a1850;
+    --input: #12103a;
     --border: rgba(245, 200, 66, 0.2);
     --text: #e8e0ff;
     --muted: #9b94c9;
@@ -1016,27 +1017,85 @@
   /* ============ UTILITY CLASSES ============ */
 
   /* Typography */
-  .text-xs   { font-size: 10px; }
-  .text-sm   { font-size: 11px; }
-  .text-base { font-size: 13px; }
-  .text-muted  { color: var(--muted); }
-  .text-gold   { color: var(--gold); }
-  .text-green  { color: var(--green); }
-  .text-red    { color: var(--red); }
-  .text-teal   { color: var(--teal); }
-  .fw-700 { font-weight: 700; }
-  .fw-800 { font-weight: 800; }
+  .text-xs {
+    font-size: 10px;
+  }
+
+  .text-sm {
+    font-size: 11px;
+  }
+
+  .text-base {
+    font-size: 13px;
+  }
+
+  .text-muted {
+    color: var(--muted);
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-green {
+    color: var(--green);
+  }
+
+  .text-red {
+    color: var(--red);
+  }
+
+  .text-teal {
+    color: var(--teal);
+  }
+
+  .fw-700 {
+    font-weight: 700;
+  }
+
+  .fw-800 {
+    font-weight: 800;
+  }
 
   /* Layout */
-  .flex-row   { display: flex; align-items: center; }
-  .flex-1     { flex: 1; min-width: 0; }
-  .flex-end   { text-align: right; flex-shrink: 0; }
-  .mt-2  { margin-top: 2px; }
-  .mt-4  { margin-top: 4px; }
-  .mt-6  { margin-top: 6px; }
-  .mt-8  { margin-top: 8px; }
-  .mb-8  { margin-bottom: 8px; }
-  .mb-16 { margin-bottom: 16px; }
+  .flex-row {
+    display: flex;
+    align-items: center;
+  }
+
+  .flex-1 {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .flex-end {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .mt-2 {
+    margin-top: 2px;
+  }
+
+  .mt-4 {
+    margin-top: 4px;
+  }
+
+  .mt-6 {
+    margin-top: 6px;
+  }
+
+  .mt-8 {
+    margin-top: 8px;
+  }
+
+  .mb-8 {
+    margin-bottom: 8px;
+  }
+
+  .mb-16 {
+    margin-bottom: 16px;
+  }
 
   /* Badges — replaces the repeated font-size:10px;font-weight:800;padding:1px 7px;border-radius:6px pattern */
   .badge {
@@ -1048,11 +1107,31 @@
     background: rgba(255, 255, 255, 0.07);
     color: var(--muted);
   }
-  .badge-gold   { background: rgba(245, 200, 66, 0.18);  color: var(--gold); }
-  .badge-green  { background: rgba(57, 232, 124, 0.18);  color: var(--green); }
-  .badge-teal   { background: rgba(87, 210, 255, 0.18);  color: var(--teal); }
-  .badge-red    { background: rgba(255, 92, 122, 0.18);  color: var(--red); }
-  .badge-muted  { background: rgba(255, 255, 255, 0.07); color: var(--muted); }
+
+  .badge-gold {
+    background: rgba(245, 200, 66, 0.18);
+    color: var(--gold);
+  }
+
+  .badge-green {
+    background: rgba(57, 232, 124, 0.18);
+    color: var(--green);
+  }
+
+  .badge-teal {
+    background: rgba(87, 210, 255, 0.18);
+    color: var(--teal);
+  }
+
+  .badge-red {
+    background: rgba(255, 92, 122, 0.18);
+    color: var(--red);
+  }
+
+  .badge-muted {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--muted);
+  }
 
   /* Stat cell — replaces background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center */
   .stat-cell {
@@ -1062,8 +1141,14 @@
     text-align: center;
     font-size: 11px;
   }
-  .stat-cell .stat-cell-label { color: var(--muted); }
-  .stat-cell .stat-cell-value { font-weight: 700; }
+
+  .stat-cell .stat-cell-label {
+    color: var(--muted);
+  }
+
+  .stat-cell .stat-cell-value {
+    font-weight: 700;
+  }
 
   /* Collection section header — used in costumes, concessions, decorations */
   .coll-header {
@@ -1080,6 +1165,7 @@
     border-radius: 8px;
     margin-bottom: 8px;
   }
+
   .coll-header-count {
     color: var(--muted);
     font-size: 10px;
@@ -1100,9 +1186,20 @@
     font-family: 'Nunito', sans-serif;
     transition: opacity 0.15s;
   }
-  .card-action-btn:hover { opacity: 0.85; }
-  .card-action-btn.owned  { background: rgba(57, 232, 124, 0.15); color: var(--green); }
-  .card-action-btn.unowned { background: rgba(245, 200, 66, 0.12); color: var(--gold); }
+
+  .card-action-btn:hover {
+    opacity: 0.85;
+  }
+
+  .card-action-btn.owned {
+    background: rgba(57, 232, 124, 0.15);
+    color: var(--green);
+  }
+
+  .card-action-btn.unowned {
+    background: rgba(245, 200, 66, 0.12);
+    color: var(--gold);
+  }
 
   /* Mini progress bar — used inside cards (4px tall variant) */
   .mini-prog-bar {
@@ -1111,6 +1208,7 @@
     border-radius: 10px;
     overflow: hidden;
   }
+
   .mini-prog-fill {
     height: 100%;
     border-radius: 10px;
@@ -1119,7 +1217,11 @@
   }
 
   /* Section divider */
-  .divider { border-top: 1px solid var(--border); padding-top: 8px; margin-top: 8px; }
+  .divider {
+    border-top: 1px solid var(--border);
+    padding-top: 8px;
+    margin-top: 8px;
+  }
 
   /* ============ END UTILITY CLASSES ============ */
 
@@ -1133,4 +1235,34 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding-right: 28px;
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 16px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    display: none;
+  }
+
+  .search-clear.visible {
+    display: block;
   }
