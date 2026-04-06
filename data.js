@@ -1330,16 +1330,16 @@ const DMK_CHAR_TOKENS = {
     ]
   },
   "Horace": {
-    "tokens": ["Mickey Balloon", "Horace's Collar", "Horace Ears Hat"], 
+    "tokens": ["Mickey Balloon", "Horace's Collar", "Horace Ears Hat"],
     "levels": [
       { "level": 2, "quantities": [5, 5, 5] },
       { "level": 3, "quantities": [10, 10, 10] },
-      { "level": 4, "quantities": [20, 20, 20] },   
+      { "level": 4, "quantities": [20, 20, 20] },
       { "level": 5, "quantities": [40, 40, 40] },
       { "level": 6, "quantities": [50, 50, 50] },
       { "level": 7, "quantities": [60, 60, 60] },
       { "level": 8, "quantities": [70, 70, 70] },
-      { "level": 9, "quantities": [80, 80, 80] },  
+      { "level": 9, "quantities": [80, 80, 80] },
       { "level": 10, "quantities": [100, 100, 100] }
     ]
   },
@@ -1355,7 +1355,7 @@ const DMK_CHAR_TOKENS = {
       { "level": 8, "quantities": [70, 35, 35] },
       { "level": 9, "quantities": [80, 50, 50] },
       { "level": 10, "quantities": [100, 65, 65] }
-    ] 
+    ]
   },
   "Ludwig Von Drake": {
     "tokens": ["Mickey Balloon", "Ludwig Von Drake's Glasses and Pocket Watch", "Ludwig Von Drake Ears Hat"],
@@ -1369,7 +1369,7 @@ const DMK_CHAR_TOKENS = {
       { "level": 8, "quantities": [70, 35, 35] },
       { "level": 9, "quantities": [80, 50, 50] },
       { "level": 10, "quantities": [100, 65, 65] }
-    ] 
+    ]
   },
   "Clarabelle": {
     "tokens": ["Mickey Balloon", "Clarabelle's Bell", "Clarabelle Ears Hat"],
@@ -1383,7 +1383,7 @@ const DMK_CHAR_TOKENS = {
       { "level": 8, "quantities": [70, 35, 35] },
       { "level": 9, "quantities": [80, 50, 50] },
       { "level": 10, "quantities": [100, 65, 65] }
-    ] 
+    ]
   }
 };
 
@@ -9309,28 +9309,28 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Meeko", "activity": "Nap in Safety", "char_level": "Level 4", "time": "4h" },
     { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 0", "time": "6h" }
   ],
-   "Horace Ears Hat": [
+  "Horace Ears Hat": [
     { "char": "Chicha", "activity": "Not a Place for Kids", "char_level": "Level 3", "time": "4h" },
     { "char": "Ludwig Von Drake", "activity": "Study Ice Cream Machine", "char_level": "Level 2", "time": "4h" },
     { "char": "Pacha", "activity": "Happy Happy Birthday", "char_level": "Level 3", "time": "6h" },
     { "char": "Tramp", "activity": "Log Puller Maintenance", "char_level": "Level 3", "time": "8h" },
     { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 0", "time": "8h" }
   ],
-   "Clara Cluck's Hat": [
+  "Clara Cluck's Hat": [
     { "char": "Horace", "activity": "Help Whip Up Ice Cream", "char_level": "Level 4", "time": "4h" },
     { "char": "Pocahontas", "activity": "A Different Perspective", "char_level": "Level 6", "time": "4h" },
     { "char": "Remy", "activity": "Figment of Imagination", "char_level": "Level 4", "time": "4h" },
     { "char": "Ludwig Von Drake", "activity": "Prep for Invention Demo", "char_level": "Level 3", "time": "6h" },
     { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 1", "time": "6h" }
   ],
-   "Clara Cluck Ears Hat": [
+  "Clara Cluck Ears Hat": [
     { "char": "Clarabelle", "activity": "Spruce Up Your Café", "char_level": "Level 3", "time": "4h" },
     { "char": "Kuzco", "activity": "Deep-Fried Doorstop", "char_level": "Level 2", "time": "6h" },
     { "char": "Linguini", "activity": "Familiarizing with Vegetables", "char_level": "Level 6", "time": "6h" },
     { "char": "Ludwig Von Drake", "activity": "Pitch Mechanical Scooper Idea", "char_level": "Level 4", "time": "6h" },
     { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 1", "time": "8h" }
   ],
- "Ludwig Von Drake's Glasses and Pocket Watch": [
+  "Ludwig Von Drake's Glasses and Pocket Watch": [
     { "char": "Emile", "activity": "Taste the Cheese", "char_level": "Level 6", "time": "4h" },
     { "char": "Clarabelle", "activity": "Marvel at Science Wonders", "char_level": "Level 4", "time": "6h" },
     { "char": "Horace", "activity": "Fine-Tune the Mechanism", "char_level": "Level 5", "time": "6h" },
@@ -9338,7 +9338,7 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Remy + Linguini", "activity": "Taste the Music", "char_level": "Level 8", "time": "6h" },
     { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 2", "time": "6h" }
   ],
-   "Ludwig Von Drake Ears Hat": [
+  "Ludwig Von Drake Ears Hat": [
     { "char": "Clara Cluck", "activity": "Perform at the Lab Opening", "char_level": "Level 3", "time": "4h" },
     { "char": "Baloo + Mowgli", "activity": "Keeping Out of Trouble", "char_level": "Level 5", "time": "6h" },
     { "char": "Yzma + Kronk", "activity": "What Are You Doing?", "char_level": "Level 4", "time": "6h" },
@@ -9346,7 +9346,7 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Mr. Stork", "activity": "Leave Lions Alone", "char_level": "Level 6", "time": "8h" },
     { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 2", "time": "8h" }
   ],
-   "Clarabelle's Bell": [
+  "Clarabelle's Bell": [
     { "char": "Horace", "activity": "Borrow Ideas for Horaceland", "char_level": "Level 5", "time": "6h" },
     { "char": "Ludwig Von Drake", "activity": "List Tech Upgrades for Parlor", "char_level": "Level 6", "time": "6h" },
     { "char": "Bernard", "activity": "Represent the U.S.A.", "char_level": "Level 6", "time": "8h" },
@@ -9354,7 +9354,7 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Joe + Lady", "activity": "Dogs Do Walk", "char_level": "Level 9", "time": "12h" },
     { "char": "Clarabelle's Ice Cream", "activity": "Mixing Bright Toppings", "char_level": "Level 3", "time": "6h" }
   ],
-   "Clarabelle Ears Hat": [
+  "Clarabelle Ears Hat": [
     { "char": "Horace + Clara Cluck", "activity": "Craft a Frozen Masterpiece", "char_level": "Level 7", "time": "6h" },
     { "char": "Bagheera", "activity": "Avoid Hypnosis", "char_level": "Level 5", "time": "8h" },
     { "char": "Colette", "activity": "Clean Sleeves", "char_level": "Level 9", "time": "8h" },
@@ -11753,7 +11753,6 @@ const DMK_CHARS = [
   // Cars
   ["Lightning McQueen", "Cars", "e", "🏎️"],
   ["Tow Mater", "Cars", "e", "🚗"],
-  ["Sally", "Cars", "e", "🏎️"],
   ["Chick Hicks", "Cars", "e", "🏎️"],
   ["Flo", "Cars", "e", "🏎️"],
   ["Guido", "Cars", "e", "🏎️"],
@@ -12398,7 +12397,16 @@ const CHAR_URLS = {
   'Horace': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/ac/Cp-horace.png/revision/latest?cb=20260316022903',
   'Clara Cluck': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/19/Cp-clara_cluck.png/revision/latest?cb=20260316022848',
   'Ludwig Von Drake': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/4/43/Cp-ludwig_von_drake.png/revision/latest?cb=20260316022911',
-  'Carabelle': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/d/d7/Cp-clarabelle.png/revision/latest?cb=20260316022855',
+  'Clarabelle': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/d/d7/Cp-clarabelle.png/revision/latest?cb=20260316022855',
+  'WALL•E': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/c/cc/Cp-wall•e.png/revision/latest?cb=20200727232731',
+  'BURN•E': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/c/c0/Cp-burn•e.png/revision/latest?cb=20240710180700',
+  'Reuben': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/05/Cp-reuben.png/revision/latest?cb=20250517192252',
+  'The Queen': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/e/eb/Cp-the_queen.png/revision/latest?cb=20200727232532',
+  'Prince Charming (Snow White)': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/5/52/Cp-prince_charming_snow_white.png/revision/latest?cb=20200727231740',
+  'Pepé': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/1e/Cp-pepé.png/revision/latest?cb=20241107125109',
+  'René Belloq': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/b3/Cp-rené_belloq.png/revision/latest?cb=20230809090743',
+  'Tow Mater': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/d/d3/Cp-tow_mater.png/revision/latest?cb=20250612204510',
+  'Penny (Rescuers)': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/c/cb/Cp-penny_rescuers.png/revision/latest?cb=20220713135749'
 };
 
 // DMK costumes data
