@@ -786,6 +786,11 @@
     color: var(--gold);
   }
 
+  .rarity-unknown {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--muted);
+  }
+
   /* Scrollable containers */
   .scroll-y {
     max-height: 520px;

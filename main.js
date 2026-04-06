@@ -1693,10 +1693,11 @@ function renderTokens() {
           <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
         </div>`
       ).join('');
+      const rarity = (typeof TOKEN_RARITY !== 'undefined' && TOKEN_RARITY[token]) || 'unknown';
       return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'}" id="tokrow_${expandId}">
         <div style="display:flex;align-items:center;gap:8px;">
           <div style="flex:1;min-width:0;">
-            <div style="font-size:12px;font-weight:700;">${token} Token</div>
+            <div style="font-size:12px;font-weight:700;">${token} Token <span class="rarity rarity-${rarity}">${rarity}</span></div>
           </div>
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
             <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="-1"
