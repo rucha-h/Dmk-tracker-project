@@ -482,6 +482,17 @@ function toggleArcQuest(arcId, questId) {
       remEl.textContent = remaining > 0 ? `${remaining} quest${remaining > 1 ? 's' : ''} remaining` : '';
       remEl.style.display = (newStatus !== 'done' && remaining > 0) ? '' : 'none';
     }
+
+    // Update Complete All button visibility and text
+    const completeBtn = arcCard.querySelector('button[onclick*="completeAllArcQuests"]');
+    const uncompleteBtn = arcCard.querySelector('button[onclick*="uncompleteAllArcQuests"]');
+    if (newStatus !== 'done') {
+      if (completeBtn) completeBtn.style.display = '';
+      if (uncompleteBtn) uncompleteBtn.style.display = 'none';
+    } else {
+      if (completeBtn) completeBtn.style.display = 'none';
+      if (uncompleteBtn) uncompleteBtn.style.display = '';
+    }
   }
 
   // 3. Update top-level progress bar and act pills only
@@ -528,6 +539,44 @@ function filterArcs(f, btn) {
 
 function expandAllArcs() {
   document.querySelectorAll('[id^="arc-body-"]').forEach(el => el.style.display = '');
+}
+
+function completeAllArcQuests(arcId) {
+  if (!state.quests) state.quests = [];
+  const arc = STORYLINE_ARCS.find(a => a.id === arcId);
+  if (!arc) return;
+
+  // Mark all quests in this arc as done
+  arc.quests.forEach(q => {
+    const key = arcId + '_' + q.id;
+    const existing = state.quests.find(x => x.id === key);
+    if (existing) {
+      existing.done = true;
+    } else {
+      state.quests.push({ id: key, done: true });
+    }
+  });
+
+  saveState();
+  renderQuests(); // Full re-render to update everything
+}
+
+function uncompleteAllArcQuests(arcId) {
+  if (!state.quests) state.quests = [];
+  const arc = STORYLINE_ARCS.find(a => a.id === arcId);
+  if (!arc) return;
+
+  // Mark all quests in this arc as not done
+  arc.quests.forEach(q => {
+    const key = arcId + '_' + q.id;
+    const existing = state.quests.find(x => x.id === key);
+    if (existing) {
+      existing.done = false;
+    }
+  });
+
+  saveState();
+  renderQuests(); // Full re-render to update everything
 }
 
 function collapseAllArcs() {
@@ -636,6 +685,7 @@ function renderQuests() {
           <div style="text-align:right;flex-shrink:0;">
             <div data-arc-count style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
             <div data-arc-pct style="font-size:10px;color:var(--muted);">${arcPct}%</div>
+            ${status !== 'done' ? `<button onclick="event.stopPropagation(); completeAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Complete All</button>` : `<button onclick="event.stopPropagation(); uncompleteAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Uncomplete All</button>`}
           </div>
         </div>
         <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
