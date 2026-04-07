@@ -1424,9 +1424,18 @@ function renderEnchantmentsTab() {
     return true;
   });
 
-  if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
-  else if (sort === 'timing') items.sort((a, b) => a.timing.localeCompare(b.timing) || a.name.localeCompare(b.name));
-  else items.sort((a, b) => a.name.localeCompare(b.name));
+  if (sort === 'collection') items.sort((a, b) => {
+    const builtDiff = (builtNames.includes(b.name) ? 1 : 0) - (builtNames.includes(a.name) ? 1 : 0);
+    return builtDiff || a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name);
+  });
+  else if (sort === 'timing') items.sort((a, b) => {
+    const builtDiff = (builtNames.includes(b.name) ? 1 : 0) - (builtNames.includes(a.name) ? 1 : 0);
+    return builtDiff || a.timing.localeCompare(b.timing) || a.name.localeCompare(b.name);
+  });
+  else items.sort((a, b) => {
+    const builtDiff = (builtNames.includes(b.name) ? 1 : 0) - (builtNames.includes(a.name) ? 1 : 0);
+    return builtDiff || a.name.localeCompare(b.name);
+  });
 
   const encCount = getEl('enc-count');
   if (encCount) encCount.textContent = items.length + ' attractions';
