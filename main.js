@@ -1711,7 +1711,11 @@ function renderTokens() {
           <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
             <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="-1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
-            <span id="tokcnt_${expandId}" style="font-weight:800;font-size:14px;min-width:28px;text-align:center;color:${enough ? 'var(--green)' : 'var(--red)'};">${have}</span>
+            <input id="tokcnt_${expandId}" type="number" min="0" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}"
+              value="${have}" style="width:48px;font-weight:800;font-size:14px;text-align:center;
+              color:${enough ? 'var(--green)' : 'var(--red)'};
+              background:var(--card);border:1px solid var(--border);
+              border-radius:6px;padding:2px 4px;font-family:'Nunito',sans-serif;">
             <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="1"
               style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
             <span style="font-size:11px;color:var(--muted);min-width:40px;">/ ${need}</span>
@@ -1775,7 +1779,11 @@ function adjustToken(charName, token, delta) {
   const need = tIdx >= 0 ? needed.quantities[tIdx] : 0;
   const enough = have >= need;
 
-  cntEl.textContent = have;
+  if (cntEl.tagName === 'INPUT') {
+    cntEl.value = have;
+  } else {
+    cntEl.textContent = have;
+  }
   cntEl.style.color = enough ? 'var(--green)' : 'var(--red)';
   stEl.innerHTML = enough
     ? '<span style="color:var(--green);font-size:12px;">✓</span>'
@@ -1829,6 +1837,23 @@ document.addEventListener('click', e => {
   if (activeBtn) { toggleFloatActive(activeBtn.dataset.name); return; }
   const conCard = e.target.closest('.con-card');
   if (conCard) { toggleConcession(conCard.dataset.name); return; }
+});
+
+document.addEventListener('change', e => {
+  const inp = e.target.closest('#tok-list input[type="number"][data-char]');
+  if (!inp) return;
+  const charName = inp.dataset.char;
+  const token = inp.dataset.token;
+  const newVal = Math.max(0, parseInt(inp.value) || 0);
+  inp.value = newVal; // clamp display
+  if (!state.token_inventory) state.token_inventory = {};
+  if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
+  state.token_inventory[charName][token] = newVal;
+  saveState();
+
+  // Reuse adjustToken's in-place UI refresh by calling with delta 0 trick — 
+  // instead just re-render to keep it simple and correct
+  renderTokens();
 });
 
 
