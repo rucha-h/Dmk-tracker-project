@@ -227,6 +227,8 @@ const DMK_CHAR_TOKENS = {
   "Jaq": { "tokens": ["Pumpkin", "Jaq's Cap", "Jaq Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 3, 2] }, { "level": 3, "quantities": [15, 5, 3] }, { "level": 4, "quantities": [30, 8, 4] }, { "level": 5, "quantities": [40, 10, 6] }, { "level": 6, "quantities": [50, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
   "Lady Tremaine": { "tokens": ["Pumpkin", "Lady Tremaine's Ring", "Lady Tremaine Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 4] }, { "level": 4, "quantities": [20, 5, 6] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 11] }, { "level": 7, "quantities": [60, 25, 15] }, { "level": 8, "quantities": [70, 35, 20] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 50] }] },
   "Prince Charming": { "tokens": ["Pumpkin", "Prince Charming's Prince Gloves", "Prince Charming Ears Hat"], "levels": [{ "level": 1, "quantities": [0, 2, 2] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Perla": { "tokens": ["Pumpkin", "Perla's Ribbon Spool", "Perla Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Suzy": { "tokens": ["Pumpkin", "Suzy's Dressmaking Tools", "Suzy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   //Star Wars
   "Ahsoka Tano": { "tokens": ["Kyber Crystal", "Ahsoka's Lightsabers", "Ahsoka Tano Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "BB-8": { "tokens": ["Kyber Crystal", "Torch", "BB-8 Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
@@ -696,6 +698,20 @@ const DMK_CHAR_TOKENS = {
   },
   "Orange Bird": {
     "tokens": ["Enchanted Key", "Orange Bird's Citrus Slice", "Orange Bird Ears Hat"],
+    "levels": [
+      { "level": 2, "quantities": [5, 2, 2] },
+      { "level": 3, "quantities": [10, 3, 3] },
+      { "level": 4, "quantities": [20, 5, 5] },
+      { "level": 5, "quantities": [35, 10, 10] },
+      { "level": 6, "quantities": [40, 15, 15] },
+      { "level": 7, "quantities": [60, 25, 20] },
+      { "level": 8, "quantities": [70, 35, 25] },
+      { "level": 9, "quantities": [80, 50, 30] },
+      { "level": 10, "quantities": [100, 65, 40] }
+    ]
+  },
+  "Spike the Bee": {
+    "tokens": ["Enchanted Key", "Spike's Honeycomb", "Spike Ears Hat"],
     "levels": [
       { "level": 2, "quantities": [5, 2, 2] },
       { "level": 3, "quantities": [10, 3, 3] },
@@ -8799,7 +8815,10 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Gideon's Light Cruiser", "activity": "Readying Dark Troopers", "char_level": "Level 3", "time": "8h" }
   ],
   "Enchanted Key": [
+    { "char": "Daisy Duck + Mickey Mouse", "activity": "Talk at the Diner", "char_level": "Level 5", "time": "12h" },
+    { "char": "Roz + Sulley", "activity": "Inspect Sulley", "char_level": "Level 4", "time": "12h" },
     { "char": "Buzz Lightyear", "activity": "Investigate Space Traders", "char_level": "Level 4", "time": "24h" },
+    { "char": "Jungle Cruise", "activity": "Watching Exotic Animals", "char_level": "Level 1", "time": "8h" },
     { "char": "Enchanted Tiki Room", "activity": "Aligning the Torches", "char_level": "Level 3", "time": "12h" }
   ],
   "Ezra Ears Hat": [
@@ -9431,7 +9450,47 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Tony", "activity": "Where's Butch?", "char_level": "Level 5", "time": "12h" },
     { "char": "Jock + Tramp", "activity": "A Stern Talking-To", "char_level": "Level 5", "time": "12h" },
     { "char": "Ludwig's Lab", "activity": "Polishing Equipment", "char_level": "Level 3", "time": "8h" }
-  ]
+  ],
+  "Perla's Ribbon Spool": [
+    { "char": "Daisy Duck", "activity": "Strut Your Stuff", "char_level": "Level 6", "time": "4h" },
+    { "char": "The Captain", "activity": "Explore New Home", "char_level": "Level 5", "time": "6h" },
+    { "char": "Flora + Fauna", "activity": "Magical Medley", "char_level": "Level 4", "time": "6h" },
+    { "char": "Flynn", "activity": "My Nose Isn't Right!", "char_level": "Level 2", "time": "8h" },
+    { "char": "Bo Peep + Woody", "activity": "Walk around the Carnival", "char_level": "Level 5", "time": "8h" }
+  ],
+  "Perla Ears Hat": [
+    { "char": "Pascal + Rapunzel", "activity": "Trying On Costumes", "char_level": "Level 5", "time": "4h" },
+    { "char": "Chip", "activity": "Investigate Food Options", "char_level": "Level 7", "time": "6h" },
+    { "char": "Davy Jones", "activity": "Stalking Ships", "char_level": "Level 5", "time": "6h" },
+    { "char": "Roz", "activity": "Search Around", "char_level": "Level 10", "time": "8h" },
+    { "char": "WALL•E", "activity": "Make New Friends", "char_level": "Level 6", "time": "8h" }
+  ],
+  "Suzy's Dressmaking Tools": [
+    { "char": "Sulley", "activity": "Laugh It Up", "char_level": "Level 2", "time": "4h" },
+    { "char": "Louie", "activity": "Follow Clues", "char_level": "Level 4", "time": "6h" },
+    { "char": "Wart", "activity": "Scamper Along", "char_level": "Level 5", "time": "6h" },
+    { "char": "Bullseye + Woody", "activity": "Friendly Fun", "char_level": "Level 6", "time": "6h" },
+    { "char": "Daisy Duck", "activity": "Spread Flowers", "char_level": "Level 4", "time": "8h" }
+  ],
+   "Suzy Ears Hat": [
+    { "char": "Aurora", "activity": "Take a Quick Nap", "char_level": "Level 5", "time": "4h" },
+    { "char": "Gus (Cinderella)", "activity": "Breakfast Is Ready!", "char_level": "Level 5", "time": "6h" },
+    { "char": "Judy Hopps + Nick Wilde", "activity": "Grab a Small Snack", "char_level": "Level 6", "time": "6h" },
+    { "char": "EVE", "activity": "Find Malfunctioning Robots", "char_level": "Level 6", "time": "8h" },
+    { "char": "WALL•E", "activity": "Make New Friends", "char_level": "Level 6", "time": "8h" }
+  ],
+  "Spike's Honeycomb": [
+    { "char": "Figment", "activity": "Spin and Twirl", "char_level": "Level 6", "time": "8h" },
+    { "char": "Donald Duck", "activity": "Clean the Deck", "char_level": "Level 8", "time": "12h" },
+    { "char": "Sulley + Mike Wazowski", "activity": "Grab Food with Mike", "char_level": "Level 5", "time": "12h" },
+    { "char": "Jungle Cruise", "activity": "Watching Exotic Animals", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Spike Ears Hat": [
+    { "char": "Orange Bird", "activity": "Flutter Among Bright Flowers", "char_level": "Level 8", "time": "8h" },
+    { "char": "Daisy Duck", "activity": "Check on Donald", "char_level": "Level 10", "time": "12h" },
+    { "char": "Mr. Smee", "activity": "Check the Hold for Leaks", "char_level": "Level 8", "time": "12h" },
+    { "char": "Jungle Cruise", "activity": "Watching Exotic Animals", "char_level": "Level 3", "time": "8h" }
+  ],
 };
 
 //This is used to calculate the cost of enchanting a character's item. The cost increases with each level of enchantment, and the blueprint required also changes. The time required for each enchantment is also included, as this is a factor in determining which enchantments to prioritize when resources are limited.
@@ -9668,7 +9727,8 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Disney Fairies", "name": "Ladybug Painting Station", "base_token": "Silvermist's Dewdrop", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Silvermist Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Rosetta's Hair Clip", "cost": 120, "total": 200 }, { "level": 3, "token": "Rosetta Ears Hat", "cost": 120, "total": 240 }, { "level": 4, "token": "Vidia Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Disney Fairies", "name": "Pixie Hollow", "base_token": "Gossamer Wings", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Thimble", "cost": 80, "total": 160 }, { "level": 2, "token": "Tinker Bell Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Periwinkle's Frost Flower", "cost": 120, "total": 240 }, { "level": 4, "token": "Periwinkle Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Mickey and Friends", "name": "Clarabelle's Ice Cream", "base_token": "Horace's Collar", "base_cost": "40", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Clara Cluck's Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Ludwig Von Drake's Glasses and Pocket Watch", "cost": 30, "total": 150 }, { "level": 3, "token": "Clarabelle's Bell", "cost": 30, "total": 180 }, { "level": 4, "token": "Daisy Bow", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 30, "total": 240 }] },
-  { "collection": "Mickey and Friends", "name": "Ludwig's Lab", "base_token": "Horace Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Clara Cluck Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Ludwig Von Drake Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Clarabelle Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Daisy Ears Hat", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
+  { "collection": "Mickey and Friends", "name": "Ludwig's Lab", "base_token": "Horace Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Clara Cluck Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Ludwig Von Drake Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Clarabelle Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Daisy Ears Hat", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Disney Parks", "name": "Jungle Cruise", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Enchanted Key", "cost": 80, "total": 160 }, { "level": 2, "token": "Spike's Honeycomb", "cost": 40, "total": 200 }, { "level": 3, "token": "Spike Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
 ];
 
 // This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
@@ -9930,7 +9990,7 @@ const TOKEN_SOURCES = {
   "Simba Ears Hat": [{ "attraction": "Astro Orbiters", "collection": "Disney Parks", "enchant_level": 2, "timing": "Every 6h", "cost": 90 }],
   "Claw": [{ "attraction": "Astro Orbiters", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 6h", "cost": 90 }],
   "Toy Alien Ears Hat": [{ "attraction": "Astro Orbiters", "collection": "Disney Parks", "enchant_level": 4, "timing": "Every 6h", "cost": 120 }],
-  "Enchanted Key": [{ "attraction": "Enchanted Tiki Room", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 12h", "cost": 210 }],
+  "Enchanted Key": [{ "attraction": "Enchanted Tiki Room", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 12h", "cost": 210 }, { "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 1, "timing": "Every 8h", "cost": 160 }],
   "Drizella's Hair Feather": [{ "attraction": "Fantasy Faire", "collection": "Disney Parks", "enchant_level": 1, "timing": "Every 6h", "cost": 60 }],
   "Anastasia's Hair Feather": [{ "attraction": "Fantasy Faire", "collection": "Disney Parks", "enchant_level": 2, "timing": "Every 6h", "cost": 90 }],
   "Anastasia Tremaine Ears Hat": [{ "attraction": "Fantasy Faire", "collection": "Disney Parks", "enchant_level": 4, "timing": "Every 6h", "cost": 120 }],
@@ -10527,7 +10587,9 @@ const TOKEN_SOURCES = {
   "Ludwig Von Drake's Glasses and Pocket Watch": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 2, "timing": "Every 6h", "cost": 60 }],
   "Ludwig Von Drake Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
   "Clarabelle's Bell": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 6h", "cost": 60 }],
-  "Clarabelle Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }]
+  "Clarabelle Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
+  "Spike's Honeycomb": [{ "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 2, "timing": "Every 8h", "cost": 200 }],
+  "Spike Ears Hat": [{ "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 8h", "cost": 240 }]
 };
 
 // ============ CHARACTER DATABASE ============
@@ -10615,7 +10677,7 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_77', name: 'Hollywood Tower of Terror', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '10x10', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
   { id: 'attr_78', name: 'Jet Packs', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '13x13', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
   { id: 'attr_79', name: 'Jumpin\' Jellyfish', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '10x10', rewardTime: '8h', rewardMagic: 185, magicPerHour: 23.12 },
-  { id: 'attr_80', name: 'Jungle Cruise', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '15x12', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
+  { id: 'attr_80', name: 'Jungle Cruise', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '15x12', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_81', name: 'Primeval Whirl', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '10x10', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
   { id: 'attr_82', name: 'Reflections of China', collection: 'Disney Parks', emoji: '🏰', elixir: true, size: '12x12', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
   { id: 'attr_83', name: 'Space Traders', collection: 'Disney Parks', emoji: '🏰', elixir: false, size: '7x7', rewardTime: '60m', rewardMagic: 10, magicPerHour: 10.0 },
@@ -10812,6 +10874,9 @@ const DMK_CONCESSIONS_DATA = [
   { "collection": "Toy Story", "name": "Sox Plushie Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
   { "collection": "Toy Story", "name": "Space Ranger Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "6375", "elixir": "2125", "time": "24h", "xp": "3", "magic": "285", "magic_per_hour": "11.88" },
   { "collection": "Cinderella", "name": "Cinderella's Tiara Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Cinderella", "name": "Cinderella Castle Light-Up Sipper Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Cinderella", "name": "Cinderella's Slipper Pumpkin Pie Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Cinderella", "name": "Cinderella Musical Jewelry Box Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
   { "collection": "Star Wars", "name": "Blue Lightsaber Stand", "category": "Souvenir Stand", "exchange_rate": "12000", "elixir": "1000", "time": "8h", "xp": "3", "magic": "60", "magic_per_hour": "7.50" },
   { "collection": "Star Wars", "name": "Blue Milk Stand", "category": "Drink Stand", "exchange_rate": "6375", "elixir": "2125", "time": "16h", "xp": "3", "magic": "185", "magic_per_hour": "11.56" },
   { "collection": "Star Wars", "name": "Chewbacca Chocolate Cupcake Stand", "category": "Food Stand", "exchange_rate": "6375", "elixir": "2125", "time": "8h", "xp": "3", "magic": "90", "magic_per_hour": "11.25" },
@@ -11363,6 +11428,10 @@ const DMK_DECORATIONS = [
   { name: "Zootopia Gold Trophy", category: "Trophy", collection: "Zootopia", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey & Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
   { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey & Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
+  { name: "Cinderella Carriage Sofa", category: "Amenity", collection: "Cinderella", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 75 },
+  //TODO: check the size in wiki and update if needed
+  { name: "Lucifer's Hidden Hideaway", category: "Greenery", collection: "Cinderella", size: "2×2", emoji: "🌿", rarity: "Epic", elixir: 625 },
+  { name: "Pumpkin Coach Topiary", category: "Greenery", collection: "Cinderella", size: "5×5", emoji: "🌿", rarity: "Epic", elixir: 625 },
 ];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
@@ -11417,6 +11486,8 @@ const DMK_CHARS = [
   ["Anastasia Tremaine", "Cinderella", "s", "🌸"],
   ["Drizella Tremaine", "Cinderella", "s", "💚"],
   ["Lady Tremaine", "Cinderella", "p", "👩"],
+  ["Perla", "Cinderella", "e", "🐭"],
+  ["Suzy", "Cinderella", "e", "🐭"],
   // Star Wars
   ["R2-D2", "Star Wars", "p", "🤖"],
   ["C-3PO", "Star Wars", "s", "🤖"],
@@ -11777,6 +11848,7 @@ const DMK_CHARS = [
   // Disney Parks
   ["Orange Bird", "Disney Parks", "e", "🍊"],
   ["Figment", "Disney Parks", "p", "🐉"],
+  ["Spike the Bee", "Disney Parks", "e", "🐝"],
   // The Fox and the Hound
   ["Tod", "The Fox and the Hound", "e", "🦊"],
   ["Copper", "The Fox and the Hound", "e", "🐕"],
@@ -12509,7 +12581,10 @@ const CHAR_URLS = {
   'Heihei': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/3/3f/Cp-heihei.png/revision/latest?cb=20200727230311',
   'Héctor Rivera': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/9/9b/Cp-h%C3%A9ctor_rivera.png/revision/latest?cb=20200727230305',
   'Mamá Imelda': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/7/7c/Cp-mam%C3%A1_imelda.png/revision/latest?cb=20200727231252',
-  'Meilin \"Mei\" Lee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/a0/Cp-meilin_mei_lee.png/revision/latest?cb=20220914033202'
+  'Meilin \"Mei\" Lee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/a0/Cp-meilin_mei_lee.png/revision/latest?cb=20220914033202',
+  'Perla': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/06/Cp-perla.png/revision/latest?cb=20260411165911',
+  'Suzy': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/f/f7/Cp-suzy.png/revision/latest?cb=20260411170850',
+  'Spike the Bee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/ad/Cp-spike_the_bee.png/revision/latest?cb=20260411171024'
 };
 
 // DMK costumes data
@@ -14767,5 +14842,11 @@ const TOKEN_RARITY = {
   "Character Scroll": "epic",
   "Time Skip": "common",
   "Two Drop Chances": "unknown",
-  "Ears Hat": "unknown"
+  "Ears Hat": "unknown",
+  "Suzy's Dressmaking Tools": "uncommon",
+  "Suzy Ears Hat": "uncommon",
+  "Perla's Ribbon Spool": "uncommon",
+  "Perla Ears Hat": "rare",
+  "Spike's Honeycomb": "epic",
+  "Spike Ears Hat": "legendary"
 };
