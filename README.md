@@ -2,21 +2,21 @@
 
 A fan-made companion tool to help you track your progress in Disney Magic Kingdoms — characters, attractions, costumes, tokens, floats, concessions, enchantments, and more — all in one place, right in your browser. No account needed, no installation required.
 
-> ⚠️ Data is based on the game state **till Update 104**. Updates will be added over time.
+> ⚠️ Data is based on the game state **till Update 105**. Updates will be added over time.
 
 ---
 
 ## 📸 Preview
-![alt text](<Screenshot 2026-03-22 142814.png>)
-![alt text](<Screenshot 2026-03-22 142845.png>) 
-![alt text](<Screenshot 2026-03-22 142952.png>) 
-![alt text](<Screenshot 2026-03-22 143016.png>) 
-![alt text](<Screenshot 2026-03-22 143041.png>) 
-![alt text](<Screenshot 2026-03-22 143107.png>) 
-![alt text](<Screenshot 2026-03-22 143124.png>) 
-![alt text](<Screenshot 2026-03-22 143644.png>) 
-![alt text](<Screenshot 2026-03-22 143707.png>) 
-![alt text](<Screenshot 2026-03-22 143725.png>)
+![alt text](<Screenshot 2026-04-12 201941.png>)
+![alt text](<Screenshot 2026-04-12 202003.png>)
+![alt text](<Screenshot 2026-04-12 202042.png>)
+![alt text](<Screenshot 2026-04-12 202054.png>)
+![alt text](<Screenshot 2026-04-12 202132.png>)
+![alt text](<Screenshot 2026-04-12 202143.png>)
+![alt text](<Screenshot 2026-04-12 202200.png>)
+![alt text](<Screenshot 2026-04-12 202217.png>)
+![alt text](<Screenshot 2026-04-12 202228.png>)
+![alt text](<Screenshot 2026-04-12 202242.png>)
 
 ---
 
@@ -81,7 +81,7 @@ Here's what you can track with this tool:
 | 🪙 **Tokens** | See exactly which tokens you need and how many, based on your characters. Each token has a dropdown showing where to farm it |
 | 🎡 **Floats** | Track which floats you own and which are currently active |
 | 🍦 **Concessions** | Browse all concessions and mark which ones you own |
-| ✨ **Enchantments** | View all available enchantments and their levels |
+| ✨ **Enchantments** | Track all available enchantments and their levels |
 | 📖 **Campaign** | Track your progress through the Main Story Line (Acts 1–6) |
 
 ---
@@ -101,7 +101,7 @@ Your data is saved in your browser's local storage, so it stays on your device. 
 It's designed to open in a browser, so it should work on most devices. For the best experience, a desktop or laptop is recommended.
 
 **The data seems outdated — what's going on?**
-The data reflects the game before **Update 103**. The project is actively maintained and updates will be added over time.
+The data reflects the game before **Update 105**. The project is actively maintained and updates will be added over time.
 
 **Something looks broken. What should I do?**
 Make sure you extracted the ZIP fully before opening `index.html`. Opening it directly from inside the ZIP won't work correctly.
