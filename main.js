@@ -12,6 +12,17 @@ function debounce(fn, delay = 100) {
   };
 }
 
+// ============ FILTER PERSISTENCE ============
+function saveFilterState(key, value) {
+  try { sessionStorage.setItem('dmk-filter-' + key, JSON.stringify(value)); } catch (e) { }
+}
+function loadFilterState(key, fallback) {
+  try {
+    const v = sessionStorage.getItem('dmk-filter-' + key);
+    return v !== null ? JSON.parse(v) : fallback;
+  } catch (e) { return fallback; }
+}
+
 function initSearchClear(inputId, onClear) {
   const input = getEl(inputId);
   if (!input) return;
@@ -100,10 +111,10 @@ const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
 // ============ FILTER STATE ============
-let tokFilter = 'all';
-let floatFilter = 'all';
-let conOwnerFilter = 'all';
-let encBuiltFilter = 'all';
+let tokFilter = loadFilterState('tok', 'all');
+let floatFilter = loadFilterState('float', 'all');
+let conOwnerFilter = loadFilterState('con', 'all');
+let encBuiltFilter = loadFilterState('enc', 'all');
 
 // ============ STATE ============
 let state = {
@@ -305,10 +316,11 @@ function removeChar(id) {
   renderChars();
 }
 
-let charFilter = 'all';
+let charFilter = loadFilterState('chars', 'all');
 
 function filterChars(f, btn) {
   charFilter = f;
+  saveFilterState('chars', f);
   document.querySelectorAll('#tab-characters .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderChars();
@@ -405,7 +417,7 @@ STORYLINE_ARCS.forEach(arc => {
 
 
 // ============ CAMPAIGN STATE HELPERS ============
-let arcFilter = 'all';
+let arcFilter = loadFilterState('arc', 'all');
 
 function getArcQuestState(arcId, questId, questMap) {
   const key = arcId + '_' + questId;
@@ -532,6 +544,7 @@ function renderQuestsHeader() {
 
 function filterArcs(f, btn) {
   arcFilter = f;
+  saveFilterState('arc', f);
   document.querySelectorAll('#tab-campaign .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderQuests();
@@ -711,11 +724,12 @@ function toggleArcCollapse(arcId) {
 }
 
 // ============ DECORATIONS ============
-let decFilter = 'all';
-let decCatFilter = '';
+let decFilter = loadFilterState('dec', 'all');
+let decCatFilter = loadFilterState('decCat', '');
 
 function setDecFilter(f, btn) {
   decFilter = f;
+  saveFilterState('dec', f);
   ['all', 'owned', 'missing'].forEach(k => {
     const b = getEl('dec-btn-' + k);
     if (b) b.classList.toggle('active', k === f);
@@ -725,6 +739,7 @@ function setDecFilter(f, btn) {
 
 function setDecCatFilter(f, btn) {
   decCatFilter = f;
+  saveFilterState('decCat', f);
   ['', 'Trophy', 'Greenery', 'Monument', 'Scenery', 'Amenity'].forEach(k => {
     const id = 'dec-cat-' + (k === '' ? 'all' : k.toLowerCase());
     const b = getEl(id);
@@ -969,7 +984,7 @@ function updateDashboard() {
 }
 
 // ============ ATTRACTIONS ============
-let attrFilter = 'all';
+let attrFilter = loadFilterState('attr', 'all');
 
 function loadAttractions() {
   if (!state.attractions) state.attractions = [];
@@ -1003,9 +1018,10 @@ function toggleCostume(id) {
   if (c) { c.owned = !c.owned; saveState(); renderCostumes(); }
 }
 
-let costumeFilter = 'all';
+let costumeFilter = loadFilterState('costume', 'all');
 function setCostumeFilter(f, btn) {
   costumeFilter = f;
+  saveFilterState('costume', f);
   document.querySelectorAll('#tab-costumes .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderCostumes();
@@ -1111,6 +1127,7 @@ function toggleAttr(id) {
 
 function setAttrFilter(f, btn) {
   attrFilter = f;
+  saveFilterState('attr', f);
   document.querySelectorAll('#tab-attractions .filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderAttractions();
@@ -1271,6 +1288,31 @@ if (_page === 'decorations') {
   initSearchClear('dec-search', renderDecorations);
 }
 
+// Restore active button highlights from persisted filter state
+function restoreFilterButtons(containerSelector, activeValue, btnPrefix, filterFn) {
+  const btns = document.querySelectorAll(containerSelector + ' .filter-btn');
+  btns.forEach(b => b.classList.remove('active'));
+  // Try matching by onclick attribute pattern or data attribute
+  btns.forEach(b => {
+    const match = b.getAttribute('onclick')?.match(/['"]([^'"]+)['"]/);
+    if (match && match[1] === activeValue) b.classList.add('active');
+  });
+}
+
+if (_page === 'characters')   restoreFilterButtons('#tab-characters', charFilter);
+if (_page === 'attractions')  restoreFilterButtons('#tab-attractions', attrFilter);
+if (_page === 'costumes')     restoreFilterButtons('#tab-costumes', costumeFilter);
+if (_page === 'campaign')     restoreFilterButtons('#tab-campaign', arcFilter);
+if (_page === 'decorations') {
+  restoreFilterButtons('#tab-decorations', decFilter);
+  restoreFilterButtons('#tab-decorations', decCatFilter);
+}
+
+if (_page === 'tokens')      { const b = getEl('tok-btn-' + tokFilter); if (b) { document.querySelectorAll('#tab-tokens button[id^="tok-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'floats')      { const b = getEl('float-btn-' + floatFilter); if (b) { document.querySelectorAll('#tab-floats button[id^="float-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'concessions') { const b = getEl('con-btn-' + conOwnerFilter); if (b) { document.querySelectorAll('#tab-concessions button[id^="con-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'enchantments'){ const b = getEl('enc-btn-' + encBuiltFilter); if (b) { document.querySelectorAll('#tab-enchantments button[id^="enc-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+
 
 // ============ EXPORT / IMPORT STATE ============
 function exportState() {
@@ -1316,6 +1358,7 @@ function importState() {
 
 function filterConOwned(f) {
   conOwnerFilter = f;
+  saveFilterState('con', f);
   ['all', 'owned', 'missing'].forEach(k => {
     const btn = getEl('con-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1440,6 +1483,7 @@ function setEnchantLevel(id, level) {
 
 function filterEncBuilt(f) {
   encBuiltFilter = f;
+  saveFilterState('enc', f);
   ['all', 'built', 'notbuilt'].forEach(k => {
     const btn = getEl('enc-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1592,6 +1636,7 @@ function renderEnchantmentsTab() {
 
 function filterTokens(f) {
   tokFilter = f;
+  saveFilterState('tok', f);
   ['all', 'ready', 'missing', 'maxed', 'wishlist'].forEach(k => {
     const btn = getEl('tok-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
@@ -1912,6 +1957,7 @@ document.addEventListener('change', e => {
 
 function filterFloats(f) {
   floatFilter = f;
+  saveFilterState('float', f);
   ['all', 'owned', 'active', 'inactive', 'unowned'].forEach(k => {
     const btn = getEl('float-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
