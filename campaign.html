@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body data-page="campaign">
   <!-- Header -->
   <header>
@@ -16,56 +18,84 @@
   </header>
 
   <!-- Navigation -->
- <nav class="tabs">
-  <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
-  <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
-  <a class="tab" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
-  <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
-  <a class="tab" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
-  <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
-  <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
-  <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
-  <a class="tab active" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
-  <a class="tab" href="decorations.html"><span class="tab-icon">🎀</span>Decorations</a>
-  <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
-</nav>
+  <nav class="tabs">
+    <a class="tab" href="index.html"><span class="tab-icon">🗺️</span>Dashboard</a>
+    <a class="tab" href="characters.html"><span class="tab-icon">🌟</span>Characters</a>
+    <a class="tab" href="attractions.html"><span class="tab-icon">🏗️</span>Attractions</a>
+    <a class="tab" href="costumes.html"><span class="tab-icon">👗</span>Costumes</a>
+    <a class="tab" href="tokens.html"><span class="tab-icon">🪙</span>Tokens</a>
+    <a class="tab" href="floats.html"><span class="tab-icon">🎡</span>Floats</a>
+    <a class="tab" href="concessions.html"><span class="tab-icon">🍦</span>Concessions</a>
+    <a class="tab" href="enchantments.html"><span class="tab-icon">⚡</span>Enchantments</a>
+    <a class="tab active" href="campaign.html"><span class="tab-icon">📖</span>Campaign</a>
+    <a class="tab" href="decorations.html"><span class="tab-icon">🎀</span>Decorations</a>
+    <a class="tab" href="tips.html"><span class="tab-icon">💡</span>F2P Tips</a>
+  </nav>
 
   <!-- Main Content -->
   <main>
     <!-- CAMPAIGN -->
+    <!-- CAMPAIGN -->
     <div id="tab-campaign" class="section active">
-       <div class="card" style="margin-bottom:10px;">
-      <div class="card-title"><span class="icon">📖</span>Main Storyline Progress</div>
-      <div class="prog-header">
-        <span>Overall Completion</span>
-        <span id="story-pct-label">0 / 0 quests</span>
+
+      <!-- ── ACTIVE QUESTS PANEL ── -->
+      <div id="active-quests-panel" class="card"
+        style="margin-bottom:10px;border-color:rgba(245,200,66,0.4);background:linear-gradient(135deg,rgba(42,26,94,0.55),rgba(26,42,108,0.35));">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <span style="font-size:15px;">📌</span>
+          <span
+            style="font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Active
+            Quests</span>
+          <span id="active-quest-count" style="font-size:11px;font-weight:600;color:var(--muted);"></span>
+          <button onclick="clearCompletedPins()" id="clear-done-btn"
+            style="margin-left:auto;font-size:10px;padding:2px 9px;border-radius:6px;border:1px solid rgba(57,232,124,0.3);background:rgba(57,232,124,0.08);color:var(--green);cursor:pointer;display:none;font-family:'Nunito',sans-serif;font-weight:700;">
+            ✓ Clear Done
+          </button>
+        </div>
+        <div id="active-quest-list" style="display:flex;flex-direction:column;gap:6px;"></div>
+        <div id="active-quest-empty" style="text-align:center;padding:18px 10px;color:var(--muted);font-size:12px;">
+          <span style="font-size:24px;display:block;margin-bottom:6px;opacity:0.5;">📍</span>
+          Tap the 📍 icon next to any quest name to pin it here.
+        </div>
       </div>
-      <div class="prog-bar"><div class="prog-fill" id="story-prog-bar" style="width:0%"></div></div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="arc-pill-row"></div>
-    </div>
 
-    <div class="char-filters" style="margin-bottom:10px;">
-      <button class="filter-btn active" onclick="filterArcs('all',this)">All Arcs</button>
-      <button class="filter-btn" onclick="filterArcs('inprogress',this)">In Progress</button>
-      <button class="filter-btn" onclick="filterArcs('todo',this)">To Do</button>
-      <button class="filter-btn" onclick="filterArcs('done',this)">Completed</button>
-      <button class="filter-btn" onclick="filterArcs('main',this)">Main Only</button>
-      <button class="filter-btn" onclick="filterArcs('side',this)" style="color:var(--teal);">Side Quests</button>
-    </div>
+      <!-- ── STORYLINE PROGRESS ── -->
+      <div class="card" style="margin-bottom:10px;">
+        <div class="card-title"><span class="icon">📖</span>Main Storyline Progress</div>
+        <div class="prog-header">
+          <span>Overall Completion</span>
+          <span id="story-pct-label">0 / 0 quests</span>
+        </div>
+        <div class="prog-bar">
+          <div class="prog-fill" id="story-prog-bar" style="width:0%"></div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;" id="arc-pill-row"></div>
+      </div>
 
-    <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
-      <input type="text" id="campaign-search" placeholder="🔍 Search quests or characters..." autocomplete="off"
-        oninput="renderQuestsDebounced()"
-        style="flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
-      <button onclick="expandAllArcs()"
-        style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕ Expand All</button>
-      <button onclick="collapseAllArcs()"
-        style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕ Collapse All</button>
-    </div>
+      <div class="char-filters" style="margin-bottom:10px;">
+        <button class="filter-btn active" onclick="filterArcs('all',this)">All Arcs</button>
+        <button class="filter-btn" onclick="filterArcs('inprogress',this)">In Progress</button>
+        <button class="filter-btn" onclick="filterArcs('todo',this)">To Do</button>
+        <button class="filter-btn" onclick="filterArcs('done',this)">Completed</button>
+        <button class="filter-btn" onclick="filterArcs('main',this)">Main Only</button>
+        <button class="filter-btn" onclick="filterArcs('side',this)" style="color:var(--teal);">Side Quests</button>
+      </div>
 
-    <div class="scroll-y">
-      <div id="arc-list"></div>
-    </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
+        <input type="text" id="campaign-search" placeholder="🔍 Search quests or characters..." autocomplete="off"
+          oninput="renderQuestsDebounced()"
+          style="flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
+        <button onclick="expandAllArcs()"
+          style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕
+          Expand All</button>
+        <button onclick="collapseAllArcs()"
+          style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕
+          Collapse All</button>
+      </div>
+
+      <div class="scroll-y">
+        <div id="arc-list"></div>
+      </div>
     </div>
   </main>
 
@@ -73,7 +103,8 @@
   <footer>
     <p>DMK Helper © 2026</p>
   </footer>
-   <script src="data.js"></script>
+  <script src="data.js"></script>
   <script src="main.js"></script>
 </body>
+
 </html>

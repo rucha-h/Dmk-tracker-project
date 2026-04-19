@@ -509,6 +509,8 @@ function toggleArcQuest(arcId, questId) {
 
   // 3. Update top-level progress bar and act pills only
   renderQuestsHeader();
+  // 4. Refresh active quests panel if a pinned quest was toggled
+  renderActiveQuests();
 }
 
 // Updates only the top progress bar and act pills — called from toggleArcQuest in-place path
@@ -598,6 +600,7 @@ function collapseAllArcs() {
 
 function renderQuests() {
   renderQuestsHeader();
+  renderActiveQuests();
 
   const questMap = buildQuestMap();
   const arcStats = STORYLINE_ARCS.map(arc => {
@@ -648,14 +651,22 @@ function renderQuests() {
 
       const existingBody = getEl('arc-body-' + arc.id);
       const isOpen = search
-        ? true                                                        // always open when searching
+        ? true
         : existingBody
-          ? existingBody.style.display !== 'none'                    // preserve current state if already rendered
-          : (status === 'progress' || arc === firstActive?.arc);     // initial open logic on first render
+          ? existingBody.style.display !== 'none'
+          : (status === 'progress' || arc === firstActive?.arc);
       const remaining = t - d;
 
       const questsHtml = arc.quests.map(q => {
         const done = getArcQuestState(arc.id, q.id, questMap);
+        const pinned = isQuestPinned(arc.id, q.id);
+        const pinBtn = !done
+          ? `<button class="pin-quest-btn" data-arc="${arc.id}" data-quest="${q.id}"
+               onclick="event.stopPropagation(); togglePinQuest('${arc.id}','${q.id}')"
+               title="${pinned ? 'Unpin quest' : 'Pin to Active Quests'}"
+               style="background:none;border:none;cursor:pointer;font-size:11px;padding:0 2px;line-height:1;opacity:${pinned ? '1' : '0.4'};flex-shrink:0;transition:opacity 0.15s;"
+             >${pinned ? '📌' : '📍'}</button>`
+          : '';
         const matchesSearch = search && (
           q.name.toLowerCase().includes(search) ||
           (q.chars || []).some(c => c.toLowerCase().includes(search))
@@ -674,7 +685,9 @@ function renderQuests() {
             style="cursor:pointer;user-select:none;${matchesSearch ? 'background:rgba(245,200,66,0.05);border-radius:8px;' : ''}">
             <div class="quest-check">${done ? '✓' : ''}</div>
             <div class="quest-content" style="flex:1;min-width:0;">
-              <div class="quest-name">${esc(q.name)}</div>
+              <div class="quest-name" style="display:flex;align-items:center;gap:4px;">
+                <span>${esc(q.name)}</span>${pinBtn}
+              </div>
               ${charsHtml ? `<div style="margin-top:4px;">${charsHtml}</div>` : ''}
               ${q.tip ? `<div style="font-size:10px;color:var(--teal);margin-top:3px;">💡 ${esc(q.tip)}</div>` : ''}
             </div>
@@ -698,7 +711,9 @@ function renderQuests() {
           <div style="text-align:right;flex-shrink:0;">
             <div data-arc-count style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
             <div data-arc-pct style="font-size:10px;color:var(--muted);">${arcPct}%</div>
-            ${status !== 'done' ? `<button onclick="event.stopPropagation(); completeAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Complete All</button>` : `<button onclick="event.stopPropagation(); uncompleteAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Uncomplete All</button>`}
+            ${status !== 'done'
+          ? `<button onclick="event.stopPropagation(); completeAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Complete All</button>`
+          : `<button onclick="event.stopPropagation(); uncompleteAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Uncomplete All</button>`}
           </div>
         </div>
         <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
@@ -1299,19 +1314,19 @@ function restoreFilterButtons(containerSelector, activeValue, btnPrefix, filterF
   });
 }
 
-if (_page === 'characters')   restoreFilterButtons('#tab-characters', charFilter);
-if (_page === 'attractions')  restoreFilterButtons('#tab-attractions', attrFilter);
-if (_page === 'costumes')     restoreFilterButtons('#tab-costumes', costumeFilter);
-if (_page === 'campaign')     restoreFilterButtons('#tab-campaign', arcFilter);
+if (_page === 'characters') restoreFilterButtons('#tab-characters', charFilter);
+if (_page === 'attractions') restoreFilterButtons('#tab-attractions', attrFilter);
+if (_page === 'costumes') restoreFilterButtons('#tab-costumes', costumeFilter);
+if (_page === 'campaign') restoreFilterButtons('#tab-campaign', arcFilter);
 if (_page === 'decorations') {
   restoreFilterButtons('#tab-decorations', decFilter);
   restoreFilterButtons('#tab-decorations', decCatFilter);
 }
 
-if (_page === 'tokens')      { const b = getEl('tok-btn-' + tokFilter); if (b) { document.querySelectorAll('#tab-tokens button[id^="tok-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
-if (_page === 'floats')      { const b = getEl('float-btn-' + floatFilter); if (b) { document.querySelectorAll('#tab-floats button[id^="float-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'tokens') { const b = getEl('tok-btn-' + tokFilter); if (b) { document.querySelectorAll('#tab-tokens button[id^="tok-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'floats') { const b = getEl('float-btn-' + floatFilter); if (b) { document.querySelectorAll('#tab-floats button[id^="float-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
 if (_page === 'concessions') { const b = getEl('con-btn-' + conOwnerFilter); if (b) { document.querySelectorAll('#tab-concessions button[id^="con-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
-if (_page === 'enchantments'){ const b = getEl('enc-btn-' + encBuiltFilter); if (b) { document.querySelectorAll('#tab-enchantments button[id^="enc-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
+if (_page === 'enchantments') { const b = getEl('enc-btn-' + encBuiltFilter); if (b) { document.querySelectorAll('#tab-enchantments button[id^="enc-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
 
 
 // ============ EXPORT / IMPORT STATE ============
@@ -2064,4 +2079,228 @@ function toggleFloatActive(name) {
 const activeTab = document.querySelector('.tabs .tab.active');
 if (activeTab) {
   activeTab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'instant' });
+}
+
+// ============================================================
+// ACTIVE QUESTS PANEL
+// ============================================================
+
+function getPinnedQuests() {
+  if (!state.pinned_quests) state.pinned_quests = {};
+  return state.pinned_quests;
+}
+
+function isQuestPinned(arcId, questId) {
+  return !!(getPinnedQuests()[arcId + '_' + questId]);
+}
+
+function togglePinQuest(arcId, questId) {
+  const key = arcId + '_' + questId;
+  const pins = getPinnedQuests();
+  if (pins[key]) {
+    delete pins[key];
+  } else {
+    pins[key] = { arcId, questId, pinnedAt: Date.now() };
+  }
+  saveState();
+  renderActiveQuests();
+  // Refresh the pin icon in the arc list without full re-render
+  const btn = document.querySelector(
+    `.pin-quest-btn[data-arc="${arcId}"][data-quest="${questId}"]`
+  );
+  if (btn) {
+    const pinned = isQuestPinned(arcId, questId);
+    btn.textContent = pinned ? '📌' : '📍';
+    btn.title = pinned ? 'Unpin quest' : 'Pin to Active Quests';
+    btn.style.opacity = pinned ? '1' : '0.4';
+  }
+}
+
+function clearCompletedPins() {
+  const pins = getPinnedQuests();
+  const questMap = buildQuestMap();
+  Object.keys(pins).forEach(key => {
+    const { arcId, questId } = pins[key];
+    if (getArcQuestState(arcId, questId, questMap)) delete pins[key];
+  });
+  saveState();
+  renderActiveQuests();
+}
+
+function completeActiveQuest(arcId, questId) {
+  if (!state.quests) state.quests = [];
+  const key = arcId + '_' + questId;
+  const existing = state.quests.find(x => x.id === key);
+  if (existing) existing.done = true;
+  else state.quests.push({ id: key, done: true });
+  saveState();
+
+  // Also update the arc list checkbox in-place if visible
+  const questEl = document.querySelector(`.quest-item[data-arc="${arcId}"][data-quest="${questId}"]`);
+  if (questEl) {
+    questEl.classList.add('done');
+    const checkEl = questEl.querySelector('.quest-check');
+    if (checkEl) checkEl.textContent = '✓';
+    // Remove pin button from the row since it's now done
+    questEl.querySelector('.pin-quest-btn')?.remove();
+  }
+
+  // Animate the active card: strikethrough → fade out → remove
+  const card = document.querySelector(`.active-quest-card[data-key="${key}"]`);
+  if (card) {
+    const nameEl = card.querySelector('.aq-name');
+    if (nameEl) nameEl.style.textDecoration = 'line-through';
+    card.style.opacity = '0.55';
+    card.style.borderColor = 'rgba(57,232,124,0.4)';
+
+    setTimeout(() => {
+      card.style.transition = 'opacity 0.45s ease, max-height 0.4s ease, margin-bottom 0.4s ease, padding 0.4s ease';
+      card.style.opacity = '0';
+      card.style.maxHeight = '0';
+      card.style.overflow = 'hidden';
+      card.style.marginBottom = '0';
+      card.style.padding = '0';
+
+      setTimeout(() => {
+        const pins = getPinnedQuests();
+        delete pins[key];
+        saveState();
+        renderActiveQuests();
+        renderQuestsHeader();
+      }, 420);
+    }, 900);
+  }
+}
+
+function renderActiveQuests() {
+  const listEl = getEl('active-quest-list');
+  const emptyEl = getEl('active-quest-empty');
+  const countEl = getEl('active-quest-count');
+  const clearBtn = getEl('clear-done-btn');
+  if (!listEl) return;
+
+  const pins = getPinnedQuests();
+  const questMap = buildQuestMap();
+
+  const entries = Object.values(pins).sort((a, b) => a.pinnedAt - b.pinnedAt);
+
+  if (!entries.length) {
+    listEl.innerHTML = '';
+    if (emptyEl) emptyEl.style.display = '';
+    if (countEl) countEl.textContent = '';
+    if (clearBtn) clearBtn.style.display = 'none';
+    return;
+  }
+
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  const SCROLL_AFTER = 4;
+  const needsScroll = entries.length > SCROLL_AFTER;
+  listEl.style.maxHeight = needsScroll ? `${SCROLL_AFTER * 96}px` : 'none';
+  listEl.style.overflowY = needsScroll ? 'auto' : 'visible';
+  if (needsScroll) {
+    listEl.style.paddingRight = '4px';
+    listEl.style.scrollbarWidth = 'thin';
+  }
+
+  const anyDone = entries.some(({ arcId, questId }) =>
+    getArcQuestState(arcId, questId, questMap)
+  );
+  if (clearBtn) clearBtn.style.display = anyDone ? '' : 'none';
+  if (countEl) countEl.textContent = `(${entries.length})`;
+
+  listEl.innerHTML = entries.map(({ arcId, questId }) => {
+    const arc = STORYLINE_ARCS.find(a => a.id === arcId);
+    if (!arc) return '';
+    const q = arc.quests.find(q => q.id === questId);
+    if (!q) return '';
+
+    const done = getArcQuestState(arcId, questId, questMap);
+    const key = arcId + '_' + questId;
+    const isSide = !!arc.side;
+    const chars = q.chars || [];
+
+    const charsHtml = chars.map(charName => {
+      const char = state.characters.find(c => c.name === charName);
+      const welcomed = char?.welcomed;
+      const level = char?.level ?? 0;
+      const td = typeof DMK_CHAR_TOKENS !== 'undefined' ? DMK_CHAR_TOKENS[charName] : null;
+      const inv = state.token_inventory?.[charName] || {};
+      let tokenReady = null;
+
+      if (welcomed && td && char.level < char.max) {
+        const nextLvl = td.levels.find(l => l.level === (char.level + 1));
+        if (nextLvl) {
+          const met = td.tokens.filter((t, i) => (inv[t] || 0) >= nextLvl.quantities[i]).length;
+          tokenReady = met === td.tokens.length;
+        }
+      }
+
+      // Readiness dot
+      const dot = !welcomed
+        ? `<span title="Not welcomed" style="color:var(--muted);font-size:10px;">○</span>`
+        : tokenReady === true
+          ? `<span title="Tokens ready!" style="color:var(--green);font-size:10px;">✓</span>`
+          : tokenReady === false
+            ? `<span title="Missing tokens" style="color:var(--red);font-size:10px;">⚠</span>`
+            : `<span title="Max level" style="color:var(--gold);font-size:10px;">★</span>`;
+
+      // Level badge — only show if welcomed
+      const levelBadge = welcomed
+        ? `<span style="font-size:9px;color:var(--muted);font-weight:700;">Lv ${level}</span>`
+        : `<span style="font-size:9px;color:var(--red);font-weight:700;">Not welcomed</span>`;
+
+      return `<span style="display:inline-flex;align-items:center;gap:3px;font-size:11px;
+        background:${!welcomed ? 'rgba(255,92,122,0.08)' : 'var(--card)'};
+        border:1px solid ${!welcomed ? 'rgba(255,92,122,0.25)' : 'transparent'};
+        border-radius:6px;padding:2px 7px;white-space:nowrap;">
+        ${dot} ${esc(charName)} ${levelBadge}
+      </span>`;
+    }).join('');
+
+    return `<div class="active-quest-card" data-key="${key}"
+      style="background:var(--card2);border:1px solid ${done ? 'rgba(57,232,124,0.35)' : 'rgba(245,200,66,0.2)'};
+             border-radius:12px;padding:10px 12px;${done ? 'opacity:0.55;' : ''}">
+      <div style="display:flex;align-items:flex-start;gap:8px;">
+        <div style="flex:1;min-width:0;">
+
+          <!-- Quest name -->
+          <div class="aq-name" style="font-weight:700;font-size:13px;${done ? 'text-decoration:line-through;' : ''}">
+            ${esc(q.name)}
+          </div>
+
+          <!-- Arc info -->
+          <div style="font-size:10px;color:var(--muted);margin-top:3px;display:flex;align-items:center;gap:5px;flex-wrap:wrap;">
+            <span style="font-size:10px;font-weight:700;background:rgba(245,200,66,0.12);color:var(--gold);padding:1px 6px;border-radius:5px;">ACT ${arc.act}</span>
+            ${isSide ? `<span style="font-size:10px;font-weight:700;background:rgba(87,210,255,0.12);color:var(--teal);padding:1px 6px;border-radius:5px;">SIDE</span>` : ''}
+            <span>${arc.emoji} ${esc(arc.title)}</span>
+          </div>
+
+          <!-- Tip -->
+          ${q.tip ? `<div style="font-size:11px;color:var(--teal);margin-top:5px;line-height:1.4;">💡 ${esc(q.tip)}</div>` : ''}
+
+          <!-- Characters -->
+          ${chars.length ? `<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">${charsHtml}</div>` : ''}
+
+        </div>
+
+        <!-- Action buttons -->
+        <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0;">
+          ${!done
+        ? `<button onclick="completeActiveQuest('${arcId}','${questId}')"
+                style="font-size:10px;padding:3px 9px;border-radius:7px;border:none;
+                       background:rgba(57,232,124,0.15);color:var(--green);
+                       cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;">
+                ✓ Done
+              </button>`
+        : `<span style="font-size:10px;color:var(--green);font-weight:700;">✓ Done</span>`}
+          <button onclick="togglePinQuest('${arcId}','${questId}')"
+            style="font-size:10px;padding:2px 7px;border-radius:6px;border:1px solid var(--border);
+                   background:none;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif;">
+            Unpin
+          </button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }

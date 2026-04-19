@@ -11429,8 +11429,8 @@ const DMK_DECORATIONS = [
   { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey & Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
   { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey & Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Cinderella Carriage Sofa", category: "Amenity", collection: "Cinderella", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 75 },
+  { name: "Lucifer's Hidden Hideaway", category: "Greenery", collection: "Cinderella", size: "3×4", emoji: "🌿", rarity: "Epic", elixir: 625 },
   //TODO: check the size in wiki and update if needed
-  { name: "Lucifer's Hidden Hideaway", category: "Greenery", collection: "Cinderella", size: "2×2", emoji: "🌿", rarity: "Epic", elixir: 625 },
   { name: "Pumpkin Coach Topiary", category: "Greenery", collection: "Cinderella", size: "5×5", emoji: "🌿", rarity: "Epic", elixir: 625 },
 ];
 
