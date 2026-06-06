@@ -2,7 +2,7 @@
 
 A fan-made companion tool to help you track your progress in Disney Magic Kingdoms — characters, attractions, costumes, tokens, floats, concessions, enchantments, and more — all in one place, right in your browser. No account needed, no installation required.
 
-> ⚠️ Data is based on the game state **till Update 105**. Updates will be added over time.
+> ⚠️ Data is based on the game state **till Update 106**. Updates will be added over time.
 
 ---
 
@@ -75,14 +75,14 @@ Here's what you can track with this tool:
 | Section | What It Does |
 |---|---|
 | 🏠 **Dashboard** | A quick overview of your current game progress at a glance |
-| 🧑‍🤝‍🧑 **Characters** | See all characters, mark which ones you've welcomed, and set up a wishlist for who you want next |
+| 🧑‍🤝‍🧑 **Characters** | See all characters, mark which ones you've welcomed, and set up a wishlist for who you want next. To wishlist a character click near top right corner of the card, a star mark should appear.|
 | 🎢 **Attractions** | Browse all attractions and mark which ones you've built |
 | 👗 **Costumes** | Full costume list — track which ones you own |
 | 🪙 **Tokens** | See exactly which tokens you need and how many, based on your characters. Each token has a dropdown showing where to farm it |
 | 🎡 **Floats** | Track which floats you own and which are currently active |
 | 🍦 **Concessions** | Browse all concessions and mark which ones you own |
 | ✨ **Enchantments** | Track all available enchantments and their levels |
-| 📖 **Campaign** | Track your progress through the Main Story Line (Acts 1–6) |
+| 📖 **Campaign** | Track your progress through the Main Story Line (Acts 1–6), you can pin quests to mark them as active |
 
 ---
 

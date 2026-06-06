@@ -229,6 +229,7 @@ const DMK_CHAR_TOKENS = {
   "Prince Charming": { "tokens": ["Pumpkin", "Prince Charming's Prince Gloves", "Prince Charming Ears Hat"], "levels": [{ "level": 1, "quantities": [0, 2, 2] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Perla": { "tokens": ["Pumpkin", "Perla's Ribbon Spool", "Perla Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Suzy": { "tokens": ["Pumpkin", "Suzy's Dressmaking Tools", "Suzy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Lucifer": { "tokens": ["Pumpkin", "Lucifer's Milk Bowl", "Lucifer Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Star Wars
   "Ahsoka Tano": { "tokens": ["Kyber Crystal", "Ahsoka's Lightsabers", "Ahsoka Tano Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "BB-8": { "tokens": ["Kyber Crystal", "Torch", "BB-8 Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
@@ -533,6 +534,9 @@ const DMK_CHAR_TOKENS = {
   "Judy Hopps": { "tokens": ["Pawpsicle", "Carrot Pen", "Judy Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 10, 10] }, { "level": 2, "quantities": [9, 1, 1] }, { "level": 3, "quantities": [10, 2, 2] }, { "level": 4, "quantities": [11, 4, 4] }, { "level": 5, "quantities": [12, 6, 6] }, { "level": 6, "quantities": [14, 10, 8] }, { "level": 7, "quantities": [16, 14, 12] }, { "level": 8, "quantities": [20, 18, 16] }, { "level": 9, "quantities": [24, 22, 20] }, { "level": 10, "quantities": [30, 26, 25] }] },
   "Mr. Big": { "tokens": ["Pawpsicle", "Mr. Big's Diamond Ring", "Mr. Big Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   "Nick Wilde": { "tokens": ["Pawpsicle", "Nick's Tie", "Nick Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 20, 20] }, { "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 3, 3] }, { "level": 4, "quantities": [10, 4, 4] }, { "level": 5, "quantities": [12, 6, 6] }, { "level": 6, "quantities": [16, 10, 10] }, { "level": 7, "quantities": [20, 14, 14] }, { "level": 8, "quantities": [24, 18, 18] }, { "level": 9, "quantities": [28, 24, 24] }, { "level": 10, "quantities": [32, 30, 30] }] },
+  "Nibbles": { "tokens": ["Pawpsicle", "Nibbles' Chewed Pencil", "Nibbles Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
+  "Mayor Winddancer": { "tokens": ["Pawpsicle", "Winddancer's Aviator Sunglasses", "Mayor Winddancer Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
+  "Gary De'Snake": { "tokens": ["Pawpsicle", "Gary's Antidote", "Gary De'Snake Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Sword in the Stone
   "Archimedes": { "tokens": ["\"The Sword in the Stone\" Book", "Archimedes' Birdhouse", "Archimedes Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Madam Mim": { "tokens": ["\"The Sword in the Stone\" Book", "Madam Mim's Playing Cards", "Madam Mim Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 30, 25] }, { "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [40, 10, 5] }, { "level": 6, "quantities": [50, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
@@ -9491,6 +9495,66 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Mr. Smee", "activity": "Check the Hold for Leaks", "char_level": "Level 8", "time": "12h" },
     { "char": "Jungle Cruise", "activity": "Watching Exotic Animals", "char_level": "Level 3", "time": "8h" }
   ],
+  "Lucifer's Milk Bowl": [
+    { "char": "Henry J. Waternoose", "activity": "Enjoy the Familiar Sound", "char_level": "Level 5", "time": "6h" },
+    { "char": "Suzy", "activity": "Pick the Perfect Bow", "char_level": "Level 6", "time": "6h" },
+    { "char": "Lady Tremaine + Anastasia Tremaine", "activity": "Seek Out Flute Lessons", "char_level": "Level 6", "time": "6h" },
+    { "char": "Drizella Tremaine", "activity": "Follow Beauty Routine", "char_level": "Level 4", "time": "8h" },
+    { "char": "Pocahontas", "activity": "Gain Wisdom", "char_level": "Level 5", "time": "8h" },
+    { "char": "The Mice's Sewing Carousel", "activity": "Making Sewing Exciting!", "char_level": "Level 2", "time": "8h" }
+  ],
+   "Lucifer Ears Hat": [
+    { "char": "Jaq", "activity": "New Mouse in the House!", "char_level": "Level 5", "time": "6h" },
+    { "char": "Perla", "activity": "Stitch a Pretty Pattern", "char_level": "Level 4", "time": "8h" },
+    { "char": "Anastasia Tremaine + Cinderella", "activity": "Talk about Forgiveness", "char_level": "Level 7", "time": "8h" },
+    { "char": "Pacha + Kuzco", "activity": "Don't Get Thrown Out", "char_level": "Level 3", "time": "8h" },
+    { "char": "Bagheera + Baloo", "activity": "A Casual Conversation", "char_level": "Level 6", "time": "12h" },
+    { "char": "The Mice's Sewing Carousel", "activity": "Making Sewing Exciting!", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Nibbles' Chewed Pencil": [
+    { "char": "Chief Bogo", "activity": "Get Donuts for the Team", "char_level": "Level 3", "time": "2h" },
+    { "char": "Pete", "activity": "Giving Orders", "char_level": "Level 6", "time": "2h" },
+    { "char": "Mayor Winddancer", "activity": "Photo Ops at Pipe Network", "char_level": "Level 2", "time": "4h" },
+    { "char": "Davy Jones", "activity": "Playing into the Night", "char_level": "Level 4", "time": "6h" },
+    { "char": "Zootopia Tubes", "activity": "Rushing Through High-Speed Water Pipes ", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Nibbles Ears Hat": [
+    { "char": "Faline", "activity": "Wade Through Tall Grass", "char_level": "Level 4", "time": "4h" },
+    { "char": "Gary De'Snake", "activity": "Navigate Twists and Turns", "char_level": "Level 3", "time": "4h" },
+    { "char": "BURN•E", "activity": "Search for Spires to Replace", "char_level": "Level 2", "time": "6h" },
+    { "char": "Minnie Mouse", "activity": "Visit Daisy's Diner", "char_level": "Level 4", "time": "6h" },
+    { "char": "Zootopia Tubes", "activity": "Rushing Through High-Speed Water Pipes ", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Winddancer's Aviator Sunglasses": [
+    { "char": "Dawn Bellwether", "activity": "Pat Your Badge Pocket ", "char_level": "Level 5", "time": "6h" },
+    { "char": "Jaq", "activity": "New Mouse in the House! ", "char_level": "Level 5", "time": "6h" },
+    { "char": "Kuzco + Pacha", "activity": "Anniversary Dinner", "char_level": "Level 6", "time": "6h" },
+    { "char": "Gary De'Snake", "activity": "Speed Through the Tubes", "char_level": "Level 6", "time": "8h" },
+    { "char": "Zootopia Tubes", "activity": "Rushing Through High-Speed Water Pipes ", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Mayor Winddancer Ears Hat": [
+    { "char": "Gary De'Snake", "activity": "Feel the Heat", "char_level": "Level 5", "time": "6h" },
+    { "char": "Mr. Stork", "activity": "Leave Lions Alone", "char_level": "Level 6", "time": "8h" },
+    { "char": "Nibbles", "activity": "Study the Plumbing Blueprint", "char_level": "Level 4", "time": "8h" },
+    { "char": "Bunny + Ducky", "activity": "Come Up with Jokes", "char_level": "Level 7", "time": "8h" },
+    { "char": "Rapunzel", "activity": "Sing for a Live Audience", "char_level": "Level 1", "time": "12h" },
+    { "char": "Zootopia Tubes", "activity": "Rushing Through High-Speed Water Pipes ", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Gary's Antidote": [
+    { "char": "Jessie", "activity": "A Playful Roundup", "char_level": "Level 6", "time": "8h" },
+    { "char": "Nibbles", "activity": "Study the Plumbing Blueprint", "char_level": "Level 4", "time": "8h" },
+    { "char": "Flower + Bambi", "activity": "Talk about Hibernation", "char_level": "Level 5", "time": "8h" },
+    { "char": "Tony + Joe", "activity": "Bella Notte Night", "char_level": "Level 8", "time": "8h" },
+    { "char": "Flynn", "activity": "Closer Look at the Crown", "char_level": "Level 5", "time": "12h" },
+    { "char": "Zootopia Tubes", "activity": "Rushing Through High-Speed Water Pipes ", "char_level": "Level 4", "time": "8h" }
+  ],
+  "Gary De'Snake Ears Hat": [
+    { "char": "Mayor Winddancer", "activity": "Throw a Splash Bash by Pipes", "char_level": "Level 4", "time": "6h" },
+    { "char": "Bernard", "activity": "Represent the U.S.A.", "char_level": "Level 6", "time": "8h" },
+    { "char": "Madam Mim", "activity": "Shapeshift into a Horse", "char_level": "Level 6", "time": "8h" },
+    { "char": "Emile + Anton Ego", "activity": "Peek Out of Hiding", "char_level": "Level 7", "time": "8h" },
+    { "char": "Scrooge McDuck + Huey", "activity": "Talk of Rules", "char_level": "Level 6", "time": "8h" }
+  ]
 };
 
 //This is used to calculate the cost of enchanting a character's item. The cost increases with each level of enchantment, and the blueprint required also changes. The time required for each enchantment is also included, as this is a factor in determining which enchantments to prioritize when resources are limited.
@@ -9728,7 +9792,9 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Disney Fairies", "name": "Pixie Hollow", "base_token": "Gossamer Wings", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Thimble", "cost": 80, "total": 160 }, { "level": 2, "token": "Tinker Bell Ears Hat", "cost": 120, "total": 200 }, { "level": 3, "token": "Periwinkle's Frost Flower", "cost": 120, "total": 240 }, { "level": 4, "token": "Periwinkle Ears Hat", "cost": 160, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 160, "total": 320 }] },
   { "collection": "Mickey and Friends", "name": "Clarabelle's Ice Cream", "base_token": "Horace's Collar", "base_cost": "40", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Clara Cluck's Hat", "cost": 60, "total": 120 }, { "level": 2, "token": "Ludwig Von Drake's Glasses and Pocket Watch", "cost": 30, "total": 150 }, { "level": 3, "token": "Clarabelle's Bell", "cost": 30, "total": 180 }, { "level": 4, "token": "Daisy Bow", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 30, "total": 240 }] },
   { "collection": "Mickey and Friends", "name": "Ludwig's Lab", "base_token": "Horace Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Clara Cluck Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Ludwig Von Drake Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Clarabelle Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Daisy Ears Hat", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
-  { "collection": "Disney Parks", "name": "Jungle Cruise", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Enchanted Key", "cost": 80, "total": 160 }, { "level": 2, "token": "Spike's Honeycomb", "cost": 40, "total": 200 }, { "level": 3, "token": "Spike Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
+  { "collection": "Disney Parks", "name": "Jungle Cruise", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Enchanted Key", "cost": 80, "total": 160 }, { "level": 2, "token": "Spike's Honeycomb", "cost": 40, "total": 200 }, { "level": 3, "token": "Spike Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Zootopia", "name": "Zootopia Tubes", "base_token": "Nibbles' Chewed Pencil", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Nibbles Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Winddancer's Aviator Sunglasses", "cost": 40, "total": 200 }, { "level": 3, "token": "Mayor Winddancer Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Gary's Antidote", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Cinderella", "name": "The Mice's Sewing Carousel", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "", "cost": 80, "total": 160 }, { "level": 2, "token": "Lucifer's Milk Bowl", "cost": 40, "total": 200 }, { "level": 3, "token": "Lucifer Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
 ];
 
 // This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
@@ -10589,7 +10655,14 @@ const TOKEN_SOURCES = {
   "Clarabelle's Bell": [{ "attraction": "Clarabelle's Ice Cream", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 6h", "cost": 60 }],
   "Clarabelle Ears Hat": [{ "attraction": "Ludwig's Lab", "collection": "Mickey and Friends", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
   "Spike's Honeycomb": [{ "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 2, "timing": "Every 8h", "cost": 200 }],
-  "Spike Ears Hat": [{ "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 8h", "cost": 240 }]
+  "Spike Ears Hat": [{ "attraction": "Jungle Cruise", "collection": "Disney Parks", "enchant_level": 3, "timing": "Every 8h", "cost": 240 }],
+  "Lucifer's Milk Bowl": [{ "attraction": "The Mice's Sewing Carousel", "collection": "Cinderella", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
+  "Lucifer Ears Hat": [{ "attraction": "The Mice's Sewing Carousel", "collection": "Cinderella", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
+  "Nibbles' Chewed Pencil": [{ "attraction": "Zootopia Tubes", "collection": "Zootopia", "enchant_level": 0, "timing": "Every 8h", "cost": 80 }],
+  "Nibbles Ears Hat": [{ "attraction": "Zootopia Tubes", "collection": "Zootopia", "enchant_level": 1, "timing": "Every 8h", "cost": 80 }],
+  "Winddancer's Aviator Sunglasses": [{ "attraction": "Zootopia Tubes", "collection": "Zootopia", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
+  "Mayor Winddancer Ears Hat": [{ "attraction": "Zootopia Tubes", "collection": "Zootopia", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
+  "Gary's Antidote": [{ "attraction": "Zootopia Tubes", "collection": "Zootopia", "enchant_level": 4, "timing": "Every 8h", "cost": 80 }]
 };
 
 // ============ CHARACTER DATABASE ============
@@ -10853,7 +10926,9 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_253', name: 'Ladybug Painting Station', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_254', name: 'Pixie Hollow', collection: 'Disney Fairies', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_255', name: 'Ludwig\'s Lab', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '9x9', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
-  { id: 'attr_256', name: 'Clarabelle\'s Ice Cream', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '7x9', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 }
+  { id: 'attr_256', name: 'Clarabelle\'s Ice Cream', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '7x9', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
+  { id: 'attr_257', name: 'Zootopia Tubes', collection: 'Zootopia', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_258', name: 'The Mice\'s Sewing Carousel', collection: 'Cinderella', emoji: '🧚', elixir: false, size: '7x7', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
 ];
 
 //Consessions
@@ -11126,7 +11201,8 @@ const DMK_CONCESSIONS_DATA = [
   { "collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
   { "collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
   { "collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
-  { "collection": "Mickey & Friends", "name": "DMK 10th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" }
+  { "collection": "Mickey & Friends", "name": "DMK 10th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Cinderella", "name": "Cinderella Carriage Candy Apple Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" }
 ];
 
 // Categories: Trophy | Greenery | Monument | Scenery | Amenity
@@ -11430,8 +11506,8 @@ const DMK_DECORATIONS = [
   { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey & Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Cinderella Carriage Sofa", category: "Amenity", collection: "Cinderella", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 75 },
   { name: "Lucifer's Hidden Hideaway", category: "Greenery", collection: "Cinderella", size: "3×4", emoji: "🌿", rarity: "Epic", elixir: 625 },
-  //TODO: check the size in wiki and update if needed
-  { name: "Pumpkin Coach Topiary", category: "Greenery", collection: "Cinderella", size: "5×5", emoji: "🌿", rarity: "Epic", elixir: 625 },
+  { name: "Pumpkin Coach Topiary", category: "Greenery", collection: "Cinderella", size: "4×5", emoji: "🌿", rarity: "Epic", elixir: 625 },
+  { name: "Cinderella Statue", category: "Monument", collection: "Cinderella", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
 ];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
@@ -11488,6 +11564,7 @@ const DMK_CHARS = [
   ["Lady Tremaine", "Cinderella", "p", "👩"],
   ["Perla", "Cinderella", "e", "🐭"],
   ["Suzy", "Cinderella", "e", "🐭"],
+  ["Lucifer", "Cinderella", "e", "🐱"],
   // Star Wars
   ["R2-D2", "Star Wars", "p", "🤖"],
   ["C-3PO", "Star Wars", "s", "🤖"],
@@ -11569,6 +11646,9 @@ const DMK_CHARS = [
   ["Flash", "Zootopia", "p", "🦊"],
   ["Gazelle", "Zootopia", "e", "🦊"],
   ["Mr. Big", "Zootopia", "s", "🦊"],
+  ["Nibbles", "Zootopia", "e", "🐭"],
+  ["Mayor Winddancer", "Zootopia", "e", "🦊"],
+  ["Gary De'Snake", "Zootopia", "e", "🐍"],
   // Bambi
   ["Bambi", "Bambi", "s", "🦌"],
   ["Thumper", "Bambi", "s", "🐇"],
@@ -12584,7 +12664,11 @@ const CHAR_URLS = {
   'Meilin \"Mei\" Lee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/a0/Cp-meilin_mei_lee.png/revision/latest?cb=20220914033202',
   'Perla': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/06/Cp-perla.png/revision/latest?cb=20260411165911',
   'Suzy': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/f/f7/Cp-suzy.png/revision/latest?cb=20260411170850',
-  'Spike the Bee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/ad/Cp-spike_the_bee.png/revision/latest?cb=20260411171024'
+  'Spike the Bee': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/ad/Cp-spike_the_bee.png/revision/latest?cb=20260411171024',
+  'Lucifer': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/3/3e/Cp-lucifer.png/revision/latest?cb=20260505172903',
+  'Nibbles': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/2/20/Cp-nibbles.png/revision/latest?cb=20260505173143',
+  'Mayor Winddancer': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/12/Cp-mayor_winddancer.png/revision/latest?cb=20260505173119',
+  'Gary De\'Snake': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/0e/Cp-gary_desnake.png/revision/latest?cb=20260505173055'
 };
 
 // DMK costumes data
@@ -12602,6 +12686,7 @@ const DMK_COSTUMES = [
   { char: 'Eilonwy', collection: 'Black Cauldron', costume: 'Blue Dress' },
   { char: 'Merida', collection: 'Brave', costume: 'Comfy' },
   { char: 'Cinderella', collection: 'Cinderella', costume: 'Comfy' },
+  { char: 'Cinderella', collection: 'Cinderella', costume: 'Mother\'s Dress' },
   { char: 'Becky', collection: 'Finding Nemo', costume: 'Popcorn Cup' },
   { char: 'Anna', collection: 'Frozen', costume: 'Holiday' },
   { char: 'Anna', collection: 'Frozen', costume: 'Queen' },
@@ -14848,5 +14933,13 @@ const TOKEN_RARITY = {
   "Perla's Ribbon Spool": "uncommon",
   "Perla Ears Hat": "rare",
   "Spike's Honeycomb": "epic",
-  "Spike Ears Hat": "legendary"
+  "Spike Ears Hat": "legendary",
+  "Lucifer's Milk Bowl": "epic",
+  "Lucifer Ears Hat": "legendary",
+  "Nibbles' Chewed Pencil": "common",
+  "Nibbles Ears Hat": "common",
+  "Winddancer's Aviator Sunglasses": "uncommon",
+  "Mayor Winddancer Ears Hat": "rare",
+  "Gary's Antidote": "epic",
+  "Gary De'Snake Ears Hat": "legendary"
 };

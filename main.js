@@ -265,12 +265,16 @@ function populateCollFilter() {
 function levelUp(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
+  const oldLevel = parseInt(c.level) || 0;
   if (!c.welcomed) {
     c.welcomed = true;
     c.level = 1;
   } else {
-    const currentLevel = parseInt(c.level);
-    if (currentLevel < MAX_CHAR_LEVEL) c.level = currentLevel + 1;
+    if (oldLevel < MAX_CHAR_LEVEL) c.level = oldLevel + 1;
+  }
+  // Reset token inventory for this character after leveling up
+  if (state.token_inventory?.[c.name]) {
+    state.token_inventory[c.name] = {};
   }
   saveState();
   renderChars();
