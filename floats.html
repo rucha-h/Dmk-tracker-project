@@ -37,21 +37,20 @@
       <div class="card" style="padding:12px 16px;">
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <input type="text" id="float-search" placeholder="🔍 Search float or collection..." autocomplete="off"
-          style="flex:1;min-width:160px;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;"
-          oninput="renderFloatsDebounced()">
-        <select id="float-sort" onchange="renderFloats()"
+          style="flex:1;min-width:160px;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
+        <select id="float-sort"
           style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
           <option value="name">A-Z</option>
           <option value="magic">Magic Reward</option>
           <option value="cost">Assign Cost</option>
         </select>
       </div>
-      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-        <button onclick="filterFloats('all')" id="float-btn-all" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
-        <button onclick="filterFloats('owned')" id="float-btn-owned" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🎡 Owned</button>
-        <button onclick="filterFloats('active')" id="float-btn-active" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Active</button>
-        <button onclick="filterFloats('inactive')" id="float-btn-inactive" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭕ Inactive</button>
-        <button onclick="filterFloats('unowned')" id="float-btn-unowned" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🔒 Unowned</button>
+      <div class="char-filters" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+        <button data-filter="all" id="float-btn-all" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
+        <button data-filter="owned" id="float-btn-owned" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🎡 Owned</button>
+        <button data-filter="active" id="float-btn-active" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Active</button>
+        <button data-filter="inactive" id="float-btn-inactive" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭕ Inactive</button>
+        <button data-filter="unowned" id="float-btn-unowned" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🔒 Unowned</button>
         <span id="float-count" style="margin-left:auto;font-size:11px;color:var(--muted);"></span>
       </div>
     </div>

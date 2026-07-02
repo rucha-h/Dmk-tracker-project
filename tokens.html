@@ -38,20 +38,24 @@
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
         <input type="text" id="tok-search" placeholder="🔍 Search character or token..." autocomplete="off"
           style="flex:1;min-width:160px;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;"
-          oninput="renderTokensDebounced()">
-        <select id="tok-sort" onchange="renderTokens()"
+          >
+        <select id="tok-sort"
           style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
           <option value="name">A-Z</option>
           <option value="ready">Ready First</option>
           <option value="progress">Most Progress</option>
         </select>
+        <select id="tok-coll-filter"
+          style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;max-width:160px;">
+          <option value="">All Collections</option>
+        </select>
       </div>
-      <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
-        <button onclick="filterTokens('all')" id="tok-btn-all" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
-        <button onclick="filterTokens('ready')" id="tok-btn-ready" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Ready</button>
-        <button onclick="filterTokens('missing')" id="tok-btn-missing" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⚠️ Missing</button>
-        <button onclick="filterTokens('maxed')" id="tok-btn-maxed" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭐ Maxed</button>
-        <button onclick="filterTokens('wishlist')" id="tok-btn-wishlist" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🌟 Wishlist</button>
+      <div class="char-filters" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+        <button data-filter="all" id="tok-btn-all" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
+        <button data-filter="ready" id="tok-btn-ready" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Ready</button>
+        <button data-filter="missing" id="tok-btn-missing" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⚠️ Missing</button>
+        <button data-filter="maxed" id="tok-btn-maxed" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭐ Maxed</button>
+        <button data-filter="wishlist" id="tok-btn-wishlist" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🌟 Wishlist</button>
         <span id="tok-count" style="margin-left:auto;font-size:11px;color:var(--muted);"></span>
       </div>
     </div>

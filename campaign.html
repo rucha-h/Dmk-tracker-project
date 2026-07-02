@@ -47,7 +47,7 @@
             style="font-family:'Cinzel Decorative',cursive;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;">Active
             Quests</span>
           <span id="active-quest-count" style="font-size:11px;font-weight:600;color:var(--muted);"></span>
-          <button onclick="clearCompletedPins()" id="clear-done-btn"
+          <button id="clear-done-btn"
             style="margin-left:auto;font-size:10px;padding:2px 9px;border-radius:6px;border:1px solid rgba(57,232,124,0.3);background:rgba(57,232,124,0.08);color:var(--green);cursor:pointer;display:none;font-family:'Nunito',sans-serif;font-weight:700;">
             ✓ Clear Done
           </button>
@@ -73,22 +73,21 @@
       </div>
 
       <div class="char-filters" style="margin-bottom:10px;">
-        <button class="filter-btn active" onclick="filterArcs('all',this)">All Arcs</button>
-        <button class="filter-btn" onclick="filterArcs('inprogress',this)">In Progress</button>
-        <button class="filter-btn" onclick="filterArcs('todo',this)">To Do</button>
-        <button class="filter-btn" onclick="filterArcs('done',this)">Completed</button>
-        <button class="filter-btn" onclick="filterArcs('main',this)">Main Only</button>
-        <button class="filter-btn" onclick="filterArcs('side',this)" style="color:var(--teal);">Side Quests</button>
+        <button class="filter-btn active" data-filter="all">All Arcs</button>
+        <button class="filter-btn" data-filter="inprogress">In Progress</button>
+        <button class="filter-btn" data-filter="todo">To Do</button>
+        <button class="filter-btn" data-filter="done">Completed</button>
+        <button class="filter-btn" data-filter="main">Main Only</button>
+        <button class="filter-btn" data-filter="side" style="color:var(--teal);">Side Quests</button>
       </div>
 
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:10px;">
         <input type="text" id="campaign-search" placeholder="🔍 Search quests or characters..." autocomplete="off"
-          oninput="renderQuestsDebounced()"
           style="flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
-        <button onclick="expandAllArcs()"
+        <button id="expand-all-arcs-btn"
           style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕
           Expand All</button>
-        <button onclick="collapseAllArcs()"
+        <button id="collapse-all-arcs-btn"
           style="font-size:11px;padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;white-space:nowrap;">↕
           Collapse All</button>
       </div>

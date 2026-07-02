@@ -243,9 +243,9 @@
 
   .filter-btn.active,
   .filter-btn:hover {
-    background: var(--purple-light);
-    color: var(--gold);
-    border-color: var(--gold);
+    background: var(--purple-light) !important;
+    color: var(--gold) !important;
+    border-color: var(--gold) !important;
   }
 
   .char-grid {
@@ -793,7 +793,7 @@
 
   /* Scrollable containers */
   .scroll-y {
-    max-height: 520px;
+    max-height: 620px;
     overflow-y: auto;
     padding-right: 4px;
   }

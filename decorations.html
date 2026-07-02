@@ -49,13 +49,12 @@
       <div class="card" style="padding:12px 16px;margin-bottom:10px;">
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
           <input type="text" id="dec-search" placeholder="🔍 Search decorations..." autocomplete="off"
-            oninput="renderDecorationsDebounced()"
             style="flex:1;min-width:160px;font-size:13px;">
-          <select id="dec-coll-filter" onchange="renderDecorations()"
+          <select id="dec-coll-filter"
             style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">
             <option value="">All Collections</option>
           </select>
-          <select id="dec-sort" onchange="renderDecorations()"
+          <select id="dec-sort"
             style="font-size:11px;background:var(--card2);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:4px 8px;cursor:pointer;height:32px;">
             <option value="name">A-Z</option>
             <option value="collection">Collection</option>
@@ -66,17 +65,21 @@
         </div>
         <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
           <!-- Ownership filters -->
-          <button onclick="setDecFilter('all',this)" class="filter-btn active" id="dec-btn-all">All</button>
-          <button onclick="setDecFilter('owned',this)" class="filter-btn" id="dec-btn-owned">✅ Owned</button>
-          <button onclick="setDecFilter('missing',this)" class="filter-btn" id="dec-btn-missing">○ Missing</button>
+          <div class="dec-filters" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <button data-filter="all" class="filter-btn active" id="dec-btn-all">All</button>
+            <button data-filter="owned" class="filter-btn" id="dec-btn-owned">✅ Owned</button>
+            <button data-filter="missing" class="filter-btn" id="dec-btn-missing">○ Missing</button>
+          </div>
           <!-- Category filters -->
           <span style="width:1px;height:20px;background:var(--border);margin:0 2px;"></span>
-          <button onclick="setDecCatFilter('',this)" class="filter-btn active" id="dec-cat-all" style="font-size:10px;">📦 All Types</button>
-          <button onclick="setDecCatFilter('Trophy',this)" class="filter-btn" id="dec-cat-trophy" style="font-size:10px;">🏆 Trophy</button>
-          <button onclick="setDecCatFilter('Greenery',this)" class="filter-btn" id="dec-cat-greenery" style="font-size:10px;">🌿 Greenery</button>
-          <button onclick="setDecCatFilter('Monument',this)" class="filter-btn" id="dec-cat-monument" style="font-size:10px;">🗿 Monument</button>
-          <button onclick="setDecCatFilter('Scenery',this)" class="filter-btn" id="dec-cat-scenery" style="font-size:10px;">🏞️ Scenery</button>
-          <button onclick="setDecCatFilter('Amenity',this)" class="filter-btn" id="dec-cat-amenity" style="font-size:10px;">🪑 Amenity</button>
+          <div class="dec-cat-filters" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <button data-filter="" class="filter-btn active" id="dec-cat-all" style="font-size:10px;">📦 All Types</button>
+            <button data-filter="Trophy" class="filter-btn" id="dec-cat-trophy" style="font-size:10px;">🏆 Trophy</button>
+            <button data-filter="Greenery" class="filter-btn" id="dec-cat-greenery" style="font-size:10px;">🌿 Greenery</button>
+            <button data-filter="Monument" class="filter-btn" id="dec-cat-monument" style="font-size:10px;">🗿 Monument</button>
+            <button data-filter="Scenery" class="filter-btn" id="dec-cat-scenery" style="font-size:10px;">🏞️ Scenery</button>
+            <button data-filter="Amenity" class="filter-btn" id="dec-cat-amenity" style="font-size:10px;">🪑 Amenity</button>
+          </div>
           <span id="dec-count" style="margin-left:auto;font-size:11px;color:var(--muted);align-self:center;"></span>
         </div>
       </div>

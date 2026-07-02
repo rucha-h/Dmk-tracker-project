@@ -37,15 +37,17 @@
        <div class="card" style="margin-bottom:12px;">
     <div class="card-title">👗 Costumes</div>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
-      <input id="costume-search" type="text" placeholder="🔍 Search costume or character..." oninput="renderCostumesDebounced()"
+      <input id="costume-search" type="text" placeholder="🔍 Search costume or character..."
         style="flex:1;min-width:180px;padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:13px;">
-      <select id="costume-coll-filter" onchange="renderCostumes()"
+      <select id="costume-coll-filter"
         style="padding:8px 12px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:var(--text);font-size:12px;">
         <option value="">All Collections</option>
       </select>
-      <button class="filter-btn active" onclick="setCostumeFilter('all',this)">All</button>
-      <button class="filter-btn" onclick="setCostumeFilter('owned',this)">✅ Owned</button>
-      <button class="filter-btn" onclick="setCostumeFilter('missing',this)">❌ Missing</button>
+      <div class="char-filters" style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="owned">✅ Owned</button>
+        <button class="filter-btn" data-filter="missing">❌ Missing</button>
+      </div>
     </div>
     <div id="costume-progress" style="margin-bottom:12px;font-size:12px;color:var(--muted);"></div>
     <div id="costume-list"></div>

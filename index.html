@@ -139,17 +139,17 @@
           <div class="resource-item">
             <div class="resource-icon">✨</div>
             <div class="resource-name">Magic</div>
-            <div><input class="res-input" id="res-magic" type="number" value="0" min="0" oninput="saveState()"></div>
+            <div><input class="res-input" id="res-magic" type="number" value="0" min="0"></div>
           </div>
           <div class="resource-item">
             <div class="resource-icon">💎</div>
             <div class="resource-name">Gems <span style="font-size:0.7em;opacity:0.7">(Acts 1-5)</span></div>
-            <div><input class="res-input" id="res-gems" type="number" value="0" min="0" oninput="saveState()"></div>
+            <div><input class="res-input" id="res-gems" type="number" value="0" min="0"></div>
           </div>
           <div class="resource-item">
             <div class="resource-icon">🌟</div>
             <div class="resource-name">Dreamsparks <span style="font-size:0.7em;opacity:0.7">(Act 6+)</span></div>
-            <div><input class="res-input" id="res-dreamsparks" type="number" value="0" min="0" oninput="saveState()">
+            <div><input class="res-input" id="res-dreamsparks" type="number" value="0" min="0">
             </div>
           </div>
         </div>
@@ -163,11 +163,11 @@
       <div class="card">
         <div class="card-title"><span class="icon">💾</span>Backup & Restore</div>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
-          <button onclick="exportState()"
+          <button id="export-backup-btn"
             style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(87,210,255,0.12);color:var(--teal);">
             ⬇ Export Backup
           </button>
-          <button onclick="importState()"
+          <button id="import-backup-btn"
             style="flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-size:13px;font-weight:700;background:rgba(245,200,66,0.12);color:var(--gold);">
             ⬆ Import Backup
           </button>

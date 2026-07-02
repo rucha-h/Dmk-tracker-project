@@ -14,13 +14,23 @@ function debounce(fn, delay = 100) {
 
 // ============ FILTER PERSISTENCE ============
 function saveFilterState(key, value) {
-  try { sessionStorage.setItem('dmk-filter-' + key, JSON.stringify(value)); } catch (e) { }
+  try { localStorage.setItem('dmk-filter-' + key, JSON.stringify(value)); } catch (e) { }
 }
 function loadFilterState(key, fallback) {
   try {
-    const v = sessionStorage.getItem('dmk-filter-' + key);
+    const v = localStorage.getItem('dmk-filter-' + key);
     return v !== null ? JSON.parse(v) : fallback;
   } catch (e) { return fallback; }
+}
+
+function initPersistedSelect(id, key) {
+  const el = getEl(id);
+  if (!el) return;
+  const saved = loadFilterState(key, el.value);
+  if (saved !== null && saved !== undefined) {
+    el.value = saved;
+  }
+  el.addEventListener('change', () => saveFilterState(key, el.value));
 }
 
 function initSearchClear(inputId, onClear) {
@@ -48,6 +58,7 @@ function initSearchClear(inputId, onClear) {
 
   input.addEventListener('input', () => {
     btn.classList.toggle('visible', input.value.length > 0);
+    onClear();
   });
 
   btn.addEventListener('click', () => {
@@ -56,6 +67,18 @@ function initSearchClear(inputId, onClear) {
     input.focus();
     onClear();
   });
+}
+
+function initButton(id, handler) {
+  const btn = getEl(id);
+  if (!btn) return;
+  btn.addEventListener('click', handler);
+}
+
+function initInputChange(id, eventName, handler) {
+  const input = getEl(id);
+  if (!input) return;
+  input.addEventListener(eventName, handler);
 }
 
 const renderCharsDebounced = debounce(renderChars);
@@ -107,8 +130,38 @@ function esc(s) {
 }
 
 const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
+const STATE_VERSION = 2;
 
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
+
+function getSharedCollectionToken(chars) {
+  if (!chars.length) return null;
+  const firstToken = chars[0].td?.tokens?.[0];
+  if (!firstToken) return null;
+  return chars.every(c => c.td?.tokens?.[0] === firstToken) ? firstToken : null;
+}
+
+function getCollectionTokenTotal(collectionName, token, chars = null) {
+  const targetChars = chars || state.characters.filter(c => c.collection === collectionName && DMK_CHAR_TOKENS[c.name]?.tokens?.[0] === token);
+  return targetChars.reduce((sum, c) => sum + (state.token_inventory?.[c.name]?.[token] || 0), 0);
+}
+
+function setCollectionToken(collectionName, token, total, chars = null) {
+  const targetChars = chars || state.characters.filter(c => c.collection === collectionName && DMK_CHAR_TOKENS[c.name]?.tokens?.[0] === token);
+  if (!targetChars.length) return;
+  if (!state.token_inventory) state.token_inventory = {};
+  const normalizedTotal = Math.max(0, total);
+  const base = Math.floor(normalizedTotal / targetChars.length);
+  let remainder = normalizedTotal % targetChars.length;
+  targetChars.forEach(c => {
+    const charName = c.name || c;
+    if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
+    state.token_inventory[charName][token] = base + (remainder > 0 ? 1 : 0);
+    remainder -= 1;
+  });
+  saveState();
+  renderTokens();
+}
 
 // ============ FILTER STATE ============
 let tokFilter = loadFilterState('tok', 'all');
@@ -118,6 +171,7 @@ let encBuiltFilter = loadFilterState('enc', 'all');
 
 // ============ STATE ============
 let state = {
+  version: STATE_VERSION,
   characters: [],
   quests: [],
   resources: { magic: 0, gems: 0, tokens: 0, rare: 0 },
@@ -129,11 +183,12 @@ let state = {
 // ============ LOAD / SAVE ============
 // Build canonical character list from DMK_CHARS
 function buildAllChars() {
-  return DMK_CHARS.map(([name, collection, typeCode, emoji]) => ({
+  return DMK_CHARS.map(([name, collection, typeCode, emoji, gemCost]) => ({
     id: 'char_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
     name, collection,
     type: TYPE_MAP[typeCode] || 'storyline',
     emoji: emoji || '🎪',
+    gemCost: gemCost || null,
     level: 0,
     max: MAX_CHAR_LEVEL,
     welcomed: false
@@ -153,8 +208,7 @@ function loadState() {
       state.characters = allChars.map(ch => {
         const savedChar = savedByName[ch.name];
         if (savedChar) {
-          const { id: _, ...savedWithoutId } = savedChar; // Exclude old id
-          return { ...ch, ...savedWithoutId, level: parseInt(savedChar.level) || 0 };
+          return { ...ch, level: parseInt(savedChar.level) || 0, welcomed: savedChar.welcomed };
         }
         return ch;
       });
@@ -266,18 +320,38 @@ function levelUp(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
   const oldLevel = parseInt(c.level) || 0;
-  if (!c.welcomed) {
-    c.welcomed = true;
-    c.level = 1;
-  } else {
-    if (oldLevel < MAX_CHAR_LEVEL) c.level = oldLevel + 1;
+  const newLevel = !c.welcomed ? 1 : Math.min(oldLevel + 1, MAX_CHAR_LEVEL);
+  if (!c.welcomed) c.welcomed = true;
+  const td = DMK_CHAR_TOKENS[c.name];
+  const needed = td?.levels.find(l => l.level === newLevel);
+  if (needed?.tokens && state.token_inventory) {
+    const sharedToken = td?.tokens?.[0];
+    const sharedCollChars = sharedToken
+      ? state.characters.filter(ch => ch.collection === c.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
+      : [];
+    const isShared = sharedCollChars.length > 1 && sharedToken && needed.tokens.includes(sharedToken);
+    if (isShared) {
+      const sharedIdx = needed.tokens.indexOf(sharedToken);
+      const sharedQty = sharedIdx >= 0 ? needed.quantities[sharedIdx] : 0;
+      const pool = getCollectionTokenTotal(c.collection, sharedToken, sharedCollChars);
+      const newPool = Math.max(0, pool - sharedQty);
+      const base = Math.floor(newPool / sharedCollChars.length);
+      let rem = newPool % sharedCollChars.length;
+      sharedCollChars.forEach(ch => {
+        if (!state.token_inventory[ch.name]) state.token_inventory[ch.name] = {};
+        state.token_inventory[ch.name][sharedToken] = base + (rem-- > 0 ? 1 : 0);
+      });
+    } else if (state.token_inventory[c.name]) {
+      td.tokens.forEach((t, i) => {
+        if (state.token_inventory[c.name][t])
+          state.token_inventory[c.name][t] = Math.max(0, (state.token_inventory[c.name][t] || 0) - needed.quantities[i]);
+      });
+    }
   }
-  // Reset token inventory for this character after leveling up
-  if (state.token_inventory?.[c.name]) {
-    state.token_inventory[c.name] = {};
-  }
+  c.level = newLevel;
   saveState();
   renderChars();
+  updateDashboard();
 }
 
 function levelDown(id) {
@@ -325,8 +399,10 @@ let charFilter = loadFilterState('chars', 'all');
 function filterChars(f, btn) {
   charFilter = f;
   saveFilterState('chars', f);
-  document.querySelectorAll('#tab-characters .filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('#tab-characters .filter-btn').forEach(b => {
+    const filterValue = b.dataset.filter;
+    b.classList.toggle('active', filterValue === f);
+  });
   renderChars();
 }
 
@@ -373,7 +449,7 @@ function renderChars() {
       const isWishlisted = !c.welcomed && state.wishlist?.[c.id];
       return `
     <div class="char-card ${c.welcomed ? 'welcomed' : 'not-welcomed'} ${maxed ? 'maxed' : ''}" style="position:relative;">
-      ${!c.welcomed ? `<button onclick="toggleWishlist('${c.id}')" title="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}" style="position:absolute;top:5px;right:5px;background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:2px;z-index:2;">${isWishlisted ? '⭐' : '☆'}</button>` : ''}
+      ${!c.welcomed ? `<button class="btn-wishlist" data-action="toggle-wishlist" data-id="${c.id}" title="${isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}" style="position:absolute;top:5px;right:5px;background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:2px;z-index:2;">${isWishlisted ? '⭐' : '☆'}</button>` : ''}
       <div class="char-top">
         <div class="char-emoji">${charImg(c.name, 40) || c.emoji || '🎪'}</div>
         <div class="char-info">
@@ -410,6 +486,7 @@ if (grid) {
     if (action === 'leveldown') levelDown(id);
     if (action === 'welcome') welcomeChar(id);
     if (action === 'remove') removeChar(id);
+    if (action === 'toggle-wishlist') toggleWishlist(id);
   });
 }
 
@@ -500,8 +577,8 @@ function toggleArcQuest(arcId, questId) {
     }
 
     // Update Complete All button visibility and text
-    const completeBtn = arcCard.querySelector('button[onclick*="completeAllArcQuests"]');
-    const uncompleteBtn = arcCard.querySelector('button[onclick*="uncompleteAllArcQuests"]');
+    const completeBtn = arcCard.querySelector('button[data-action="complete-all-arc-quests"]');
+    const uncompleteBtn = arcCard.querySelector('button[data-action="uncomplete-all-arc-quests"]');
     if (newStatus !== 'done') {
       if (completeBtn) completeBtn.style.display = '';
       if (uncompleteBtn) uncompleteBtn.style.display = 'none';
@@ -551,8 +628,10 @@ function renderQuestsHeader() {
 function filterArcs(f, btn) {
   arcFilter = f;
   saveFilterState('arc', f);
-  document.querySelectorAll('#tab-campaign .filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('#tab-campaign .filter-btn').forEach(b => {
+    const filterValue = b.dataset.filter;
+    b.classList.toggle('active', filterValue === f);
+  });
   renderQuests();
 }
 
@@ -665,8 +744,7 @@ function renderQuests() {
         const done = getArcQuestState(arc.id, q.id, questMap);
         const pinned = isQuestPinned(arc.id, q.id);
         const pinBtn = !done
-          ? `<button class="pin-quest-btn" data-arc="${arc.id}" data-quest="${q.id}"
-               onclick="event.stopPropagation(); togglePinQuest('${arc.id}','${q.id}')"
+          ? `<button class="pin-quest-btn" data-action="toggle-pin-quest" data-arc="${arc.id}" data-quest="${q.id}"
                title="${pinned ? 'Unpin quest' : 'Pin to Active Quests'}"
                style="background:none;border:none;cursor:pointer;font-size:11px;padding:0 2px;line-height:1;opacity:${pinned ? '1' : '0.4'};flex-shrink:0;transition:opacity 0.15s;"
              >${pinned ? '📌' : '📍'}</button>`
@@ -700,7 +778,7 @@ function renderQuests() {
 
       return `
       <div class="card" style="margin-bottom:10px;border-color:${statusColor}22;">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;background:${headerBg};border-radius:10px;padding:10px 12px;cursor:pointer;" onclick="toggleArcCollapse('${arc.id}')">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;background:${headerBg};border-radius:10px;padding:10px 12px;cursor:pointer;" data-action="toggle-arc" data-arc="${arc.id}">
           <span style="font-size:24px;">${arc.emoji}</span>
           <div style="flex:1;min-width:0;">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
@@ -716,8 +794,8 @@ function renderQuests() {
             <div data-arc-count style="font-size:12px;font-weight:800;color:${statusColor}">${statusIcon} ${d}/${t}</div>
             <div data-arc-pct style="font-size:10px;color:var(--muted);">${arcPct}%</div>
             ${status !== 'done'
-          ? `<button onclick="event.stopPropagation(); completeAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Complete All</button>`
-          : `<button onclick="event.stopPropagation(); uncompleteAllArcQuests('${arc.id}')" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Uncomplete All</button>`}
+          ? `<button data-action="complete-all-arc-quests" data-arc="${arc.id}" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Complete All</button>`
+          : `<button data-action="uncomplete-all-arc-quests" data-arc="${arc.id}" style="font-size:10px;padding:2px 6px;margin-top:4px;border-radius:4px;border:1px solid var(--border);background:var(--card2);color:var(--text);cursor:pointer;">Uncomplete All</button>`}
           </div>
         </div>
         <div style="height:4px;background:rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:10px;">
@@ -730,7 +808,8 @@ function renderQuests() {
     }).join('');
 
     container.querySelectorAll('.quest-item[data-arc]').forEach(el => {
-      el.addEventListener('click', () => {
+      el.addEventListener('click', e => {
+        if (e.target.closest('[data-action]')) return;
         toggleArcQuest(el.dataset.arc, el.dataset.quest);
       });
     });
@@ -1120,7 +1199,7 @@ function renderCostumes() {
               <div style="font-size:12px;color:var(--text);font-weight:700;margin-bottom:5px;opacity:0.85;">${esc(char)}</div>
               <div style="display:flex;flex-wrap:wrap;gap:6px;">
                 ${charCostumes.map(c => `
-                  <button onclick="toggleCostume('${c.id}')"
+                  <button data-action="toggle-costume" data-id="${c.id}"
                     style="padding:5px 12px;border-radius:20px;border:1px solid ${c.owned ? 'var(--green)' : 'var(--border)'};
                       background:${c.owned ? 'rgba(57,232,124,0.12)' : 'var(--card2)'};
                       color:${c.owned ? 'var(--green)' : 'var(--muted)'};
@@ -1229,7 +1308,7 @@ function renderAttractions() {
           <div style="font-weight:700;">${a.rewardMagic}</div>
         </div>
       </div>
-      <button onclick="toggleAttr('${a.id}')"
+      <button data-action="toggle-attr" data-id="${a.id}"
         style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
         background:${a.built ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
         color:${a.built ? 'var(--green)' : 'var(--gold)'};">
@@ -1269,68 +1348,161 @@ if (!state.decorations_owned) state.decorations_owned = {};
 if (!state.concessions_owned) state.concessions_owned = {};
 
 const _page = document.body.dataset.page;
-if (_page === 'dashboard') { updateDashboard(); }
-if (_page === 'characters') {
-  populateCollFilter(); renderChars();
-  initSearchClear('char-search-input', renderChars);
-}
-if (_page === 'attractions') {
-  renderAttractions();
-  initSearchClear('attr-search-input', renderAttractions);
-}
-if (_page === 'costumes') {
-  renderCostumes();
-  initSearchClear('costume-search', renderCostumes);
-}
-if (_page === 'tokens') {
-  renderTokens();
-  initSearchClear('tok-search', renderTokens);
-}
-if (_page === 'floats') {
-  renderFloats();
-  initSearchClear('float-search', renderFloats);
-}
-if (_page === 'concessions') {
-  initConcessionCollFilter(); renderConcessions();
-  initSearchClear('con-search', renderConcessions);
-}
-if (_page === 'enchantments') {
-  initEncCollFilter(); renderEnchantmentsTab();
-  initSearchClear('enc-search', renderEnchantmentsTab);
-}
-if (_page === 'campaign') {
-  renderQuests();
-  initSearchClear('campaign-search', renderQuests);
-}
-if (_page === 'decorations') {
-  initDecCollFilter(); renderDecorations();
-  initSearchClear('dec-search', renderDecorations);
+
+const PAGE_CONFIG = {
+  dashboard: {
+    init: () => updateDashboard(),
+  },
+  characters: {
+    init: () => {
+      populateCollFilter();
+      initPersistedSelect('collection-filter', 'charCollection');
+      initInputChange('collection-filter', 'change', renderChars);
+      renderChars();
+      initSearchClear('char-search-input', renderCharsDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-characters', charFilter),
+    filter: () => initFilterGroup('#tab-characters .char-filters', filterChars),
+  },
+  attractions: {
+    init: () => {
+      initPersistedSelect('attr-collection-filter', 'attrCollection');
+      initInputChange('attr-collection-filter', 'change', renderAttractions);
+      renderAttractions();
+      initSearchClear('attr-search-input', renderAttractionsDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-attractions', attrFilter),
+    filter: () => initFilterGroup('#tab-attractions .char-filters', setAttrFilter),
+  },
+  costumes: {
+    init: () => {
+      initPersistedSelect('costume-coll-filter', 'costumeCollection');
+      initInputChange('costume-coll-filter', 'change', renderCostumes);
+      renderCostumes();
+      initSearchClear('costume-search', renderCostumesDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-costumes', costumeFilter),
+    filter: () => initFilterGroup('#tab-costumes .char-filters', setCostumeFilter),
+  },
+  tokens: {
+    init: () => {
+      initTokCollFilter();
+      initPersistedSelect('tok-coll-filter', 'tokCollection');
+      initInputChange('tok-coll-filter', 'change', renderTokens);
+      initInputChange('tok-sort', 'change', renderTokens);
+      renderTokens();
+      initSearchClear('tok-search', renderTokensDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-tokens', tokFilter),
+    filter: () => initFilterGroup('#tab-tokens .char-filters', filterTokens),
+  },
+  floats: {
+    init: () => {
+      initInputChange('float-sort', 'change', renderFloats);
+      renderFloats();
+      initSearchClear('float-search', renderFloatsDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-floats', floatFilter),
+    filter: () => initFilterGroup('#tab-floats .char-filters', filterFloats),
+  },
+  concessions: {
+    init: () => {
+      initConcessionCollFilter();
+      initPersistedSelect('con-cat-filter', 'conCategory');
+      initPersistedSelect('con-coll-filter', 'conCollection');
+      initInputChange('con-cat-filter', 'change', renderConcessions);
+      initInputChange('con-coll-filter', 'change', renderConcessions);
+      initInputChange('con-sort', 'change', renderConcessions);
+      renderConcessions();
+      initSearchClear('con-search', renderConcessionsDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-concessions', conOwnerFilter),
+    filter: () => initFilterGroup('#tab-concessions .con-filters', filterConOwned),
+  },
+  enchantments: {
+    init: () => {
+      initEncCollFilter();
+      initPersistedSelect('enc-coll-filter', 'encCollection');
+      initInputChange('enc-coll-filter', 'change', renderEnchantmentsTab);
+      initInputChange('enc-sort', 'change', renderEnchantmentsTab);
+      renderEnchantmentsTab();
+      initSearchClear('enc-search', renderEnchantmentsTabDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-enchantments', encBuiltFilter),
+    filter: () => initFilterGroup('#tab-enchantments .enc-filters', filterEncBuilt),
+  },
+  campaign: {
+    init: () => {
+      renderQuests();
+      initSearchClear('campaign-search', renderQuestsDebounced);
+    },
+    restore: () => restoreFilterButtons('#tab-campaign', arcFilter),
+    filter: () => initFilterGroup('#tab-campaign .char-filters', filterArcs),
+  },
+  decorations: {
+    init: () => {
+      initDecCollFilter();
+      initPersistedSelect('dec-coll-filter', 'decCollection');
+      initInputChange('dec-coll-filter', 'change', renderDecorations);
+      initInputChange('dec-sort', 'change', renderDecorations);
+      renderDecorations();
+      initSearchClear('dec-search', renderDecorationsDebounced);
+    },
+    restore: () => {
+      restoreFilterButtons('#tab-decorations', decFilter);
+      restoreFilterButtons('#tab-decorations', decCatFilter);
+    },
+    filter: () => {
+      initFilterGroup('#tab-decorations .dec-filters', setDecFilter);
+      initFilterGroup('#tab-decorations .dec-cat-filters', setDecCatFilter);
+    },
+  },
+};
+
+const config = PAGE_CONFIG[_page];
+if (config) {
+  config.init?.();
+  config.restore?.();
+  config.filter?.();
 }
 
+// Re-render dashboard whenever its tab becomes visible
+if (_page === 'dashboard') {
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) updateDashboard();
+  });
+  window.addEventListener('pageshow', () => updateDashboard());
+}
+
+initButton('export-backup-btn', exportState);
+initButton('import-backup-btn', importState);
+initInputChange('res-magic', 'input', saveState);
+initInputChange('res-gems', 'input', saveState);
+initInputChange('res-dreamsparks', 'input', saveState);
+initButton('clear-done-btn', clearCompletedPins);
+initButton('expand-all-arcs-btn', expandAllArcs);
+initButton('collapse-all-arcs-btn', collapseAllArcs);
+
 // Restore active button highlights from persisted filter state
-function restoreFilterButtons(containerSelector, activeValue, btnPrefix, filterFn) {
+function restoreFilterButtons(containerSelector, activeValue) {
   const btns = document.querySelectorAll(containerSelector + ' .filter-btn');
-  btns.forEach(b => b.classList.remove('active'));
-  // Try matching by onclick attribute pattern or data attribute
   btns.forEach(b => {
-    const match = b.getAttribute('onclick')?.match(/['"]([^'"]+)['"]/);
-    if (match && match[1] === activeValue) b.classList.add('active');
+    const filterValue = b.dataset.filter;
+    b.classList.toggle('active', filterValue === activeValue);
   });
 }
 
-if (_page === 'characters') restoreFilterButtons('#tab-characters', charFilter);
-if (_page === 'attractions') restoreFilterButtons('#tab-attractions', attrFilter);
-if (_page === 'costumes') restoreFilterButtons('#tab-costumes', costumeFilter);
-if (_page === 'campaign') restoreFilterButtons('#tab-campaign', arcFilter);
-if (_page === 'decorations') {
-  restoreFilterButtons('#tab-decorations', decFilter);
-  restoreFilterButtons('#tab-decorations', decCatFilter);
+function initFilterGroup(containerSelector, actionFn) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+  container.addEventListener('click', event => {
+    const btn = event.target.closest('button.filter-btn');
+    if (!btn || !container.contains(btn)) return;
+    const filterValue = btn.dataset.filter;
+    if (filterValue === undefined || filterValue === null) return;
+    actionFn(filterValue, btn);
+  });
 }
-
-if (_page === 'tokens') { const b = getEl('tok-btn-' + tokFilter); if (b) { document.querySelectorAll('#tab-tokens button[id^="tok-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
-if (_page === 'floats') { const b = getEl('float-btn-' + floatFilter); if (b) { document.querySelectorAll('#tab-floats button[id^="float-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
-if (_page === 'concessions') { const b = getEl('con-btn-' + conOwnerFilter); if (b) { document.querySelectorAll('#tab-concessions button[id^="con-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
-if (_page === 'enchantments') { const b = getEl('enc-btn-' + encBuiltFilter); if (b) { document.querySelectorAll('#tab-enchantments button[id^="enc-btn-"]').forEach(x => x.classList.remove('active')); b.classList.add('active'); } }
 
 
 // ============ EXPORT / IMPORT STATE ============
@@ -1343,6 +1515,17 @@ function exportState() {
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 100);
   showToast('✅ Backup exported successfully!');
+}
+
+function validateImportedState(parsed) {
+  if (!parsed || typeof parsed !== 'object') throw new Error('File is not a valid JSON object');
+  if (!Array.isArray(parsed.characters) || parsed.characters.length === 0) throw new Error('Missing or empty characters list');
+  if (!parsed.resources || typeof parsed.resources !== 'object') throw new Error('Missing resources data');
+  if (!parsed.decorations_owned || typeof parsed.decorations_owned !== 'object') throw new Error('Missing decorations data');
+  if (!parsed.quests || !Array.isArray(parsed.quests)) parsed.quests = [];
+  if (!parsed.wishlist || typeof parsed.wishlist !== 'object') parsed.wishlist = {};
+  parsed.version = STATE_VERSION;
+  return parsed;
 }
 
 function importState() {
@@ -1360,9 +1543,8 @@ function importState() {
           throw new Error('File is not a valid JSON object');
         if (!Array.isArray(parsed.characters) || parsed.characters.length === 0)
           throw new Error('Missing or empty characters list');
-        if (!parsed.resources || typeof parsed.resources !== 'object')
-          throw new Error('Missing resources data');
-        localStorage.setItem('dmk-tracker-v2', JSON.stringify(parsed));
+        const validated = validateImportedState(parsed);
+        localStorage.setItem('dmk-tracker-v2', JSON.stringify(validated));
         showToast('✅ Backup imported successfully!');
         setTimeout(() => location.reload(), 1000);
       } catch (err) {
@@ -1595,7 +1777,7 @@ function renderEnchantmentsTab() {
       return `<span style="width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;
         font-size:9px;font-weight:800;cursor:pointer;border:2px solid ${col};
         background:${done ? col : 'transparent'};color:${done ? '#fff' : col};"
-        onclick="setEnchantLevel('${attrState?.id}', ${done && enchLevel === lvl ? lvl - 1 : lvl})"
+        data-action="set-enchant-level" data-id="${attrState?.id}" data-level="${done && enchLevel === lvl ? lvl - 1 : lvl}"
         title="Level ${lvl}: ${ENCHANT_COSTS[i].blueprint} Blueprint">${lvl}</span>`;
     }).join('');
 
@@ -1652,6 +1834,16 @@ function renderEnchantmentsTab() {
 
 // ============ TOKEN TRACKER ============
 
+function initTokCollFilter() {
+  const sel = getEl('tok-coll-filter');
+  if (!sel || sel.options.length > 1) return;
+  const cols = [...new Set(state.characters.map(c => c.collection).filter(Boolean))].sort();
+  cols.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    sel.appendChild(o);
+  });
+}
 
 function filterTokens(f) {
   tokFilter = f;
@@ -1676,6 +1868,7 @@ function renderTokens() {
   if (!list) return;
   const search = (getEl('tok-search')?.value || '').toLowerCase();
   const sort = getEl('tok-sort')?.value || 'name';
+  const collFilter = getEl('tok-coll-filter')?.value || '';
 
   // Welcomed characters always shown; wishlisted unwelcomed chars also included
   let chars;
@@ -1684,6 +1877,8 @@ function renderTokens() {
   } else {
     chars = state.characters.filter(c => (c.welcomed && c.level < c.max) || state.wishlist?.[c.id]);
   }
+
+  if (collFilter) chars = chars.filter(c => (c.collection || '') === collFilter);
 
   if (search) chars = chars.filter(c => {
     const td = DMK_CHAR_TOKENS[c.name];
@@ -1719,10 +1914,18 @@ function renderTokens() {
   // Sort
   if (sort === 'ready') filtered.sort((a, b) => (b.ready - a.ready) || a.name.localeCompare(b.name));
   else if (sort === 'progress') filtered.sort((a, b) => (b.pct - a.pct) || a.name.localeCompare(b.name));
+  else if (sort === 'collection') filtered.sort((a, b) => (a.collection || '').localeCompare(b.collection || '') || a.name.localeCompare(b.name));
   else filtered.sort((a, b) => a.name.localeCompare(b.name));
 
   const tokCount = getEl('tok-count');
   if (tokCount) tokCount.textContent = filtered.length + ' characters';
+
+  const collectionGroups = filtered.reduce((groups, c) => {
+    const collection = c.collection || '';
+    if (!groups[collection]) groups[collection] = [];
+    groups[collection].push(c);
+    return groups;
+  }, {});
 
   // Summary: aggregate tokens needed across all non-maxed welcomed chars
   const summaryEl = getEl('tok-summary');
@@ -1755,46 +1958,29 @@ function renderTokens() {
     }
   }
 
-  list.innerHTML = filtered.map(c => {
-    const needed = (!c.maxed && c.td) ? getNeededQty(c.name, c.level) : null;
+  const collectionSections = Object.entries(collectionGroups)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([collection, chars]) => {
+      const sortedChars = [...chars].sort((a, b) => {
+        if (sort === 'ready') return (b.ready - a.ready) || a.name.localeCompare(b.name);
+        if (sort === 'progress') return (b.pct - a.pct) || a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name);
+      });
 
-    if (c.maxed) {
-      return `<div class="card" style="padding:12px 14px;opacity:0.5;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          ${charImg(c.name, 36)}
-          <div style="flex:1;">
-            <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
-            <div style="font-size:11px;color:var(--muted);">${esc(c.collection)}</div>
-          </div>
-          <span style="font-size:11px;color:var(--gold);font-weight:700;">⭐ Max Level</span>
-        </div>
-      </div>`;
-    }
+      const sharedToken = getSharedCollectionToken(sortedChars);
+      const collectionTargetChars = sharedToken
+        ? state.characters.filter(ch => ch.collection === collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
+        : [];
+      const counts = sharedToken ? collectionTargetChars.map(ch => state.token_inventory?.[ch.name]?.[sharedToken] || 0) : [];
+      const countValue = sharedToken ? counts.reduce((sum, v) => sum + v, 0) : 0;
+      const countMatch = sharedToken ? counts.every(v => v === (counts[0] || 0)) : true;
+      const collectionCharNames = JSON.stringify(collectionTargetChars.map(ch => ch.name));
+      const mismatchNote = sharedToken && !countMatch ? '<span style="font-size:11px;color:var(--muted);margin-left:6px;">(counts vary)</span>' : '';
+      const expandId = sharedToken ? ('tokcoll_' + collection + '_' + sharedToken).replace(/[^a-zA-Z0-9]/g, '_') : '';
 
-    if (c.noData || !needed) {
-      return `<div class="card" style="padding:12px 14px;">
-        <div style="display:flex;align-items:center;gap:10px;">
-          ${charImg(c.name, 36)}
-          <div style="flex:1;">
-            <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
-            <div style="font-size:11px;color:var(--muted);">${esc(c.collection)}</div>
-          </div>
-          <span style="font-size:11px;color:var(--muted);">No data</span>
-        </div>
-      </div>`;
-    }
-
-    const allReady = needed.tokens.every((t, i) => (c.inv[t] || 0) >= needed.quantities[i]);
-    const borderColor = allReady ? 'var(--green)' : 'var(--border)';
-
-    const tokensHtml = needed.tokens.map((token, i) => {
-      const have = c.inv[token] || 0;
-      const need = needed.quantities[i];
-      const enough = have >= need;
-      const actSources = DMK_TOKEN_ACTIVITIES[token] || [];
-      const enchSources = getTokenSources(token);
-      const hasAny = actSources.length > 0 || enchSources.length > 0;
-      const expandId = ('tok_' + c.name + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
+      const actSources = sharedToken ? DMK_TOKEN_ACTIVITIES[sharedToken] || [] : [];
+      const enchSources = sharedToken ? getTokenSources(sharedToken) : [];
+      const hasCollectionDetails = actSources.length > 0 || enchSources.length > 0;
       const actRows = actSources.map(s =>
         `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
           <div style="display:flex;align-items:center;gap:6px;min-width:0;">
@@ -1816,58 +2002,206 @@ function renderTokens() {
           <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
         </div>`
       ).join('');
-      const rarity = (typeof TOKEN_RARITY !== 'undefined' && TOKEN_RARITY[token]) || 'unknown';
-      return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'}" id="tokrow_${expandId}">
-        <div style="display:flex;align-items:center;gap:8px;">
-          <div style="flex:1;min-width:0;">
-            <div style="font-size:12px;font-weight:700;">${token} Token <span class="rarity rarity-${rarity}">${rarity}</span></div>
+
+      const sectionHeader = sharedToken
+        ? `<div class="card" style="padding:12px 14px;margin-bottom:10px;background:var(--card2);border:1px solid var(--border);">
+            <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;">
+              <div style="min-width:0;flex:1;">
+                <div style="font-weight:700;font-size:13px;">${esc(collection)} collection token</div>
+                <div style="font-size:11px;color:var(--muted);">${esc(sharedToken)} ${mismatchNote}</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+                <button data-action="toggle-token-expand" data-id="${expandId}" id="btn_${expandId}"
+                  style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>
+                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}' data-delta="-1"
+                  style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;">−</button>
+                <input id="tokcoll_input_${expandId}" type="number" min="0" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}'
+                  value="${countValue}" style="width:64px;font-weight:800;font-size:14px;text-align:center;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px;">
+                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}' data-delta="1"
+                  style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;">+</button>
+              </div>
+            </div>
+            ${hasCollectionDetails ? `<div id="${expandId}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
+              ${actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : ''}
+              ${enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : ''}
+            </div>` : ''}
+          </div>`
+        : `<div style="padding:8px 0 10px;font-size:12px;font-weight:700;color:var(--gold);">${esc(collection)}</div>`;
+
+      const cards = sortedChars.map(c => {
+        const needed = (!c.maxed && c.td) ? getNeededQty(c.name, c.level) : null;
+        const sharedTokenForCard = sharedToken;
+
+        if (c.maxed) {
+          return `<div class="card" style="padding:12px 14px;opacity:0.5;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              ${charImg(c.name, 36)}
+              <div style="flex:1;">
+                <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
+                <div style="font-size:11px;color:var(--muted);">${esc(c.collection)}</div>
+              </div>
+              <span style="font-size:11px;color:var(--gold);font-weight:700;">⭐ Max Level</span>
+            </div>
+          </div>`;
+        }
+
+        if (!c.welcomed && !state.wishlist?.[c.id]) {
+          const isPremium = c.type === 'premium';
+          const isEvent = c.type === 'event';
+          const rightBadge = isPremium && c.gemCost
+            ? `<span style="font-size:12px;font-weight:800;color:var(--gold);">💎 ${c.gemCost} gems</span>`
+            : isEvent
+              ? `<span style="font-size:11px;color:var(--pink);font-weight:700;">🎉 Legendary Chest</span>`
+              : `<span style="font-size:11px;color:var(--muted);">No data</span>`;
+          const subText = isPremium && c.gemCost
+            ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${esc(c.collection)} · Premium</div>`
+            : isEvent
+              ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${esc(c.collection)} · May appear in Legendary Chest</div>`
+              : `<div style="font-size:11px;color:var(--muted);margin-top:2px;">${esc(c.collection)}</div>`;
+          return `<div class="card" style="padding:12px 14px;opacity:0.75;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              ${charImg(c.name, 36)}
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
+                ${subText}
+              </div>
+              ${rightBadge}
+            </div>
+          </div>`;
+        }
+
+        if (c.noData || !needed) {
+          const isPremium = c.type === 'premium';
+          const isEvent = c.type === 'event';
+          const rightBadge = isPremium && c.gemCost
+            ? `<span style="font-size:12px;font-weight:800;color:var(--gold);">💎 ${c.gemCost} gems</span>`
+            : isEvent
+              ? `<span style="font-size:11px;color:var(--pink);font-weight:700;">🎉 Legendary Chest</span>`
+              : `<span style="font-size:11px;color:var(--muted);">No data</span>`;
+          const subText = isPremium && c.gemCost
+            ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${esc(c.collection)} · Premium</div>`
+            : isEvent
+              ? `<div style="font-size:10px;color:var(--muted);margin-top:2px;">${esc(c.collection)} · May appear in Legendary Chest</div>`
+              : `<div style="font-size:11px;color:var(--muted);margin-top:2px;">${esc(c.collection)}</div>`;
+          return `<div class="card" style="padding:12px 14px;opacity:0.75;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:10px;">
+              ${charImg(c.name, 36)}
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:13px;">${esc(c.name)}</div>
+                ${subText}
+              </div>
+              ${rightBadge}
+            </div>
+          </div>`;
+        }
+
+        const sharedTokenNeed = sharedTokenForCard && needed.tokens[0] === sharedTokenForCard ? needed.quantities[0] : null;
+        const sharedTokenHave = sharedTokenForCard
+          ? getCollectionTokenTotal(collection, sharedTokenForCard, collectionTargetChars)
+          : (c.inv[sharedTokenForCard] || 0);
+        const readinessChecks = needed.tokens.map((t, i) => {
+          if (sharedTokenForCard && t === sharedTokenForCard) {
+            return sharedTokenHave >= needed.quantities[i];
+          }
+          return (c.inv[t] || 0) >= needed.quantities[i];
+        });
+        const allReady = readinessChecks.every(Boolean);
+        const borderColor = allReady ? 'var(--green)' : 'var(--border)';
+        const sharedTokenGap = sharedTokenNeed !== null ? Math.max(0, sharedTokenNeed - sharedTokenHave) : null;
+        const sharedTokenBadge = sharedTokenForCard && sharedTokenNeed !== null
+          ? `<div style="margin-top:4px;display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;background:${sharedTokenGap > 0 ? 'rgba(245,158,11,0.16)' : 'rgba(52,211,153,0.16)'};color:${sharedTokenGap > 0 ? 'var(--gold)' : 'var(--green)'};">
+              🪙 ${esc(sharedTokenForCard)}: ${sharedTokenHave}/${sharedTokenNeed}${sharedTokenGap > 0 ? ` · +${sharedTokenGap}` : ''}
+            </div>`
+          : '';
+
+        const tokensHtml = needed.tokens.filter((token, i) => !(sharedTokenForCard && i === 0)).map((token) => {
+          const have = c.inv[token] || 0;
+          const qtyIndex = needed.tokens.indexOf(token);
+          const need = qtyIndex >= 0 ? needed.quantities[qtyIndex] : 0;
+          const enough = have >= need;
+          const actSources = DMK_TOKEN_ACTIVITIES[token] || [];
+          const enchSources = getTokenSources(token);
+          const hasAny = actSources.length > 0 || enchSources.length > 0;
+          const expandId = ('tok_' + c.name + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
+          const actRows = actSources.map(s =>
+            `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+              <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+                <span style="font-size:10px;color:var(--muted);min-width:48px;flex-shrink:0;">${s.char_level}</span>
+                <div style="min-width:0;overflow:hidden;">
+                  <span style="font-size:11px;font-weight:600;">${s.char}</span>
+                  <span style="font-size:10px;color:var(--muted);"> · ${s.activity}</span>
+                </div>
+              </div>
+              <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.time}</span>
+            </div>`
+          ).join('');
+          const enchRows = enchSources.slice(0, 3).map(s =>
+            `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L' + s.enchant_level}</span>
+                <span style="font-size:11px;font-weight:600;">${s.attraction}</span>
+              </div>
+              <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
+            </div>`
+          ).join('');
+          const rarity = (typeof TOKEN_RARITY !== 'undefined' && TOKEN_RARITY[token]) || 'unknown';
+          return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'}" id="tokrow_${expandId}">
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="flex:1;min-width:0;">
+                <div style="font-size:12px;font-weight:700;">${token} Token <span class="rarity rarity-${rarity}">${rarity}</span></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+                <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="-1"
+                  style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
+                <input id="tokcnt_${expandId}" type="number" min="0" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}"
+                  value="${have}" style="width:64px;font-weight:800;font-size:14px;text-align:center;
+                  color:${enough ? 'var(--green)' : 'var(--red)'};
+                  background:var(--card);border:1px solid var(--border);
+                  border-radius:6px;padding:2px 4px;font-family:'Nunito',sans-serif;">
+                <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="1"
+                  style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
+                <span style="font-size:11px;color:var(--muted);min-width:40px;">/ ${need}</span>
+                <span id="tokst_${expandId}" style="font-size:11px;">${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);">-' + (need - have) + '</span>'}</span>
+                ${hasAny ? `<button data-action="toggle-token-expand" data-id="${expandId}" id="btn_${expandId}"
+                  style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>` : ''}
+              </div>
+            </div>
+            ${hasAny ? `<div id="${expandId}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
+              ${actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : ''}
+              ${enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : ''}
+            </div>` : ''}
+          </div>`;
+        }).join('');
+
+        const isWishlistChar = !c.welcomed;
+        const readyBadge = isWishlistChar
+          ? `<span style="font-size:11px;color:var(--gold);font-weight:700;">🌟 Not welcomed</span>`
+          : allReady
+            ? `<span style="font-size:11px;color:var(--green);font-weight:700;">✅ Ready!</span>`
+            : `<span style="font-size:11px;color:var(--muted);">Lv ${c.level} → ${needed.nextLevel}</span>`;
+
+        return `<div class="card" style="padding:12px 14px;border-color:${borderColor};margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+            ${charImg(c.name, 36)}
+            <div style="flex:1;">
+              <div style="font-weight:700;font-size:13px;">${c.name}</div>
+              <div style="font-size:11px;color:var(--muted);">${c.collection}</div>
+              ${sharedTokenBadge}
+            </div>
+            ${readyBadge}
           </div>
-          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-            <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="-1"
-              style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">−</button>
-            <input id="tokcnt_${expandId}" type="number" min="0" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}"
-              value="${have}" style="width:48px;font-weight:800;font-size:14px;text-align:center;
-              color:${enough ? 'var(--green)' : 'var(--red)'};
-              background:var(--card);border:1px solid var(--border);
-              border-radius:6px;padding:2px 4px;font-family:'Nunito',sans-serif;">
-            <button class="tok-adj" data-char="${c.name.replace(/"/g, '&quot;')}" data-token="${token.replace(/"/g, '&quot;')}" data-delta="1"
-              style="width:24px;height:24px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;">+</button>
-            <span style="font-size:11px;color:var(--muted);min-width:40px;">/ ${need}</span>
-            <span id="tokst_${expandId}" style="font-size:11px;">${enough ? '<span style="color:var(--green);font-size:12px;">✓</span>' : '<span style="color:var(--red);">-' + (need - have) + '</span>'}</span>
-            ${hasAny ? `<button onclick="toggleTokExpand('${expandId}')" id="btn_${expandId}"
-              style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>` : ''}
-          </div>
-        </div>
-        ${hasAny ? `<div id="${expandId}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
-          ${actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : ''}
-          ${enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : ''}
-        </div>` : ''}
-      </div>`;
+          <div style="display:flex;flex-direction:column;gap:6px;">${tokensHtml}</div>
+          ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g, '&quot;')}" data-level="${needed.nextLevel}"
+            style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:rgba(52,211,153,0.15);color:var(--green);">
+            ✨ Mark as Level ${needed.nextLevel}
+          </button>` : ''}
+        </div>`;
+      }).join('');
+
+      return `<div style="margin-bottom:12px;">${sectionHeader}${cards}</div>`;
     }).join('');
 
-    const isWishlistChar = !c.welcomed;
-    const readyBadge = isWishlistChar
-      ? `<span style="font-size:11px;color:var(--gold);font-weight:700;">🌟 Not welcomed</span>`
-      : allReady
-        ? `<span style="font-size:11px;color:var(--green);font-weight:700;">✅ Ready!</span>`
-        : `<span style="font-size:11px;color:var(--muted);">Lv ${c.level} → ${needed.nextLevel}</span>`;
-
-    return `<div class="card" style="padding:12px 14px;border-color:${borderColor};">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-        ${charImg(c.name, 36)}
-        <div style="flex:1;">
-          <div style="font-weight:700;font-size:13px;">${c.name}</div>
-          <div style="font-size:11px;color:var(--muted);">${c.collection}</div>
-        </div>
-        ${readyBadge}
-      </div>
-      <div style="display:flex;flex-direction:column;gap:6px;">${tokensHtml}</div>
-      ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g, '&quot;')}" data-level="${needed.nextLevel}"
-        style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:rgba(52,211,153,0.15);color:var(--green);">
-        ✨ Mark as Level ${needed.nextLevel}
-      </button>` : ''}
-    </div>`;
-  }).join('');
+  list.innerHTML = collectionSections;
 }
 
 function adjustToken(charName, token, delta) {
@@ -1881,7 +2215,7 @@ function adjustToken(charName, token, delta) {
   const cntEl = getEl('tokcnt_' + expandId);
   const stEl = getEl('tokst_' + expandId);
   const rowEl = getEl('tokrow_' + expandId);
-  if (!cntEl) { renderTokens(); return; } // row not rendered, fall back
+  if (!cntEl) { renderTokens(); return; }
 
   const have = state.token_inventory[charName][token];
   const td = DMK_CHAR_TOKENS[charName];
@@ -1910,19 +2244,58 @@ function adjustToken(charName, token, delta) {
   if (allReady !== wasReady) renderTokens();
 }
 
+const handleTokenInputUpdate = (inp) => {
+  const token = inp.dataset.token;
+  const newVal = Math.max(0, parseInt(inp.value) || 0);
+  inp.value = newVal;
+  if (inp.dataset.collection) {
+    const charNames = inp.dataset.charNames ? JSON.parse(inp.dataset.charNames) : null;
+    const targetChars = charNames ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
+    setCollectionToken(inp.dataset.collection, token, newVal, targetChars);
+    return;
+  }
+  const charName = inp.dataset.char;
+  if (!state.token_inventory) state.token_inventory = {};
+  const oldVal = state.token_inventory[charName]?.[token] || 0;
+  const delta = newVal - oldVal;
+  adjustToken(charName, token, delta);
+};
+
 function levelUpChar(charName, newLevel) {
   const char = state.characters.find(c => c.name === charName);
   if (!char) return;
-  // Deduct tokens used
   const td = DMK_CHAR_TOKENS[charName];
   const needed = td?.levels.find(l => l.level === newLevel);
-  if (needed && state.token_inventory?.[charName]) {
-    td.tokens.forEach((t, i) => {
-      if (state.token_inventory[charName][t]) {
-        state.token_inventory[charName][t] = Math.max(0, (state.token_inventory[charName][t] || 0) - needed.quantities[i]);
-      }
-    });
+
+  if (needed) {
+    const sharedToken = td?.tokens?.[0];
+    const sharedCollectionChars = sharedToken
+      ? state.characters.filter(ch => ch.collection === char.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
+      : [];
+    const isSharedCollectionToken = sharedCollectionChars.length > 1 && sharedToken && needed.tokens.includes(sharedToken);
+
+    if (isSharedCollectionToken) {
+      if (!state.token_inventory) state.token_inventory = {};
+      const sharedIndex = needed.tokens.indexOf(sharedToken);
+      const sharedQty = sharedIndex >= 0 ? needed.quantities[sharedIndex] : 0;
+      const currentPool = getCollectionTokenTotal(char.collection, sharedToken, sharedCollectionChars);
+      const newPool = Math.max(0, currentPool - sharedQty);
+      const base = Math.floor(newPool / sharedCollectionChars.length);
+      let remainder = newPool % sharedCollectionChars.length;
+      sharedCollectionChars.forEach(ch => {
+        if (!state.token_inventory[ch.name]) state.token_inventory[ch.name] = {};
+        state.token_inventory[ch.name][sharedToken] = base + (remainder > 0 ? 1 : 0);
+        remainder -= 1;
+      });
+    } else if (state.token_inventory?.[charName]) {
+      td.tokens.forEach((t, i) => {
+        if (state.token_inventory[charName][t]) {
+          state.token_inventory[charName][t] = Math.max(0, (state.token_inventory[charName][t] || 0) - needed.quantities[i]);
+        }
+      });
+    }
   }
+
   char.level = newLevel;
   saveState();
   renderTokens();
@@ -1941,6 +2314,34 @@ function toggleTokExpand(id) {
 
 // Delegated listeners — safe for any character/token name including apostrophes
 document.addEventListener('click', e => {
+  const actionBtn = e.target.closest('[data-action]');
+  if (actionBtn) {
+    const action = actionBtn.dataset.action;
+    const arcId = actionBtn.dataset.arc;
+    const questId = actionBtn.dataset.quest;
+    const itemId = actionBtn.dataset.id;
+    const level = actionBtn.dataset.level ? parseInt(actionBtn.dataset.level, 10) : null;
+
+    if (action === 'toggle-token-expand') { toggleTokExpand(itemId); return; }
+    if (action === 'set-enchant-level' && itemId && level !== null) { setEnchantLevel(itemId, level); return; }
+    if (action === 'toggle-attr' && itemId) { toggleAttr(itemId); return; }
+    if (action === 'toggle-costume' && itemId) { toggleCostume(itemId); return; }
+    if (action === 'toggle-pin-quest' && arcId && questId) { togglePinQuest(arcId, questId); return; }
+    if (action === 'complete-active-quest' && arcId && questId) { completeActiveQuest(arcId, questId); return; }
+    if (action === 'complete-all-arc-quests' && arcId) { completeAllArcQuests(arcId); return; }
+    if (action === 'uncomplete-all-arc-quests' && arcId) { uncompleteAllArcQuests(arcId); return; }
+    if (action === 'toggle-arc' && arcId) { toggleArcCollapse(arcId); return; }
+  }
+  const collAdj = e.target.closest('.tok-coll-adj');
+  if (collAdj) {
+    const collection = collAdj.dataset.collection;
+    const token = collAdj.dataset.token;
+    const charNames = collAdj.dataset.charNames ? JSON.parse(collAdj.dataset.charNames) : null;
+    const targetChars = charNames ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
+    const current = getCollectionTokenTotal(collection, token, targetChars);
+    setCollectionToken(collection, token, current + (+collAdj.dataset.delta || 0), targetChars);
+    return;
+  }
   const adj = e.target.closest('.tok-adj');
   if (adj) { adjustToken(adj.dataset.char, adj.dataset.token, +adj.dataset.delta); return; }
   const lvl = e.target.closest('.tok-levelup');
@@ -1953,21 +2354,18 @@ document.addEventListener('click', e => {
   if (conCard) { toggleConcession(conCard.dataset.name); return; }
 });
 
-document.addEventListener('change', e => {
-  const inp = e.target.closest('#tok-list input[type="number"][data-char]');
+document.addEventListener('input', e => {
+  const inp = e.target.closest('#tok-list input[type="number"][data-char], #tok-list input[type="number"][data-collection]');
   if (!inp) return;
-  const charName = inp.dataset.char;
-  const token = inp.dataset.token;
-  const newVal = Math.max(0, parseInt(inp.value) || 0);
-  inp.value = newVal; // clamp display
-  if (!state.token_inventory) state.token_inventory = {};
-  if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
-  state.token_inventory[charName][token] = newVal;
-  saveState();
+  // Just update visual color while typing, don't commit yet
+  const val = parseInt(inp.value) || 0;
+  inp.style.color = val > 0 ? 'var(--text)' : 'var(--red)';
+});
 
-  // Reuse adjustToken's in-place UI refresh by calling with delta 0 trick — 
-  // instead just re-render to keep it simple and correct
-  renderTokens();
+document.addEventListener('change', e => {
+  const inp = e.target.closest('#tok-list input[type="number"][data-char], #tok-list input[type="number"][data-collection]');
+  if (!inp) return;
+  handleTokenInputUpdate(inp);
 });
 
 
@@ -2291,14 +2689,14 @@ function renderActiveQuests() {
         <!-- Action buttons -->
         <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end;flex-shrink:0;">
           ${!done
-        ? `<button onclick="completeActiveQuest('${arcId}','${questId}')"
+        ? `<button data-action="complete-active-quest" data-arc="${arcId}" data-quest="${questId}"
                 style="font-size:10px;padding:3px 9px;border-radius:7px;border:none;
                        background:rgba(57,232,124,0.15);color:var(--green);
                        cursor:pointer;font-family:'Nunito',sans-serif;font-weight:700;white-space:nowrap;">
                 ✓ Done
               </button>`
         : `<span style="font-size:10px;color:var(--green);font-weight:700;">✓ Done</span>`}
-          <button onclick="togglePinQuest('${arcId}','${questId}')"
+          <button data-action="toggle-pin-quest" data-arc="${arcId}" data-quest="${questId}"
             style="font-size:10px;padding:2px 7px;border-radius:6px;border:1px solid var(--border);
                    background:none;color:var(--muted);cursor:pointer;font-family:'Nunito',sans-serif;">
             Unpin
