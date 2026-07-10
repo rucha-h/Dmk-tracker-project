@@ -34,12 +34,29 @@
   <main>
    <!-- CONCESSIONS -->
     <div id="tab-concessions" class="section active">
+
+      <!-- Progress + Income Header (compact) -->
+      <div class="card" style="margin-bottom:10px;padding:10px 14px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap;">
+          <span style="font-size:14px;">🍦</span>
+          <span style="font-family:'Cinzel Decorative',cursive;font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;">Concessions</span>
+          <span id="con-pct-label" style="font-size:11px;color:var(--muted);"></span>
+          <span id="con-income-total" style="margin-left:auto;font-size:13px;font-weight:800;color:var(--teal);">✨ 0/hr</span>
+        </div>
+        <div id="con-prog-stack" style="display:flex;gap:3px;height:5px;border-radius:10px;overflow:hidden;background:rgba(255,255,255,0.06);">
+          <div id="con-prog-operating" style="height:100%;width:0%;background:var(--green);transition:width 0.4s;"></div>
+          <div id="con-prog-idle" style="height:100%;width:0%;background:rgba(245,200,66,0.55);transition:width 0.4s;"></div>
+        </div>
+      </div>
+
    <div class="card" style="padding:12px 16px;">
-      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
         <input type="text" id="con-search" placeholder="🔍 Search concessions..." autocomplete="off"
-          style="flex:1;min-width:160px;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
+          style="flex:1;min-width:0;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:var(--text);font-size:13px;">
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:nowrap;">
         <select id="con-cat-filter"
-          style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
+          style="flex:1;min-width:0;background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 6px;cursor:pointer;height:28px;">
           <option value="">All Categories</option>
           <option value="Food Stand">🍔 Food</option>
           <option value="Drink Stand">🥤 Drink</option>
@@ -47,25 +64,25 @@
           <option value="Souvenir Stand">🎁 Souvenir</option>
         </select>
         <select id="con-coll-filter"
-          style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;max-width:180px;">
+          style="flex:1;min-width:0;background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 6px;cursor:pointer;height:28px;">
           <option value="">All Collections</option>
         </select>
         <select id="con-sort"
-          style="background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 8px;cursor:pointer;height:28px;">
+          style="flex:1;min-width:0;background:var(--input);border:1px solid var(--border);color:var(--text);font-size:12px;border-radius:8px;padding:4px 6px;cursor:pointer;height:28px;">
           <option value="name">A-Z</option>
           <option value="magic_per_hour">Magic/hr ↓</option>
-          <option value="collection">Collection</option>
         </select>
       </div>
       <div class="con-filters" style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;">
         <button data-filter="all" id="con-btn-all" class="filter-btn active" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--accent);color:#fff;cursor:pointer;">All</button>
-        <button data-filter="owned" id="con-btn-owned" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">✅ Owned</button>
-        <button data-filter="missing" id="con-btn-missing" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">○ Missing</button>
+        <button data-filter="operating" id="con-btn-operating" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⚙️ Operating</button>
+        <button data-filter="idle" id="con-btn-idle" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">⭕ Idle</button>
+        <button data-filter="missing" id="con-btn-missing" class="filter-btn" style="font-size:11px;padding:3px 10px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer;">🔒 Not Owned</button>
         <span id="con-count" style="margin-left:auto;font-size:11px;color:var(--muted);align-self:center;"></span>
       </div>
     </div>
     <div class="scroll-y" style="max-height:none;">
-      <div id="con-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;padding:4px 0;"></div>
+      <div id="con-grid"></div>
     </div>
     </div>
   </main>

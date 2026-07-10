@@ -166,7 +166,7 @@ function setCollectionToken(collectionName, token, total, chars = null) {
 // ============ FILTER STATE ============
 let tokFilter = loadFilterState('tok', 'all');
 let floatFilter = loadFilterState('float', 'all');
-let conOwnerFilter = loadFilterState('con', 'all');
+let conOwnerFilter = loadFilterState('con', 'all'); // 'all' | 'operating' | 'idle' | 'missing'
 let encBuiltFilter = loadFilterState('enc', 'all');
 
 // ============ STATE ============
@@ -1346,6 +1346,7 @@ loadAttractions();
 loadCostumes();
 if (!state.decorations_owned) state.decorations_owned = {};
 if (!state.concessions_owned) state.concessions_owned = {};
+if (!state.concessions_operating) state.concessions_operating = {};
 
 const _page = document.body.dataset.page;
 
@@ -1560,7 +1561,7 @@ function importState() {
 function filterConOwned(f) {
   conOwnerFilter = f;
   saveFilterState('con', f);
-  ['all', 'owned', 'missing'].forEach(k => {
+  ['all', 'operating', 'idle', 'missing'].forEach(k => {
     const btn = getEl('con-btn-' + k);
     if (btn) btn.classList.toggle('active', k === f);
   });
@@ -1578,6 +1579,32 @@ function initConcessionCollFilter() {
   });
 }
 
+function isConOwned(name) { return !!(state.concessions_owned && state.concessions_owned[name]); }
+function isConOperating(name) { return isConOwned(name) && !!(state.concessions_operating && state.concessions_operating[name]); }
+
+function updateConcessionsHeader() {
+  const all = DMK_CONCESSIONS_DATA;
+  const total = all.length;
+  const operating = all.filter(c => isConOperating(c.name));
+  const idle = all.filter(c => isConOwned(c.name) && !isConOperating(c.name));
+  const ownedCount = operating.length + idle.length;
+  const pct = total > 0 ? Math.round(ownedCount / total * 100) : 0;
+
+  const pctLabel = getEl('con-pct-label');
+  if (pctLabel) pctLabel.textContent = `${ownedCount}/${total} owned (${pct}%) · ${operating.length} operating · ${idle.length} idle`;
+
+  const opPct = total > 0 ? Math.round(operating.length / total * 100) : 0;
+  const idlePct = total > 0 ? Math.round(idle.length / total * 100) : 0;
+  const opBar = getEl('con-prog-operating');
+  const idleBar = getEl('con-prog-idle');
+  if (opBar) opBar.style.width = opPct + '%';
+  if (idleBar) idleBar.style.width = idlePct + '%';
+
+  const totalMagic = operating.reduce((sum, c) => sum + (parseFloat(c.magic_per_hour) || 0), 0);
+  const incomeEl = getEl('con-income-total');
+  if (incomeEl) incomeEl.textContent = `✨ ${Math.round(totalMagic * 10) / 10}/hr`;
+}
+
 function renderConcessions() {
   const grid = getEl('con-grid');
   if (!grid) return;
@@ -1586,33 +1613,52 @@ function renderConcessions() {
   const coll = getEl('con-coll-filter')?.value || '';
   const sort = getEl('con-sort')?.value || 'name';
 
+  updateConcessionsHeader();
+
   let items = DMK_CONCESSIONS_DATA.filter(c => {
-    if (search && !c.name.toLowerCase().includes(search) && !c.collection.toLowerCase().includes(search)) return false;
+    if (search && !c.name.toLowerCase().includes(search) && !c.collection.toLowerCase().includes(search) && !c.category.toLowerCase().includes(search)) return false;
     if (cat && c.category !== cat) return false;
     if (coll && c.collection !== coll) return false;
-    const owned = state.concessions_owned && state.concessions_owned[c.name];
-    if (conOwnerFilter === 'owned' && !owned) return false;
+    const owned = isConOwned(c.name);
+    const operating = isConOperating(c.name);
+    if (conOwnerFilter === 'operating' && !operating) return false;
+    if (conOwnerFilter === 'idle' && !(owned && !operating)) return false;
     if (conOwnerFilter === 'missing' && owned) return false;
     return true;
   });
 
-  if (sort === 'magic_per_hour') items.sort((a, b) => parseFloat(b.magic_per_hour || 0) - parseFloat(a.magic_per_hour || 0));
-  else if (sort === 'collection') items.sort((a, b) => a.collection.localeCompare(b.collection) || a.name.localeCompare(b.name));
-  else items.sort((a, b) => a.name.localeCompare(b.name));
-
   const con_count = getEl('con-count');
   if (con_count) con_count.textContent = items.length + ' concessions';
+
+  if (!items.length) {
+    grid.innerHTML = `<div class="empty-state"><div class="es-icon">🍦</div><p>No concessions match this filter.</p></div>`;
+    return;
+  }
 
   const catIcon = { 'Food Stand': '🍔', 'Drink Stand': '🥤', 'Headwear Stand': '🎩', 'Souvenir Stand': '🎁' };
 
   const cardHtml = (c) => {
-    const owned = state.concessions_owned && state.concessions_owned[c.name];
+    const owned = isConOwned(c.name);
+    const operating = isConOperating(c.name);
     const mphNum = parseFloat(c.magic_per_hour || 0);
-    const mphColor = mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--accent)' : 'var(--muted)';
-    return `<div class="card con-card" data-name="${esc(c.name)}" style="padding:12px;cursor:pointer;border:1px solid ${owned ? 'var(--accent)' : 'var(--border)'};">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+    const mphColor = !operating ? 'var(--muted)' : mphNum >= 11 ? 'var(--gold)' : mphNum >= 9 ? 'var(--teal)' : 'var(--muted)';
+    const borderColor = operating ? 'var(--green)' : owned ? 'rgba(245,200,66,0.35)' : 'var(--border)';
+    const opacity = owned ? '1' : '0.6';
+
+    const actions = owned
+      ? `<div style="display:flex;gap:6px;">
+          <button class="con-action-btn" data-action="toggle-con-owned" data-name="${esc(c.name)}"
+            style="flex:1;padding:6px;border-radius:8px;border:1px solid rgba(57,232,124,0.3);font-size:11px;font-weight:700;background:rgba(57,232,124,0.15);color:var(--green);cursor:pointer;">✓ Owned</button>
+          <button class="con-action-btn" data-action="toggle-con-operating" data-name="${esc(c.name)}"
+            style="flex:1;padding:6px;border-radius:8px;border:1px solid ${operating ? 'rgba(57,232,124,0.3)' : 'var(--border)'};font-size:11px;font-weight:700;background:${operating ? 'rgba(57,232,124,0.15)' : 'var(--card2)'};color:${operating ? 'var(--green)' : 'var(--muted)'};cursor:pointer;">${operating ? '⚙️ Operating' : '⭕ Idle'}</button>
+        </div>`
+      : `<button class="con-action-btn" data-action="toggle-con-owned" data-name="${esc(c.name)}"
+          style="width:100%;padding:6px;border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:700;background:transparent;color:var(--muted);cursor:pointer;">🔒 Not owned</button>`;
+
+    return `<div class="card" style="padding:12px;border:1px solid ${borderColor};opacity:${opacity};">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">
         <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;line-height:1.3;">${owned ? '✅' : '○'} ${c.name}</div>
+          <div style="font-size:13px;font-weight:600;line-height:1.3;">${esc(c.name)}</div>
           <div style="font-size:11px;color:var(--muted);margin-top:2px;">${catIcon[c.category] || '📦'} ${c.category}</div>
         </div>
         <div style="text-align:right;flex-shrink:0;">
@@ -1620,45 +1666,57 @@ function renderConcessions() {
           <div class="text-xs text-muted">⏱ ${c.time}</div>
         </div>
       </div>
-      <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);">
+      <div style="margin-bottom:8px;display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted);">
         <span>💰 Cost: ${c.exchange_rate}</span>
         <span>🧪 Elixir: ${c.elixir}</span>
         <span>⭐ XP: ${c.xp}</span>
         <span>✨ Magic: ${c.magic}</span>
       </div>
+      ${actions}
     </div>`;
   };
 
-  if (sort === 'collection') {
-    // Grouped view — collection headers with owned/total counts
-    const byCollection = {};
-    items.forEach(c => {
-      if (!byCollection[c.collection]) byCollection[c.collection] = [];
-      byCollection[c.collection].push(c);
-    });
-    grid.innerHTML = Object.keys(byCollection).sort().map(col => {
-      const colItems = byCollection[col];
-      const colOwned = colItems.filter(c => state.concessions_owned?.[c.name]).length;
-      return `<div style="margin-bottom:16px;grid-column:1/-1;">
-        <div style="font-size:11px;font-weight:700;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;
-          padding:6px 10px;background:var(--card2);border-radius:8px;margin-bottom:8px;
-          display:flex;justify-content:space-between;align-items:center;">
-          <span>${collIcon(col, 20)}${col}</span>
-          <span style="color:var(--muted);font-size:10px;">${colOwned}/${colItems.length}</span>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
-          ${colItems.map(cardHtml).join('')}
-        </div>
-      </div>`;
-    }).join('');
-  } else {
-    grid.innerHTML = items.map(cardHtml).join('');
-  }
+  if (sort === 'magic_per_hour') items.sort((a, b) => parseFloat(b.magic_per_hour || 0) - parseFloat(a.magic_per_hour || 0));
+  else items.sort((a, b) => a.name.localeCompare(b.name));
+
+  // Always grouped by collection — sort applies within each group
+  const byCollection = {};
+  items.forEach(c => {
+    if (!byCollection[c.collection]) byCollection[c.collection] = [];
+    byCollection[c.collection].push(c);
+  });
+
+  grid.innerHTML = Object.keys(byCollection).sort().map(col => {
+    const colItems = byCollection[col];
+    const colOwned = colItems.filter(c => isConOwned(c.name)).length;
+    const colOperating = colItems.filter(c => isConOperating(c.name)).length;
+    return `<div style="margin-bottom:16px;">
+      <div class="coll-header">
+        <span>${collIcon(col, 20)}${esc(col)}</span>
+        <span class="coll-header-count">${colOwned}/${colItems.length} owned · ${colOperating} operating</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px;">
+        ${colItems.map(cardHtml).join('')}
+      </div>
+    </div>`;
+  }).join('');
 }
 
 function toggleConcession(name) {
   if (!state.concessions_owned) state.concessions_owned = {};
-  state.concessions_owned[name] = !state.concessions_owned[name];
+  if (!state.concessions_operating) state.concessions_operating = {};
+  const nowOwned = !state.concessions_owned[name];
+  state.concessions_owned[name] = nowOwned;
+  if (!nowOwned) state.concessions_operating[name] = false; // un-owning stops operation too
+  saveState();
+  renderConcessions();
+  updateDashboard();
+}
+
+function toggleConcessionOperating(name) {
+  if (!isConOwned(name)) return; // must be owned first
+  if (!state.concessions_operating) state.concessions_operating = {};
+  state.concessions_operating[name] = !state.concessions_operating[name];
   saveState();
   renderConcessions();
 }
@@ -2350,8 +2408,12 @@ document.addEventListener('click', e => {
   if (ownBtn) { toggleFloatOwned(ownBtn.dataset.name); return; }
   const activeBtn = e.target.closest('.float-active-btn');
   if (activeBtn) { toggleFloatActive(activeBtn.dataset.name); return; }
-  const conCard = e.target.closest('.con-card');
-  if (conCard) { toggleConcession(conCard.dataset.name); return; }
+  const conBtn = e.target.closest('.con-action-btn');
+  if (conBtn) {
+    if (conBtn.dataset.action === 'toggle-con-owned') toggleConcession(conBtn.dataset.name);
+    if (conBtn.dataset.action === 'toggle-con-operating') toggleConcessionOperating(conBtn.dataset.name);
+    return;
+  }
 });
 
 document.addEventListener('input', e => {
