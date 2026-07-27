@@ -178,6 +178,7 @@ let state = {
   attractions: [],
   costumes: [],
   decorations_owned: {},
+  token_inventory: {},
 };
 
 // ============ LOAD / SAVE ============
@@ -240,15 +241,18 @@ function loadState() {
       }
 
       if (!state.decorations_owned) state.decorations_owned = {};
+      if (!state.token_inventory) state.token_inventory = {};
     } else {
       state.characters = allChars;
       state.quests = [];
       state.decorations_owned = {};
+      state.token_inventory = {};
     }
   } catch (e) {
     state.characters = allChars;
     state.quests = [];
     state.decorations_owned = {};
+    state.token_inventory = {};
   }
   // Clean up wishlist to only include characters that currently exist
   if (state.wishlist) {
@@ -316,6 +320,12 @@ function populateCollFilter() {
 // ============ CHARACTERS ============
 
 
+function refreshTrackerViews() {
+  renderChars();
+  renderTokens();
+  updateDashboard();
+}
+
 function levelUp(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
@@ -350,8 +360,7 @@ function levelUp(id) {
   }
   c.level = newLevel;
   saveState();
-  renderChars();
-  updateDashboard();
+  refreshTrackerViews();
 }
 
 function levelDown(id) {
@@ -363,7 +372,7 @@ function levelDown(id) {
     if (c.level === 0) c.welcomed = false;
   }
   saveState();
-  renderChars();
+  refreshTrackerViews();
 }
 
 function toggleWishlist(id) {
@@ -372,7 +381,7 @@ function toggleWishlist(id) {
   if (!state.wishlist) state.wishlist = {};
   state.wishlist[id] = !state.wishlist[id];
   saveState();
-  renderChars();
+  refreshTrackerViews();
 }
 
 function welcomeChar(id) {
@@ -382,7 +391,7 @@ function welcomeChar(id) {
   if (c.level === 0) c.level = 1;
   if (state.wishlist) delete state.wishlist[c.id];
   saveState();
-  renderChars();
+  refreshTrackerViews();
 }
 
 function removeChar(id) {
@@ -391,7 +400,7 @@ function removeChar(id) {
   ch.welcomed = false;
   ch.level = 0;
   saveState();
-  renderChars();
+  refreshTrackerViews();
 }
 
 let charFilter = loadFilterState('chars', 'all');
@@ -2356,8 +2365,7 @@ function levelUpChar(charName, newLevel) {
 
   char.level = newLevel;
   saveState();
-  renderTokens();
-  updateDashboard();
+  refreshTrackerViews();
 }
 
 
