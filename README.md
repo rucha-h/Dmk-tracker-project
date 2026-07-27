@@ -11,11 +11,11 @@ A fan-made companion tool to help you track your progress in Disney Magic Kingdo
 ![alt text](<Screenshot 2026-04-12 202003.png>)
 ![alt text](<Screenshot 2026-04-12 202042.png>)
 ![alt text](<Screenshot 2026-04-12 202054.png>)
-![alt text](<Screenshot 2026-04-12 202132.png>)
+![alt text](<Screenshot 2026-07-21 001454.png>)
 ![alt text](<Screenshot 2026-04-12 202143.png>)
-![alt text](<Screenshot 2026-04-12 202200.png>)
+![alt text](<Screenshot 2026-07-21 001513.png>)
 ![alt text](<Screenshot 2026-04-12 202217.png>)
-![alt text](<Screenshot 2026-04-12 202228.png>)
+![alt text](<Screenshot 2026-07-21 002006.png>)
 ![alt text](<Screenshot 2026-04-12 202242.png>)
 
 ---
