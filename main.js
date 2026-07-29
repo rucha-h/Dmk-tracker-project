@@ -146,19 +146,47 @@ function getCollectionTokenTotal(collectionName, token, chars = null) {
   return targetChars.reduce((sum, c) => sum + (state.token_inventory?.[c.name]?.[token] || 0), 0);
 }
 
+function distributeProportionally(currentValues, newTotal) {
+  const n = currentValues.length;
+  if (n === 0) return [];
+  const normalizedTotal = Math.max(0, Math.round(newTotal));
+  const currentSum = currentValues.reduce((a, b) => a + b, 0);
+  const shares = currentSum > 0
+    ? currentValues.map(v => (v / currentSum) * normalizedTotal)
+    : currentValues.map(() => normalizedTotal / n);
+
+  const floors = shares.map(Math.floor);
+  const allocated = floors.reduce((a, b) => a + b, 0);
+  let remainder = normalizedTotal - allocated;
+
+  const order = shares
+    .map((s, i) => ({ i, frac: s - floors[i] }))
+    .sort((a, b) => b.frac - a.frac);
+
+  const result = [...floors];
+  for (let k = 0; k < remainder && k < order.length; k++) {
+    result[order[k].i] += 1;
+  }
+  return result;
+}
+
+function distributeCollectionToken(collectionName, token, total, targetChars) {
+  if (!targetChars || !targetChars.length) return;
+  if (!state.token_inventory) state.token_inventory = {};
+  const normalizedTotal = Math.max(0, total);
+  const currentValues = targetChars.map(c => state.token_inventory[c.name]?.[token] || 0);
+  const newValues = distributeProportionally(currentValues, normalizedTotal);
+  targetChars.forEach((c, idx) => {
+    const charName = c.name || c;
+    if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
+    state.token_inventory[charName][token] = newValues[idx];
+  });
+}
+
 function setCollectionToken(collectionName, token, total, chars = null) {
   const targetChars = chars || state.characters.filter(c => c.collection === collectionName && DMK_CHAR_TOKENS[c.name]?.tokens?.[0] === token);
   if (!targetChars.length) return;
-  if (!state.token_inventory) state.token_inventory = {};
-  const normalizedTotal = Math.max(0, total);
-  const base = Math.floor(normalizedTotal / targetChars.length);
-  let remainder = normalizedTotal % targetChars.length;
-  targetChars.forEach(c => {
-    const charName = c.name || c;
-    if (!state.token_inventory[charName]) state.token_inventory[charName] = {};
-    state.token_inventory[charName][token] = base + (remainder > 0 ? 1 : 0);
-    remainder -= 1;
-  });
+  distributeCollectionToken(collectionName, token, total, targetChars);
   saveState();
   renderTokens();
 }
@@ -265,13 +293,20 @@ function loadState() {
   }
 }
 
-const persistState = debounce(() => {
+function persistStateNow() {
   try {
     localStorage.setItem('dmk-tracker-v2', JSON.stringify(state));
   } catch (e) {
     showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
   }
-}, 300);
+}
+const persistState = debounce(persistStateNow, 300);
+
+window.addEventListener('pagehide', persistStateNow);
+window.addEventListener('beforeunload', persistStateNow);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) persistStateNow();
+});
 
 function saveState() {
   const fields = ['magic', 'gems', 'dreamsparks'];
@@ -326,38 +361,38 @@ function refreshTrackerViews() {
   updateDashboard();
 }
 
+function deductTokensForLevelUp(char, newLevel) {
+  const td = DMK_CHAR_TOKENS[char.name];
+  const needed = td?.levels.find(l => l.level === newLevel);
+  if (!needed?.tokens || !state.token_inventory) return;
+
+  const sharedToken = td?.tokens?.[0];
+  const sharedCollChars = sharedToken
+    ? state.characters.filter(ch => ch.collection === char.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
+    : [];
+  const isShared = sharedCollChars.length > 1 && sharedToken && needed.tokens.includes(sharedToken);
+
+  if (isShared) {
+    const sharedIdx = needed.tokens.indexOf(sharedToken);
+    const sharedQty = sharedIdx >= 0 ? needed.quantities[sharedIdx] : 0;
+    const pool = getCollectionTokenTotal(char.collection, sharedToken, sharedCollChars);
+    const newPool = Math.max(0, pool - sharedQty);
+    distributeCollectionToken(char.collection, sharedToken, newPool, sharedCollChars);
+  } else if (state.token_inventory[char.name]) {
+    td.tokens.forEach((t, i) => {
+      if (state.token_inventory[char.name][t])
+        state.token_inventory[char.name][t] = Math.max(0, (state.token_inventory[char.name][t] || 0) - needed.quantities[i]);
+    });
+  }
+}
+
 function levelUp(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
   const oldLevel = parseInt(c.level) || 0;
   const newLevel = !c.welcomed ? 1 : Math.min(oldLevel + 1, MAX_CHAR_LEVEL);
   if (!c.welcomed) c.welcomed = true;
-  const td = DMK_CHAR_TOKENS[c.name];
-  const needed = td?.levels.find(l => l.level === newLevel);
-  if (needed?.tokens && state.token_inventory) {
-    const sharedToken = td?.tokens?.[0];
-    const sharedCollChars = sharedToken
-      ? state.characters.filter(ch => ch.collection === c.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
-      : [];
-    const isShared = sharedCollChars.length > 1 && sharedToken && needed.tokens.includes(sharedToken);
-    if (isShared) {
-      const sharedIdx = needed.tokens.indexOf(sharedToken);
-      const sharedQty = sharedIdx >= 0 ? needed.quantities[sharedIdx] : 0;
-      const pool = getCollectionTokenTotal(c.collection, sharedToken, sharedCollChars);
-      const newPool = Math.max(0, pool - sharedQty);
-      const base = Math.floor(newPool / sharedCollChars.length);
-      let rem = newPool % sharedCollChars.length;
-      sharedCollChars.forEach(ch => {
-        if (!state.token_inventory[ch.name]) state.token_inventory[ch.name] = {};
-        state.token_inventory[ch.name][sharedToken] = base + (rem-- > 0 ? 1 : 0);
-      });
-    } else if (state.token_inventory[c.name]) {
-      td.tokens.forEach((t, i) => {
-        if (state.token_inventory[c.name][t])
-          state.token_inventory[c.name][t] = Math.max(0, (state.token_inventory[c.name][t] || 0) - needed.quantities[i]);
-      });
-    }
-  }
+  deductTokensForLevelUp(c, newLevel);
   c.level = newLevel;
   saveState();
   refreshTrackerViews();
@@ -2331,38 +2366,7 @@ const handleTokenInputUpdate = (inp) => {
 function levelUpChar(charName, newLevel) {
   const char = state.characters.find(c => c.name === charName);
   if (!char) return;
-  const td = DMK_CHAR_TOKENS[charName];
-  const needed = td?.levels.find(l => l.level === newLevel);
-
-  if (needed) {
-    const sharedToken = td?.tokens?.[0];
-    const sharedCollectionChars = sharedToken
-      ? state.characters.filter(ch => ch.collection === char.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
-      : [];
-    const isSharedCollectionToken = sharedCollectionChars.length > 1 && sharedToken && needed.tokens.includes(sharedToken);
-
-    if (isSharedCollectionToken) {
-      if (!state.token_inventory) state.token_inventory = {};
-      const sharedIndex = needed.tokens.indexOf(sharedToken);
-      const sharedQty = sharedIndex >= 0 ? needed.quantities[sharedIndex] : 0;
-      const currentPool = getCollectionTokenTotal(char.collection, sharedToken, sharedCollectionChars);
-      const newPool = Math.max(0, currentPool - sharedQty);
-      const base = Math.floor(newPool / sharedCollectionChars.length);
-      let remainder = newPool % sharedCollectionChars.length;
-      sharedCollectionChars.forEach(ch => {
-        if (!state.token_inventory[ch.name]) state.token_inventory[ch.name] = {};
-        state.token_inventory[ch.name][sharedToken] = base + (remainder > 0 ? 1 : 0);
-        remainder -= 1;
-      });
-    } else if (state.token_inventory?.[charName]) {
-      td.tokens.forEach((t, i) => {
-        if (state.token_inventory[charName][t]) {
-          state.token_inventory[charName][t] = Math.max(0, (state.token_inventory[charName][t] || 0) - needed.quantities[i]);
-        }
-      });
-    }
-  }
-
+  deductTokensForLevelUp(char, newLevel);
   char.level = newLevel;
   saveState();
   refreshTrackerViews();
@@ -2552,6 +2556,10 @@ const activeTab = document.querySelector('.tabs .tab.active');
 if (activeTab) {
   activeTab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'instant' });
 }
+
+document.querySelectorAll('.tabs .tab').forEach(tab => {
+  tab.addEventListener('click', () => persistStateNow(), { capture: true });
+});
 
 // ============================================================
 // ACTIVE QUESTS PANEL
