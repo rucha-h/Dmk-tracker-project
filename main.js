@@ -146,6 +146,25 @@ function getCollectionTokenTotal(collectionName, token, chars = null) {
   return targetChars.reduce((sum, c) => sum + (state.token_inventory?.[c.name]?.[token] || 0), 0);
 }
 
+// Returns how many of `token` a character effectively has toward their own requirement.
+// If `token` is the character's shared/pooled collection token (drawn from a common
+// stash shared by multiple characters), this returns the pooled total rather than
+// the character's own individual inventory entry — matching how readiness and
+// deduction are actually computed elsewhere (getCollectionTokenTotal / deductTokensForLevelUp).
+function getEffectiveTokenHave(char, token) {
+  const td = DMK_CHAR_TOKENS[char.name];
+  const isSharedToken = td?.tokens?.[0] === token;
+  if (isSharedToken) {
+    const sharedCollChars = state.characters.filter(
+      ch => ch.collection === char.collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === token
+    );
+    if (sharedCollChars.length > 1) {
+      return getCollectionTokenTotal(char.collection, token, sharedCollChars);
+    }
+  }
+  return state.token_inventory?.[char.name]?.[token] || 0;
+}
+
 function distributeProportionally(currentValues, newTotal) {
   const n = currentValues.length;
   if (n === 0) return [];
@@ -308,7 +327,20 @@ document.addEventListener('visibilitychange', () => {
   if (document.hidden) persistStateNow();
 });
 
+// Use for discrete user actions (level up/down, welcome, toggles, token +/-):
+// flushes to localStorage immediately so other tabs/pages never read stale data.
 function saveState() {
+  const fields = ['magic', 'gems', 'dreamsparks'];
+  fields.forEach(f => {
+    const el = getEl('res-' + f);
+    if (el) state.resources[f] = Number(el.value) || 0;
+  });
+  persistStateNow();
+}
+
+// Use only for rapid/continuous input (e.g. typing in a resource number field)
+// where debouncing avoids hammering localStorage on every keystroke.
+function saveStateDebounced() {
   const fields = ['magic', 'gems', 'dreamsparks'];
   fields.forEach(f => {
     const el = getEl('res-' + f);
@@ -374,14 +406,25 @@ function deductTokensForLevelUp(char, newLevel) {
 
   if (isShared) {
     const sharedIdx = needed.tokens.indexOf(sharedToken);
-    const sharedQty = sharedIdx >= 0 ? needed.quantities[sharedIdx] : 0;
+    const sharedQty = sharedIdx >= 0 ? (needed.quantities[sharedIdx] || 0) : 0;
     const pool = getCollectionTokenTotal(char.collection, sharedToken, sharedCollChars);
     const newPool = Math.max(0, pool - sharedQty);
     distributeCollectionToken(char.collection, sharedToken, newPool, sharedCollChars);
+
+    // Also deduct any OTHER (non-shared) tokens required at this level from this
+    // character's own inventory — previously skipped whenever the pooled branch ran.
+    if (state.token_inventory[char.name]) {
+      td.tokens.forEach((t, i) => {
+        if (t === sharedToken) return;
+        if (state.token_inventory[char.name][t]) {
+          state.token_inventory[char.name][t] = Math.max(0, (state.token_inventory[char.name][t] || 0) - (needed.quantities[i] || 0));
+        }
+      });
+    }
   } else if (state.token_inventory[char.name]) {
     td.tokens.forEach((t, i) => {
       if (state.token_inventory[char.name][t])
-        state.token_inventory[char.name][t] = Math.max(0, (state.token_inventory[char.name][t] || 0) - needed.quantities[i]);
+        state.token_inventory[char.name][t] = Math.max(0, (state.token_inventory[char.name][t] || 0) - (needed.quantities[i] || 0));
     });
   }
 }
@@ -422,6 +465,7 @@ function toggleWishlist(id) {
 function welcomeChar(id) {
   const c = state.characters.find(x => x.id === id);
   if (!c) return;
+  deductTokensForLevelUp(c, 1); // no-op for premium/event chars (no DMK_CHAR_TOKENS entry)
   c.welcomed = true;
   if (c.level === 0) c.level = 1;
   if (state.wishlist) delete state.wishlist[c.id];
@@ -1521,9 +1565,9 @@ if (_page === 'dashboard') {
 
 initButton('export-backup-btn', exportState);
 initButton('import-backup-btn', importState);
-initInputChange('res-magic', 'input', saveState);
-initInputChange('res-gems', 'input', saveState);
-initInputChange('res-dreamsparks', 'input', saveState);
+initInputChange('res-magic', 'input', saveStateDebounced);
+initInputChange('res-gems', 'input', saveStateDebounced);
+initInputChange('res-dreamsparks', 'input', saveStateDebounced);
 initButton('clear-done-btn', clearCompletedPins);
 initButton('expand-all-arcs-btn', expandAllArcs);
 initButton('collapse-all-arcs-btn', collapseAllArcs);
@@ -1999,7 +2043,7 @@ function renderTokens() {
     if (!maxed && td) {
       const needed = getNeededQty(c.name, c.level);
       if (needed) {
-        const tokensMet = needed.tokens.filter((t, i) => (inv[t] || 0) >= needed.quantities[i]).length;
+        const tokensMet = needed.tokens.filter((t, i) => getEffectiveTokenHave(c, t) >= needed.quantities[i]).length;
         ready = tokensMet === needed.tokens.length;
         pct = needed.tokens.length > 0 ? Math.round(tokensMet / needed.tokens.length * 100) : 0;
       }
@@ -2034,11 +2078,19 @@ function renderTokens() {
   if (summaryEl) {
     const allNonMaxed = state.characters.filter(c => c.welcomed && c.level < c.max);
     const totals = {};
+    const seenSharedKeys = new Set(); // collection|token — avoid re-adding a pooled shortfall per sharing character
     allNonMaxed.forEach(c => {
       const needed = getNeededQty(c.name, c.level);
       if (!needed) return;
       needed.tokens.forEach((t, i) => {
-        const have = state.token_inventory?.[c.name]?.[t] || 0;
+        const td = DMK_CHAR_TOKENS[c.name];
+        const isShared = td?.tokens?.[0] === t;
+        const sharedKey = c.collection + '|' + t;
+        if (isShared) {
+          if (seenSharedKeys.has(sharedKey)) return; // already counted this pool's shortfall
+          seenSharedKeys.add(sharedKey);
+        }
+        const have = getEffectiveTokenHave(c, t);
         const need = needed.quantities[i];
         const gap = Math.max(0, need - have);
         if (gap > 0) totals[t] = (totals[t] || 0) + gap;
@@ -2277,7 +2329,9 @@ function renderTokens() {
 
         const isWishlistChar = !c.welcomed;
         const readyBadge = isWishlistChar
-          ? `<span style="font-size:11px;color:var(--gold);font-weight:700;">🌟 Not welcomed</span>`
+          ? (allReady
+            ? `<span style="font-size:11px;color:var(--green);font-weight:700;">🌟 Ready to Welcome!</span>`
+            : `<span style="font-size:11px;color:var(--gold);font-weight:700;">🌟 Not welcomed</span>`)
           : allReady
             ? `<span style="font-size:11px;color:var(--green);font-weight:700;">✅ Ready!</span>`
             : `<span style="font-size:11px;color:var(--muted);">Lv ${c.level} → ${needed.nextLevel}</span>`;
@@ -2293,9 +2347,9 @@ function renderTokens() {
             ${readyBadge}
           </div>
           <div style="display:flex;flex-direction:column;gap:6px;">${tokensHtml}</div>
-          ${allReady && !isWishlistChar ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g, '&quot;')}" data-level="${needed.nextLevel}"
+          ${allReady ? `<button class="tok-levelup" data-char="${c.name.replace(/"/g, '&quot;')}" data-level="${needed.nextLevel}"
             style="margin-top:10px;width:100%;padding:8px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;background:rgba(52,211,153,0.15);color:var(--green);">
-            ✨ Mark as Level ${needed.nextLevel}
+            ${isWishlistChar ? '✨ Mark as Welcomed' : `✨ Mark as Level ${needed.nextLevel}`}
           </button>` : ''}
         </div>`;
       }).join('');
@@ -2368,6 +2422,10 @@ function levelUpChar(charName, newLevel) {
   if (!char) return;
   deductTokensForLevelUp(char, newLevel);
   char.level = newLevel;
+  if (!char.welcomed) {
+    char.welcomed = true;
+    if (state.wishlist) delete state.wishlist[char.id];
+  }
   saveState();
   refreshTrackerViews();
 }
