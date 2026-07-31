@@ -134,16 +134,47 @@ const STATE_VERSION = 2;
 
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
-function getSharedCollectionToken(chars) {
-  if (!chars.length) return null;
-  const firstToken = chars[0].td?.tokens?.[0];
+// Determines whether `collectionName` has a shared/pooled token, and if so which one.
+// IMPORTANT: this must be computed from the full canonical roster (state.characters +
+// DMK_CHAR_TOKENS), never from a filtered/sorted/searched subset. It previously took
+// the currently-rendered `sortedChars` array as input, so the answer could silently
+// change depending on the active search/filter/sort/collection-dropdown state, or on
+// which characters happened to be maxed/wishlisted/missing token data at the time.
+// That made the "N collection token" pooled header (and its total) intermittently
+// disappear or fall back to showing each character's individual slice of the pool
+// instead of the true total — most visibly after navigating away and back, since the
+// tok-sort dropdown isn't persisted and silently resets to A-Z on reload, changing
+// sort order and therefore which character used to be treated as the "reference" one.
+function getSharedCollectionToken(collectionName) {
+  const collChars = state.characters.filter(
+    c => c.collection === collectionName && DMK_CHAR_TOKENS[c.name]?.tokens?.length
+  );
+  if (!collChars.length) return null;
+  const firstToken = DMK_CHAR_TOKENS[collChars[0].name].tokens[0];
   if (!firstToken) return null;
-  return chars.every(c => c.td?.tokens?.[0] === firstToken) ? firstToken : null;
+  const sharing = collChars.filter(c => DMK_CHAR_TOKENS[c.name].tokens[0] === firstToken);
+  // Only treat it as "pooled" if more than one character actually draws from it —
+  // matches the >1 threshold used by getEffectiveTokenHave/deductTokensForLevelUp.
+  return sharing.length > 1 ? firstToken : null;
 }
 
 function getCollectionTokenTotal(collectionName, token, chars = null) {
   const targetChars = chars || state.characters.filter(c => c.collection === collectionName && DMK_CHAR_TOKENS[c.name]?.tokens?.[0] === token);
   return targetChars.reduce((sum, c) => sum + (state.token_inventory?.[c.name]?.[token] || 0), 0);
+}
+
+function parseCollectionCharNames(value) {
+  if (!value) return [];
+  const normalized = String(value)
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, '&');
+  try {
+    const parsed = JSON.parse(normalized);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    return [];
+  }
 }
 
 // Returns how many of `token` a character effectively has toward their own requirement.
@@ -1477,6 +1508,7 @@ const PAGE_CONFIG = {
     init: () => {
       initTokCollFilter();
       initPersistedSelect('tok-coll-filter', 'tokCollection');
+      initPersistedSelect('tok-sort', 'tokSort');
       initInputChange('tok-coll-filter', 'change', renderTokens);
       initInputChange('tok-sort', 'change', renderTokens);
       renderTokens();
@@ -2009,6 +2041,49 @@ function getNeededQty(charName, currentLevel) {
   return { tokens: td.tokens, quantities: nextLvl.quantities, nextLevel: currentLevel + 1 };
 }
 
+// Aggregates the "TOKENS STILL NEEDED" panel at the top of the Tokens tab.
+// Pulled out of renderTokens so it can also be refreshed from adjustToken's
+// fast in-place path (previously only a full renderTokens() call refreshed
+// this panel, so quick +/- token edits could leave it showing stale totals).
+function renderTokenSummary() {
+  const summaryEl = getEl('tok-summary');
+  if (!summaryEl) return;
+  const allNonMaxed = state.characters.filter(c => c.welcomed && c.level < c.max);
+  const totals = {};
+  const seenSharedKeys = new Set(); // collection|token — avoid re-adding a pooled shortfall per sharing character
+  allNonMaxed.forEach(c => {
+    const needed = getNeededQty(c.name, c.level);
+    if (!needed) return;
+    needed.tokens.forEach((t, i) => {
+      const td = DMK_CHAR_TOKENS[c.name];
+      const isShared = td?.tokens?.[0] === t;
+      const sharedKey = c.collection + '|' + t;
+      if (isShared) {
+        if (seenSharedKeys.has(sharedKey)) return; // already counted this pool's shortfall
+        seenSharedKeys.add(sharedKey);
+      }
+      const have = getEffectiveTokenHave(c, t);
+      const need = needed.quantities[i];
+      const gap = Math.max(0, need - have);
+      if (gap > 0) totals[t] = (totals[t] || 0) + gap;
+    });
+  });
+  const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  if (entries.length) {
+    summaryEl.innerHTML = `
+      <div style="background:var(--card2);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;">
+        <div style="font-weight:700;color:var(--muted);font-size:10px;letter-spacing:0.05em;margin-bottom:6px;">TOKENS STILL NEEDED (all ${allNonMaxed.length} active characters)</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;">
+          ${entries.map(([t, n]) => `<span style="background:var(--card);border-radius:6px;padding:2px 8px;font-weight:700;">
+            ${t} <span style="color:var(--red);">×${n}</span>
+          </span>`).join('')}
+        </div>
+      </div>`;
+  } else {
+    summaryEl.innerHTML = '';
+  }
+}
+
 function renderTokens() {
   const list = getEl('tok-list');
   if (!list) return;
@@ -2021,7 +2096,10 @@ function renderTokens() {
   if (tokFilter === 'wishlist') {
     chars = state.characters.filter(c => !c.welcomed && state.wishlist?.[c.id]);
   } else {
-    chars = state.characters.filter(c => (c.welcomed && c.level < c.max) || state.wishlist?.[c.id]);
+    // Include ALL welcomed characters (maxed or not) plus wishlisted-but-unwelcomed ones.
+    // Maxed/ready/missing filtering happens below via tokFilter — excluding maxed chars
+    // here made the "⭐ Maxed" filter (and maxed cards under "All") permanently empty.
+    chars = state.characters.filter(c => c.welcomed || state.wishlist?.[c.id]);
   }
 
   if (collFilter) chars = chars.filter(c => (c.collection || '') === collFilter);
@@ -2074,43 +2152,7 @@ function renderTokens() {
   }, {});
 
   // Summary: aggregate tokens needed across all non-maxed welcomed chars
-  const summaryEl = getEl('tok-summary');
-  if (summaryEl) {
-    const allNonMaxed = state.characters.filter(c => c.welcomed && c.level < c.max);
-    const totals = {};
-    const seenSharedKeys = new Set(); // collection|token — avoid re-adding a pooled shortfall per sharing character
-    allNonMaxed.forEach(c => {
-      const needed = getNeededQty(c.name, c.level);
-      if (!needed) return;
-      needed.tokens.forEach((t, i) => {
-        const td = DMK_CHAR_TOKENS[c.name];
-        const isShared = td?.tokens?.[0] === t;
-        const sharedKey = c.collection + '|' + t;
-        if (isShared) {
-          if (seenSharedKeys.has(sharedKey)) return; // already counted this pool's shortfall
-          seenSharedKeys.add(sharedKey);
-        }
-        const have = getEffectiveTokenHave(c, t);
-        const need = needed.quantities[i];
-        const gap = Math.max(0, need - have);
-        if (gap > 0) totals[t] = (totals[t] || 0) + gap;
-      });
-    });
-    const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
-    if (entries.length) {
-      summaryEl.innerHTML = `
-        <div style="background:var(--card2);border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:11px;">
-          <div style="font-weight:700;color:var(--muted);font-size:10px;letter-spacing:0.05em;margin-bottom:6px;">TOKENS STILL NEEDED (all ${allNonMaxed.length} active characters)</div>
-          <div style="display:flex;flex-wrap:wrap;gap:5px;">
-            ${entries.map(([t, n]) => `<span style="background:var(--card);border-radius:6px;padding:2px 8px;font-weight:700;">
-              ${t} <span style="color:var(--red);">×${n}</span>
-            </span>`).join('')}
-          </div>
-        </div>`;
-    } else {
-      summaryEl.innerHTML = '';
-    }
-  }
+  renderTokenSummary();
 
   const collectionSections = Object.entries(collectionGroups)
     .sort(([a], [b]) => a.localeCompare(b))
@@ -2121,7 +2163,7 @@ function renderTokens() {
         return a.name.localeCompare(b.name);
       });
 
-      const sharedToken = getSharedCollectionToken(sortedChars);
+      const sharedToken = getSharedCollectionToken(collection);
       const collectionTargetChars = sharedToken
         ? state.characters.filter(ch => ch.collection === collection && DMK_CHAR_TOKENS[ch.name]?.tokens?.[0] === sharedToken)
         : [];
@@ -2167,11 +2209,11 @@ function renderTokens() {
               <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
                 <button data-action="toggle-token-expand" data-id="${expandId}" id="btn_${expandId}"
                   style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>
-                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}' data-delta="-1"
+                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${esc(collectionCharNames)}' data-delta="-1"
                   style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;">−</button>
-                <input id="tokcoll_input_${expandId}" type="number" min="0" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}'
-                  value="${countValue}" style="width:64px;font-weight:800;font-size:14px;text-align:center;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:4px;">
-                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${collectionCharNames}' data-delta="1"
+                <input id="tokcoll_input_${expandId}" type="number" min="0" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${esc(collectionCharNames)}'
+                  value="${countValue}" style="width:64px;font-weight:800;font-size:14px;text-align:center;color:var(--text);background:var(--card);border:1px solid var(--border);border-radius:8px;padding:8px;">
+                <button class="tok-coll-adj" data-collection="${esc(collection)}" data-token="${esc(sharedToken)}" data-char-names='${esc(collectionCharNames)}' data-delta="1"
                   style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;">+</button>
               </div>
             </div>
@@ -2394,8 +2436,17 @@ function adjustToken(charName, token, delta) {
     : `<span style="color:var(--red);">-${need - have}</span>`;
   rowEl.style.borderColor = enough ? 'rgba(52,211,153,0.3)' : 'var(--border)';
 
-  // Re-render the whole card only if ready-state changed (border + badge + level button)
-  const allReady = needed.tokens.every((t, i) => (state.token_inventory?.[charName]?.[t] || 0) >= needed.quantities[i]);
+  // Keep the aggregate "tokens still needed" panel in sync — this used to only
+  // refresh on a full renderTokens() call, so it went stale after quick +/- edits.
+  renderTokenSummary();
+
+  // Re-render the whole card only if ready-state changed (border + badge + level button).
+  // Use getEffectiveTokenHave (not raw inventory) so characters that draw a shared/pooled
+  // collection token are evaluated against the true pool total, matching the readiness
+  // logic used elsewhere (renderTokens' readinessChecks, getNeededQty consumers, etc.) —
+  // otherwise a character's own partial share of the pool could wrongly read as "not ready"
+  // (or vice versa) even though the full render would show it correctly.
+  const allReady = needed.tokens.every((t, i) => getEffectiveTokenHave(char, t) >= needed.quantities[i]);
   const wasReady = rowEl.closest('.card')?.querySelector('.tok-levelup') !== null;
   if (allReady !== wasReady) renderTokens();
 }
@@ -2405,8 +2456,8 @@ const handleTokenInputUpdate = (inp) => {
   const newVal = Math.max(0, parseInt(inp.value) || 0);
   inp.value = newVal;
   if (inp.dataset.collection) {
-    const charNames = inp.dataset.charNames ? JSON.parse(inp.dataset.charNames) : null;
-    const targetChars = charNames ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
+    const charNames = parseCollectionCharNames(inp.dataset.charNames || '');
+    const targetChars = charNames.length ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
     setCollectionToken(inp.dataset.collection, token, newVal, targetChars);
     return;
   }
@@ -2464,8 +2515,8 @@ document.addEventListener('click', e => {
   if (collAdj) {
     const collection = collAdj.dataset.collection;
     const token = collAdj.dataset.token;
-    const charNames = collAdj.dataset.charNames ? JSON.parse(collAdj.dataset.charNames) : null;
-    const targetChars = charNames ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
+    const charNames = parseCollectionCharNames(collAdj.dataset.charNames || '');
+    const targetChars = charNames.length ? charNames.map(name => state.characters.find(c => c.name === name)).filter(Boolean) : null;
     const current = getCollectionTokenTotal(collection, token, targetChars);
     setCollectionToken(collection, token, current + (+collAdj.dataset.delta || 0), targetChars);
     return;
@@ -2489,7 +2540,6 @@ document.addEventListener('click', e => {
 document.addEventListener('input', e => {
   const inp = e.target.closest('#tok-list input[type="number"][data-char], #tok-list input[type="number"][data-collection]');
   if (!inp) return;
-  // Just update visual color while typing, don't commit yet
   const val = parseInt(inp.value) || 0;
   inp.style.color = val > 0 ? 'var(--text)' : 'var(--red)';
 });
@@ -2499,6 +2549,12 @@ document.addEventListener('change', e => {
   if (!inp) return;
   handleTokenInputUpdate(inp);
 });
+
+document.addEventListener('blur', e => {
+  const inp = e.target.closest('#tok-list input[type="number"][data-char], #tok-list input[type="number"][data-collection]');
+  if (!inp) return;
+  handleTokenInputUpdate(inp);
+}, true);
 
 
 // ============ FLOATS ============
