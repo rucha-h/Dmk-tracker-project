@@ -28,7 +28,8 @@ function initPersistedSelect(id, key) {
   if (!el) return;
   const saved = loadFilterState(key, el.value);
   if (saved !== null && saved !== undefined) {
-    el.value = saved;
+    const optionExists = Array.from(el.options).some(o => o.value === saved);
+    el.value = optionExists ? saved : el.value;
   }
   el.addEventListener('change', () => saveFilterState(key, el.value));
 }
@@ -131,6 +132,9 @@ function esc(s) {
 
 const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
 const STATE_VERSION = 2;
+const STORAGE_KEY = 'dmk-tracker-v2';
+const LEGACY_STORAGE_KEY = 'dmk-tracker';
+const STORAGE_BACKUP_KEY = 'dmk-tracker-v2-backup';
 
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
@@ -257,10 +261,75 @@ let state = {
   costumes: [],
   decorations_owned: {},
   token_inventory: {},
+  wishlist: {},
+  floats_owned: {},
+  floats_active: {},
+  concessions_owned: {},
+  concessions_operating: {},
 };
 
 // ============ LOAD / SAVE ============
+function normalizeKey(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0000-\u036f]/g, '')
+    .replace(/&/g, 'and')
+    .replace(/[^a-z0-9]/gi, '')
+    .toLowerCase();
+}
+
 // Build canonical character list from DMK_CHARS
+function normalizeCharKey(value) {
+  return normalizeKey(value);
+}
+
+function getSavedStateRaw() {
+  try {
+    const primaryData = localStorage.getItem(STORAGE_KEY);
+    const legacyData = localStorage.getItem(LEGACY_STORAGE_KEY);
+
+    if (primaryData !== null) {
+      if (primaryData.trim()) {
+        try {
+          const parsed = JSON.parse(primaryData);
+          if (isValidSavedState(parsed)) {
+            return primaryData;
+          }
+        } catch (e) {
+          // Invalid primary state; fall back to legacy if available.
+        }
+      }
+      return primaryData;
+    }
+
+    return legacyData;
+  } catch (e) {
+    return null;
+  }
+}
+
+function saveStorageBackup() {
+  try {
+    const current = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (current !== null) {
+      localStorage.setItem(STORAGE_BACKUP_KEY, current);
+    }
+  } catch (e) {
+    // Ignore backup failures.
+  }
+}
+
+function isValidSavedState(parsed) {
+  if (!parsed || typeof parsed !== 'object') return false;
+  if (!Array.isArray(parsed.characters)) return false;
+  if (!parsed.resources || typeof parsed.resources !== 'object') return false;
+  if (parsed.decorations_owned && typeof parsed.decorations_owned !== 'object') return false;
+  if (parsed.token_inventory && typeof parsed.token_inventory !== 'object') return false;
+  if (parsed.wishlist && typeof parsed.wishlist !== 'object') return false;
+  if (parsed.quests !== undefined && !Array.isArray(parsed.quests)) return false;
+  return true;
+}
+
 function buildAllChars() {
   return DMK_CHARS.map(([name, collection, typeCode, emoji, gemCost]) => ({
     id: 'char_' + name.toLowerCase().replace(/[^a-z0-9]/g, '_'),
@@ -274,23 +343,83 @@ function buildAllChars() {
   }));
 }
 
+function remapSavedMap(savedMap, currentKeys) {
+  if (!savedMap || typeof savedMap !== 'object') return {};
+  const normalizedCurrent = new Map(currentKeys.map(key => [normalizeKey(key), key]));
+  const remapped = {};
+
+  Object.entries(savedMap).forEach(([key, value]) => {
+    if (currentKeys.includes(key)) {
+      remapped[key] = value;
+      return;
+    }
+    const mappedKey = normalizedCurrent.get(normalizeKey(key));
+    if (mappedKey) {
+      remapped[mappedKey] = value;
+    }
+  });
+
+  return remapped;
+}
+
+function remapNestedMap(savedMap, currentKeys) {
+  if (!savedMap || typeof savedMap !== 'object') return {};
+  const normalizedCurrent = new Map(currentKeys.map(key => [normalizeKey(key), key]));
+  const remapped = {};
+
+  Object.entries(savedMap).forEach(([outerKey, innerMap]) => {
+    const mappedKey = normalizedCurrent.get(normalizeKey(outerKey));
+    if (mappedKey) {
+      remapped[mappedKey] = innerMap;
+    }
+  });
+
+  return remapped;
+}
+
 function loadState() {
   const allChars = buildAllChars();
   try {
-    const saved = localStorage.getItem('dmk-tracker-v2');
+    const saved = getSavedStateRaw();
     if (saved) {
       const parsed = JSON.parse(saved);
-      state = { ...state, ...parsed };
+      if (isValidSavedState(parsed)) {
+        if (!localStorage.getItem(STORAGE_KEY) && localStorage.getItem(LEGACY_STORAGE_KEY)) {
+          localStorage.setItem(STORAGE_KEY, saved);
+        }
+        state = { ...state, ...parsed };
+      } else {
+        console.warn('Saved DMK state is invalid and will not be ignored.');
+      }
       // Merge: keep saved progress, add any new chars from DB as unwelcomed
       const savedByName = {};
-      (state.characters || []).forEach(c => { savedByName[c.name] = c; });
+      (state.characters || []).forEach(c => {
+        savedByName[c.name] = c;
+        savedByName[normalizeCharKey(c.name)] = c;
+        if (c.id) {
+          savedByName[c.id] = c;
+          savedByName[normalizeCharKey(c.id)] = c;
+        }
+      });
       state.characters = allChars.map(ch => {
-        const savedChar = savedByName[ch.name];
+        const savedChar = savedByName[ch.name] || savedByName[normalizeKey(ch.name)] || savedByName[ch.id] || savedByName[normalizeKey(ch.id)];
         if (savedChar) {
-          return { ...ch, level: parseInt(savedChar.level) || 0, welcomed: savedChar.welcomed };
+          const level = parseInt(savedChar.level) || 0;
+          const welcomed = savedChar.welcomed !== undefined ? savedChar.welcomed : level > 0;
+          return { ...ch, level, welcomed };
         }
         return ch;
       });
+
+      const currentCharNames = state.characters.map(c => c.name);
+      state.wishlist = remapSavedMap(state.wishlist, state.characters.map(c => c.id || ''));
+      state.token_inventory = remapNestedMap(state.token_inventory, currentCharNames);
+
+      if (state.floats_owned) state.floats_owned = remapSavedMap(state.floats_owned, DMK_FLOATS.map(f => f.name));
+      if (state.floats_active) state.floats_active = remapSavedMap(state.floats_active, DMK_FLOATS.map(f => f.name));
+      if (state.concessions_owned) state.concessions_owned = remapSavedMap(state.concessions_owned, DMK_CONCESSIONS_DATA.map(c => c.name));
+      if (state.concessions_operating) state.concessions_operating = remapSavedMap(state.concessions_operating, DMK_CONCESSIONS_DATA.map(c => c.name));
+      if (state.decorations_owned) state.decorations_owned = remapSavedMap(state.decorations_owned, DMK_DECORATIONS.map(d => d.name));
 
       // One-time migration: rekey index-based char IDs to name-based IDs
       const needsCharMigration = state.characters.some(c => /^char_\d+$/.test(c.id));
@@ -327,6 +456,7 @@ function loadState() {
       state.token_inventory = {};
     }
   } catch (e) {
+    console.warn('Failed to load saved state; using defaults.', e);
     state.characters = allChars;
     state.quests = [];
     state.decorations_owned = {};
@@ -345,7 +475,8 @@ function loadState() {
 
 function persistStateNow() {
   try {
-    localStorage.setItem('dmk-tracker-v2', JSON.stringify(state));
+    saveStorageBackup();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (e) {
     showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
   }

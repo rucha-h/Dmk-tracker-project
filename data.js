@@ -148,62 +148,10 @@ const DMK_CHAR_TOKENS = {
   "Pete": { "tokens": ["Mickey Balloon", "Bowler Hat", "Pete Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 10, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 4] }, { "level": 5, "quantities": [20, 7, 5] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 13, 8] }, { "level": 8, "quantities": [35, 16, 10] }, { "level": 9, "quantities": [40, 20, 14] }, { "level": 10, "quantities": [50, 25, 20] }] },
   "Chip": { "tokens": ["Mickey Balloon", "Acorn", "Chip Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 8, 6] }, { "level": 2, "quantities": [5, 3, 2] }, { "level": 3, "quantities": [10, 4, 3] }, { "level": 4, "quantities": [15, 6, 4] }, { "level": 5, "quantities": [20, 8, 6] }, { "level": 6, "quantities": [25, 10, 8] }, { "level": 7, "quantities": [30, 14, 10] }, { "level": 8, "quantities": [35, 18, 14] }, { "level": 9, "quantities": [40, 24, 20] }, { "level": 10, "quantities": [50, 30, 26] }] },
   "Dale": { "tokens": ["Mickey Balloon", "Peanut", "Dale Ears Hat"], "levels": [{ "level": 1, "quantities": [35, 8, 4] }, { "level": 2, "quantities": [5, 3, 1] }, { "level": 3, "quantities": [10, 4, 2] }, { "level": 4, "quantities": [15, 6, 3] }, { "level": 5, "quantities": [20, 8, 4] }, { "level": 6, "quantities": [25, 10, 6] }, { "level": 7, "quantities": [30, 14, 8] }, { "level": 8, "quantities": [35, 18, 12] }, { "level": 9, "quantities": [40, 24, 18] }, { "level": 10, "quantities": [50, 30, 24] }] },
-  "Horace": {
-    "tokens": ["Mickey Balloon", "Horace's Collar", "Horace Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 5, 5] },
-      { "level": 3, "quantities": [10, 10, 10] },
-      { "level": 4, "quantities": [20, 20, 20] },
-      { "level": 5, "quantities": [40, 40, 40] },
-      { "level": 6, "quantities": [50, 50, 50] },
-      { "level": 7, "quantities": [60, 60, 60] },
-      { "level": 8, "quantities": [70, 70, 70] },
-      { "level": 9, "quantities": [80, 80, 80] },
-      { "level": 10, "quantities": [100, 100, 100] }
-    ]
-  },
-  "Clara Cluck": {
-    "tokens": ["Mickey Balloon", "Clara Cluck's Hat", "Clara Cluck Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
-  "Ludwig Von Drake": {
-    "tokens": ["Mickey Balloon", "Ludwig Von Drake's Glasses and Pocket Watch", "Ludwig Von Drake Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
-  "Clarabelle": {
-    "tokens": ["Mickey Balloon", "Clarabelle's Bell", "Clarabelle Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
+  "Horace": { "tokens": ["Mickey Balloon", "Horace's Collar", "Horace Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
+  "Clara Cluck": { "tokens": ["Mickey Balloon", "Clara Cluck's Hat", "Clara Cluck Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Ludwig Von Drake": { "tokens": ["Mickey Balloon", "Ludwig Von Drake's Glasses and Pocket Watch", "Ludwig Von Drake Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Clarabelle": { "tokens": ["Mickey Balloon", "Clarabelle's Bell", "Clarabelle Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   //Toy Story
   "Bo Peep": { "tokens": ["Pixar Ball", "Bo Peep's Bonnet", "Bo Peep Ears Hat"], "levels": [{ "level": 1, "quantities": [0, 1, 1] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
   "Bullseye": { "tokens": ["Pixar Ball", "Toy Saddle", "Bullseye Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 30, 30] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 4, 4] }, { "level": 4, "quantities": [15, 7, 7] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
@@ -496,6 +444,7 @@ const DMK_CHAR_TOKENS = {
   "Randall Boggs": { "tokens": ["Scream Canister", "Boo's Drawing of Randall", "Randall Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
   "Roz": { "tokens": ["Scream Canister", "Horn-Rimmed Glasses", "Roz Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 6] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
   "Sulley": { "tokens": ["Scream Canister", "Boo's Drawing of Sulley", "Sulley Ears Hat"], "levels": [{ "level": 1, "quantities": [12, 12, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 4, 3] }, { "level": 4, "quantities": [15, 7, 5] }, { "level": 5, "quantities": [20, 10, 7] }, { "level": 6, "quantities": [25, 15, 10] }, { "level": 7, "quantities": [30, 20, 13] }, { "level": 8, "quantities": [35, 25, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 35, 25] }] },
+  "Fungus": { "tokens": ["Scream Canister", "Fungus's Three-Eyed Glasses", "Fungus Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 20, 20] }, { "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [75, 70, 35] }, { "level": 9, "quantities": [90, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   //Wall-E
   "BURN•E": { "tokens": ["Plant Symbol", "BURN•E's Blowtorch", "BURN•E Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 25, 27] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 12, 10] }, { "level": 7, "quantities": [60, 16, 15] }, { "level": 8, "quantities": [70, 20, 18] }, { "level": 9, "quantities": [80, 30, 25] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "EVE": { "tokens": ["Plant Symbol", "EVE's Plant", "EVE Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
@@ -830,7 +779,7 @@ const DMK_CHAR_TOKENS = {
   "Scar": { "tokens": ["Lion Painting", "Mouse", "Scar Ears Hat"], "levels": [{ "level": 2, "quantities": [2, 2, 2] }, { "level": 3, "quantities": [4, 3, 3] }, { "level": 4, "quantities": [6, 4, 4] }, { "level": 5, "quantities": [8, 5, 5] }, { "level": 6, "quantities": [12, 6, 6] }, { "level": 7, "quantities": [16, 8, 8] }, { "level": 8, "quantities": [20, 10, 10] }, { "level": 9, "quantities": [25, 14, 14] }, { "level": 10, "quantities": [30, 20, 20] }] },
   "Shenzi": { "tokens": ["Lion Painting", "Shenzi's Bone", "Shenzi Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 15, 15] }, { "level": 5, "quantities": [40, 20, 20] }, { "level": 6, "quantities": [50, 25, 25] }, { "level": 7, "quantities": [60, 30, 30] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 40, 40] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Simba": { "tokens": ["Lion Painting", "Leafy Mane", "Simba Ears Hat"], "levels": [{ "level": 2, "quantities": [1, 1, 1] }, { "level": 3, "quantities": [2, 1, 1] }, { "level": 4, "quantities": [4, 3, 3] }, { "level": 5, "quantities": [6, 5, 5] }, { "level": 6, "quantities": [10, 8, 8] }, { "level": 7, "quantities": [14, 10, 10] }, { "level": 8, "quantities": [18, 12, 12] }, { "level": 9, "quantities": [24, 16, 16] }, { "level": 10, "quantities": [30, 20, 20] }] },
-  "Timon": { "tokens": ["Lion Painting", "Timon's Lei", "Timon Ears Hat", "King Symbols"], "levels": [{ "level": 2, "quantities": [1, 1, 1, 0] }, { "level": 3, "quantities": [2, 1, 1, 0] }, { "level": 4, "quantities": [2, 2, 2, 0] }, { "level": 5, "quantities": [3, 3, 3, 0] }, { "level": 6, "quantities": [3, 5, 5, 0] }, { "level": 7, "quantities": [6, 8, 8, 0] }, { "level": 8, "quantities": [10, 12, 12, 0] }, { "level": 9, "quantities": [14, 16, 16, 0] }, { "level": 10, "quantities": [20, 20, 20, 0] }] },
+  "Timon": { "tokens": ["Lion Painting", "Timon's Lei", "Timon Ears Hat"], "levels": [{ "level": 2, "quantities": [1, 1, 1, 0] }, { "level": 3, "quantities": [2, 1, 1, 0] }, { "level": 4, "quantities": [2, 2, 2, 0] }, { "level": 5, "quantities": [3, 3, 3, 0] }, { "level": 6, "quantities": [3, 5, 5, 0] }, { "level": 7, "quantities": [6, 8, 8, 0] }, { "level": 8, "quantities": [10, 12, 12, 0] }, { "level": 9, "quantities": [14, 16, 16, 0] }, { "level": 10, "quantities": [20, 20, 20, 0] }] },
   "Zazu": { "tokens": ["Lion Painting", "Feather", "Zazu Ears Hat"], "levels": [{ "level": 2, "quantities": [1, 1, 1] }, { "level": 3, "quantities": [1, 2, 1] }, { "level": 4, "quantities": [1, 3, 2] }, { "level": 5, "quantities": [2, 4, 2] }, { "level": 6, "quantities": [2, 6, 4] }, { "level": 7, "quantities": [4, 10, 6] }, { "level": 8, "quantities": [8, 14, 10] }, { "level": 9, "quantities": [12, 18, 14] }, { "level": 10, "quantities": [16, 24, 20] }] },
   //Aladdin
   "Abu": { "tokens": ["Lamp", "Bitten Bread", "Abu Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 5, 5] }, { "level": 4, "quantities": [15, 8, 8] }, { "level": 5, "quantities": [20, 14, 14] }, { "level": 6, "quantities": [25, 20, 20] }, { "level": 7, "quantities": [30, 26, 26] }, { "level": 8, "quantities": [35, 35, 35] }, { "level": 9, "quantities": [40, 45, 45] }, { "level": 10, "quantities": [50, 60, 60] }] },
@@ -1039,6 +988,7 @@ const DMK_CHAR_TOKENS = {
   "Pua": { "tokens": ["Hibiscus Flower", "Pig Tapestry", "Pua Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
   "Simea": { "tokens": ["Hibiscus Flower", "Simea's Starfish", "Simea Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Sina": { "tokens": ["Hibiscus Flower", "Woven Basket", "Sina Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
+  "Kotu": { "tokens": ["Hibiscus Flower", "Kakamora Blow Darts", "Kotu Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Finding Nemo
   "Bailey": { "tokens": ["Coral Reef", "Echolocation Machine", "Bailey Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Becky": { "tokens": ["Coral Reef", "Becky's Bucket", "Becky Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
@@ -1430,6 +1380,8 @@ const DMK_CHAR_TOKENS = {
   "Guido": { "tokens": ["Traffic Light", "Guido's Power Wrench", "Guido Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Lightning McQueen": { "tokens": ["Traffic Light", "Lightning's Racing Number", "Lightning McQueen Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [35, 10, 5] }, { "level": 6, "quantities": [40, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
   "Tow Mater": { "tokens": ["Traffic Light", "Mater's Tow Hook", "Tow Mater Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Red": { "tokens": ["Traffic Light", "Red's Fire Hose", "Red Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Ivy": { "tokens": ["Traffic Light", "Ivy's Truck Wheel", "Ivy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   //Fox and the Hound
   "Amos Slade": { "tokens": ["Leaf with Paw Prints", "Amos Slade's Hunting Hat", "Amos Slade Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Big Mama": { "tokens": ["Leaf with Paw Prints", "Big Mama's Hollow", "Big Mama Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
@@ -1439,6 +1391,7 @@ const DMK_CHAR_TOKENS = {
   //Fantasia
   "Chernabog": { "tokens": ["Sorcerer's Hat", "Chernabog's Volcano", "Chernabog Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Magic Broom": { "tokens": ["Sorcerer's Hat", "Magic Broom's Wooden Water Bucket", "Magic Broom Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Hyacinth Hippo": { "tokens": ["Sorcerer's Hat", "Hyacinth's Pointe Shoes", "Hyacinth Hippo Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Avatar
   "Colonel Quaritch": { "tokens": ["Woodsprite", "RDA Dog Tag", "Colonel Quaritch Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Jake Sully": { "tokens": ["Woodsprite", "Throat Comm", "Jake Sully Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
@@ -9617,6 +9570,82 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Baloo + King Louie", "activity": "Causing a Ruckus", "char_level": "Level 2", "time": "12h" },
     { "char": "Open Road Challenge", "activity": "Setting Up Traffic Cones", "char_level": "Level 3", "time": "8h" }
   ],
+  "Fungus's Three-Eyed Glasses": [
+    { "char": "Boo", "activity": "Surprise Guests", "char_level": "Level 4", "time": "6h" },
+    { "char": "Mike Wazowski", "activity": "Perform Stand-Up", "char_level": "Level 2", "time": "6h" },
+    { "char": "Pete + Mickey Mouse", "activity": "Boss Is Around", "char_level": "Level 9", "time": "6h" },
+    { "char": "Celia Mae", "activity": "Sing in Harmony", "char_level": "Level 10", "time": "8h" },
+    { "char": "Randall Boggs", "activity": "Scare Guests for Fun", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Fungus Ears Hat": [
+    { "char": "Henry J. Waternoose + Randall Boggs", "activity": "Chat with a Former Colleague", "char_level": "Level 4", "time": "6h" },
+    { "char": "Minnie Mouse", "activity": "Check on Donald", "char_level": "Level 10", "time": "8h" },
+    { "char": "The Captain", "activity": "Investigate a Transport Truck", "char_level": "Level 6", "time": "8h" },
+    { "char": "Roz", "activity": "Keep Files in Order", "char_level": "Level 1", "time": "12h" },
+    { "char": "Sulley", "activity": "Be the Life of the Party", "char_level": "Level 10", "time": "12h" }
+  ],
+  "Red's Fire Hose": [
+    { "char": "Jaq", "activity": "New Mouse in the House!", "char_level": "Level 5", "time": "6h" },
+    { "char": "Mr. Smee", "activity": "Listen to the Songs", "char_level": "Level 6", "time": "6h" },
+    { "char": "Lady", "activity": "Dunk Some Donuts", "char_level": "Level 3", "time": "8h" },
+    { "char": "Minnie Mouse", "activity": "Practice Music", "char_level": "Level 7", "time": "8h" },
+    { "char": "Mr. Stork", "activity": "Leave Lions Alone", "char_level": "Level 6", "time": "8h" },
+    { "char": "Webby", "activity": "Analyze Hidden Map", "char_level": "Level 5", "time": "8h" }
+  ],
+  "Red Ears Hat": [
+    { "char": "Archimedes", "activity": "Demonstrate the Art of Flying", "char_level": "Level 5", "time": "6h" },
+    { "char": "Pocahontas + Meeko", "activity": "Respectful Conversation", "char_level": "Level 3", "time": "6h" },
+    { "char": "Pacha", "activity": "Order the Special", "char_level": "Level 2", "time": "8h" },
+    { "char": "Captain Barbossa + Tia Dalma", "activity": "Discussing Goals", "char_level": "Level 7", "time": "8h" },
+    { "char": "Drizella Tremaine + Cinderella", "activity": "Discuss the Past", "char_level": "Level 8", "time": "8h" },
+    { "char": "Tony + Joe", "activity": "Bella Notte Night", "char_level": "Level 8", "time": "8h" }
+  ],
+  "Ivy's Truck Wheel": [
+    { "char": "Aurora", "activity": "Trying to Stay Awake", "char_level": "Level 9", "time": "6h" },
+    { "char": "Forky + Woody", "activity": "Trash?", "char_level": "Level 6", "time": "6h" },
+    { "char": "Judy Hopps + Nick Wilde", "activity": "Grab a Small Snack", "char_level": "Level 6", "time": "6h" },
+    { "char": "Celia Mae", "activity": "Sing in Harmony", "char_level": "Level 10", "time": "8h" },
+    { "char": "Dawn Bellwether", "activity": "Prep Winner Ceremonies", "char_level": "Level 6", "time": "8h" },
+    { "char": "Baloo + Mowgli", "activity": "Cool It", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Ivy Ears Hat": [
+    { "char": "Elizabeth Swann", "activity": "Commission a Ship", "char_level": "Level 6", "time": "6h" },
+    { "char": "Trusty", "activity": "Perimeter Check", "char_level": "Level 3", "time": "6h" },
+    { "char": "Bullseye", "activity": "Run around the Planet", "char_level": "Level 8", "time": "8h" },
+    { "char": "Ducky", "activity": "Hanging Out", "char_level": "Level 8", "time": "8h" },
+    { "char": "Madam Mim", "activity": "Shapeshift into a Horse", "char_level": "Level 6", "time": "8h" },
+    { "char": "Wendy Darling + Peter Pan", "activity": "Revisiting Old Tales", "char_level": "Level 6", "time": "8h" }
+  ],
+  "Hyacinth's Pointe Shoes": [
+    { "char": "Chernabog", "activity": "Observe Menacingly", "char_level": "Level 3", "time": "4h" },
+    { "char": "Bo Peep + Woody", "activity": "Pizza Date", "char_level": "Level 10", "time": "12h" },
+    { "char": "Flynn + Maximus", "activity": "Beat the Guards", "char_level": "Level 6", "time": "12h" },
+    { "char": "Pascal + Rapunzel", "activity": "Performing Ventriloquy", "char_level": "Level 6", "time": "12h" }
+  ],
+  "Hyacinth Hippo Ears Hat": [
+    { "char": "Magic Broom", "activity": "Wonder and Dance", "char_level": "Level 5", "time": "6h" },
+    { "char": "Bo Peep + Woody", "activity": "Pizza Date", "char_level": "Level 10", "time": "12h" },
+    { "char": "Flynn + Maximus", "activity": "Beat the Guards", "char_level": "Level 6", "time": "12h" },
+    { "char": "Kuzco + Yzma", "activity": "Separate Tables", "char_level": "Level 7", "time": "12h" }
+  ],
+  "Kakamora Blow Darts": [
+    { "char": "Merlin", "activity": "Whirl with Purpose", "char_level": "Level 5", "time": "6h" },
+    { "char": "Webby", "activity": "Study the Guidebook", "char_level": "Level 4", "time": "6h" },
+    { "char": "Davy Jones", "activity": "Lost in Memories", "char_level": "Level 6", "time": "8h" },
+    { "char": "Mother Gothel", "activity": "Recruit Help for Plans", "char_level": "Level 7", "time": "8h" },
+    { "char": "Rapunzel", "activity": "Exhibit Paintings", "char_level": "Level 8", "time": "8h" },
+    { "char": "Zurg", "activity": "Play a Game", "char_level": "Level 2", "time": "8h" },
+    { "char": "Ocean Monster Tube Rush", "activity": "Stocking Up on Compressed Air", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Kotu Ears Hat": [
+    { "char": "Scrooge McDuck + Donald Duck", "activity": "Discuss Agreement", "char_level": "Level 7", "time": "6h" },
+    { "char": "Dawn Bellwether", "activity": "Advocate for Police Rights", "char_level": "Level 8", "time": "8h" },
+    { "char": "Chief Bogo + Nick Wilde", "activity": "A Day of Training", "char_level": "Level 4", "time": "8h" },
+    { "char": "Captain Barbossa", "activity": "Searching for Treasure", "char_level": "Level 9", "time": "12h" },
+    { "char": "Fungus", "activity": "Try the Dish of the Day", "char_level": "Level 5", "time": "12h" },
+    { "char": "Judy Hopps", "activity": "Paper Trail", "char_level": "Level 10", "time": "12h" },
+    { "char": "Ocean Monster Tube Rush", "activity": "Stocking Up on Compressed Air", "char_level": "Level 3", "time": "8h" }
+  ]
 };
 
 //This is used to calculate the cost of enchanting a character's item. The cost increases with each level of enchantment, and the blueprint required also changes. The time required for each enchantment is also included, as this is a factor in determining which enchantments to prioritize when resources are limited.
@@ -9858,7 +9887,8 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Zootopia", "name": "Zootopia Tubes", "base_token": "Nibbles' Chewed Pencil", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Nibbles Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Winddancer's Aviator Sunglasses", "cost": 40, "total": 200 }, { "level": 3, "token": "Mayor Winddancer Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Gary's Antidote", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
   { "collection": "Cinderella", "name": "The Mice's Sewing Carousel", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "", "cost": 80, "total": 160 }, { "level": 2, "token": "Lucifer's Milk Bowl", "cost": 40, "total": 200 }, { "level": 3, "token": "Lucifer Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
   { "collection": "Toy Story", "name": "Playground", "base_token": "Combat Carl's Vest", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Duke's Helmet", "cost": 60, "total": 120 }, { "level": 2, "token": "Giggle's Officer Сap", "cost": 30, "total": 150 }, { "level": 3, "token": "Lotso's Walking Cane", "cost": 30, "total": 180 }, { "level": 4, "token": "", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 30, "total": 240 }] },
-  { "collection": "Toy Story", "name": "Open Road Challenge", "base_token": "Combat Carl Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Duke Caboom Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Giggle McDimples Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Lotso Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
+  { "collection": "Toy Story", "name": "Open Road Challenge", "base_token": "Combat Carl Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Duke Caboom Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Giggle McDimples Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Lotso Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Moana", "name": "Ocean Monster Tube Rush", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "", "cost": 80, "total": 160 }, { "level": 2, "token": "Kakamora Blow Darts", "cost": 40, "total": 200 }, { "level": 3, "token": "Kotu Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
 ];
 
 // This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
@@ -10735,6 +10765,8 @@ const TOKEN_SOURCES = {
   "Giggle McDimples Ears Hat": [{ "attraction": "Open Road Challenge", "collection": "Toy Story", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
   "Lotso's Walking Cane": [{ "attraction": "Playground", "collection": "Toy Story", "enchant_level": 3, "timing": "Every 6h", "cost": 60 }],
   "Lotso Ears Hat": [{ "attraction": "Open Road Challenge", "collection": "Toy Story", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
+  "Kakamora Blow Darts": [{ "attraction": "Ocean Monster Tube Rush", "collection": "Moana", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
+  "Kotu Ears Hat": [{ "attraction": "Ocean Monster Tube Rush", "collection": "Moana", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }]
 };
 
 // ============ CHARACTER DATABASE ============
@@ -11002,7 +11034,8 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_257', name: 'Zootopia Tubes', collection: 'Zootopia', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_258', name: 'The Mice\'s Sewing Carousel', collection: 'Cinderella', emoji: '🧚', elixir: false, size: '7x7', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_259', name: 'Playground', collection: 'Toy Story', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
-  { id: 'attr_260', name: 'Open Road Challenge', collection: 'Toy Story', emoji: '🧚', elixir: false, size: '6x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
+  { id: 'attr_260', name: 'Open Road Challenge', collection: 'Toy Story', emoji: '🧚', elixir: false, size: '6x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_261', name: 'Ocean Monster Tube Rush', collection: 'Moana', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
 ];
 
 //Consessions
@@ -11275,9 +11308,14 @@ const DMK_CONCESSIONS_DATA = [
   { "collection": "Disney Fairies", "name": "Gossamer Wings Backpack Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
   { "collection": "Disney Fairies", "name": "Leaf Cap Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
   { "collection": "Disney Fairies", "name": "Morning Dew Tea Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
-  { "collection": "Mickey & Friends", "name": "DMK 10th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
+  { "collection": "Disney Parks", "name": "DMK 10th-Anniversary Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" },
   { "collection": "Cinderella", "name": "Cinderella Carriage Candy Apple Stand", "category": "Food Stand", "exchange_rate": "8125", "elixir": "1625", "time": "6h", "xp": "3", "magic": "60", "magic_per_hour": "10.00" },
-  { "collection": "Toy Story", "name": "Toy Walkie-Talkie Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" }
+  { "collection": "Toy Story", "name": "Toy Walkie-Talkie Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Cars", "name": "Flo's Strawberry Shake Stand", "category": "Drink Stand", "exchange_rate": "10000", "elixir": "1250", "time": "8h", "xp": "3", "magic": "70", "magic_per_hour": "8.75" },
+  { "collection": "Cars", "name": "Trucker Hat Stand", "category": "Headwear Stand", "exchange_rate": "8125", "elixir": "1625", "time": "8h", "xp": "3", "magic": "80", "magic_per_hour": "10.00" },
+  { "collection": "Cars", "name": "Racer's Ice Cream Stand", "category": "Food Stand", "exchange_rate": "12000", "elixir": "1000", "time": "2h", "xp": "3", "magic": "15", "magic_per_hour": "7.50" },
+  { "collection": "Moana", "name": "Kakamora Plush Stand", "category": "Souvenir Stand", "exchange_rate": "8125", "elixir": "1625", "time": "16h", "xp": "3", "magic": "165", "magic_per_hour": "10.31" },
+  { "collection": "Disney Parks", "name": "D23 Sorcerer Hat Stand", "category": "Headwear Stand", "exchange_rate": "6375", "elixir": "2125", "time": "12h", "xp": "3", "magic": "140", "magic_per_hour": "11.67" }
 ];
 
 // Categories: Trophy | Greenery | Monument | Scenery | Amenity
@@ -11339,7 +11377,6 @@ const DMK_DECORATIONS = [
   { name: "Dragon Water Feature", category: "Scenery", collection: "Raya and the Last Dragon", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Edna Mode Topiary", category: "Greenery", collection: "Incredibles", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Egg Basket Bench", category: "Amenity", collection: "Disney Parks", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Elsa's Ice Bench", category: "Amenity", collection: "Frozen", size: "1×1", emoji: "🪑", rarity: "Uncommon", elixir: 4 },
   { name: "Encanto Gold Trophy", category: "Trophy", collection: "Encanto", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Enchanted Forest Patch", category: "Greenery", collection: "Frozen", size: "5×4", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Enchanted Pumpkin", category: "Greenery", collection: "Cinderella", size: "5×5", emoji: "🌿", rarity: "Epic", elixir: 1625 },
@@ -11359,7 +11396,6 @@ const DMK_DECORATIONS = [
   { name: "Fisherman's Getaway", category: "Scenery", collection: "Mickey and Friends", size: "6×6", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Fix-It Felix Jr. Arcade", category: "Scenery", collection: "Wreck-It Ralph", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Flag of Corona", category: "Amenity", collection: "Tangled", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Floating Lanterns", category: "Amenity", collection: "Tangled", size: "1×1", emoji: "🪑", rarity: "Uncommon", elixir: 4 },
   { name: "Flower Planter", category: "Greenery", collection: "Bambi", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Flower Statue", category: "Scenery", collection: "Alice in Wonderland", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Fork in the Road", category: "Scenery", collection: "The Muppets", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -11369,7 +11405,6 @@ const DMK_DECORATIONS = [
   { name: "Froggy Bench", category: "Amenity", collection: "The Muppets", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Frozen Fountain", category: "Scenery", collection: "Frozen", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Fun Fire Hydrant", category: "Amenity", collection: "Disney Parks", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Galaxy's Edge Landing Pad", category: "Scenery", collection: "Star Wars", size: "3×3", emoji: "🏞️", rarity: "Epic", elixir: 12 },
   { name: "Gargoyle Display", category: "Scenery", collection: "The Hunchback of Notre Dame", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Gargoyle Fountain", category: "Scenery", collection: "Nightmare Before Christmas", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Gargoyle Lamp", category: "Amenity", collection: "Nightmare Before Christmas", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
@@ -11379,24 +11414,18 @@ const DMK_DECORATIONS = [
   { name: "Golden Botfighter Trophy", category: "Trophy", collection: "Big Hero 6", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Golden Honey Pot", category: "Trophy", collection: "Winnie the Pooh", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Golden Lamp Trophy", category: "Trophy", collection: "Aladdin", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Graveyard Fence", category: "Scenery", collection: "The Haunted Mansion", size: "1×2", emoji: "🏞️", rarity: "Uncommon", elixir: 4 },
   { name: "Great Goofini Cannon", category: "Scenery", collection: "Disney Parks", size: "5×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Half a Cup Trophy", category: "Trophy", collection: "Alice in Wonderland", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Halloween Cauldron", category: "Scenery", collection: "Halloween", size: "1×1", emoji: "🏞️", rarity: "Common", elixir: 2 },
   { name: "Hand-Carved Bird Bath", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Hanging Lantern", category: "Amenity", collection: "Disney Parks", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Happy and Bashful Statue", category: "Monument", collection: "Snow White", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
+  { name: "Happy and Bashful Statue", category: "Monument", collection: "Snow White and the Seven Dwarfs", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Hare Shrub", category: "Greenery", collection: "Beauty and the Beast", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Haunted Cauldron", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Haunted Mansion Lamp Post", category: "Amenity", collection: "The Haunted Mansion", size: "1×1", emoji: "🪑", rarity: "Common", elixir: 2 },
   { name: "Headless Horseman Statue", category: "Monument", collection: "Disney Parks", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Heihei Statue", category: "Monument", collection: "Moana", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Hercules Gold Trophy", category: "Trophy", collection: "Hercules", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Hero's Duty Arcade", category: "Scenery", collection: "Wreck-It Ralph", size: "5×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Hocus Pocus Gold Trophy", category: "Trophy", collection: "Hocus Pocus", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Holiday Christmas Tree", category: "Amenity", collection: "Holiday", size: "2×2", emoji: "🪑", rarity: "Rare", elixir: 7 },
-  { name: "Holiday Lights Archway", category: "Scenery", collection: "Holiday", size: "1×2", emoji: "🏞️", rarity: "Common", elixir: 2 },
-  { name: "Hyunkel Crystal Stage", category: "Scenery", collection: "Kingdom Hearts", size: "2×2", emoji: "🏞️", rarity: "Epic", elixir: 12 },
   { name: "Ice Age Gold Trophy", category: "Trophy", collection: "Ice Age", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Ice Bench", category: "Amenity", collection: "Frozen", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Imperial Fireworks Watchtower", category: "Monument", collection: "Mulan", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 1625 },
@@ -11405,14 +11434,9 @@ const DMK_DECORATIONS = [
   { name: "Inside Out Gold Trophy", category: "Trophy", collection: "Inside Out", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Intergalactic Alliance Memorial", category: "Monument", collection: "Toy Story", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Intergalactic Space Bench", category: "Amenity", collection: "Disney Parks", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Jack Skellington Obelisk", category: "Monument", collection: "The Nightmare Before Christmas", size: "2×2", emoji: "🗿", rarity: "Rare", elixir: 7 },
   { name: "Jack-o'-Lamp Post", category: "Amenity", collection: "Nightmare Before Christmas", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Jack's Christmas Lights", category: "Amenity", collection: "The Nightmare Before Christmas", size: "1×1", emoji: "🪑", rarity: "Uncommon", elixir: 4 },
-  { name: "Jack's Graveyard", category: "Scenery", collection: "The Nightmare Before Christmas", size: "2×2", emoji: "🏞️", rarity: "Rare", elixir: 7 },
   { name: "Jellyfish Lamp Post", category: "Amenity", collection: "Finding Nemo", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Jungle Palms", category: "Greenery", collection: "The Jungle Book", size: "1×1", emoji: "🌿", rarity: "Common", elixir: 2 },
   { name: "Kermit the Frog Topiary", category: "Greenery", collection: "The Muppets", size: "4×3", emoji: "🌿", rarity: "Epic", elixir: 1625 },
-  { name: "Kingdom Hearts III Memorial", category: "Monument", collection: "Kingdom Hearts", size: "2×2", emoji: "🗿", rarity: "Epic", elixir: 12 },
   { name: "Kukui Nut Torch", category: "Amenity", collection: "Lilo & Stitch", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Lamp of the Future", category: "Amenity", collection: "Disney Parks", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Laser Cannon", category: "Scenery", collection: "Star Wars", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -11420,24 +11444,17 @@ const DMK_DECORATIONS = [
   { name: "Lion King Statue", category: "Monument", collection: "The Lion King", size: "4×4", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Log Bench", category: "Amenity", collection: "Disney Parks", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Lost Love Fountain", category: "Scenery", collection: "Cinderella", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Lovers' Lantern Bridge", category: "Scenery", collection: "Tangled", size: "2×2", emoji: "🏞️", rarity: "Rare", elixir: 7 },
   { name: "Luca Gold Trophy", category: "Trophy", collection: "Luca", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Magic Mirror Trophy", category: "Trophy", collection: "Snow White and the Seven Dwarfs", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Maui Hook Monument", category: "Monument", collection: "Moana", size: "2×2", emoji: "🗿", rarity: "Rare", elixir: 7 },
   { name: "Meditating Yax Monument", category: "Monument", collection: "Zootopia", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
-  { name: "Merida's Archery Range", category: "Greenery", collection: "Brave", size: "2×2", emoji: "🌿", rarity: "Uncommon", elixir: 4 },
   { name: "Mermaids Statue", category: "Monument", collection: "Peter Pan", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
-  { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey and Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Mickey Ears Topiary", category: "Greenery", collection: "Mickey and Friends", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey and Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Mickey Pumpkin Patch", category: "Scenery", collection: "Halloween", size: "2×2", emoji: "🏞️", rarity: "Uncommon", elixir: 4 },
   { name: "Mickey Topiary", category: "Greenery", collection: "Mickey and Friends", size: "4×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Mining Jewels Display", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Minnie Topiary", category: "Greenery", collection: "Mickey and Friends", size: "4×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Minnie's Tea Table", category: "Scenery", collection: "Mickey and Friends", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Moana Gold Trophy", category: "Trophy", collection: "Moana", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Moana's Outrigger", category: "Amenity", collection: "Moana", size: "1×2", emoji: "🪑", rarity: "Uncommon", elixir: 4 },
-  { name: "Moana's Tropical Garden", category: "Greenery", collection: "Moana", size: "2×2", emoji: "🌿", rarity: "Uncommon", elixir: 4 },
   { name: "Monster Tapestry", category: "Amenity", collection: "Moana", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Monsters, Inc. Leaderboard", category: "Amenity", collection: "Monsters, Inc.", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Mrs. Incredible Statue", category: "Trophy", collection: "Incredibles", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
@@ -11454,7 +11471,6 @@ const DMK_DECORATIONS = [
   { name: "Pandoran Pitcher Plant", category: "Greenery", collection: "Avatar", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Panther Statue", category: "Scenery", collection: "The Jungle Book", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Parisian Advertising Column", category: "Amenity", collection: "Ratatouille", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Pascal's Garden", category: "Greenery", collection: "Tangled", size: "1×1", emoji: "🌿", rarity: "Common", elixir: 2 },
   { name: "Pawpsicle Cooler", category: "Scenery", collection: "Zootopia", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Peppermint Evergreens", category: "Greenery", collection: "Disney Parks", size: "3×4", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Personality Pavilion Diorama", category: "Scenery", collection: "Soul", size: "3×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -11468,14 +11484,11 @@ const DMK_DECORATIONS = [
   { name: "Pirate Warning Statue", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Planter", category: "Greenery", collection: "Zootopia", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Pluto Topiary", category: "Greenery", collection: "Disney Parks", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
-  { name: "Poison Apple Tree", category: "Greenery", collection: "Snow White", size: "2×2", emoji: "🌿", rarity: "Legendary", elixir: 20 },
   { name: "Potted Tropical Plant", category: "Greenery", collection: "Moana", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Potted Tropical Tree", category: "Greenery", collection: "Lilo & Stitch", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Prince Eric Statue", category: "Scenery", collection: "Little Mermaid", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Prydain Guidestone", category: "Scenery", collection: "The Black Cauldron", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Pumpkin Carriage", category: "Scenery", collection: "Cinderella", size: "2×2", emoji: "🏞️", rarity: "Rare", elixir: 7 },
   { name: "Pumpkin Wall", category: "Scenery", collection: "Disney Parks", size: "6×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Rapunzel's Tower Garden", category: "Greenery", collection: "Tangled", size: "2×2", emoji: "🌿", rarity: "Uncommon", elixir: 4 },
   { name: "Ratatouille Gold Trophy", category: "Trophy", collection: "Ratatouille", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Raya and the Last Dragon Gold Trophy", category: "Trophy", collection: "Raya and the Last Dragon", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Robin Hood Gold Trophy", category: "Trophy", collection: "Robin Hood", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
@@ -11488,25 +11501,20 @@ const DMK_DECORATIONS = [
   { name: "Sailing Supplies", category: "Scenery", collection: "Moana", size: "5×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "San Fransokyo Bench", category: "Amenity", collection: "Big Hero 6", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Sardine Can Bench", category: "Amenity", collection: "The Rescuers", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Scar's Savanna", category: "Greenery", collection: "The Lion King", size: "2×2", emoji: "🌿", rarity: "Uncommon", elixir: 4 },
   { name: "Scare Storage", category: "Scenery", collection: "Monsters, Inc.", size: "3×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Scarecrow Pumpkin Patch", category: "Greenery", collection: "Winnie the Pooh", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Scratte Statue", category: "Monument", collection: "Ice Age", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 1625 },
-  { name: "Sheriff's Office", category: "Amenity", collection: "Toy Story", size: "1×1", emoji: "🪑", rarity: "Common", elixir: 2 },
   { name: "Ship's Wheel", category: "Scenery", collection: "Pirates of the Caribbean", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Silly Symphony Gold Trophy", category: "Trophy", collection: "Silly Symphony", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Simba's Tree", category: "Monument", collection: "The Lion King", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
-  { name: "Sleeping Beauty Rosebush", category: "Greenery", collection: "Sleeping Beauty", size: "1×1", emoji: "🌿", rarity: "Common", elixir: 2 },
   { name: "Snake-in-a-Basket", category: "Scenery", collection: "Aladdin", size: "3×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Snow White Bench", category: "Amenity", collection: "Snow White and the Seven Dwarfs", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Snowflake Archway", category: "Scenery", collection: "Frozen", size: "1×2", emoji: "🏞️", rarity: "Uncommon", elixir: 4 },
   { name: "Soul Gold Trophy", category: "Trophy", collection: "Soul", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Space Adventure Rocket", category: "Trophy", collection: "Lilo & Stitch", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Stack of Animals", category: "Monument", collection: "Aladdin", size: "5×5", emoji: "🗿", rarity: "Rare", elixir: 1625 },
   { name: "Stacked Honey Pots Sign", category: "Amenity", collection: "Winnie the Pooh", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Star Mapper", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Star Wars Gold Trophy", category: "Trophy", collection: "Star Wars", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Star Wars Launch Bay Mural", category: "Monument", collection: "Star Wars", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 12 },
   { name: "Stargazing Telescope", category: "Scenery", collection: "Luca", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Stitch Statue", category: "Monument", collection: "Lilo & Stitch", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Stone Dragon Statue", category: "Scenery", collection: "Mulan", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -11518,8 +11526,6 @@ const DMK_DECORATIONS = [
   { name: "Sunflowers", category: "Greenery", collection: "Pocahontas", size: "4×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Swan Fountain", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Sword-Throwing Target", category: "Scenery", collection: "Hercules", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Tangled Willow", category: "Greenery", collection: "Tangled", size: "1×1", emoji: "🌿", rarity: "Common", elixir: 2 },
-  { name: "Te Kā's Lava Field", category: "Scenery", collection: "Moana", size: "2×2", emoji: "🏞️", rarity: "Epic", elixir: 12 },
   { name: "Teddy Bear Throne", category: "Scenery", collection: "Peter Pan", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Temple Snake Statue", category: "Scenery", collection: "Indiana Jones", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Thatched Summer Table", category: "Scenery", collection: "Lilo & Stitch", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
@@ -11537,10 +11543,8 @@ const DMK_DECORATIONS = [
   { name: "The Web-Entwined Stump", category: "Greenery", collection: "Haunted Mansion", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Thorned Ivy Rail", category: "Scenery", collection: "Haunted Mansion", size: "5×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Throne Bench", category: "Amenity", collection: "Robin Hood", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Tiana's Fountain", category: "Monument", collection: "The Princess and the Frog", size: "2×2", emoji: "🗿", rarity: "Rare", elixir: 7 },
   { name: "Tick-Tock Croc Statue", category: "Monument", collection: "Peter Pan", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Tiki Totem", category: "Scenery", collection: "Lilo & Stitch", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Tinker Bell Lamp Post", category: "Amenity", collection: "Peter Pan", size: "1×1", emoji: "🪑", rarity: "Common", elixir: 2 },
   { name: "Tiny Mushroom Nook", category: "Greenery", collection: "Disney Fairies", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Tiny Treehouse", category: "Scenery", collection: "Winnie the Pooh", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Tire Planter", category: "Greenery", collection: "WALL•E", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
@@ -11556,34 +11560,37 @@ const DMK_DECORATIONS = [
   { name: "TRON Lamp", category: "Amenity", collection: "Disney Parks", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "TRON Mickey Light", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Tropical Bonanza", category: "Scenery", collection: "The Lion King", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Tropical Splash Zone", category: "Greenery", collection: "Moana", size: "2×2", emoji: "🌿", rarity: "Rare", elixir: 7 },
   { name: "Turning Red Gold Trophy", category: "Trophy", collection: "Turning Red", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Up Gold Trophy", category: "Trophy", collection: "Up", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Ursula Statue", category: "Monument", collection: "Little Mermaid", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 1625 },
   { name: "Valentine's Day Planter", category: "Greenery", collection: "Disney Parks", size: "4×4", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
   { name: "Village Alcove", category: "Scenery", collection: "Encanto", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "WALL-E's Garden Monument", category: "Monument", collection: "WALL-E", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 12 },
   { name: "Wanted Poster", category: "Scenery", collection: "Robin Hood", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
-  { name: "Waterfall of Wonders", category: "Scenery", collection: "Pocahontas", size: "2×2", emoji: "🏞️", rarity: "Rare", elixir: 7 },
   { name: "WDW 50th-Anniversary Cake", category: "Scenery", collection: "Disney Parks", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "WDW 50th-Anniversary Gold Trophy", category: "Trophy", collection: "Disney Parks", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Winter Willow Tree", category: "Greenery", collection: "Disney Parks", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 1000 },
-  { name: "Wishing Well", category: "Monument", collection: "Snow White", size: "1×1", emoji: "🗿", rarity: "Common", elixir: 2 },
   { name: "Witch's Workshop", category: "Scenery", collection: "Hocus Pocus", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Wolf Alarm", category: "Scenery", collection: "Silly Symphony", size: "4×4", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Wooden Bench", category: "Amenity", collection: "Disney Parks", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
   { name: "Wooden Heart Bench", category: "Amenity", collection: "Disney Parks", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 875 },
-  { name: "Woody's Wagon Wheel", category: "Amenity", collection: "Toy Story", size: "1×1", emoji: "🪑", rarity: "Common", elixir: 2 },
   { name: "Wreck-It Ralph Gold Trophy", category: "Trophy", collection: "Wreck-It Ralph", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
   { name: "Zen Fence", category: "Scenery", collection: "Big Hero 6", size: "6×3", emoji: "🏞️", rarity: "Rare", elixir: 1250 },
   { name: "Zootopia Gold Trophy", category: "Trophy", collection: "Zootopia", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 2125 },
-  { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey & Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
-  { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey & Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
+  { name: "Mickey Mouse Welcome Trophy", category: "Trophy", collection: "Mickey and Friends", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
+  { name: "Mickey & Minnie Runaway Fountain", category: "Monument", collection: "Mickey and Friends", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Cinderella Carriage Sofa", category: "Amenity", collection: "Cinderella", size: "4×3", emoji: "🪑", rarity: "Common", elixir: 75 },
   { name: "Lucifer's Hidden Hideaway", category: "Greenery", collection: "Cinderella", size: "3×4", emoji: "🌿", rarity: "Epic", elixir: 625 },
   { name: "Pumpkin Coach Topiary", category: "Greenery", collection: "Cinderella", size: "4×5", emoji: "🌿", rarity: "Epic", elixir: 625 },
   { name: "Cinderella Statue", category: "Monument", collection: "Cinderella", size: "5×5", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Toy Story Gold Trophy", category: "Trophy", collection: "Toy Story", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
+  // TODO :check size of the following, and update if needed
+  { name: "Stanley Statue", category: "Monument", collection: "Cars", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 625 },
+  { name: "Flo's V8 Cafe Neon Sign", category: "Amenity", collection: "Cars", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 75 },
+  // TODO :check size of the following, and update if needed
+  { name: "Route 66 Cactus", category: "Greenery", collection: "Cars", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 150 },
+  // TODO :check size of the following, and update if needed
+  { name: "Mickey Mouse Soccer Statue", category: "Monument", collection: "Disney Parks", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 625 },
+  { name: "Kakamora Mural", category: "Scenery", collection: "Moana", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 300 }
 ];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
@@ -11595,20 +11602,20 @@ const DMK_CHARS = [
   ["Archimedes", "The Sword in the Stone", "p", "🦉", 500],
   ["Madam Mim", "The Sword in the Stone", "s", "🧟"],
   ["Sir Ector", "The Sword in the Stone", "s", "⚔️"],
-  // Mickey & Friends
-  ["Mickey Mouse", "Mickey & Friends", "s", "🐭"],
-  ["Minnie Mouse", "Mickey & Friends", "s", "🐭"],
-  ["Goofy", "Mickey & Friends", "s", "🐶"],
-  ["Donald Duck", "Mickey & Friends", "s", "🐦"],
-  ["Daisy Duck", "Mickey & Friends", "s", "🐦"],
-  ["Pluto", "Mickey & Friends", "p", "🐕", 200],
-  ["Pete", "Mickey & Friends", "s", "🐱"],
-  ["Chip", "Mickey & Friends", "s", "🐿️"],
-  ["Dale", "Mickey & Friends", "s", "🐿️"],
-  ["Horace", "Mickey & Friends", "e", "🐴"],
-  ["Clara Cluck", "Mickey & Friends", "e", "🐴"],
-  ["Ludwig Von Drake", "Mickey & Friends", "e", "🐴"],
-  ["Clarabelle", "Mickey & Friends", "e", "🐴"],
+  // Mickey and Friends
+  ["Mickey Mouse", "Mickey and Friends", "s", "🐭"],
+  ["Minnie Mouse", "Mickey and Friends", "s", "🐭"],
+  ["Goofy", "Mickey and Friends", "s", "🐶"],
+  ["Donald Duck", "Mickey and Friends", "s", "🐦"],
+  ["Daisy Duck", "Mickey and Friends", "s", "🐦"],
+  ["Pluto", "Mickey and Friends", "p", "🐕", 200],
+  ["Pete", "Mickey and Friends", "s", "🐱"],
+  ["Chip", "Mickey and Friends", "s", "🐿️"],
+  ["Dale", "Mickey and Friends", "s", "🐿️"],
+  ["Horace", "Mickey and Friends", "e", "🐴"],
+  ["Clara Cluck", "Mickey and Friends", "e", "🐴"],
+  ["Ludwig Von Drake", "Mickey and Friends", "e", "🐴"],
+  ["Clarabelle", "Mickey and Friends", "e", "🐴"],
   // DuckTales
   ["Scrooge McDuck", "DuckTales", "p", "🎩", 600],
   ["Huey", "DuckTales", "s", "🦆"],
@@ -11697,6 +11704,7 @@ const DMK_CHARS = [
   ["Henry J. Waternoose", "Monsters, Inc.", "p", "🦀", 500],
   ["Roz", "Monsters, Inc.", "s", "🐌"],
   ["Celia Mae", "Monsters, Inc.", "s", "💚"],
+  ["Fungus", "Monsters, Inc.", "s", "🦠"],
   // WALL-E
   ["EVE", "WALL•E", "s", "🤖"],
   ["M-O", "WALL•E", "p", "🧹", 500],
@@ -11944,6 +11952,7 @@ const DMK_CHARS = [
   ["Pua", "Moana", "e", "🌊"],
   ["Simea", "Moana", "e", "🌊"],
   ["Sina", "Moana", "e", "🌊"],
+  ["Kotu", "Moana", "e", "🌊"],
   // Finding Nemo
   ["Nemo", "Finding Nemo", "e", "🐠"],
   ["Marlin", "Finding Nemo", "e", "🐠"],
@@ -12085,6 +12094,8 @@ const DMK_CHARS = [
   ["Chick Hicks", "Cars", "e", "🏎️"],
   ["Flo", "Cars", "e", "🏎️"],
   ["Guido", "Cars", "e", "🏎️"],
+  ["Red", "Cars", "e", "🚒"],
+  ["Ivy", "Cars", "e", "🚒"],
   // Hocus Pocus
   ["Winifred Sanderson", "Hocus Pocus", "e", "🧙"],
   ["Mary Sanderson", "Hocus Pocus", "e", "🧙"],
@@ -12160,6 +12171,7 @@ const DMK_CHARS = [
   // Fantasia
   ["Chernabog", "Fantasia", "e", "🎵"],
   ["Magic Broom", "Fantasia", "e", "🎵"],
+  ["Hyacinth Hippo", "Fantasia", "e", "🎵"],
   //Avatar
   ["Colonel Quaritch", "Avatar", "e", "💙"],
   ["Jake Sully", "Avatar", "e", "💙"],
@@ -12752,7 +12764,12 @@ const CHAR_URLS = {
   'Combat Carl Jr.': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/6/66/Cp-combat_carl_jr.png/revision/latest?cb=20260610222921',
   'Duke Caboom': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/1d/Cp-duke_caboom.png/revision/latest?cb=20260610222907',
   'Giggle McDimples': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/6/6b/Cp-giggle_mcdimples.png/revision/latest?cb=20260610222854',
-  'Lotso': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/5/5a/Cp-lotso.png/revision/latest?cb=20260610222811'
+  'Lotso': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/5/5a/Cp-lotso.png/revision/latest?cb=20260610222811',
+  'Kotu': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/be/Cp-kotu.png/revision/latest?cb=20260713181539',
+  'Hyacinth Hippo': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/4/4b/Cp-hyacinth_hippo.png/revision/latest?cb=20260713181530',
+  'Ivy': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/7/7c/Cp-ivy.png/revision/latest?cb=20260713181512',
+  'Red': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/e/ee/Cp-red.png/revision/latest?cb=20260713181521',
+  'Fungus': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/01/Cp-fungus.png/revision/latest?cb=20260713181550'
 };
 
 // DMK costumes data
@@ -12843,7 +12860,8 @@ const DMK_COSTUMES = [
   { char: 'Winnie the Pooh', collection: 'Winnie the Pooh', costume: 'Honey Day' },
   { char: 'King Candy', collection: 'Wreck-It Ralph', costume: 'Turbo' },
   { char: 'Finnick', collection: 'Zootopia', costume: 'Bunny Disguise' },
-  { char: 'Woody', collection: 'Toy Story', costume: 'Poncho' }
+  { char: 'Woody', collection: 'Toy Story', costume: 'Poncho' },
+  { char: 'Moana', collection: 'Moana', costume: 'Wayfinder' }
 ];
 
 // ============ STORYLINE ARCS DATABASE ============
@@ -15034,5 +15052,14 @@ const TOKEN_RARITY = {
   "Giggle's Officer Сap": "rare",
   "Giggle McDimples Ears Hat": "epic",
   "Lotso's Walking Cane": "epic",
-  "Lotso Ears Hat": "legendary"
+  "Lotso Ears Hat": "legendary",
+  "Fungus's Three-Eyed Glasses": "uncommon",
+  "Fungus Ears Hat": "rare",
+  "Red's Fire Hose": "rare",
+  "Red Ears Hat": "epic",
+  "Ivy's Truck Wheel": "uncommon",
+  "Ivy Ears Hat": "uncommon",
+  "Hyacinth's Pointe Shoes": "epic",
+  "Hyacinth Hippo Ears Hat": "legendary",
+  "Kakamora Blow Darts": "epic"
 };
