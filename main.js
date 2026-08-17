@@ -272,7 +272,7 @@ let state = {
 function normalizeKey(value) {
   return String(value || '')
     .normalize('NFD')
-    .replace(/[\u0000-\u036f]/g, '')
+    .replace(/[\u0300-\u036f]/g, '') 
     .replace(/&/g, 'and')
     .replace(/[^a-z0-9]/gi, '')
     .toLowerCase();
@@ -364,12 +364,17 @@ function remapSavedMap(savedMap, currentKeys) {
 
 function remapNestedMap(savedMap, currentKeys) {
   if (!savedMap || typeof savedMap !== 'object') return {};
+  const currentSet = new Set(currentKeys);
   const normalizedCurrent = new Map(currentKeys.map(key => [normalizeKey(key), key]));
   const remapped = {};
 
   Object.entries(savedMap).forEach(([outerKey, innerMap]) => {
+    if (currentSet.has(outerKey)) {          // exact match first
+      remapped[outerKey] = innerMap;
+      return;
+    }
     const mappedKey = normalizedCurrent.get(normalizeKey(outerKey));
-    if (mappedKey) {
+    if (mappedKey && !remapped[mappedKey]) {  // avoid clobbering an existing exact match
       remapped[mappedKey] = innerMap;
     }
   });
