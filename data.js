@@ -1282,26 +1282,13 @@ const DMK_CHAR_TOKENS = {
     ]
   },
   //Hunchback of Notre Dame
-  "Claude Frollo": {
-    "tokens": ["Festival of Fools Mask", "Claude Frollo's Jeweled Ring", "Claude Frollo Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 5, 2] },
-      { "level": 3, "quantities": [10, 10, 3] },
-      { "level": 4, "quantities": [20, 20, 5] },
-      { "level": 5, "quantities": [40, 40, 10] },
-      { "level": 6, "quantities": [50, 50, 15] },
-      { "level": 7, "quantities": [60, 60, 25] },
-      { "level": 8, "quantities": [70, 70, 35] },
-      { "level": 9, "quantities": [80, 80, 50] },
-      { "level": 10, "quantities": [100, 100, 65] }
-    ]
-  },
+  "Claude Frollo": { "tokens": ["Festival of Fools Mask", "Claude Frollo's Jeweled Ring", "Claude Frollo Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   "Djali": { "tokens": ["Festival of Fools Mask", "Djali's Coin Hat", "Djali Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Esmeralda": { "tokens": ["Festival of Fools Mask", "Esmeralda's Tambourine", "Esmeralda Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Phoebus": { "tokens": ["Festival of Fools Mask", "Phoebus's Helmet", "Phoebus Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   "Quasimodo": { "tokens": ["Festival of Fools Mask", "Quasimodo's Carved Figurine", "Quasimodo Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [40, 10, 5] }, { "level": 6, "quantities": [50, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
   //Soul
-  "22": { "tokens": ["Personality Profile", "22's Maple Seed", "Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
+  "22": { "tokens": ["Personality Profile", "22's Maple Seed", "22 Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
   "Dorothea Williams": { "tokens": ["Personality Profile", "Dorothea Williams's Saxophone", "Dorothea Williams Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   "Joe Gardner": { "tokens": ["Personality Profile", "Joe Gardner's Piano", "Joe Gardner Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [40, 10, 5] }, { "level": 6, "quantities": [50, 15, 8] }, { "level": 7, "quantities": [60, 20, 12] }, { "level": 8, "quantities": [70, 25, 16] }, { "level": 9, "quantities": [80, 30, 20] }, { "level": 10, "quantities": [100, 40, 25] }] },
   "Moonwind": { "tokens": ["Personality Profile", "Moonwind's Street Sign", "Moonwind Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
