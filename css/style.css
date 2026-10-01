@@ -1271,3 +1271,28 @@
   .search-clear.visible {
     display: block;
   }
+
+/* ============ RENDER-COST HELPERS ============ */
+
+/* Skip layout/paint of off-screen cards. `auto` in contain-intrinsic-size makes the browser
+   remember each card's real height after it has been shown once. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 180px;
+}
+
+.char-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 150px;
+}
+
+/* Shared card shell for attraction / decoration items (ownership colours are added inline) */
+.item-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

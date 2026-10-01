@@ -12,15 +12,52 @@ function debounce(fn, delay = 100) {
   };
 }
 
-// ============ FILTER PERSISTENCE ============
+// ============ FILTER / UI PERSISTENCE ============
+// All UI preferences (filters, sort, dropdowns) live in ONE localStorage key ('dmk-ui')
+// instead of one key per setting. Old 'dmk-filter-*' keys are folded in on first use.
+const UI_KEY = 'dmk-ui';
+const OLD_UI_PREFIX = 'dmk-filter-';
+let _uiCache = null;
+
+function readUi() {
+  let ui = {};
+  try {
+    const raw = localStorage.getItem(UI_KEY);
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (p && typeof p === 'object' && !Array.isArray(p)) ui = p;
+    }
+    // One-time migration of the old per-setting keys
+    const oldKeys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(OLD_UI_PREFIX)) oldKeys.push(k);
+    }
+    if (oldKeys.length) {
+      oldKeys.forEach(k => {
+        const name = k.slice(OLD_UI_PREFIX.length);
+        if (!(name in ui)) {
+          try { ui[name] = JSON.parse(localStorage.getItem(k)); } catch (e) { /* skip bad value */ }
+        }
+      });
+      localStorage.setItem(UI_KEY, JSON.stringify(ui));
+      oldKeys.forEach(k => localStorage.removeItem(k));
+    }
+  } catch (e) { /* storage unavailable */ }
+  return ui;
+}
+
 function saveFilterState(key, value) {
-  try { localStorage.setItem('dmk-filter-' + key, JSON.stringify(value)); } catch (e) { }
+  try {
+    const ui = readUi(); // re-read so a stale page can't wipe settings changed on another page
+    ui[key] = value;
+    localStorage.setItem(UI_KEY, JSON.stringify(ui));
+    _uiCache = ui;
+  } catch (e) { }
 }
 function loadFilterState(key, fallback) {
-  try {
-    const v = localStorage.getItem('dmk-filter-' + key);
-    return v !== null ? JSON.parse(v) : fallback;
-  } catch (e) { return fallback; }
+  if (!_uiCache) _uiCache = readUi();
+  return Object.prototype.hasOwnProperty.call(_uiCache, key) ? _uiCache[key] : fallback;
 }
 
 function initPersistedSelect(id, key) {
@@ -131,10 +168,17 @@ function esc(s) {
 }
 
 const TYPE_MAP = { s: 'storyline', p: 'premium', e: 'event' };
-const STATE_VERSION = 2;
-const STORAGE_KEY = 'dmk-tracker-v2';
-const LEGACY_STORAGE_KEY = 'dmk-tracker';
-const STORAGE_BACKUP_KEY = 'dmk-tracker-v2-backup';
+const STATE_VERSION = 2;            // shape of the in-memory state / old full-state exports
+const COMPACT_VERSION = 3;          // shape of what is written to localStorage now
+const STORAGE_KEY = 'dmk-tracker-v3';          // compact format (current)
+const OLD_STORAGE_KEY = 'dmk-tracker-v2';      // previous full-state format (migrated, then removed)
+const LEGACY_STORAGE_KEY = 'dmk-tracker';      // even older key (migrated, then removed)
+const STORAGE_BACKUP_KEY = 'dmk-tracker-v2-backup'; // one-time pre-migration copy of the old data
+
+let migrationSource = null;        // set when the old format was loaded and must be rewritten compactly
+let pendingCostumeOwned = null;    // Set of owned costume ids handed from hydrateCompact -> loadCostumes
+let _persistSuspended = false;     // true => never write to localStorage (import in progress / load failed)
+let _dirty = false;                // true => in-memory state differs from what's in localStorage
 
 function getTokenSources(n) { return TOKEN_SOURCES[n.replace(/ Token$/, "")] || TOKEN_SOURCES[n] || []; }
 
@@ -283,40 +327,32 @@ function normalizeCharKey(value) {
   return normalizeKey(value);
 }
 
-function getSavedStateRaw() {
+// Returns { data, format: 'compact' | 'legacy', raw } or null.
+// Prefers the compact v3 key; falls back to the old full-state keys (migration path).
+function readSavedState() {
   try {
-    const primaryData = localStorage.getItem(STORAGE_KEY);
-    const legacyData = localStorage.getItem(LEGACY_STORAGE_KEY);
-
-    if (primaryData !== null) {
-      if (primaryData.trim()) {
-        try {
-          const parsed = JSON.parse(primaryData);
-          if (isValidSavedState(parsed)) {
-            return primaryData;
-          }
-        } catch (e) {
-          // Invalid primary state; fall back to legacy if available.
-        }
-      }
-      return primaryData;
+    const rawV3 = localStorage.getItem(STORAGE_KEY);
+    if (rawV3) {
+      try {
+        const p = JSON.parse(rawV3);
+        if (isValidCompactState(p)) return { data: p, format: 'compact', raw: rawV3 };
+      } catch (e) { /* corrupt v3 -> try old keys */ }
     }
-
-    return legacyData;
-  } catch (e) {
-    return null;
-  }
+    for (const key of [OLD_STORAGE_KEY, LEGACY_STORAGE_KEY]) {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      try {
+        const p = JSON.parse(raw);
+        if (isValidSavedState(p)) return { data: p, format: 'legacy', raw, key };
+      } catch (e) { /* try next key */ }
+    }
+  } catch (e) { /* localStorage unavailable */ }
+  return null;
 }
 
-function saveStorageBackup() {
-  try {
-    const current = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
-    if (current !== null) {
-      localStorage.setItem(STORAGE_BACKUP_KEY, current);
-    }
-  } catch (e) {
-    // Ignore backup failures.
-  }
+function isValidCompactState(p) {
+  return !!p && typeof p === 'object' && p.v === COMPACT_VERSION &&
+    !!p.chars && typeof p.chars === 'object' && !Array.isArray(p.chars);
 }
 
 function isValidSavedState(parsed) {
@@ -382,20 +418,112 @@ function remapNestedMap(savedMap, currentKeys) {
   return remapped;
 }
 
-function loadState() {
-  const allChars = buildAllChars();
-  try {
-    const saved = getSavedStateRaw();
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (isValidSavedState(parsed)) {
-        if (!localStorage.getItem(STORAGE_KEY) && localStorage.getItem(LEGACY_STORAGE_KEY)) {
-          localStorage.setItem(STORAGE_KEY, saved);
-        }
-        state = { ...state, ...parsed };
-      } else {
-        console.warn('Saved DMK state is invalid and will not be ignored.');
-      }
+// ============ COMPACT SAVE FORMAT ============
+// Only user-owned progress is persisted. Names, emoji, rewards, etc. are rebuilt from
+// data.js on every load, so they no longer take up localStorage space.
+//
+//   v        format version (3)
+//   res      { magic, gems, dreamsparks }
+//   chars    { charId: level }            welcomed characters only (level 0 allowed)
+//   wish     [charId]                     wishlisted characters
+//   attr     [attractionId]               built attractions
+//   ench     { attractionId: level }      enchant level > 0 (kept even if un-built)
+//   cos      [costumeId]                  owned costumes
+//   floats / floatsOn / con / conOn / dec   [name] lists (true entries only)
+//   quests   [questKey]                   completed quests only
+//   pins     { questKey: {arcId, questId, pinnedAt} }
+//   tok      { charName: { token: n } }   zero counts pruned
+
+function truthyKeys(map) {
+  return Object.keys(map || {}).filter(k => map[k]);
+}
+
+function listToMap(list) {
+  const m = {};
+  (Array.isArray(list) ? list : []).forEach(k => { m[k] = true; });
+  return m;
+}
+
+function pruneTokenInventory(inv) {
+  const out = {};
+  Object.entries(inv || {}).forEach(([charName, tokens]) => {
+    const kept = {};
+    Object.entries(tokens || {}).forEach(([token, n]) => {
+      if (n > 0) kept[token] = n;
+    });
+    if (Object.keys(kept).length) out[charName] = kept;
+  });
+  return out;
+}
+
+function toSaved() {
+  const chars = {};
+  (state.characters || []).forEach(c => {
+    const level = parseInt(c.level) || 0;
+    if (c.welcomed || level > 0) chars[c.id] = level;
+  });
+
+  const attr = [];
+  const ench = {};
+  (state.attractions || []).forEach(a => {
+    if (a.built) attr.push(a.id);
+    if (a.enchant_level > 0) ench[a.id] = a.enchant_level;
+  });
+
+  const res = state.resources || {};
+  return {
+    v: COMPACT_VERSION,
+    res: { magic: res.magic || 0, gems: res.gems || 0, dreamsparks: res.dreamsparks || 0 },
+    chars,
+    wish: truthyKeys(state.wishlist),
+    attr,
+    ench,
+    cos: (state.costumes || []).filter(c => c.owned).map(c => c.id),
+    floats: truthyKeys(state.floats_owned),
+    floatsOn: truthyKeys(state.floats_active),
+    con: truthyKeys(state.concessions_owned),
+    conOn: truthyKeys(state.concessions_operating),
+    dec: truthyKeys(state.decorations_owned),
+    quests: (state.quests || []).filter(q => q.done).map(q => q.id),
+    pins: state.pinned_quests || {},
+    tok: pruneTokenInventory(state.token_inventory),
+  };
+}
+
+function hydrateCompact(s, allChars) {
+  const savedChars = s.chars || {};
+  state.characters = allChars.map(ch => {
+    if (!Object.prototype.hasOwnProperty.call(savedChars, ch.id)) return ch;
+    const level = Math.min(Math.max(parseInt(savedChars[ch.id]) || 0, 0), MAX_CHAR_LEVEL);
+    return { ...ch, level, welcomed: true };
+  });
+
+  state.resources = { ...state.resources, ...(s.res || {}) };
+  state.wishlist = remapSavedMap(listToMap(s.wish), allChars.map(c => c.id));
+  state.quests = (Array.isArray(s.quests) ? s.quests : []).map(id => ({ id, done: true }));
+  state.pinned_quests = (s.pins && typeof s.pins === 'object') ? s.pins : {};
+
+  state.floats_owned = remapSavedMap(listToMap(s.floats), DMK_FLOATS.map(f => f.name));
+  state.floats_active = remapSavedMap(listToMap(s.floatsOn), DMK_FLOATS.map(f => f.name));
+  state.concessions_owned = remapSavedMap(listToMap(s.con), DMK_CONCESSIONS_DATA.map(c => c.name));
+  state.concessions_operating = remapSavedMap(listToMap(s.conOn), DMK_CONCESSIONS_DATA.map(c => c.name));
+  state.decorations_owned = remapSavedMap(listToMap(s.dec), DMK_DECORATIONS.map(d => d.name));
+  state.token_inventory = remapNestedMap(s.tok || {}, state.characters.map(c => c.name));
+
+  // loadAttractions() / loadCostumes() merge these with the static DB right after.
+  const builtIds = new Set((Array.isArray(s.attr) ? s.attr : []).map(String));
+  const ench = (s.ench && typeof s.ench === 'object') ? s.ench : {};
+  const attrIds = new Set([...builtIds, ...Object.keys(ench)]);
+  state.attractions = [...attrIds].map(id => ({
+    id, built: builtIds.has(id), enchant_level: parseInt(ench[id]) || 0
+  }));
+  state.costumes = [];
+  pendingCostumeOwned = new Set(Array.isArray(s.cos) ? s.cos : []);
+}
+
+// Old full-state format (v2 / legacy key). Same merge + migration logic as before.
+function loadLegacyState(parsed, allChars) {
+  state = { ...state, ...parsed };
       // Merge: keep saved progress, add any new chars from DB as unwelcomed
       const savedByName = {};
       (state.characters || []).forEach(c => {
@@ -454,19 +582,47 @@ function loadState() {
 
       if (!state.decorations_owned) state.decorations_owned = {};
       if (!state.token_inventory) state.token_inventory = {};
+}
+
+function setDefaultState(allChars) {
+  state.characters = allChars;
+  state.quests = [];
+  state.wishlist = {};
+  state.decorations_owned = {};
+  state.token_inventory = {};
+  state.floats_owned = {};
+  state.floats_active = {};
+  state.concessions_owned = {};
+  state.concessions_operating = {};
+  state.pinned_quests = {};
+}
+
+function loadState() {
+  const allChars = buildAllChars();
+  const found = readSavedState();
+  try {
+    if (!found) {
+      setDefaultState(allChars);
+    } else if (found.format === 'compact') {
+      hydrateCompact(found.data, allChars);
     } else {
-      state.characters = allChars;
-      state.quests = [];
-      state.decorations_owned = {};
-      state.token_inventory = {};
+      loadLegacyState(found.data, allChars);
+      migrationSource = found; // rewritten in compact form by finishMigration()
     }
   } catch (e) {
     console.warn('Failed to load saved state; using defaults.', e);
-    state.characters = allChars;
-    state.quests = [];
-    state.decorations_owned = {};
-    state.token_inventory = {};
+    setDefaultState(allChars);
+    state.attractions = [];
+    state.costumes = [];
+    pendingCostumeOwned = null;
+    migrationSource = null;
+    if (found) {
+      // Saved data exists but couldn't be read: don't overwrite it with an empty state.
+      _persistSuspended = true;
+      showToast('⚠️ Could not read saved progress. Auto-save is paused to protect it — reload the page.', 'error');
+    }
   }
+
   // Clean up wishlist to only include characters that currently exist
   if (state.wishlist) {
     const existingIds = new Set(state.characters.map(c => c.id));
@@ -478,41 +634,81 @@ function loadState() {
   }
 }
 
-function persistStateNow() {
+// One-time: after the old full-state data was loaded, write it back in compact form,
+// keep a single backup copy of the old data, then drop the old keys.
+function finishMigration() {
+  if (!migrationSource) return;
+  const src = migrationSource;
+  migrationSource = null;
+  if (!persistStateNow(true)) return; // new write failed -> leave the old data untouched
   try {
-    saveStorageBackup();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    if (localStorage.getItem(STORAGE_KEY) === null) return;
+    localStorage.setItem(STORAGE_BACKUP_KEY, src.raw);
+    localStorage.removeItem(OLD_STORAGE_KEY);
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
   } catch (e) {
-    showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
+    console.warn('Migration cleanup skipped (backup could not be written).', e);
   }
 }
-const persistState = debounce(persistStateNow, 300);
 
-window.addEventListener('pagehide', persistStateNow);
-window.addEventListener('beforeunload', persistStateNow);
+// Writes only when something actually changed (or when forced). Lifecycle hooks below can
+// therefore fire freely: an unchanged page writes nothing, and a stale background tab can no
+// longer overwrite newer progress saved from another tab just by being closed.
+function persistStateNow(force = false) {
+  if (_persistSuspended) return false;
+  if (!_dirty && !force) return true;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(toSaved()));
+    _dirty = false;
+    return true;
+  } catch (e) {
+    showToast('⚠️ Storage full — your progress wasn\'t saved. Please export a backup!', 'warn');
+    return false;
+  }
+}
+const persistState = debounce(() => persistStateNow(), 300);
+
+// pagehide + visibilitychange cover desktop and mobile (beforeunload is unreliable on mobile
+// and redundant with pagehide). Wrapped in arrows so the Event isn't passed as `force`.
+window.addEventListener('pagehide', () => persistStateNow());
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) persistStateNow();
 });
 
 // Use for discrete user actions (level up/down, welcome, toggles, token +/-):
 // flushes to localStorage immediately so other tabs/pages never read stale data.
-function saveState() {
-  const fields = ['magic', 'gems', 'dreamsparks'];
-  fields.forEach(f => {
+function syncResourcesFromInputs() {
+  ['magic', 'gems', 'dreamsparks'].forEach(f => {
     const el = getEl('res-' + f);
     if (el) state.resources[f] = Number(el.value) || 0;
   });
+}
+
+// Ask the browser not to evict our data under storage pressure. Done once ever, after a real
+// user action (Firefox shows a permission prompt for this, so never on page load).
+function requestPersistentStorageOnce() {
+  try {
+    if (typeof navigator === 'undefined' || !navigator.storage || !navigator.storage.persist) return;
+    if (loadFilterState('persistAsked', false)) return;
+    saveFilterState('persistAsked', true);
+    navigator.storage.persisted().then(p => { if (!p) return navigator.storage.persist(); }).catch(() => { });
+  } catch (e) { }
+}
+
+// Use for discrete user actions (level up/down, welcome, toggles, token +/-):
+// flushes to localStorage immediately so other tabs/pages never read stale data.
+function saveState() {
+  syncResourcesFromInputs();
+  _dirty = true;
   persistStateNow();
+  requestPersistentStorageOnce();
 }
 
 // Use only for rapid/continuous input (e.g. typing in a resource number field)
 // where debouncing avoids hammering localStorage on every keystroke.
 function saveStateDebounced() {
-  const fields = ['magic', 'gems', 'dreamsparks'];
-  fields.forEach(f => {
-    const el = getEl('res-' + f);
-    if (el) state.resources[f] = Number(el.value) || 0;
-  });
+  syncResourcesFromInputs();
+  _dirty = true;
   persistState();
 }
 
@@ -520,7 +716,7 @@ function collIcon(collection, size = 20) {
   const file = COLLECTION_ICONS[collection];
   if (!file) return '';
   const url = `https://disneymagicalkingdoms.fandom.com/wiki/Special:FilePath/${file}`;
-  return `<img src="${url}" alt="${collection}" style="width:${size}px;height:${size}px;object-fit:contain;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">`;
+  return `<img src="${url}" alt="${collection}" loading="lazy" decoding="async" style="width:${size}px;height:${size}px;object-fit:contain;vertical-align:middle;margin-right:5px;" onerror="this.style.display='none'">`;
 }
 
 function charImg(name, size) {
@@ -528,7 +724,7 @@ function charImg(name, size) {
   const url = CHAR_URLS[name];
   if (!url) return '';
   const s = size + 'px';
-  return `<img src="${url}" alt="${name}" style="width:${s};height:${s};object-fit:contain;" onerror="this.style.display='none'">`;
+  return `<img src="${url}" alt="${name}" loading="lazy" decoding="async" style="width:${s};height:${s};object-fit:contain;" onerror="this.style.display='none'">`;
 }
 
 // ---- Collection helpers ----
@@ -1038,7 +1234,7 @@ function renderQuests() {
           <div style="flex:1;min-width:0;">
             <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
               <span style="font-size:10px;font-weight:800;background:rgba(245,200,66,0.18);color:var(--gold);padding:1px 7px;border-radius:6px;">ACT ${arc.act}</span>
-              ${isSide ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">SIDE</span>` : ''}
+              ${isSide ? `<span class="badge badge-teal">SIDE</span>` : ''}
               <span style="font-weight:800;font-size:14px;">${collIcon(arc.collection || '', 18)}${esc(arc.title)}</span>
             </div>
             <div style="font-size:11px;color:var(--muted);margin-top:2px;">${esc(arc.desc)}</div>
@@ -1062,13 +1258,17 @@ function renderQuests() {
       </div>`;
     }).join('');
 
-    container.querySelectorAll('.quest-item[data-arc]').forEach(el => {
-      el.addEventListener('click', e => {
-        if (e.target.closest('[data-action]')) return;
-        toggleArcQuest(el.dataset.arc, el.dataset.quest);
-      });
-    });
   }
+}
+
+// One delegated listener instead of one per quest row on every render.
+const _arcListEl = getEl('arc-list');
+if (_arcListEl) {
+  _arcListEl.addEventListener('click', e => {
+    if (e.target.closest('[data-action]')) return;
+    const el = e.target.closest('.quest-item[data-arc]');
+    if (el) toggleArcQuest(el.dataset.arc, el.dataset.quest);
+  });
 }
 
 function toggleArcCollapse(arcId) {
@@ -1176,33 +1376,30 @@ function renderDecorations() {
     const borderCol = owned ? 'var(--green)' : 'var(--border)';
     const bgStyle = owned ? 'background:rgba(57,232,124,0.04);' : '';
 
-    return `<div style="background:var(--card);border:1px solid ${borderCol};${bgStyle}border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+    return `<div class="item-card cv-auto" style="border-color:${borderCol};${bgStyle}">
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <span style="font-size:26px;line-height:1;">${d.emoji}</span>
         <div style="flex:1;min-width:0;">
           <div style="font-weight:800;font-size:13px;line-height:1.3;">${esc(d.name)}</div>
           <div style="font-size:11px;color:var(--muted);margin-top:2px;">${collIcon(d.collection, 14)}${esc(d.collection)}</div>
           <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:5px;">
-            <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${col};padding:1px 7px;border-radius:6px;">${catEmoji[d.category] || ''} ${d.category}</span>
-            <span style="font-size:10px;font-weight:800;background:rgba(255,255,255,0.07);color:${rCol};padding:1px 7px;border-radius:6px;">${d.rarity || ''}</span>
-            ${owned ? `<span style="font-size:10px;font-weight:800;background:rgba(57,232,124,0.18);color:var(--green);padding:1px 7px;border-radius:6px;">✓ OWNED</span>` : ''}
+            <span class="badge" style="color:${col};">${catEmoji[d.category] || ''} ${d.category}</span>
+            <span class="badge" style="color:${rCol};">${d.rarity || ''}</span>
+            ${owned ? `<span class="badge badge-green">✓ OWNED</span>` : ''}
           </div>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;">
-        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
-          <div style="color:var(--muted);">Size</div>
-          <div style="font-weight:700;">${d.size}</div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Size</div>
+          <div class="stat-cell-value">${d.size}</div>
         </div>
-        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
-          <div style="color:var(--muted);">⚗️ Elixir</div>
-          <div style="font-weight:700;color:${rCol};">${d.elixir || '—'}</div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">⚗️ Elixir</div>
+          <div class="stat-cell-value" style="color:${rCol};">${d.elixir || '—'}</div>
         </div>
       </div>
-      <button class="dec-card-btn" data-name="${esc(d.name)}"
-      style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
-      background:${owned ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
-      color:${owned ? 'var(--green)' : 'var(--gold)'};">
+      <button class="dec-card-btn card-action-btn ${owned ? 'owned' : 'unowned'}" data-name="${esc(d.name)}">
         ${owned ? '✓ Mark as Not Owned' : '＋ Mark as Owned'}
       </button>
     </div>`;
@@ -1359,6 +1556,10 @@ function loadCostumes() {
     const stableId = 'cos_' + c.char + '|' + c.costume;
     savedOwned[stableId] = c.owned;
   });
+  if (pendingCostumeOwned) { // compact format: ids are already in 'cos_char|costume' form
+    pendingCostumeOwned.forEach(id => { savedOwned[id] = true; });
+    pendingCostumeOwned = null;
+  }
   state.costumes = DMK_COSTUMES.filter(c => c && c.char && c.costume).map(c => ({
     id: 'cos_' + c.char + '|' + c.costume,
     char: c.char, collection: c.collection, costume: c.costume,
@@ -1532,13 +1733,13 @@ function renderAttractions() {
       const builtCls = a.built ? 'border-color:var(--green);' : '';
       const builtBg = a.built ? 'background:rgba(57,232,124,0.06);' : '';
       const elixirBadge = a.elixir
-        ? `<span style="font-size:10px;font-weight:800;background:rgba(87,210,255,0.18);color:var(--teal);padding:1px 7px;border-radius:6px;">⚗️ ELIXIR</span>`
+        ? `<span class="badge badge-teal">⚗️ ELIXIR</span>`
         : '';
       const builtBadge = a.built
-        ? `<span style="font-size:10px;font-weight:800;background:rgba(57,232,124,0.18);color:var(--green);padding:1px 7px;border-radius:6px;">✓ BUILT</span>`
+        ? `<span class="badge badge-green">✓ BUILT</span>`
         : '';
       return `
-    <div style="background:var(--card);border:1px solid var(--border);${builtBg}${builtCls}border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+    <div class="item-card cv-auto" style="${builtBg}${builtCls}">
       <div style="display:flex;align-items:flex-start;gap:10px;">
         <span style="font-size:26px;line-height:1;">${a.emoji}</span>
         <div style="flex:1;min-width:0;">
@@ -1550,23 +1751,20 @@ function renderAttractions() {
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;font-size:11px;">
-        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
-          <div style="color:var(--muted);">Size</div>
-          <div style="font-weight:700;">${a.size}</div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Size</div>
+          <div class="stat-cell-value">${a.size}</div>
         </div>
-        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
-          <div style="color:var(--muted);">Collect</div>
-          <div style="font-weight:700;">${a.rewardTime}</div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">Collect</div>
+          <div class="stat-cell-value">${a.rewardTime}</div>
         </div>
-        <div style="background:var(--card2);border-radius:8px;padding:5px 8px;text-align:center;">
-          <div style="color:var(--muted);">✨ Magic</div>
-          <div style="font-weight:700;">${a.rewardMagic}</div>
+        <div class="stat-cell">
+          <div class="stat-cell-label">✨ Magic</div>
+          <div class="stat-cell-value">${a.rewardMagic}</div>
         </div>
       </div>
-      <button data-action="toggle-attr" data-id="${a.id}"
-        style="width:100%;padding:7px;border-radius:10px;border:none;cursor:pointer;font-size:12px;font-weight:700;
-        background:${a.built ? 'rgba(57,232,124,0.15)' : 'rgba(245,200,66,0.12)'};
-        color:${a.built ? 'var(--green)' : 'var(--gold)'};">
+      <button class="card-action-btn ${a.built ? 'owned' : 'unowned'}" data-action="toggle-attr" data-id="${a.id}">
         ${a.built ? '✓ Mark as Not Built' : '＋ Mark as Built'}
       </button>
       ${(() => {
@@ -1602,6 +1800,8 @@ loadCostumes();
 if (!state.decorations_owned) state.decorations_owned = {};
 if (!state.concessions_owned) state.concessions_owned = {};
 if (!state.concessions_operating) state.concessions_operating = {};
+
+finishMigration();
 
 const _page = document.body.dataset.page;
 
@@ -1764,7 +1964,8 @@ function initFilterGroup(containerSelector, actionFn) {
 
 // ============ EXPORT / IMPORT STATE ============
 function exportState() {
-  const json = JSON.stringify(state, null, 2);
+  syncResourcesFromInputs(); // pull in any resource input edits first
+  const json = JSON.stringify(toSaved());
   const blob = new Blob([json], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
@@ -1798,13 +1999,23 @@ function importState() {
         const parsed = JSON.parse(ev.target.result);
         if (!parsed || typeof parsed !== 'object')
           throw new Error('File is not a valid JSON object');
-        if (!Array.isArray(parsed.characters) || parsed.characters.length === 0)
-          throw new Error('Missing or empty characters list');
-        const validated = validateImportedState(parsed);
-        localStorage.setItem('dmk-tracker-v2', JSON.stringify(validated));
+        if (isValidCompactState(parsed)) {
+          // New compact backup
+          _persistSuspended = true; // otherwise pagehide would overwrite the import with in-memory state
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
+        } else {
+          // Old full-state backup: stash it under the old key and let the migration convert it on reload
+          if (!Array.isArray(parsed.characters) || parsed.characters.length === 0)
+            throw new Error('Missing or empty characters list');
+          const validated = validateImportedState(parsed);
+          _persistSuspended = true;
+          localStorage.setItem(OLD_STORAGE_KEY, JSON.stringify(validated));
+          localStorage.removeItem(STORAGE_KEY);
+        }
         showToast('✅ Backup imported successfully!');
         setTimeout(() => location.reload(), 1000);
       } catch (err) {
+        _persistSuspended = false;
         showToast('❌ Import failed: ' + err.message, 'error');
       }
     };
@@ -1911,7 +2122,7 @@ function renderConcessions() {
       : `<button class="con-action-btn" data-action="toggle-con-owned" data-name="${esc(c.name)}"
           style="width:100%;padding:6px;border-radius:8px;border:1px solid var(--border);font-size:11px;font-weight:700;background:transparent;color:var(--muted);cursor:pointer;">🔒 Not owned</button>`;
 
-    return `<div class="card" style="padding:12px;border:1px solid ${borderColor};opacity:${opacity};">
+    return `<div class="card cv-auto" style="padding:12px;border:1px solid ${borderColor};opacity:${opacity};">
       <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;">
         <div style="flex:1;">
           <div style="font-size:13px;font-weight:600;line-height:1.3;">${esc(c.name)}</div>
@@ -2118,7 +2329,7 @@ function renderEnchantmentsTab() {
         </div>
       </div>` : `<div style="margin-top:8px;padding:6px 10px;background:rgba(57,232,124,0.08);border-radius:8px;font-size:11px;color:var(--green);font-weight:700;">⭐ Fully Enchanted</div>`;
 
-    return `<div class="card" style="padding:12px 14px;border-color:${isBuilt ? (enchLevel > 0 ? 'var(--green)' : 'var(--accent)') : 'var(--border)'};">
+    return `<div class="card cv-auto" style="padding:12px 14px;border-color:${isBuilt ? (enchLevel > 0 ? 'var(--green)' : 'var(--accent)') : 'var(--border)'};">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
         <div>
           <div style="font-size:13px;font-weight:700;">${isBuilt ? '✅' : '○'} ${esc(e.name)}</div>
@@ -2310,30 +2521,7 @@ function renderTokens() {
       const mismatchNote = sharedToken && !countMatch ? '<span style="font-size:11px;color:var(--muted);margin-left:6px;">(counts vary)</span>' : '';
       const expandId = sharedToken ? ('tokcoll_' + collection + '_' + sharedToken).replace(/[^a-zA-Z0-9]/g, '_') : '';
 
-      const actSources = sharedToken ? DMK_TOKEN_ACTIVITIES[sharedToken] || [] : [];
-      const enchSources = sharedToken ? getTokenSources(sharedToken) : [];
-      const hasCollectionDetails = actSources.length > 0 || enchSources.length > 0;
-      const actRows = actSources.map(s =>
-        `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-          <div style="display:flex;align-items:center;gap:6px;min-width:0;">
-            <span style="font-size:10px;color:var(--muted);min-width:48px;flex-shrink:0;">${s.char_level}</span>
-            <div style="min-width:0;overflow:hidden;">
-              <span style="font-size:11px;font-weight:600;">${s.char}</span>
-              <span style="font-size:10px;color:var(--muted);"> · ${s.activity}</span>
-            </div>
-          </div>
-          <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.time}</span>
-        </div>`
-      ).join('');
-      const enchRows = enchSources.slice(0, 3).map(s =>
-        `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-          <div style="display:flex;align-items:center;gap:6px;">
-            <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L' + s.enchant_level}</span>
-            <span style="font-size:11px;font-weight:600;">${s.attraction}</span>
-          </div>
-          <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
-        </div>`
-      ).join('');
+      const hasCollectionDetails = sharedToken ? tokenHasSources(sharedToken) : false;
 
       const sectionHeader = sharedToken
         ? `<div class="card" style="padding:12px 14px;margin-bottom:10px;background:var(--card2);border:1px solid var(--border);">
@@ -2353,9 +2541,7 @@ function renderTokens() {
                   style="width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:16px;cursor:pointer;">+</button>
               </div>
             </div>
-            ${hasCollectionDetails ? `<div id="${expandId}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
-              ${actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : ''}
-              ${enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : ''}
+            ${hasCollectionDetails ? `<div id="${expandId}" data-lazy-token="${esc(sharedToken)}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
             </div>` : ''}
           </div>`
         : `<div style="padding:8px 0 10px;font-size:12px;font-weight:700;color:var(--gold);">${esc(collection)}</div>`;
@@ -2451,31 +2637,8 @@ function renderTokens() {
           const qtyIndex = needed.tokens.indexOf(token);
           const need = qtyIndex >= 0 ? needed.quantities[qtyIndex] : 0;
           const enough = have >= need;
-          const actSources = DMK_TOKEN_ACTIVITIES[token] || [];
-          const enchSources = getTokenSources(token);
-          const hasAny = actSources.length > 0 || enchSources.length > 0;
+          const hasAny = tokenHasSources(token);
           const expandId = ('tok_' + c.name + '_' + token).replace(/[^a-zA-Z0-9]/g, '_');
-          const actRows = actSources.map(s =>
-            `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-              <div style="display:flex;align-items:center;gap:6px;min-width:0;">
-                <span style="font-size:10px;color:var(--muted);min-width:48px;flex-shrink:0;">${s.char_level}</span>
-                <div style="min-width:0;overflow:hidden;">
-                  <span style="font-size:11px;font-weight:600;">${s.char}</span>
-                  <span style="font-size:10px;color:var(--muted);"> · ${s.activity}</span>
-                </div>
-              </div>
-              <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.time}</span>
-            </div>`
-          ).join('');
-          const enchRows = enchSources.slice(0, 3).map(s =>
-            `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
-              <div style="display:flex;align-items:center;gap:6px;">
-                <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L' + s.enchant_level}</span>
-                <span style="font-size:11px;font-weight:600;">${s.attraction}</span>
-              </div>
-              <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
-            </div>`
-          ).join('');
           const rarity = (typeof TOKEN_RARITY !== 'undefined' && TOKEN_RARITY[token]) || 'unknown';
           return `<div style="background:var(--card2);border-radius:10px;padding:8px 10px;border:1px solid ${enough ? 'rgba(52,211,153,0.3)' : 'var(--border)'}" id="tokrow_${expandId}">
             <div style="display:flex;align-items:center;gap:8px;">
@@ -2498,9 +2661,7 @@ function renderTokens() {
                   style="width:22px;height:22px;border-radius:6px;border:1px solid var(--border);background:var(--card);color:var(--muted);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">▼</button>` : ''}
               </div>
             </div>
-            ${hasAny ? `<div id="${expandId}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
-              ${actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : ''}
-              ${enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : ''}
+            ${hasAny ? `<div id="${expandId}" data-lazy-token="${esc(token)}" style="display:none;margin-top:8px;border-top:1px solid var(--border);padding-top:6px;">
             </div>` : ''}
           </div>`;
         }).join('');
@@ -2514,7 +2675,7 @@ function renderTokens() {
             ? `<span style="font-size:11px;color:var(--green);font-weight:700;">✅ Ready!</span>`
             : `<span style="font-size:11px;color:var(--muted);">Lv ${c.level} → ${needed.nextLevel}</span>`;
 
-        return `<div class="card" style="padding:12px 14px;border-color:${borderColor};margin-bottom:10px;">
+        return `<div class="card cv-auto" style="padding:12px 14px;border-color:${borderColor};margin-bottom:10px;">
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
             ${charImg(c.name, 36)}
             <div style="flex:1;">
@@ -2618,11 +2779,47 @@ function levelUpChar(charName, newLevel) {
 }
 
 
+// Token source panels (character activities + enchantment drops) are only built when first
+// opened, instead of for every token on every card on every render.
+function tokenHasSources(token) {
+  return (DMK_TOKEN_ACTIVITIES[token] || []).length > 0 || getTokenSources(token).length > 0;
+}
+
+function buildTokenSourcesHtml(token) {
+  const actRows = (DMK_TOKEN_ACTIVITIES[token] || []).map(s =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+      <div style="display:flex;align-items:center;gap:6px;min-width:0;">
+        <span style="font-size:10px;color:var(--muted);min-width:48px;flex-shrink:0;">${s.char_level}</span>
+        <div style="min-width:0;overflow:hidden;">
+          <span style="font-size:11px;font-weight:600;">${s.char}</span>
+          <span style="font-size:10px;color:var(--muted);"> · ${s.activity}</span>
+        </div>
+      </div>
+      <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.time}</span>
+    </div>`
+  ).join('');
+  const enchRows = getTokenSources(token).slice(0, 3).map(s =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+      <div style="display:flex;align-items:center;gap:6px;">
+        <span style="font-size:10px;color:var(--gold);min-width:48px;flex-shrink:0;">⚡${s.enchant_level === 0 ? 'Base' : 'L' + s.enchant_level}</span>
+        <span style="font-size:11px;font-weight:600;">${s.attraction}</span>
+      </div>
+      <span style="font-size:10px;color:var(--accent);flex-shrink:0;margin-left:8px;">⏱ ${s.timing}</span>
+    </div>`
+  ).join('');
+  return (actRows ? '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-weight:600;letter-spacing:0.05em;">CHARACTER ACTIVITIES</div>' + actRows : '') +
+    (enchRows ? '<div style="font-size:10px;color:var(--muted);margin:6px 0 4px;font-weight:600;letter-spacing:0.05em;">ENCHANTMENT DROPS</div>' + enchRows : '');
+}
+
 function toggleTokExpand(id) {
   const el = getEl(id);
   const btn = getEl('btn_' + id);
   if (!el) return;
   const open = el.style.display !== 'none';
+  if (!open && el.dataset.lazyToken !== undefined && !el.dataset.built) {
+    el.innerHTML = buildTokenSourcesHtml(el.dataset.lazyToken);
+    el.dataset.built = '1';
+  }
   el.style.display = open ? 'none' : 'block';
   if (btn) btn.textContent = open ? '▼' : '▲';
 }
@@ -2749,7 +2946,7 @@ function renderFloats() {
     const statusLabel = f.active ? 'Active' : f.owned ? 'Inactive' : 'Unowned';
     const statusColor = f.active ? 'var(--green)' : f.owned ? 'var(--muted)' : 'var(--muted)';
 
-    return `<div class="card" style="padding:12px 14px;border-color:${borderColor};opacity:${opacity};">
+    return `<div class="card cv-auto" style="padding:12px 14px;border-color:${borderColor};opacity:${opacity};">
       <div style="display:flex;align-items:center;gap:10px;">
         <span style="font-size:24px;">🎡</span>
         <div style="flex:1;min-width:0;">
@@ -2807,9 +3004,6 @@ if (activeTab) {
   activeTab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'instant' });
 }
 
-document.querySelectorAll('.tabs .tab').forEach(tab => {
-  tab.addEventListener('click', () => persistStateNow(), { capture: true });
-});
 
 // ============================================================
 // ACTIVE QUESTS PANEL
