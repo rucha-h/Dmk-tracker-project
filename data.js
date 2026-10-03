@@ -152,6 +152,7 @@ const DMK_CHAR_TOKENS = {
   "Clara Cluck": { "tokens": ["Mickey Balloon", "Clara Cluck's Hat", "Clara Cluck Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Ludwig Von Drake": { "tokens": ["Mickey Balloon", "Ludwig Von Drake's Glasses and Pocket Watch", "Ludwig Von Drake Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Clarabelle": { "tokens": ["Mickey Balloon", "Clarabelle's Bell", "Clarabelle Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Fifi": { "tokens": ["Mickey Balloon", "Fifi's Bow", "Fifi Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Toy Story
   "Bo Peep": { "tokens": ["Pixar Ball", "Bo Peep's Bonnet", "Bo Peep Ears Hat"], "levels": [{ "level": 1, "quantities": [0, 1, 1] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
   "Bullseye": { "tokens": ["Pixar Ball", "Toy Saddle", "Bullseye Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 30, 30] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 4, 4] }, { "level": 4, "quantities": [15, 7, 7] }, { "level": 5, "quantities": [20, 10, 10] }, { "level": 6, "quantities": [25, 15, 15] }, { "level": 7, "quantities": [30, 20, 20] }, { "level": 8, "quantities": [35, 25, 25] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 35, 35] }] },
@@ -199,95 +200,17 @@ const DMK_CHAR_TOKENS = {
   "Greef Karga": { "tokens": ["Kyber Crystal", "Bounty Puck", "Greef Karga Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 30] }, { "level": 10, "quantities": [100, 50, 40] }] },
   "Han Solo": { "tokens": ["Kyber Crystal", "Han's Blaster", "Han Solo Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Imperial Stormtrooper": { "tokens": ["Kyber Crystal", "Imperial Stormtrooper's Blaster", "Imperial Stormtrooper Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
-  "Kuiil": {
-    "tokens": ["Kyber Crystal", "Kuiil Goggles", "Kuiil Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Kuiil": { "tokens": ["Kyber Crystal", "Kuiil Goggles", "Kuiil Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Kylo Ren": { "tokens": ["Kyber Crystal", "Kylo's Lightsaber", "Kylo Ren Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
-  "Lando Calrissian": {
-    "tokens": ["Kyber Crystal", "Lando's Cape", "Lando Calrissian Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 35, 35] },
-      { "level": 10, "quantities": [100, 50, 50] }
-    ]
-  },
-  "Leia Organa": {
-    "tokens": ["Kyber Crystal", "Leia's Blaster", "Leia Organa Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 35, 35] },
-      { "level": 10, "quantities": [100, 50, 50] }
-    ]
-  },
+  "Lando Calrissian": { "tokens": ["Kyber Crystal", "Lando's Cape", "Lando Calrissian Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
+  "Leia Organa": { "tokens": ["Kyber Crystal", "Leia's Blaster", "Leia Organa Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Luke Skywalker": { "tokens": ["Kyber Crystal", "Luke's Lightsaber", "Luke Skywalker Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
-  "Moff Gideon": {
-    "tokens": ["Kyber Crystal", "Gideon's Chestplate", "Moff Gideon Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 5, 5] },
-      { "level": 3, "quantities": [10, 10, 10] },
-      { "level": 4, "quantities": [20, 20, 20] },
-      { "level": 5, "quantities": [40, 40, 40] },
-      { "level": 6, "quantities": [50, 50, 50] },
-      { "level": 7, "quantities": [60, 60, 60] },
-      { "level": 8, "quantities": [70, 70, 70] },
-      { "level": 9, "quantities": [80, 80, 80] },
-      { "level": 10, "quantities": [100, 100, 100] }
-    ]
-  },
+  "Moff Gideon": { "tokens": ["Kyber Crystal", "Gideon's Chestplate", "Moff Gideon Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   "Poe": { "tokens": ["Kyber Crystal", "Pilot Helmet", "Poe Dameron Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 30] }, { "level": 10, "quantities": [100, 50, 40] }] },
   "R2-D2": { "tokens": ["Kyber Crystal", "Data Card", "R2-D2 Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Rey": { "tokens": ["Kyber Crystal", "Rey's Staff", "Rey Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
-  "TIE Fighter Pilot": {
-    "tokens": ["Kyber Crystal", "TIE Fighter", "TIE Fighter Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 35, 35] },
-      { "level": 10, "quantities": [100, 50, 50] }
-    ]
-  },
-  "The Child": {
-    "tokens": ["Kyber Crystal", "The Child Hover Pram", "The Child Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 8, 8] },
-      { "level": 6, "quantities": [50, 12, 12] },
-      { "level": 7, "quantities": [60, 16, 16] },
-      { "level": 8, "quantities": [70, 20, 20] },
-      { "level": 9, "quantities": [80, 25, 25] },
-      { "level": 10, "quantities": [100, 30, 30] }
-    ]
-  },
+  "TIE Fighter Pilot": { "tokens": ["Kyber Crystal", "TIE Fighter", "TIE Fighter Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
+  "The Child": { "tokens": ["Kyber Crystal", "The Child Hover Pram", "The Child Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 8, 8] }, { "level": 6, "quantities": [50, 12, 12] }, { "level": 7, "quantities": [60, 16, 16] }, { "level": 8, "quantities": [70, 20, 20] }, { "level": 9, "quantities": [80, 25, 25] }, { "level": 10, "quantities": [100, 30, 30] }] },
   "The Mandalorian": { "tokens": ["Kyber Crystal", "Beskar Steel Ingot", "The Mandalorian Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Yoda": { "tokens": ["Kyber Crystal", "Yoda's Gimer Stick", "Yoda Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 30] }, { "level": 10, "quantities": [100, 50, 35] }] },
   //Peter Pan
@@ -296,66 +219,12 @@ const DMK_CHAR_TOKENS = {
   "Michael Darling": { "tokens": ["Pixie Dust", "Michael's Bear", "Michael Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 35, 20] }, { "level": 2, "quantities": [10, 4, 2] }, { "level": 3, "quantities": [12, 6, 4] }, { "level": 4, "quantities": [15, 8, 6] }, { "level": 5, "quantities": [18, 10, 8] }, { "level": 6, "quantities": [22, 14, 10] }, { "level": 7, "quantities": [26, 18, 12] }, { "level": 8, "quantities": [30, 22, 14] }, { "level": 9, "quantities": [35, 26, 16] }, { "level": 10, "quantities": [40, 30, 18] }] },
   "Mr. Smee": { "tokens": ["Pixie Dust", "Mr. Smee's Hat", "Mr. Smee Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 35, 20] }, { "level": 2, "quantities": [5, 2, 3] }, { "level": 3, "quantities": [10, 3, 5] }, { "level": 4, "quantities": [20, 5, 7] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 14] }, { "level": 7, "quantities": [60, 25, 18] }, { "level": 8, "quantities": [70, 35, 24] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Peter Pan": { "tokens": ["Pixie Dust", "Pan Flute", "Peter Pan Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 35, 35] }, { "level": 2, "quantities": [10, 3, 3] }, { "level": 3, "quantities": [15, 5, 5] }, { "level": 4, "quantities": [20, 7, 7] }, { "level": 5, "quantities": [25, 10, 10] }, { "level": 6, "quantities": [30, 13, 13] }, { "level": 7, "quantities": [35, 16, 16] }, { "level": 8, "quantities": [40, 20, 20] }, { "level": 9, "quantities": [45, 24, 24] }, { "level": 10, "quantities": [50, 30, 30] }] },
-  "Wendy Darling": {
-    "tokens": ["Pixie Dust", "Needle and Thread", "Wendy Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [20, 35, 35] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [7, 4, 3] },
-      { "level": 4, "quantities": [9, 6, 4] },
-      { "level": 5, "quantities": [12, 8, 6] },
-      { "level": 6, "quantities": [15, 10, 8] },
-      { "level": 7, "quantities": [18, 12, 10] },
-      { "level": 8, "quantities": [22, 16, 12] },
-      { "level": 9, "quantities": [26, 20, 16] },
-      { "level": 10, "quantities": [30, 25, 20] }
-    ]
-  },
+  "Wendy Darling": { "tokens": ["Pixie Dust", "Needle and Thread", "Wendy Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 35, 35] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [7, 4, 3] }, { "level": 4, "quantities": [9, 6, 4] }, { "level": 5, "quantities": [12, 8, 6] }, { "level": 6, "quantities": [15, 10, 8] }, { "level": 7, "quantities": [18, 12, 10] }, { "level": 8, "quantities": [22, 16, 12] }, { "level": 9, "quantities": [26, 20, 16] }, { "level": 10, "quantities": [30, 25, 20] }] },
   //Pirates of the Caribbean
-  "Captain Barbossa": {
-    "tokens": ["Pirate Flag", "Barbossa's Hat", "Barbossa Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [40, 35, 25] },
-      { "level": 2, "quantities": [6, 2, 1] },
-      { "level": 3, "quantities": [8, 4, 2] },
-      { "level": 4, "quantities": [12, 6, 4] },
-      { "level": 5, "quantities": [16, 8, 6] },
-      { "level": 6, "quantities": [20, 12, 8] },
-      { "level": 7, "quantities": [25, 16, 12] },
-      { "level": 8, "quantities": [30, 22, 16] },
-      { "level": 9, "quantities": [40, 30, 20] },
-      { "level": 10, "quantities": [50, 40, 25] }
-    ]
-  },
-  "Davy Jones": {
-    "tokens": ["Pirate Flag", "Heart Chest", "Davy Jones Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [6, 2, 2] },
-      { "level": 3, "quantities": [8, 4, 4] },
-      { "level": 4, "quantities": [12, 6, 6] },
-      { "level": 5, "quantities": [16, 10, 10] },
-      { "level": 6, "quantities": [20, 14, 14] },
-      { "level": 7, "quantities": [25, 20, 20] },
-      { "level": 8, "quantities": [30, 26, 26] },
-      { "level": 9, "quantities": [40, 32, 32] },
-      { "level": 10, "quantities": [50, 40, 40] }
-    ]
-  },
+  "Captain Barbossa": { "tokens": ["Pirate Flag", "Barbossa's Hat", "Barbossa Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 35, 25] }, { "level": 2, "quantities": [6, 2, 1] }, { "level": 3, "quantities": [8, 4, 2] }, { "level": 4, "quantities": [12, 6, 4] }, { "level": 5, "quantities": [16, 8, 6] }, { "level": 6, "quantities": [20, 12, 8] }, { "level": 7, "quantities": [25, 16, 12] }, { "level": 8, "quantities": [30, 22, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 40, 25] }] },
+  "Davy Jones": { "tokens": ["Pirate Flag", "Heart Chest", "Davy Jones Ears Hat"], "levels": [{ "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 4, 4] }, { "level": 4, "quantities": [12, 6, 6] }, { "level": 5, "quantities": [16, 10, 10] }, { "level": 6, "quantities": [20, 14, 14] }, { "level": 7, "quantities": [25, 20, 20] }, { "level": 8, "quantities": [30, 26, 26] }, { "level": 9, "quantities": [40, 32, 32] }, { "level": 10, "quantities": [50, 40, 40] }] },
   "Elizabeth Swann": { "tokens": ["Pirate Flag", "Hat and Sword", "Elizabeth Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 15, 10] }, { "level": 2, "quantities": [6, 2, 1] }, { "level": 3, "quantities": [8, 4, 2] }, { "level": 4, "quantities": [12, 6, 4] }, { "level": 5, "quantities": [16, 8, 6] }, { "level": 6, "quantities": [20, 12, 8] }, { "level": 7, "quantities": [25, 16, 12] }, { "level": 8, "quantities": [30, 22, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 40, 25] }] },
-  "Jack Sparrow": {
-    "tokens": ["Pirate Flag", "Magic Compass", "Jack Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [6, 2, 2] },
-      { "level": 3, "quantities": [8, 4, 4] },
-      { "level": 4, "quantities": [12, 6, 6] },
-      { "level": 5, "quantities": [16, 10, 8] },
-      { "level": 6, "quantities": [20, 14, 12] },
-      { "level": 7, "quantities": [25, 20, 16] },
-      { "level": 8, "quantities": [30, 26, 22] },
-      { "level": 9, "quantities": [40, 32, 30] },
-      { "level": 10, "quantities": [50, 40, 40] }
-    ]
-  },
+  "Jack Sparrow": { "tokens": ["Pirate Flag", "Magic Compass", "Jack Ears Hat"], "levels": [{ "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 4, 4] }, { "level": 4, "quantities": [12, 6, 6] }, { "level": 5, "quantities": [16, 10, 8] }, { "level": 6, "quantities": [20, 14, 12] }, { "level": 7, "quantities": [25, 20, 16] }, { "level": 8, "quantities": [30, 26, 22] }, { "level": 9, "quantities": [40, 32, 30] }, { "level": 10, "quantities": [50, 40, 40] }] },
   "Tia Dalma": { "tokens": ["Pirate Flag", "Heart Locket", "Tia Dalma Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 65, 55] }, { "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 4, 4] }, { "level": 4, "quantities": [12, 6, 6] }, { "level": 5, "quantities": [16, 8, 8] }, { "level": 6, "quantities": [20, 12, 12] }, { "level": 7, "quantities": [25, 16, 16] }, { "level": 8, "quantities": [30, 22, 22] }, { "level": 9, "quantities": [40, 30, 30] }, { "level": 10, "quantities": [50, 40, 40] }] },
   "Will Turner": { "tokens": ["Pirate Flag", "Feathered Hat and Sword", "Will Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 10, 10] }, { "level": 2, "quantities": [6, 2, 2] }, { "level": 3, "quantities": [8, 4, 4] }, { "level": 4, "quantities": [12, 6, 6] }, { "level": 5, "quantities": [16, 10, 8] }, { "level": 6, "quantities": [20, 14, 12] }, { "level": 7, "quantities": [25, 20, 16] }, { "level": 8, "quantities": [30, 26, 22] }, { "level": 9, "quantities": [40, 32, 30] }, { "level": 10, "quantities": [50, 40, 40] }] },
   //Monsters Inc.
@@ -367,6 +236,10 @@ const DMK_CHAR_TOKENS = {
   "Roz": { "tokens": ["Scream Canister", "Horn-Rimmed Glasses", "Roz Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 8, 6] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [15, 5, 5] }, { "level": 5, "quantities": [20, 7, 7] }, { "level": 6, "quantities": [25, 10, 10] }, { "level": 7, "quantities": [30, 13, 13] }, { "level": 8, "quantities": [35, 16, 16] }, { "level": 9, "quantities": [40, 20, 20] }, { "level": 10, "quantities": [50, 25, 25] }] },
   "Sulley": { "tokens": ["Scream Canister", "Boo's Drawing of Sulley", "Sulley Ears Hat"], "levels": [{ "level": 1, "quantities": [12, 12, 8] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 4, 3] }, { "level": 4, "quantities": [15, 7, 5] }, { "level": 5, "quantities": [20, 10, 7] }, { "level": 6, "quantities": [25, 15, 10] }, { "level": 7, "quantities": [30, 20, 13] }, { "level": 8, "quantities": [35, 25, 16] }, { "level": 9, "quantities": [40, 30, 20] }, { "level": 10, "quantities": [50, 35, 25] }] },
   "Fungus": { "tokens": ["Scream Canister", "Fungus's Three-Eyed Glasses", "Fungus Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 20, 20] }, { "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [75, 70, 35] }, { "level": 9, "quantities": [90, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
+  "Art": { "tokens": ["Scream Canister", "Art's Dream Journal", "Art Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
+  "Dean Hardscrabble": { "tokens": ["Scream Canister", "Dean Hardscrabble's Stone Bust", "Dean Hardscrabble Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [75, 35, 25] }, { "level": 9, "quantities": [90, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Don Carlton": { "tokens": ["Scream Canister", "Don Carlton's Business Card Fan", "Don Carlton Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [75, 35, 35] }, { "level": 9, "quantities": [90, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Squishy": { "tokens": ["Scream Canister", "Squishy's Photo Camera", "Squishy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [75, 35, 35] }, { "level": 9, "quantities": [90, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   //Wall-E
   "BURN•E": { "tokens": ["Plant Symbol", "BURN•E's Blowtorch", "BURN•E Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 25, 27] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 12, 10] }, { "level": 7, "quantities": [60, 16, 15] }, { "level": 8, "quantities": [70, 20, 18] }, { "level": 9, "quantities": [80, 30, 25] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "EVE": { "tokens": ["Plant Symbol", "EVE's Plant", "EVE Ears Hat"], "levels": [{ "level": 1, "quantities": [15, 15, 15] }, { "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
@@ -388,21 +261,7 @@ const DMK_CHAR_TOKENS = {
   //Zootopia
   "Chief Bogo": { "tokens": ["Pawpsicle", "Chief's Badge", "Chief Bogo Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 15, 15] }, { "level": 2, "quantities": [9, 1, 1] }, { "level": 3, "quantities": [10, 2, 2] }, { "level": 4, "quantities": [12, 3, 3] }, { "level": 5, "quantities": [14, 4, 4] }, { "level": 6, "quantities": [18, 6, 6] }, { "level": 7, "quantities": [22, 8, 8] }, { "level": 8, "quantities": [26, 12, 12] }, { "level": 9, "quantities": [30, 16, 16] }, { "level": 10, "quantities": [35, 20, 20] }] },
   "Clawhauser": { "tokens": ["Pawpsicle", "Clawhauser's Chocolate Donut", "Clawhauser Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
-  "Dawn Bellwether": {
-    "tokens": ["Pawpsicle", "Dawn Bellwether's Stack of Folders", "Dawn Bellwether Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [50, 25, 20] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 20] },
-      { "level": 8, "quantities": [70, 35, 25] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
+  "Dawn Bellwether": { "tokens": ["Pawpsicle", "Dawn Bellwether's Stack of Folders", "Dawn Bellwether Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 25, 20] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Finnick": { "tokens": ["Pawpsicle", "Finnick's Pacifier", "Finnick Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Flash": { "tokens": ["Pawpsicle", "Flash's Mug", "Flash Ears Hat"], "levels": [{ "level": 2, "quantities": [4, 1, 1] }, { "level": 3, "quantities": [5, 2, 2] }, { "level": 4, "quantities": [6, 3, 3] }, { "level": 5, "quantities": [8, 4, 4] }, { "level": 6, "quantities": [10, 6, 6] }, { "level": 7, "quantities": [12, 8, 8] }, { "level": 8, "quantities": [14, 12, 12] }, { "level": 9, "quantities": [16, 14, 14] }, { "level": 10, "quantities": [20, 16, 16] }] },
   "Gazelle": { "tokens": ["Pawpsicle", "Gazelle's Microphone", "Gazelle Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
@@ -431,94 +290,12 @@ const DMK_CHAR_TOKENS = {
   "Mowgli": { "tokens": ["Prickly Pear", "Mowgli's Basket", "Mowgli Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 15, 10] }, { "level": 2, "quantities": [2, 2, 1] }, { "level": 3, "quantities": [3, 2, 2] }, { "level": 4, "quantities": [4, 3, 2] }, { "level": 5, "quantities": [6, 5, 4] }, { "level": 6, "quantities": [10, 8, 6] }, { "level": 7, "quantities": [15, 12, 10] }, { "level": 8, "quantities": [20, 16, 15] }, { "level": 9, "quantities": [25, 20, 20] }, { "level": 10, "quantities": [30, 25, 25] }] },
   "Shere Khan": { "tokens": ["Prickly Pear", "Red Fire Stick", "Shere Khan Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 10, 10] }, { "level": 2, "quantities": [5, 1, 1] }, { "level": 3, "quantities": [6, 2, 2] }, { "level": 4, "quantities": [8, 3, 3] }, { "level": 5, "quantities": [12, 4, 4] }, { "level": 6, "quantities": [16, 5, 5] }, { "level": 7, "quantities": [20, 6, 6] }, { "level": 8, "quantities": [25, 7, 7] }, { "level": 9, "quantities": [35, 8, 8] }, { "level": 10, "quantities": [50, 10, 10] }] },
   //Lady and the Tramp
-  "Jock": {
-    "tokens": ["Plate of Spaghetti", "Jock's Coat", "Jock Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
-  "Joe": {
-    "tokens": ["Plate of Spaghetti", "Wine Bottle Candle", "Joe Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [40, 20, 15] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 8] },
-      { "level": 6, "quantities": [50, 15, 12] },
-      { "level": 7, "quantities": [60, 20, 16] },
-      { "level": 8, "quantities": [70, 25, 20] },
-      { "level": 9, "quantities": [80, 30, 25] },
-      { "level": 10, "quantities": [100, 35, 30] }
-    ]
-  },
-  "Lady": {
-    "tokens": ["Plate of Spaghetti", "Lady's Collar", "Lady Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [60, 20, 20] },
-      { "level": 2, "quantities": [5, 2, 1] },
-      { "level": 3, "quantities": [10, 3, 2] },
-      { "level": 4, "quantities": [20, 5, 3] },
-      { "level": 5, "quantities": [40, 8, 5] },
-      { "level": 6, "quantities": [50, 12, 8] },
-      { "level": 7, "quantities": [60, 16, 12] },
-      { "level": 8, "quantities": [70, 20, 16] },
-      { "level": 9, "quantities": [80, 25, 20] },
-      { "level": 10, "quantities": [100, 30, 25] }
-    ]
-  },
-  "Tony": {
-    "tokens": ["Plate of Spaghetti", "Tony's Accordion", "Tony Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [30, 15, 15] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 35, 35] }
-    ]
-  },
-  "Tramp": {
-    "tokens": ["Plate of Spaghetti", "Tramp's Bone", "Tramp Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [20, 15, 10] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
-  "Trusty": {
-    "tokens": ["Plate of Spaghetti", "Trusty's Bandage", "Trusty Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Jock": { "tokens": ["Plate of Spaghetti", "Jock's Coat", "Jock Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
+  "Joe": { "tokens": ["Plate of Spaghetti", "Wine Bottle Candle", "Joe Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 20, 15] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 12] }, { "level": 7, "quantities": [60, 20, 16] }, { "level": 8, "quantities": [70, 25, 20] }, { "level": 9, "quantities": [80, 30, 25] }, { "level": 10, "quantities": [100, 35, 30] }] },
+  "Lady": { "tokens": ["Plate of Spaghetti", "Lady's Collar", "Lady Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 20, 20] }, { "level": 2, "quantities": [5, 2, 1] }, { "level": 3, "quantities": [10, 3, 2] }, { "level": 4, "quantities": [20, 5, 3] }, { "level": 5, "quantities": [40, 8, 5] }, { "level": 6, "quantities": [50, 12, 8] }, { "level": 7, "quantities": [60, 16, 12] }, { "level": 8, "quantities": [70, 20, 16] }, { "level": 9, "quantities": [80, 25, 20] }, { "level": 10, "quantities": [100, 30, 25] }] },
+  "Tony": { "tokens": ["Plate of Spaghetti", "Tony's Accordion", "Tony Ears Hat"], "levels": [{ "level": 1, "quantities": [30, 15, 15] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
+  "Tramp": { "tokens": ["Plate of Spaghetti", "Tramp's Bone", "Tramp Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 15, 10] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
+  "Trusty": { "tokens": ["Plate of Spaghetti", "Trusty's Bandage", "Trusty Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   //Dumbo
   "Dumbo": { "tokens": ["Delivery Bundle", "Dumbo Flag", "Dumbo Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 40, 30] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 9, 8] }, { "level": 6, "quantities": [50, 13, 12] }, { "level": 7, "quantities": [60, 18, 16] }, { "level": 8, "quantities": [70, 25, 20] }, { "level": 9, "quantities": [80, 35, 25] }, { "level": 10, "quantities": [100, 50, 30] }] },
   "Mr. Stork": { "tokens": ["Delivery Bundle", "Mr. Stork's Cap", "Mr. Stork Ears Hat"], "levels": [{ "level": 1, "quantities": [50, 50, 40] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 9] }, { "level": 6, "quantities": [50, 15, 13] }, { "level": 7, "quantities": [60, 25, 18] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 35] }, { "level": 10, "quantities": [100, 65, 50] }] },
@@ -526,83 +303,15 @@ const DMK_CHAR_TOKENS = {
   "The Ringmaster": { "tokens": ["Delivery Bundle", "The Ringmaster Whip", "The Ringmaster Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Timothy Q. Mouse": { "tokens": ["Delivery Bundle", "Magic Feather", "Timothy Q. Mouse Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 60, 60] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   //Duck Tales
-  "Dewey": {
-    "tokens": ["A Found Coin", "Dewey's Toy Plane", "Dewey Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [40, 15, 12] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 35, 35] }
-    ]
-  },
+  "Dewey": { "tokens": ["A Found Coin", "Dewey's Toy Plane", "Dewey Ears Hat"], "levels": [{ "level": 1, "quantities": [40, 15, 12] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
   "Huey": { "tokens": ["A Found Coin", "Huey's Rocket Toy", "Huey Ears Hat"], "levels": [{ "level": 1, "quantities": [20, 20, 20] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
-  "Louie": {
-    "tokens": ["A Found Coin", "Louie's Toy Car", "Louie Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [60, 12, 12] },
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 8, 8] },
-      { "level": 6, "quantities": [50, 12, 12] },
-      { "level": 7, "quantities": [60, 16, 16] },
-      { "level": 8, "quantities": [70, 20, 20] },
-      { "level": 9, "quantities": [80, 25, 25] },
-      { "level": 10, "quantities": [100, 30, 30] }
-    ]
-  },
+  "Louie": { "tokens": ["A Found Coin", "Louie's Toy Car", "Louie Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 12, 12] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 8, 8] }, { "level": 6, "quantities": [50, 12, 12] }, { "level": 7, "quantities": [60, 16, 16] }, { "level": 8, "quantities": [70, 20, 20] }, { "level": 9, "quantities": [80, 25, 25] }, { "level": 10, "quantities": [100, 30, 30] }] },
   "Scrooge McDuck": { "tokens": ["A Found Coin", "Scrooge McDuck's Piggy Bank", "Scrooge McDuck Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Webby": { "tokens": ["A Found Coin", "Webby's Doll", "Webby Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 12, 10] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 8, 8] }, { "level": 6, "quantities": [50, 12, 12] }, { "level": 7, "quantities": [60, 16, 16] }, { "level": 8, "quantities": [70, 20, 20] }, { "level": 9, "quantities": [80, 25, 25] }, { "level": 10, "quantities": [100, 30, 30] }] },
   //Disney Parks
-  "Figment": {
-    "tokens": ["Enchanted Key", "Figment's Paintbrush", "Figment Ears Hat"],
-    "levels": [
-      { "level": 1, "quantities": [75, 60, 40] },
-      { "level": 2, "quantities": [5, 3, 2] },
-      { "level": 3, "quantities": [10, 8, 3] },
-      { "level": 4, "quantities": [20, 12, 5] },
-      { "level": 5, "quantities": [35, 20, 10] },
-      { "level": 6, "quantities": [40, 27, 15] },
-      { "level": 7, "quantities": [60, 35, 20] },
-      { "level": 8, "quantities": [70, 45, 25] },
-      { "level": 9, "quantities": [80, 55, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
-  "Orange Bird": {
-    "tokens": ["Enchanted Key", "Orange Bird's Citrus Slice", "Orange Bird Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [35, 10, 10] },
-      { "level": 6, "quantities": [40, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 20] },
-      { "level": 8, "quantities": [70, 35, 25] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
-  "Spike the Bee": {
-    "tokens": ["Enchanted Key", "Spike's Honeycomb", "Spike Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [35, 10, 10] },
-      { "level": 6, "quantities": [40, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 20] },
-      { "level": 8, "quantities": [70, 35, 25] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
+  "Figment": { "tokens": ["Enchanted Key", "Figment's Paintbrush", "Figment Ears Hat"], "levels": [{ "level": 1, "quantities": [75, 60, 40] }, { "level": 2, "quantities": [5, 3, 2] }, { "level": 3, "quantities": [10, 8, 3] }, { "level": 4, "quantities": [20, 12, 5] }, { "level": 5, "quantities": [35, 20, 10] }, { "level": 6, "quantities": [40, 27, 15] }, { "level": 7, "quantities": [60, 35, 20] }, { "level": 8, "quantities": [70, 45, 25] }, { "level": 9, "quantities": [80, 55, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Orange Bird": { "tokens": ["Enchanted Key", "Orange Bird's Citrus Slice", "Orange Bird Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [35, 10, 10] }, { "level": 6, "quantities": [40, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Spike the Bee": { "tokens": ["Enchanted Key", "Spike's Honeycomb", "Spike Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [35, 10, 10] }, { "level": 6, "quantities": [40, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Pocahontas
   "Meeko": { "tokens": ["Leaves", "Raspberries", "Meeko Ears Hat"], "levels": [{ "level": 1, "quantities": [60, 40, 20] }, { "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 12] }, { "level": 7, "quantities": [60, 20, 16] }, { "level": 8, "quantities": [70, 25, 20] }, { "level": 9, "quantities": [80, 30, 25] }, { "level": 10, "quantities": [100, 40, 30] }] },
   "Percy": { "tokens": ["Leaves", "Percy's Pillow", "Percy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
@@ -644,20 +353,7 @@ const DMK_CHAR_TOKENS = {
   "Sally": { "tokens": ["Pumpkin King Head", "Jar of Deadly Nightshade", "Sally Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
   "Santa Claus": { "tokens": ["Pumpkin King Head", "Santa Claus's Armchair", "Santa Claus Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   "Shock": { "tokens": ["Pumpkin King Head", "Shock Mask", "Shock Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
-  "The Mayor": {
-    "tokens": ["Pumpkin King Head", "Mayor's Badge", "Mayor Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 40] }
-    ]
-  },
+  "The Mayor": { "tokens": ["Pumpkin King Head", "Mayor's Badge", "Mayor Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Zero": { "tokens": ["Pumpkin King Head", "Zero's Tombstone", "Zero Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 20, 20] }, { "level": 5, "quantities": [40, 40, 40] }, { "level": 6, "quantities": [50, 50, 50] }, { "level": 7, "quantities": [60, 60, 60] }, { "level": 8, "quantities": [70, 70, 70] }, { "level": 9, "quantities": [80, 80, 80] }, { "level": 10, "quantities": [100, 100, 100] }] },
   //Frozen
   "Anna": { "tokens": ["Snowflake", "Arendelle Medallion", "Anna Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 4, 3] }, { "level": 3, "quantities": [10, 6, 4] }, { "level": 4, "quantities": [20, 8, 5] }, { "level": 5, "quantities": [40, 10, 6] }, { "level": 6, "quantities": [50, 14, 8] }, { "level": 7, "quantities": [60, 18, 10] }, { "level": 8, "quantities": [70, 22, 14] }, { "level": 9, "quantities": [80, 28, 20] }, { "level": 10, "quantities": [100, 35, 30] }] },
@@ -763,57 +459,18 @@ const DMK_CHAR_TOKENS = {
   "Hiro": { "tokens": ["Microbot", "Hiro's Bot", "Hiro Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 30] }, { "level": 10, "quantities": [100, 50, 40] }] },
   "Honey Lemon": { "tokens": ["Microbot", "Mobile Lab Purse", "Honey Lemon Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Wasabi": { "tokens": ["Microbot", "Wasabi's Visor", "Wasabi Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
-  "Yokai": {
-    "tokens": ["Microbot", "Abigail's Photo", "Yokai Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Yokai": { "tokens": ["Microbot", "Abigail's Photo", "Yokai Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   //Little Mermaid
   "Ariel": { "tokens": ["Seashells", "Ariel's Purse", "Ariel Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 8, 8] }, { "level": 6, "quantities": [50, 12, 12] }, { "level": 7, "quantities": [60, 16, 16] }, { "level": 8, "quantities": [70, 20, 20] }, { "level": 9, "quantities": [80, 25, 25] }, { "level": 10, "quantities": [100, 30, 30] }] },
   "Flounder": { "tokens": ["Seashells", "Porthole", "Flounder Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "King Triton": { "tokens": ["Seashells", "Triton's Trident", "King Triton Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
   "Max": { "tokens": ["Seashells", "Max's Medallion", "Max Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
-  "Prince Eric": {
-    "tokens": ["Seashells", "Flute", "Prince Eric Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Prince Eric": { "tokens": ["Seashells", "Flute", "Prince Eric Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Scuttle": { "tokens": ["Seashells", "Scuttle's Spyglass", "Scuttle Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Sebastian": { "tokens": ["Seashells", "Conductor's Book", "Sebastian Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Ursula": { "tokens": ["Seashells", "Ursula's Shell Necklace", "Ursula Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 1, 2] }, { "level": 3, "quantities": [10, 2, 3] }, { "level": 4, "quantities": [20, 3, 5] }, { "level": 5, "quantities": [40, 5, 10] }, { "level": 6, "quantities": [50, 10, 15] }, { "level": 7, "quantities": [60, 15, 20] }, { "level": 8, "quantities": [70, 20, 25] }, { "level": 9, "quantities": [80, 25, 30] }, { "level": 10, "quantities": [100, 30, 35] }] },
   //Wreck-It Ralph
-  "Calhoun": {
-    "tokens": ["Wifi", "Calhoun's Pack", "Calhoun Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Calhoun": { "tokens": ["Wifi", "Calhoun's Pack", "Calhoun Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Fix-It Felix Jr.": { "tokens": ["Wifi", "Fix-It Felix Jr.'s Hammer", "Fix-It Felix Jr. Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Gord": { "tokens": ["Wifi", "LootFindr Stack", "Gord Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 5] }, { "level": 3, "quantities": [10, 10, 10] }, { "level": 4, "quantities": [20, 15, 15] }, { "level": 5, "quantities": [40, 20, 20] }, { "level": 6, "quantities": [50, 25, 25] }, { "level": 7, "quantities": [60, 30, 30] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 40, 40] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "King Candy": { "tokens": ["Wifi", "King Candy's Crown", "King Candy Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
@@ -825,78 +482,13 @@ const DMK_CHAR_TOKENS = {
   "Yesss": { "tokens": ["Wifi", "Yesss's Wristband", "Yesss Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
   //Princes and the Frog
   "Charlotte La Bouff": { "tokens": ["Gumbo", "Face Powder Compact", "Charlotte La Bouff Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
-  "Dr. Facilier": {
-    "tokens": ["Gumbo", "Dr. Facilier Pendant", "Dr. Facilier Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 8, 8] },
-      { "level": 6, "quantities": [50, 12, 12] },
-      { "level": 7, "quantities": [60, 16, 16] },
-      { "level": 8, "quantities": [70, 20, 20] },
-      { "level": 9, "quantities": [80, 25, 25] },
-      { "level": 10, "quantities": [100, 30, 30] }
-    ]
-  },
+  "Dr. Facilier": { "tokens": ["Gumbo", "Dr. Facilier Pendant", "Dr. Facilier Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 8, 8] }, { "level": 6, "quantities": [50, 12, 12] }, { "level": 7, "quantities": [60, 16, 16] }, { "level": 8, "quantities": [70, 20, 20] }, { "level": 9, "quantities": [80, 25, 25] }, { "level": 10, "quantities": [100, 30, 30] }] },
   "Eudora": { "tokens": ["Gumbo", "Pin Cushion Band", "Eudora Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
-  "Louis": {
-    "tokens": ["Gumbo", "Louis's Trumpet", "Louis Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 35] }
-    ]
-  },
+  "Louis": { "tokens": ["Gumbo", "Louis's Trumpet", "Louis Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Mama Odie": { "tokens": ["Gumbo", "Gourd Wand", "Mama Odie Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 35, 35] }] },
-  "Prince Naveen": {
-    "tokens": ["Gumbo", "Swampy Ukulele", "Prince Naveen Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 30, 30] },
-      { "level": 10, "quantities": [100, 40, 40] }
-    ]
-  },
-  "Ray": {
-    "tokens": ["Gumbo", "Ray's Tiny Caterpillar", "Ray Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 20, 20] },
-      { "level": 8, "quantities": [70, 25, 25] },
-      { "level": 9, "quantities": [80, 35, 35] },
-      { "level": 10, "quantities": [100, 50, 50] }
-    ]
-  },
-  "Tiana": {
-    "tokens": ["Gumbo", "Beignets", "Tiana Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 8] },
-      { "level": 6, "quantities": [50, 15, 12] },
-      { "level": 7, "quantities": [60, 20, 16] },
-      { "level": 8, "quantities": [70, 25, 20] },
-      { "level": 9, "quantities": [80, 30, 25] },
-      { "level": 10, "quantities": [100, 35, 30] }
-    ]
-  },
+  "Prince Naveen": { "tokens": ["Gumbo", "Swampy Ukulele", "Prince Naveen Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
+  "Ray": { "tokens": ["Gumbo", "Ray's Tiny Caterpillar", "Ray Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
+  "Tiana": { "tokens": ["Gumbo", "Beignets", "Tiana Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 12] }, { "level": 7, "quantities": [60, 20, 16] }, { "level": 8, "quantities": [70, 25, 20] }, { "level": 9, "quantities": [80, 30, 25] }, { "level": 10, "quantities": [100, 35, 30] }] },
   //Moana
   "Chief Tui": { "tokens": ["Hibiscus Flower", "Chief's Staff", "Chief Tui Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 40] }] },
   "Gramma Tala": { "tokens": ["Hibiscus Flower", "Stingray Tapestry", "Gramma Tala Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
@@ -931,104 +523,13 @@ const DMK_CHAR_TOKENS = {
   "Mamá Imelda": { "tokens": ["Musical Poster", "Imelda's Shoe", "Mamá Imelda Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
   "Miguel Rivera": { "tokens": ["Musical Poster", "Family Guitar", "Miguel Rivera Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   //Haunted Mansion
-  "Ezra": {
-    "tokens": ["Haunted Mansion Sign", "Ezra's Top Hat", "Ezra Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
-  "Gus": {
-    "tokens": ["Haunted Mansion Sign", "Gus's Ball and Chain", "Gus Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
-  "Hatbox Ghost": {
-    "tokens": ["Haunted Mansion Sign", "Ghostly Hatbox", "Hatbox Ghost Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 4] },
-      { "level": 4, "quantities": [20, 5, 6] },
-      { "level": 5, "quantities": [40, 10, 8] },
-      { "level": 6, "quantities": [50, 15, 12] },
-      { "level": 7, "quantities": [60, 25, 16] },
-      { "level": 8, "quantities": [70, 35, 22] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
-  "Madame Leota": {
-    "tokens": ["Haunted Mansion Sign", "Madame Leota's Séance Candles", "Madame Leota Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 20] },
-      { "level": 8, "quantities": [70, 35, 25] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
-  "Phineas": {
-    "tokens": ["Haunted Mansion Sign", "Phineas's Carpet Bag", "Phineas Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 3] },
-      { "level": 4, "quantities": [20, 5, 5] },
-      { "level": 5, "quantities": [40, 10, 10] },
-      { "level": 6, "quantities": [50, 15, 15] },
-      { "level": 7, "quantities": [60, 25, 25] },
-      { "level": 8, "quantities": [70, 35, 35] },
-      { "level": 9, "quantities": [80, 50, 50] },
-      { "level": 10, "quantities": [100, 65, 65] }
-    ]
-  },
-  "Pickwick": {
-    "tokens": ["Haunted Mansion Sign", "Pickwick's Hat and Cane", "Pickwick Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 5, 2] },
-      { "level": 3, "quantities": [10, 10, 3] },
-      { "level": 4, "quantities": [20, 20, 5] },
-      { "level": 5, "quantities": [40, 40, 10] },
-      { "level": 6, "quantities": [50, 50, 15] },
-      { "level": 7, "quantities": [60, 60, 25] },
-      { "level": 8, "quantities": [70, 70, 35] },
-      { "level": 9, "quantities": [80, 80, 50] },
-      { "level": 10, "quantities": [100, 100, 65] }
-    ]
-  },
-  "The Bride": {
-    "tokens": ["Haunted Mansion Sign", "The Bride's Hatchet", "The Bride Ears Hat"],
-    "levels": [
-      { "level": 2, "quantities": [5, 2, 2] },
-      { "level": 3, "quantities": [10, 3, 4] },
-      { "level": 4, "quantities": [20, 5, 6] },
-      { "level": 5, "quantities": [40, 10, 8] },
-      { "level": 6, "quantities": [50, 15, 12] },
-      { "level": 7, "quantities": [60, 25, 16] },
-      { "level": 8, "quantities": [70, 35, 22] },
-      { "level": 9, "quantities": [80, 50, 30] },
-      { "level": 10, "quantities": [100, 65, 40] }
-    ]
-  },
+  "Ezra": { "tokens": ["Haunted Mansion Sign", "Ezra's Top Hat", "Ezra Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Gus": { "tokens": ["Haunted Mansion Sign", "Gus's Ball and Chain", "Gus Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Hatbox Ghost": { "tokens": ["Haunted Mansion Sign", "Ghostly Hatbox", "Hatbox Ghost Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 4] }, { "level": 4, "quantities": [20, 5, 6] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 12] }, { "level": 7, "quantities": [60, 25, 16] }, { "level": 8, "quantities": [70, 35, 22] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Madame Leota": { "tokens": ["Haunted Mansion Sign", "Madame Leota's Séance Candles", "Madame Leota Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 20] }, { "level": 8, "quantities": [70, 35, 25] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
+  "Phineas": { "tokens": ["Haunted Mansion Sign", "Phineas's Carpet Bag", "Phineas Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 25, 25] }, { "level": 8, "quantities": [70, 35, 35] }, { "level": 9, "quantities": [80, 50, 50] }, { "level": 10, "quantities": [100, 65, 65] }] },
+  "Pickwick": { "tokens": ["Haunted Mansion Sign", "Pickwick's Hat and Cane", "Pickwick Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 5, 2] }, { "level": 3, "quantities": [10, 10, 3] }, { "level": 4, "quantities": [20, 20, 5] }, { "level": 5, "quantities": [40, 40, 10] }, { "level": 6, "quantities": [50, 50, 15] }, { "level": 7, "quantities": [60, 60, 25] }, { "level": 8, "quantities": [70, 70, 35] }, { "level": 9, "quantities": [80, 80, 50] }, { "level": 10, "quantities": [100, 100, 65] }] },
+  "The Bride": { "tokens": ["Haunted Mansion Sign", "The Bride's Hatchet", "The Bride Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 4] }, { "level": 4, "quantities": [20, 5, 6] }, { "level": 5, "quantities": [40, 10, 8] }, { "level": 6, "quantities": [50, 15, 12] }, { "level": 7, "quantities": [60, 25, 16] }, { "level": 8, "quantities": [70, 35, 22] }, { "level": 9, "quantities": [80, 50, 30] }, { "level": 10, "quantities": [100, 65, 40] }] },
   //Onward
   "Barley": { "tokens": ["Gem of Fates", "Quests of Yore Card", "Barley Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 35, 35] }, { "level": 10, "quantities": [100, 50, 50] }] },
   "Blazey": { "tokens": ["Gem of Fates", "Spray Bottle", "Blazey Ears Hat"], "levels": [{ "level": 2, "quantities": [5, 2, 2] }, { "level": 3, "quantities": [10, 3, 3] }, { "level": 4, "quantities": [20, 5, 5] }, { "level": 5, "quantities": [40, 10, 10] }, { "level": 6, "quantities": [50, 15, 15] }, { "level": 7, "quantities": [60, 20, 20] }, { "level": 8, "quantities": [70, 25, 25] }, { "level": 9, "quantities": [80, 30, 30] }, { "level": 10, "quantities": [100, 40, 35] }] },
@@ -9485,6 +8986,86 @@ const DMK_TOKEN_ACTIVITIES = {
     { "char": "Fungus", "activity": "Try the Dish of the Day", "char_level": "Level 5", "time": "12h" },
     { "char": "Baloo + Shere Khan", "activity": "Avoiding the Claws", "char_level": "Level 7", "time": "12h" },
     { "char": "Yzma + Kuzco", "activity": "Looking for This?", "char_level": "Level 10", "time": "12h" }
+  ],
+  "Art's Dream Journal": [
+    { "char": "Sulley", "activity": "Perform Stand-Up", "char_level": "Level 6", "time": "2h" },
+    { "char": "Dean Hardscrabble", "activity": "Watch Student Training", "char_level": "Level 3", "time": "4h" },
+    { "char": "Mike Wazowski", "activity": "Check on the Laugh Floor", "char_level": "Level 2", "time": "4h" },
+    { "char": "Squishy", "activity": "Practice Photography", "char_level": "Level 5", "time": "6h" },
+    { "char": "Scary Maze", "activity": "Refreshing the Gate Drawings", "char_level": "Level 0", "time": "6h" }
+  ],
+  "Art Ears Hat": [
+    { "char": "Fungus", "activity": "Browse the Menu", "char_level": "Level 3", "time": "4h" },
+    { "char": "Henry J. Waternoose", "activity": "Get Out for Lunch", "char_level": "Level 3", "time": "4h" },
+    { "char": "Dean Hardscrabble", "activity": "Show Broken Canister", "char_level": "Level 5", "time": "6h" },
+    { "char": "Squishy", "activity": "Race Against the Clock", "char_level": "Level 5", "time": "6h" },
+    { "char": "Randall Boggs + Sulley", "activity": "Compete with Sulley", "char_level": "Level 1", "time": "6h" },
+    { "char": "Monsters University Library", "activity": "Dusting Off Books", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Dean Hardscrabble's Stone Bust": [
+    { "char": "Chicha", "activity": "Attend a Birthday Party", "char_level": "Level 7", "time": "8h" },
+    { "char": "Kronk", "activity": "The Road That Rocks", "char_level": "Level 7", "time": "8h" },
+    { "char": "Squishy", "activity": "Photograph Statues", "char_level": "Level 7", "time": "8h" },
+    { "char": "Lady + Joe", "activity": "Garnish Some Attention", "char_level": "Level 5", "time": "8h" },
+    { "char": "Mother Gothel", "activity": "Keeping House", "char_level": "Level 4", "time": "12h" },
+    { "char": "Scary Maze", "activity": "Refreshing the Gate Drawings", "char_level": "Level 3", "time": "6h" }
+  ],
+  "Dean Hardscrabble Ears Hat": [
+    { "char": "Jock", "activity": "Aye, M' Dear", "char_level": "Level 4", "time": "8h" },
+    { "char": "Shere Khan + Mowgli", "activity": "Searching for the Man-cub", "char_level": "Level 8", "time": "8h" },
+    { "char": "Don Carlton", "activity": "Train Before the Challenge", "char_level": "Level 10", "time": "12h" },
+    { "char": "Great Prince of the Forest", "activity": "Prepare for Winter", "char_level": "Level 9", "time": "12h" },
+    { "char": "Pascal + Rapunzel", "activity": "Performing Ventriloquy", "char_level": "Level 6", "time": "12h" },
+    { "char": "Yzma", "activity": "Find a Bigger Box", "char_level": "Level 7", "time": "16h" },
+    { "char": "Monsters University Library", "activity": "Dusting Off Books", "char_level": "Level 3", "time": "8h" }
+  ],
+  "Don Carlton's Business Card Fan": [
+    { "char": "Fungus", "activity": "Try on Work Glasses", "char_level": "Level 5", "time": "6h" },
+    { "char": "Squishy", "activity": "Race Against the Clock", "char_level": "Level 5", "time": "6h" },
+    { "char": "Art", "activity": "Find Rare Book", "char_level": "Level 6", "time": "8h" },
+    { "char": "Bullseye", "activity": "Run around the Planet", "char_level": "Level 8", "time": "8h" },
+    { "char": "Madam Mim", "activity": "Shapeshift into a Horse", "char_level": "Level 6", "time": "8h" },
+    { "char": "Scary Maze", "activity": "Refreshing the Gate Drawings", "char_level": "Level 2", "time": "6h" }
+  ],
+  "Don Carlton Ears Hat": [
+    { "char": "Archimedes", "activity": "Perch on a Flagpole", "char_level": "Level 6", "time": "8h" },
+    { "char": "Dean Hardscrabble", "activity": "Pick Semester Textbooks", "char_level": "Level 6", "time": "8h" },
+    { "char": "Squishy", "activity": "Photograph Statues", "char_level": "Level 7", "time": "8h" },
+    { "char": "Webby", "activity": "Analyze Hidden Map", "char_level": "Level 5", "time": "8h" },
+    { "char": "Bagheera + Baloo", "activity": "A Casual Conversation", "char_level": "Level 6", "time": "12h" },
+    { "char": "Monsters University Library", "activity": "Dusting Off Books", "char_level": "Level 2", "time": "8h" }
+  ],
+  "Squishy's Photo Camera": [
+    { "char": "Art", "activity": "Admire Butterfly", "char_level": "Level 5", "time": "6h" },
+    { "char": "Don Carlton", "activity": "Serve Cocoa", "char_level": "Level 5", "time": "6h" },
+    { "char": "Mr. Smee", "activity": "Listen to the Songs", "char_level": "Level 6", "time": "6h" },
+    { "char": "Joe + Tony", "activity": "Full Serenade", "char_level": "Level 2", "time": "6h" },
+    { "char": "Nick Wilde", "activity": "Walk Downtown", "char_level": "Level 2", "time": "8h" },
+    { "char": "Scary Maze", "activity": "Refreshing the Gate Drawings", "char_level": "Level 1", "time": "6h" }
+  ],
+  "Squishy Ears Hat": [
+    { "char": "Dean Hardscrabble", "activity": "Discuss Exam Difficulty", "char_level": "Level 5", "time": "6h" },
+    { "char": "Don Carlton", "activity": "Plan Your Route", "char_level": "Level 5", "time": "6h" },
+    { "char": "Tia Dalma", "activity": "Reliving Memories", "char_level": "Level 4", "time": "6h" },
+    { "char": "Art", "activity": "Find Rare Book", "char_level": "Level 6", "time": "8h" },
+    { "char": "Forky", "activity": "Explore a Carnival", "char_level": "Level 5", "time": "8h" },
+    { "char": "Monsters University Library", "activity": "Dusting Off Books", "char_level": "Level 1", "time": "8h" }
+  ],
+  "Fifi's Bow": [
+    { "char": "Pluto", "activity": "Take an Afternoon Nap", "char_level": "Level 3", "time": "4h" },
+    { "char": "Chip", "activity": "Explore a Boat", "char_level": "Level 10", "time": "12h" },
+    { "char": "Donald Duck", "activity": "Stay at Goofy's Playhouse", "char_level": "Level 1", "time": "12h" },
+    { "char": "Goofy", "activity": "Greetings!", "char_level": "Level 1", "time": "12h" },
+    { "char": "Minnie Mouse + Daisy Duck", "activity": "Tea Time", "char_level": "Level 3", "time": "16h" },
+    { "char": "Mickey and Minnie's Runaway Railway", "activity": "Admiring the Scenery", "char_level": "Level 0", "time": "8h" }
+  ],
+  "Fifi Ears Hat": [
+    { "char": "Pluto", "activity": "Visiting Minnie's", "char_level": "Level 8", "time": "8h" },
+    { "char": "Daisy Duck", "activity": "Visit Mickey's House", "char_level": "Level 1", "time": "12h" },
+    { "char": "Dale", "activity": "Sailing for Acorns", "char_level": "Level 10", "time": "12h" },
+    { "char": "Pete", "activity": "My Turf!", "char_level": "Level 9", "time": "16h" },
+    { "char": "Mickey Mouse", "activity": "Visit Donald's Boat", "char_level": "Level 10", "time": "24h" },
+    { "char": "Mickey and Minnie's Runaway Railway", "activity": "Admiring the Scenery", "char_level": "Level 2", "time": "8h" }
   ]
 };
 
@@ -9729,7 +9310,10 @@ const DMK_ENCHANTMENTS = [
   { "collection": "Toy Story", "name": "Playground", "base_token": "Combat Carl's Vest", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Duke's Helmet", "cost": 60, "total": 120 }, { "level": 2, "token": "Giggle's Officer Сap", "cost": 30, "total": 150 }, { "level": 3, "token": "Lotso's Walking Cane", "cost": 30, "total": 180 }, { "level": 4, "token": "", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances", "cost": 30, "total": 240 }] },
   { "collection": "Toy Story", "name": "Open Road Challenge", "base_token": "Combat Carl Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Duke Caboom Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Giggle McDimples Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Lotso Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
   { "collection": "Moana", "name": "Ocean Monster Tube Rush", "base_token": "", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "", "cost": 80, "total": 160 }, { "level": 2, "token": "Kakamora Blow Darts", "cost": 40, "total": 200 }, { "level": 3, "token": "Kotu Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
-  { "collection": "Cars", "name": "Piston Cup Speedway", "base_token": "Jackson Storm's Emblem", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Jackson Storm Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Maddy's Fan Flag", "cost": 40, "total": 200 }, { "level": 3, "token": "Maddy McGear Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Cruz Ramirez's Headset", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
+  { "collection": "Cars", "name": "Piston Cup Speedway", "base_token": "Jackson Storm's Emblem", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Jackson Storm Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Maddy's Fan Flag", "cost": 40, "total": 200 }, { "level": 3, "token": "Maddy McGear Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "Cruz Ramirez's Headset", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Monsters, Inc.", "name": "Scary Maze", "base_token": "Art's Dream Journal", "base_cost": "60", "timing": "Every 6h", "levels": [{ "level": 1, "token": "Squishy's Photo Camera", "cost": 60, "total": 120 }, { "level": 2, "token": "Don Carlton's Business Card Fan", "cost": 30, "total": 150 }, { "level": 3, "token": "Dean Hardscrabble's Stone Bust", "cost": 30, "total": 180 }, { "level": 4, "token": "", "cost": 30, "total": 210 }, { "level": 5, "token": "Two Drop Chances Token", "cost": 30, "total": 240 }] },
+  { "collection": "Monsters, Inc.", "name": "Monsters University Library", "base_token": "Art Ears Hat", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "Squishy Ears Hat", "cost": 80, "total": 160 }, { "level": 2, "token": "Don Carlton Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "Dean Hardscrabble Ears Hat", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] },
+  { "collection": "Mickey and Friends", "name": "Mickey and Minnie's Runaway Railway", "base_token": "Fifi's Bow", "base_cost": "80", "timing": "Every 8h", "levels": [{ "level": 1, "token": "", "cost": 80, "total": 160 }, { "level": 2, "token": "Fifi Ears Hat", "cost": 40, "total": 200 }, { "level": 3, "token": "", "cost": 40, "total": 240 }, { "level": 4, "token": "", "cost": 40, "total": 280 }, { "level": 5, "token": "Two Drop Chances", "cost": 40, "total": 320 }] }
 ];
 
 // This object maps each token to the attractions that can drop it, along with the collection, enchant level, timing, and cost of each source.
@@ -10612,7 +10196,17 @@ const TOKEN_SOURCES = {
   "Jackson Storm Ears Hat": [{ "attraction": "Piston Cup Speedway", "collection": "Cars", "enchant_level": 1, "timing": "Every 8h", "cost": 80 }],
   "Maddy's Fan Flag": [{ "attraction": "Piston Cup Speedway", "collection": "Cars", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
   "Maddy McGear Ears Hat": [{ "attraction": "Piston Cup Speedway", "collection": "Cars", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
-  "Cruz Ramirez's Headset": [{ "attraction": "Piston Cup Speedway", "collection": "Cars", "enchant_level": 4, "timing": "Every 8h", "cost": 80 }]
+  "Cruz Ramirez's Headset": [{ "attraction": "Piston Cup Speedway", "collection": "Cars", "enchant_level": 4, "timing": "Every 8h", "cost": 80 }],
+  "Art's Dream Journal": [{ "attraction": "Scary Maze", "collection": "Monsters, Inc.", "enchant_level": 0, "timing": "Every 6h", "cost": 60 }],
+  "Art Ears Hat": [{ "attraction": "Monsters University Library", "collection": "Monsters, Inc.", "enchant_level": 0, "timing": "Every 8h", "cost": 80 }],
+  "Dean Hardscrabble's Stone Bust": [{ "attraction": "Scary Maze", "collection": "Monsters, Inc.", "enchant_level": 3, "timing": "Every 6h", "cost": 60 }],
+  "Dean Hardscrabble Ears Hat": [{ "attraction": "Monsters University Library", "collection": "Monsters, Inc.", "enchant_level": 3, "timing": "Every 8h", "cost": 80 }],
+  "Don Carlton's Business Card Fan": [{ "attraction": "Scary Maze", "collection": "Monsters, Inc.", "enchant_level": 2, "timing": "Every 6h", "cost": 60 }],
+  "Don Carlton Ears Hat": [{ "attraction": "Monsters University Library", "collection": "Monsters, Inc.", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }],
+  "Squishy's Photo Camera": [{ "attraction": "Scary Maze", "collection": "Monsters, Inc.", "enchant_level": 1, "timing": "Every 6h", "cost": 60 }],
+  "Squishy Ears Hat": [{ "attraction": "Monsters University Library", "collection": "Monsters, Inc.", "enchant_level": 1, "timing": "Every 8h", "cost": 80 }],
+  "Fifi's Bow": [{ "attraction": "Mickey and Minnie's Runaway Railway", "collection": "Mickey and Friends", "enchant_level": 0, "timing": "Every 8h", "cost": 80 }],
+  "Fifi Ears Hat": [{ "attraction": "Mickey and Minnie's Runaway Railway", "collection": "Mickey and Friends", "enchant_level": 2, "timing": "Every 8h", "cost": 80 }]
 };
 
 // ============ CHARACTER DATABASE ============
@@ -10882,7 +10476,11 @@ const DMK_ATTRACTIONS = [
   { id: 'attr_259', name: 'Playground', collection: 'Toy Story', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 },
   { id: 'attr_260', name: 'Open Road Challenge', collection: 'Toy Story', emoji: '🧚', elixir: false, size: '6x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
   { id: 'attr_261', name: 'Ocean Monster Tube Rush', collection: 'Moana', emoji: '🧚', elixir: false, size: '10x10', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
-  { id: 'attr_262', name: 'The Great Treehouse', collection: 'Cars', emoji: '🧚', elixir: false, size: '13x11', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 }
+  { id: 'attr_262', name: 'The Great Treehouse', collection: 'Cars', emoji: '🧚', elixir: false, size: '13x11', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_263', name: 'Mickey and Minnie\'s Runaway Railway', collection: 'Mickey and Friends', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  //TODO: Check exact size
+  { id: 'attr_264', name: 'Monsters University Library', collection: 'Monsters, Inc.', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '8h', rewardMagic: 80, magicPerHour: 10.0 },
+  { id: 'attr_265', name: 'Scary Maze', collection: 'Monsters, Inc.', emoji: '🧚', elixir: false, size: '8x8', rewardTime: '6h', rewardMagic: 60, magicPerHour: 10.0 }
 ];
 
 //Consessions
@@ -11433,12 +11031,11 @@ const DMK_DECORATIONS = [
   // TODO :check size of the following, and update if needed
   { name: "Stanley Statue", category: "Monument", collection: "Cars", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Flo's V8 Cafe Neon Sign", category: "Amenity", collection: "Cars", size: "3×3", emoji: "🪑", rarity: "Common", elixir: 75 },
-  // TODO :check size of the following, and update if needed
   { name: "Route 66 Cactus", category: "Greenery", collection: "Cars", size: "3×3", emoji: "🌿", rarity: "Uncommon", elixir: 150 },
-  // TODO :check size of the following, and update if needed
   { name: "Mickey Mouse Soccer Statue", category: "Monument", collection: "Disney Parks", size: "3×3", emoji: "🗿", rarity: "Epic", elixir: 625 },
   { name: "Kakamora Mural", category: "Scenery", collection: "Moana", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 300 },
   { name: "Wishing Well", category: "Scenery", collection: "Disney Parks", size: "5×5", emoji: "🏞️", rarity: "Rare", elixir: 300 },
+  { name: "Monsters, Inc. Gold Trophy", category: "Trophy", collection: "Monsters, Inc.", size: "3×3", emoji: "🏆", rarity: "Legendary", elixir: 1250 },
 ];
 
 // Characters are listed as [name, collection, type (s = support, p = premium, e = event), emoji]
@@ -11464,6 +11061,7 @@ const DMK_CHARS = [
   ["Clara Cluck", "Mickey and Friends", "e", "🐴"],
   ["Ludwig Von Drake", "Mickey and Friends", "e", "🐴"],
   ["Clarabelle", "Mickey and Friends", "e", "🐴"],
+  ["Fifi", "Mickey and Friends", "e", "🐴"],
   // DuckTales
   ["Scrooge McDuck", "DuckTales", "p", "🎩", 600],
   ["Huey", "DuckTales", "s", "🦆"],
@@ -11553,6 +11151,10 @@ const DMK_CHARS = [
   ["Roz", "Monsters, Inc.", "s", "🐌"],
   ["Celia Mae", "Monsters, Inc.", "s", "💚"],
   ["Fungus", "Monsters, Inc.", "s", "🦠"],
+  ["Art", "Monsters, Inc.", "e", "🎨"],
+  ["Dean Hardscrabble", "Monsters, Inc.", "e", "🎨"],
+  ["Don Carlton", "Monsters, Inc.", "e", "🎨"],
+  ["Squishy", "Monsters, Inc.", "e", "🎨"],
   // WALL-E
   ["EVE", "WALL•E", "s", "🤖"],
   ["M-O", "WALL•E", "p", "🧹", 500],
@@ -12623,7 +12225,12 @@ const CHAR_URLS = {
   'Fungus': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/0/01/Cp-fungus.png/revision/latest?cb=20260713181550',
   'Jackson Storm': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/1/15/Cp-jackson_storm.png/revision/latest?cb=20260805001018',
   'Maddy McGear': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/3/30/Cp-maddy_mcgear.png/revision/latest?cb=20260805001020',
-  'Cruz Ramirez': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/bf/Cp-cruz_ramirez.png/revision/latest?cb=20260805001022'
+  'Cruz Ramirez': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/bf/Cp-cruz_ramirez.png/revision/latest?cb=20260805001022',
+  'Art': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/6/6d/Cp-art.png/revision/latest?cb=20260908215045',
+  'Dean Hardscrabble': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/3/33/Cp-dean_hardscrabble.png/revision/latest?cb=20260908215047',
+  'Don Carlton': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/b/b3/Cp-don_carlton.png/revision/latest?cb=20260908215048',
+  'Squishy': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/4/41/Cp-squishy.png/revision/latest?cb=20260909223622',
+  'Fifi': 'https://static.wikia.nocookie.net/disneymagicalkingdoms/images/a/a3/Cp-fifi.png/revision/latest?cb=20260909223611'
 };
 
 // DMK costumes data
@@ -12659,6 +12266,7 @@ const DMK_COSTUMES = [
   { char: 'Marion Ravenwood', collection: 'Indiana Jones', costume: 'Preppy' },
   { char: 'Ariel', collection: 'Little Mermaid', costume: 'Comfy' },
   { char: 'Ariel', collection: 'Little Mermaid', costume: 'Mermaid' },
+  { char: 'Art', collection: 'Monsters, Inc.', costume: 'OK Legs Warmers' },
   { char: 'Chip', collection: 'Mickey and Friends', costume: 'Lunar' },
   { char: 'Daisy Duck', collection: 'Mickey and Friends', costume: 'Halloween' },
   { char: 'Daisy Duck', collection: 'Mickey and Friends', costume: 'Lunar New Year-Hong Kong' },
@@ -14921,5 +14529,15 @@ const TOKEN_RARITY = {
   "Maddy's Fan Flag": "uncommon",
   "Maddy McGear Ears Hat": "rare",
   "Cruz Ramirez's Headset": "epic",
-  "Cruz Ramirez Ears Hat": "legendary"
+  "Cruz Ramirez Ears Hat": "legendary",
+  "Art's Dream Journal": "common",
+  "Art Ears Hat": "common",
+  "Dean Hardscrabble's Stone Bust": "epic",
+  "Dean Hardscrabble Ears Hat": "legendary",
+  "Don Carlton's Business Card Fan": "rare",
+  "Don Carlton Ears Hat": "epic",
+  "Squishy's Photo Camera": "uncommon",
+  "Squishy Ears Hat": "rare",
+  "Fifi's Bow": "epic",
+  "Fifi Ears Hat": "legendary"
 };
